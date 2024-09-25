@@ -6,7 +6,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 import team.lodestar.lodestone.handlers.screenparticle.ParticleEmitterHandler;
 
-public abstract class AbstractEtherItem extends BlockItem implements DyeableLeatherItem, ParticleEmitterHandler.ItemParticleSupplier {
+public abstract class AbstractEtherItem extends BlockItem implements ParticleEmitterHandler.ItemParticleSupplier {
     public static final String FIRST_COLOR = "firstColor";
     public static final String SECOND_COLOR = "secondColor";
     public static final int DEFAULT_FIRST_COLOR = 15712278;
@@ -45,19 +45,16 @@ public abstract class AbstractEtherItem extends BlockItem implements DyeableLeat
         stack.getOrCreateTagElement("display").putInt(FIRST_COLOR, color);
     }
 
-    @Override
     public int getColor(ItemStack stack) {
         CompoundTag tag = stack.getTagElement("display");
         return tag != null && tag.contains(colorLookup(), 99) ? tag.getInt(colorLookup()) : DEFAULT_FIRST_COLOR;
     }
 
-    @Override
     public boolean hasCustomColor(ItemStack stack) {
         CompoundTag tag = stack.getTagElement("display");
         return tag != null && tag.contains(colorLookup(), 99);
     }
 
-    @Override
     public void clearColor(ItemStack stack) {
         CompoundTag tag = stack.getTagElement("display");
         if (tag != null && tag.contains(colorLookup())) {
@@ -65,7 +62,6 @@ public abstract class AbstractEtherItem extends BlockItem implements DyeableLeat
         }
     }
 
-    @Override
     public void setColor(ItemStack stack, int color) {
         stack.getOrCreateTagElement("display").putInt(colorLookup(), color);
     }

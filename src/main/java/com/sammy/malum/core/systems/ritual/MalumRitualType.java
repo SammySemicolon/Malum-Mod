@@ -4,7 +4,6 @@ import com.sammy.malum.common.block.curiosities.ritual_plinth.*;
 import com.sammy.malum.common.item.spirit.*;
 import com.sammy.malum.core.systems.spirit.*;
 import net.minecraft.*;
-import net.minecraft.nbt.*;
 import net.minecraft.network.chat.*;
 import net.minecraft.resources.*;
 import net.minecraft.world.*;
@@ -24,9 +23,8 @@ public abstract class MalumRitualType {
         this.spirit = spirit;
     }
 
-
-    public InteractionResult onUsePlinth(RitualPlinthBlockEntity ritualPlinth, Player player, InteractionHand hand) {
-        return InteractionResult.PASS;
+    public ItemInteractionResult onUsePlinth(RitualPlinthBlockEntity ritualPlinth, Player player, InteractionHand hand) {
+        return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
     }
     public boolean isItemStackValid(RitualPlinthBlockEntity ritualPlinth, ItemStack stack) {
         return false;
@@ -47,14 +45,11 @@ public abstract class MalumRitualType {
     }
 
     public ResourceLocation getIcon() {
-        return new ResourceLocation(identifier.getNamespace(), "textures/vfx/ritual/" + identifier.getPath() + ".png");
+        return identifier.withPrefix("textures/vfx/ritual/").withSuffix(".png");
     }
 
-    public CompoundTag createShardNBT(MalumRitualTier tier) {
-        CompoundTag compoundTag = new CompoundTag();
-        compoundTag.putString(RitualShardItem.RITUAL_TYPE, identifier.toString());
-        compoundTag.putInt(RitualShardItem.STORED_SPIRITS, tier.spiritThreshold);
-        return compoundTag;
+    public RitualShardItem.Props createShardProps(MalumRitualTier tier) {
+        return new RitualShardItem.Props(identifier.toString(), tier.spiritThreshold);
     }
 
     public List<Component> makeRitualShardDescriptor(MalumRitualTier ritualTier) {

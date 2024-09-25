@@ -1,9 +1,12 @@
 package com.sammy.malum.registry.common.item.tabs;
 
 import com.sammy.malum.MalumMod;
+import com.sammy.malum.common.item.spirit.RitualShardItem;
 import com.sammy.malum.core.systems.ritual.*;
 import com.sammy.malum.registry.common.*;
+import com.sammy.malum.registry.common.item.DataComponentRegistry;
 import com.sammy.malum.registry.common.item.ItemRegistry;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
@@ -62,7 +65,7 @@ public class CreativeTabRegistry {
                         for (MalumRitualType ritualType : RitualRegistry.RITUALS) {
                             for (MalumRitualTier ritualTier : MalumRitualTier.TIERS) {
                                 ItemStack shard = new ItemStack(RITUAL_SHARD.get());
-                                shard.setTag(ritualType.createShardNBT(ritualTier));
+                                shard.set(DataComponentRegistry.RITUAL_SHARD_PROPS, ritualType.createShardProps(ritualTier));
                                 o.accept(shard);
                             }
                         }

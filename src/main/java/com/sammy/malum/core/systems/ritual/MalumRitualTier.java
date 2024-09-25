@@ -37,7 +37,7 @@ public class MalumRitualTier {
     }
 
     public ResourceLocation getDecorTexture() {
-        return new ResourceLocation(identifier.getNamespace(), "textures/vfx/ritual/decor_" + identifier.getPath() + ".png");
+        return identifier.withPrefix("textures/vfx/ritual/decor_").withSuffix(".png");
     }
 
     public static MalumRitualTier create(MalumRitualTier tier) {

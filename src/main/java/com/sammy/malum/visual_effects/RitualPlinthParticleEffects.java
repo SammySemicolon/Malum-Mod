@@ -401,7 +401,7 @@ public class RitualPlinthParticleEffects {
 
     public static void holdingPrimeItemPlinthParticles(RitualPlinthBlockEntity plinth) {
         Level level = plinth.getLevel();
-        MalumSpiritType spiritType = plinth.ritualType != null ? plinth.ritualType.spirit : plinth.ritualRecipe.ritualType.spirit;
+        MalumSpiritType spiritType = plinth.type != null ? plinth.type.spirit : plinth.ritualRecipe.type.spirit;
         RandomSource random = level.random;
         Vec3 itemPos = plinth.getItemPos();
         SpiritLightSpecs.rotatingLightSpecs(level, itemPos, spiritType, 0.5f, 3, b -> b.multiplyLifetime(1.2f).modifyData(b::getScaleData, d -> d.multiplyValue(1.2f)));
@@ -424,7 +424,7 @@ public class RitualPlinthParticleEffects {
 
     public static void riteActivePlinthParticles(RitualPlinthBlockEntity plinth) {
         Level level = plinth.getLevel();
-        MalumSpiritType spiritType = plinth.ritualType.spirit;
+        MalumSpiritType spiritType = plinth.type.spirit;
         RandomSource random = level.random;
 
         Vec3 ritualIconPos = plinth.getRitualIconPos();
