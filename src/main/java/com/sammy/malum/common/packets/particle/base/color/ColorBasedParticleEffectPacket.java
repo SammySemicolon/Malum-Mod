@@ -8,6 +8,11 @@ import java.awt.*;
 public abstract class ColorBasedParticleEffectPacket extends PositionBasedParticleEffectPacket {
     protected final Color color;
 
+    public ColorBasedParticleEffectPacket(Color color, double posX, double posY, double posZ) {
+        super(posX, posY, posZ);
+        this.color = color;
+    }
+
     public ColorBasedParticleEffectPacket(FriendlyByteBuf buf) {
         super(buf);
         this.color = new Color(buf.readInt(), buf.readInt(), buf.readInt());

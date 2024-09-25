@@ -58,4 +58,11 @@ public class MalumItemDataCapability {
     public static MalumItemDataCapability getCapability(ItemEntity entity) {
         return getCapabilityOptional(entity).orElse(new MalumItemDataCapability(null, null, 0));
     }
+
+    public void pullFromNBT(CompoundTag tag) {
+        MalumItemDataCapability capability = CodecUtil.decodeNBT(CODEC, tag);
+        this.soulsToDrop = capability.soulsToDrop;
+        this.attackerForSouls = capability.attackerForSouls;
+        this.totalSoulCount = capability.totalSoulCount;
+    }
 }

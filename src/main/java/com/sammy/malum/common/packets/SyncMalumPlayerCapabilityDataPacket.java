@@ -14,24 +14,28 @@ import java.util.UUID;
 
 public class SyncMalumPlayerCapabilityDataPacket extends OneSidedPayloadData {
     private final UUID uuid;
-    private final CompoundTag tag;
+    private final CompoundTag capability;
+
+    public SyncMalumPlayerCapabilityDataPacket(UUID uuid, CompoundTag capability) {
+        this.uuid = uuid;
+        this.capability = capability;
+    }
 
     public SyncMalumPlayerCapabilityDataPacket(FriendlyByteBuf buf) {
-        super(buf);
         this.uuid = buf.readUUID();
-        this.tag = buf.readNbt();
+        this.capability = buf.readNbt();
     }
 
     @OnlyIn(Dist.CLIENT)
     @Override
     public void handle(IPayloadContext iPayloadContext) {
         Player player = Minecraft.getInstance().level.getPlayerByUUID(uuid);
-        MalumPlayerDataCapability.getCapabilityOptional(player).ifPresent(c -> c.deserializeNBT(tag));
+        MalumPlayerDataCapability.getCapabilityOptional(player).ifPresent(c -> c.pullFromNBT(capability));
     }
 
     @Override
     public void serialize(FriendlyByteBuf friendlyByteBuf) {
         friendlyByteBuf.writeUUID(uuid);
-        friendlyByteBuf.writeNbt(tag);
+        friendlyByteBuf.writeNbt(capability);
     }
 }

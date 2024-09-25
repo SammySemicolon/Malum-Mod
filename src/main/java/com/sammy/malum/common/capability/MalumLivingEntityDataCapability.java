@@ -84,4 +84,13 @@ public class MalumLivingEntityDataCapability {
     public static MalumLivingEntityDataCapability getCapability(LivingEntity entity) {
         return getCapabilityOptional(entity).orElse(new MalumLivingEntityDataCapability());
     }
+
+    public void pullFromNBT(CompoundTag tag) {
+        MalumLivingEntityDataCapability decoded = CodecUtil.decodeNBT(CODEC, tag);
+        this.soulData = decoded.soulData;
+        this.touchOfDarknessHandler = decoded.touchOfDarknessHandler;
+        this.watcherNecklaceCooldown = decoded.watcherNecklaceCooldown;
+        this.soulsToApplyToDrops = decoded.soulsToApplyToDrops;
+        this.killerUUID = decoded.killerUUID;
+    }
 }

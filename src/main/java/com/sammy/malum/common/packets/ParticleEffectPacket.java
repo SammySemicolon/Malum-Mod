@@ -25,8 +25,14 @@ public class ParticleEffectPacket extends OneSidedPayloadData {
     @Nullable
     private final NBTEffectData nbtData;
 
+    public ParticleEffectPacket(String id, PositionEffectData positionData, @Nullable ColorEffectData colorData, @Nullable NBTEffectData nbtData) {
+        this.id = id;
+        this.positionData = positionData;
+        this.colorData = colorData;
+        this.nbtData = nbtData;
+    }
+
     public ParticleEffectPacket(FriendlyByteBuf buf) {
-        super(buf);
         this.id = buf.readUtf();
         this.positionData = new PositionEffectData(buf);
         this.colorData = buf.readBoolean() ? new ColorEffectData(buf) : null;

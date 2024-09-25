@@ -61,4 +61,9 @@ public class SpiritTransmutationRecipe extends LodestoneInWorldRecipe<SingleReci
             ItemStack.STREAM_CODEC.encode(buffer, recipe.output);
         }
     }
+
+    @SuppressWarnings("unchecked")
+    public static SpiritTransmutationRecipe getRecipe(Level level, ItemStack stack) {
+        return level.getRecipeManager().getRecipeFor((RecipeType<SpiritTransmutationRecipe>) RecipeTypeRegistry.SPIRIT_TRANSMUTATION.get(), new SingleRecipeInput(stack), level).get().value();
+    }
 }

@@ -17,8 +17,12 @@ public class SyncStaffCooldownChangesPacket extends OneSidedPayloadData {
     private final Item item;
     private final int enchantmentLevel;
 
+    public SyncStaffCooldownChangesPacket(Item item, int enchantmentLevel) {
+        this.item = item;
+        this.enchantmentLevel = enchantmentLevel;
+    }
+
     public SyncStaffCooldownChangesPacket(FriendlyByteBuf buf) {
-        super(buf);
         this.item = BuiltInRegistries.ITEM.byId(buf.readInt());
         this.enchantmentLevel = buf.readInt();
     }

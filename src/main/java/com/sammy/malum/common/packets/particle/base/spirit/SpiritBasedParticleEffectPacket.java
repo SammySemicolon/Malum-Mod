@@ -4,6 +4,7 @@ import com.sammy.malum.common.packets.particle.base.PositionBasedParticleEffectP
 import com.sammy.malum.core.handlers.*;
 import com.sammy.malum.core.systems.spirit.MalumSpiritType;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.world.phys.Vec3;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
@@ -14,6 +15,11 @@ import java.util.function.Supplier;
 
 public abstract class SpiritBasedParticleEffectPacket extends PositionBasedParticleEffectPacket {
     protected final List<String> spirits;
+
+    public SpiritBasedParticleEffectPacket(List<String> spirits, Vec3 pos) {
+        super(pos.x, pos.y, pos.z);
+        this.spirits = spirits;
+    }
 
     public SpiritBasedParticleEffectPacket(FriendlyByteBuf buf) {
         super(buf);
@@ -34,11 +40,8 @@ public abstract class SpiritBasedParticleEffectPacket extends PositionBasedParti
         super.serialize(buf);
     }
 
-    @OnlyIn(Dist.CLIENT)
-    @Override
-    public void handle(IPayloadContext iPayloadContext) {
-
-    }
+    @OnlyIn(Dist.CLIENT) @Override
+    public void handle(IPayloadContext iPayloadContext) {}
 
     protected abstract void handle(IPayloadContext iPayloadContext, MalumSpiritType spiritType);
 

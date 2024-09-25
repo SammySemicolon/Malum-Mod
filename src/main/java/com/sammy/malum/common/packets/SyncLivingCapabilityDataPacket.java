@@ -1,5 +1,6 @@
 package com.sammy.malum.common.packets;
 
+import com.mojang.serialization.Codec;
 import com.sammy.malum.common.capability.MalumLivingEntityDataCapability;
 import net.minecraft.client.Minecraft;
 import net.minecraft.nbt.CompoundTag;
@@ -13,26 +14,30 @@ import team.lodestar.lodestone.systems.network.OneSidedPayloadData;
 
 public class SyncLivingCapabilityDataPacket extends OneSidedPayloadData {
     private final int entityId;
-    private final CompoundTag tag;
+    private final CompoundTag capability;
+
+    public SyncLivingCapabilityDataPacket(int entityId, CompoundTag capability) {
+        this.entityId = entityId;
+        this.capability = capability;
+    }
 
     public SyncLivingCapabilityDataPacket(FriendlyByteBuf buf) {
-        super(buf);
         this.entityId = buf.readInt();
-        this.tag = buf.readNbt();
+        this.capability = buf.readNbt();
     }
 
     @OnlyIn(Dist.CLIENT)
     public void handle(IPayloadContext context) {
         Entity entity = Minecraft.getInstance().level.getEntity(entityId);
         if (entity instanceof LivingEntity livingEntity) {
-            MalumLivingEntityDataCapability.getCapabilityOptional(livingEntity).ifPresent(c -> c.deserializeNBT(tag));
+            MalumLivingEntityDataCapability.getCapabilityOptional(livingEntity).ifPresent(c -> c.pullFromNBT(capability));
         }
     }
 
     @Override
     public void serialize(FriendlyByteBuf buf) {
         buf.writeInt(entityId);
-        buf.writeNbt(tag);
+        buf.writeNbt(capability);
     }
 
 }

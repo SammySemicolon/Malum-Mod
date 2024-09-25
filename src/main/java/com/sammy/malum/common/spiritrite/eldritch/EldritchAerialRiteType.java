@@ -1,7 +1,7 @@
 package com.sammy.malum.common.spiritrite.eldritch;
 
 import com.sammy.malum.common.block.curiosities.totem.*;
-import com.sammy.malum.common.packets.particle.curiosities.rite.*;
+import com.sammy.malum.common.packets.particle.rite.AerialBlockFallRiteEffectPacket;
 import com.sammy.malum.common.spiritrite.*;
 import com.sammy.malum.registry.common.*;
 import com.sammy.malum.registry.common.block.*;
@@ -15,13 +15,13 @@ import net.minecraft.tags.*;
 import net.minecraft.world.entity.item.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.enchantment.*;
+import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.*;
-import net.minecraftforge.network.*;
+import net.neoforged.neoforge.network.PacketDistributor;
 
 import java.util.*;
 
-import static com.sammy.malum.registry.common.PacketRegistry.*;
 import static com.sammy.malum.registry.common.SpiritTypeRegistry.*;
 
 public class EldritchAerialRiteType extends TotemicRiteType {
@@ -42,7 +42,7 @@ public class EldritchAerialRiteType extends TotemicRiteType {
                         if (!state.isAir() && level.getBlockEntity(p) == null && canSilkTouch(level, pos, state)) {
                             FallingBlockEntity.fall(level, p, state);
                             level.playSound(null, p, SoundRegistry.AERIAL_FALL.get(), SoundSource.BLOCKS, 0.5f, 2.6F + (level.random.nextFloat() - level.random.nextFloat()) * 0.8F);
-                            MALUM_CHANNEL.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(pos)), new AerialBlockFallRiteEffectPacket(AERIAL_SPIRIT.getPrimaryColor(), p));
+                            PacketDistributor.sendToPlayersTrackingChunk(level, new ChunkPos(pos), new AerialBlockFallRiteEffectPacket(AERIAL_SPIRIT.getPrimaryColor(), p));
                         }
                     }
                 });
@@ -93,7 +93,7 @@ public class EldritchAerialRiteType extends TotemicRiteType {
         if (harvestToolStack.isEmpty()) {
             return false;
         }
-        harvestToolStack.enchant(Enchantments.SILK_TOUCH, 1);
+        harvestToolStack.enchant(level.registryAccess().holderOrThrow(Enchantments.SILK_TOUCH), 1);
         List<ItemStack> drops = Block.getDrops(state, level, pos, null, null, harvestToolStack);
         Item blockItem = state.getBlock().asItem();
         return drops.stream().anyMatch(s -> s.getItem() == blockItem);

@@ -15,8 +15,11 @@ import java.util.function.Supplier;
 public class VoidRejectionPacket extends OneSidedPayloadData {
     private final int entityId;
 
+    public VoidRejectionPacket(int entityId) {
+        this.entityId = entityId;
+    }
+
     public VoidRejectionPacket(FriendlyByteBuf byteBuf) {
-        super(byteBuf);
         this.entityId = byteBuf.readInt();
     }
 

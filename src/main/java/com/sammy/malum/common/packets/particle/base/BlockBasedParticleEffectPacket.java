@@ -7,8 +7,11 @@ import team.lodestar.lodestone.systems.network.OneSidedPayloadData;
 public abstract class BlockBasedParticleEffectPacket extends OneSidedPayloadData {
     protected final BlockPos pos;
 
+    public BlockBasedParticleEffectPacket(BlockPos pos) {
+        this.pos = pos;
+    }
+
     public BlockBasedParticleEffectPacket(FriendlyByteBuf buf) {
-        super(buf);
         this.pos = buf.readBlockPos();
     }
 
