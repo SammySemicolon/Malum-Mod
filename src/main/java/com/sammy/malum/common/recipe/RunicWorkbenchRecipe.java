@@ -6,6 +6,7 @@ import com.sammy.malum.core.systems.recipe.*;
 import com.sammy.malum.registry.common.recipe.*;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.crafting.*;
@@ -66,22 +67,8 @@ public class RunicWorkbenchRecipe extends LodestoneInWorldRecipe<RunicWorkbenchR
                 ItemStack.CODEC.fieldOf("result").forGetter(recipe -> recipe.output)
         ).apply(obj, RunicWorkbenchRecipe::new));
 
-        public static final StreamCodec<RegistryFriendlyByteBuf, RunicWorkbenchRecipe> STREAM_CODEC = StreamCodec.of(
-                Serializer::toNetwork, Serializer::fromNetwork
-        );
-
-        public static RunicWorkbenchRecipe fromNetwork(RegistryFriendlyByteBuf buffer) {
-            ItemStack primaryInput = ItemStack.STREAM_CODEC.decode(buffer);
-            ItemStack secondaryInput = ItemStack.STREAM_CODEC.decode(buffer);
-            ItemStack output = ItemStack.STREAM_CODEC.decode(buffer);
-            return new RunicWorkbenchRecipe(primaryInput, secondaryInput, output);
-        }
-
-        public static void toNetwork(RegistryFriendlyByteBuf buffer, RunicWorkbenchRecipe recipe) {
-            ItemStack.STREAM_CODEC.encode(buffer, recipe.primaryInput);
-            ItemStack.STREAM_CODEC.encode(buffer, recipe.secondaryInput);
-            ItemStack.STREAM_CODEC.encode(buffer, recipe.output);
-        }
+        public static final StreamCodec<RegistryFriendlyByteBuf, RunicWorkbenchRecipe> STREAM_CODEC =
+                ByteBufCodecs.fromCodecWithRegistries(CODEC.codec());
 
         @Override
         public MapCodec<RunicWorkbenchRecipe> codec() { return CODEC; }

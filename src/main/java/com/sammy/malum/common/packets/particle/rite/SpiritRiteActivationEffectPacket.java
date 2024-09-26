@@ -1,4 +1,4 @@
-package com.sammy.malum.common.packets.particle.curiosities.rite;
+package com.sammy.malum.common.packets.particle.rite;
 
 import com.sammy.malum.common.packets.particle.base.spirit.SpiritBasedBlockParticleEffectPacket;
 import com.sammy.malum.core.systems.spirit.MalumSpiritType;
@@ -24,6 +24,10 @@ import java.util.function.Supplier;
 public class SpiritRiteActivationEffectPacket extends SpiritBasedBlockParticleEffectPacket {
 
     private int height = 0;
+
+    public SpiritRiteActivationEffectPacket(List<String> spirits, BlockPos pos) {
+        super(spirits, pos);
+    }
 
     public SpiritRiteActivationEffectPacket(FriendlyByteBuf buf) {
         super(buf);

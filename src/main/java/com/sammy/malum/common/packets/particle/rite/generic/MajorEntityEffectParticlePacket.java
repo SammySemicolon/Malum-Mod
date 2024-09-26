@@ -1,4 +1,4 @@
-package com.sammy.malum.common.packets.particle.curiosities.rite.generic;
+package com.sammy.malum.common.packets.particle.rite.generic;
 
 import com.sammy.malum.common.packets.particle.base.color.ColorBasedParticleEffectPacket;
 import net.minecraft.client.Minecraft;
@@ -19,6 +19,10 @@ import java.awt.*;
 import java.util.function.Supplier;
 
 public class MajorEntityEffectParticlePacket extends ColorBasedParticleEffectPacket {
+
+    public MajorEntityEffectParticlePacket(Color color, double posX, double posY, double posZ) {
+        super(color, posX, posY, posZ);
+    }
 
     public MajorEntityEffectParticlePacket(FriendlyByteBuf buf) {
         super(buf);

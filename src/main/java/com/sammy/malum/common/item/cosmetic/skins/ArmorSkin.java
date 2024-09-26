@@ -2,6 +2,7 @@ package com.sammy.malum.common.item.cosmetic.skins;
 
 import com.sammy.malum.client.cosmetic.ArmorSkinRenderingData;
 import com.sammy.malum.registry.common.item.ArmorSkinRegistry;
+import com.sammy.malum.registry.common.item.DataComponentRegistry;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.api.distmarker.Dist;
@@ -39,7 +40,7 @@ public abstract class ArmorSkin {
     }
 
     public static ArmorSkin getAppliedItemSkin(ItemStack stack) {
-        return stack.hasTag() ? ArmorSkinRegistry.SKINS.get(stack.getTag().getString(MALUM_SKIN_TAG)) : null;
+        return ArmorSkinRegistry.SKINS.get(stack.get(DataComponentRegistry.ITEM_SKIN));
     }
 
     public static class ArmorSkinDatagenData {

@@ -8,8 +8,13 @@ public abstract class PositionBasedParticleEffectPacket extends OneSidedPayloadD
     protected final double posY;
     protected final double posZ;
 
+    public PositionBasedParticleEffectPacket(double posX, double posY, double posZ) {
+        this.posX = posX;
+        this.posY = posY;
+        this.posZ = posZ;
+    }
+
     public PositionBasedParticleEffectPacket(FriendlyByteBuf buf) {
-        super(buf);
         this.posX = buf.readDouble();
         this.posY = buf.readDouble();
         this.posZ = buf.readDouble();

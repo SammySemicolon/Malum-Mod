@@ -1,58 +1,53 @@
 package com.sammy.malum.mixin;
 
-import com.google.common.collect.*;
+import com.llamalad7.mixinextras.sugar.Local;
 import com.sammy.malum.common.item.curiosities.weapons.scythe.*;
 import com.sammy.malum.config.CommonConfig;
 import com.sammy.malum.registry.common.*;
 import com.sammy.malum.registry.common.item.ItemTagRegistry;
-import net.minecraft.tags.ItemTags;
+import net.minecraft.core.Holder;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.ai.attributes.*;
 import net.minecraft.world.entity.player.*;
 import net.minecraft.world.item.*;
-import org.jetbrains.annotations.*;
+import net.minecraft.world.item.component.ItemAttributeModifiers;
 import org.spongepowered.asm.mixin.*;
 import org.spongepowered.asm.mixin.injection.*;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import java.util.*;
-
-import static net.minecraft.world.item.Item.*;
+import static net.minecraft.world.item.Item.BASE_ATTACK_DAMAGE_ID;
 
 @Mixin(ItemStack.class)
 public abstract class ItemStackMixin {
 
-    @Shadow
-    public abstract Item getItem();
+    @Shadow public abstract Item getItem();
 
-    @ModifyVariable(method = "getTooltipLines", at = @At("STORE"))
-    private Multimap<Attribute, AttributeModifier> malum$getTooltip(Multimap<Attribute, AttributeModifier> map, @Nullable Player player, TooltipFlag flag) {
+    @ModifyVariable(method = "addAttributeTooltips", at = @At("STORE"))
+    private ItemAttributeModifiers malum$getTooltip(ItemAttributeModifiers map, @Local(argsOnly = true) Player player) {
         if (player != null && getItem() instanceof MalumScytheItem) {
-            Multimap<Attribute, AttributeModifier> copied = LinkedHashMultimap.create();
-            for (Map.Entry<Attribute, AttributeModifier> entry : map.entries()) {
-                Attribute key = entry.getKey();
-                AttributeModifier modifier = entry.getValue();
-                double amount = modifier.getAmount();
+            ItemAttributeModifiers.Builder copied = ItemAttributeModifiers.builder();
+            for (ItemAttributeModifiers.Entry entry : map.modifiers()) {
+                Holder<Attribute> key = entry.attribute();
+                AttributeModifier modifier = entry.modifier();
+                double amount = modifier.amount();
 
-                if (modifier.getId() != null) {
-                    if (modifier.getId().equals(BASE_ATTACK_DAMAGE_UUID)) {
-                        AttributeInstance instance = player.getAttribute(AttributeRegistry.SCYTHE_PROFICIENCY.get());
-                        if (instance != null && instance.getValue() > 0) {
-                            amount += instance.getValue() * 0.5f;
-                        }
-
-                        copied.put(key, new AttributeModifier(
-                                modifier.getId(), modifier.getName(), amount, modifier.getOperation()
-                        ));
-                    } else {
-                        copied.put(key, modifier);
+                if (modifier.id().equals(BASE_ATTACK_DAMAGE_ID)) {
+                    AttributeInstance instance = player.getAttribute(AttributeRegistry.SCYTHE_PROFICIENCY);
+                    if (instance != null && instance.getValue() > 0) {
+                        amount += instance.getValue() * 0.5f;
                     }
+
+                    copied.add(key, new AttributeModifier(
+                            modifier.id(), amount, modifier.operation()
+                    ), entry.slot());
+                } else {
+                    copied.add(key, modifier, entry.slot());
                 }
 
 
             }
 
-            return copied;
+            return copied.build();
         }
         return map;
     }

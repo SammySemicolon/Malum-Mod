@@ -77,8 +77,8 @@ public class EtherTorchItem extends AbstractEtherItem {
         blockToItemMap.put(this.wallBlock, itemIn);
     }
 
-    public void removeFromBlockToItemMap(Map<Block, Item> blockToItemMap, Item itemIn) {
+    /*public void removeFromBlockToItemMap(Map<Block, Item> blockToItemMap, Item itemIn) {
         super.removeFromBlockToItemMap(blockToItemMap, itemIn);
         blockToItemMap.remove(this.wallBlock);
-    }
+    }*/
 }

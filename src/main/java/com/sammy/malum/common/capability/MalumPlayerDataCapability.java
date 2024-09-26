@@ -95,13 +95,13 @@ public class MalumPlayerDataCapability {
     }
 
     public static void syncTrackingAndSelf(Player player) {
-        sync(c -> PacketDistributor.sendToPlayersTrackingEntityAndSelf(player,
+        sync(player, c -> PacketDistributor.sendToPlayersTrackingEntityAndSelf(player,
                 new SyncMalumPlayerCapabilityDataPacket(player.getUUID(), (CompoundTag)CodecUtil.encodeNBT(CODEC, c)))
         );
     }
 
     public static void syncTracking(Player player) {
-        sync(c -> PacketDistributor.sendToPlayersTrackingEntity(player,
+        sync(player, c -> PacketDistributor.sendToPlayersTrackingEntity(player,
                 new SyncMalumPlayerCapabilityDataPacket(player.getUUID(), (CompoundTag)CodecUtil.encodeNBT(CODEC, c)))
         );
     }
@@ -116,5 +116,13 @@ public class MalumPlayerDataCapability {
 
     public static MalumPlayerDataCapability getCapability(Player player) {
         return getCapabilityOptional(player).orElse(new MalumPlayerDataCapability());
+    }
+
+    public void pullFromNBT(CompoundTag tag) {
+        MalumPlayerDataCapability decoded = CodecUtil.decodeNBT(CODEC, tag);
+        this.soulWardHandler = decoded.soulWardHandler;
+        this.reserveStaffChargeHandler = decoded.reserveStaffChargeHandler;
+        this.obtainedEncyclopedia = decoded.obtainedEncyclopedia;
+        this.hasBeenRejected = decoded.hasBeenRejected;
     }
 }

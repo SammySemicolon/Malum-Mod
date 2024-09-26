@@ -795,46 +795,30 @@ public class ItemRegistry {
         public static void addItemProperties(FMLClientSetupEvent event) {
             Set<LodestoneArmorItem> armors = ItemRegistry.ITEMS.getEntries().stream().filter(r -> r.get() instanceof LodestoneArmorItem).map(r -> (LodestoneArmorItem) r.get()).collect(Collectors.toSet());
             ItemPropertyFunction armorPropertyFunction = (stack, level, holder, holderID) -> {
-                if (stack.getComponents().isEmpty()) {
+                if (!stack.has(DataComponentRegistry.ITEM_SKIN)) {
                     return -1;
                 }
-                CompoundTag nbt = stack.getTag();
-                if (!nbt.contains(ArmorSkin.MALUM_SKIN_TAG)) {
-                    return -1;
-                }
-                ArmorSkin armorSkin = ArmorSkinRegistry.SKINS.get(nbt.getString(ArmorSkin.MALUM_SKIN_TAG));
+                ArmorSkin armorSkin = ArmorSkinRegistry.SKINS.get(stack.get(DataComponentRegistry.ITEM_SKIN));
                 if (armorSkin == null) {
                     return -1;
                 }
                 return armorSkin.index;
             };
             for (LodestoneArmorItem armor : armors) {
-                ItemProperties.register(armor, new ResourceLocation(ArmorSkin.MALUM_SKIN_TAG), armorPropertyFunction);
+                ItemProperties.register(armor, MalumMod.malumPath(ArmorSkin.MALUM_SKIN_TAG), armorPropertyFunction);
             }
-            ItemProperties.register(RITUAL_SHARD.get(), new ResourceLocation(RitualShardItem.RITUAL_TYPE), (stack, level, holder, holderID) -> {
-                if (!stack.hasTag()) {
+            ItemProperties.register(RITUAL_SHARD.get(), MalumMod.malumPath(RitualShardItem.RITUAL_TYPE), (stack, level, holder, holderID) -> {
+                if (!stack.has(DataComponentRegistry.RITUAL_SHARD_PROPS)) {
                     return -1;
                 }
-                CompoundTag nbt = stack.getTag();
-                if (!nbt.contains(RitualShardItem.RITUAL_TYPE)) {
-                    return -1;
-                }
-                if (!nbt.contains(RitualShardItem.STORED_SPIRITS)) {
-                    return -1;
-                }
-                MalumRitualTier tier = RitualShardItem.getRitualTier(stack);
-                return tier.potency;
+                return RitualShardItem.getRitualTier(stack).potency;
             });
 
-            ItemProperties.register(CATALYST_LOBBER.get(), new ResourceLocation(CatalystFlingerItem.STATE), (stack, level, holder, holderID) -> {
-                if (!stack.hasTag()) {
+            ItemProperties.register(CATALYST_LOBBER.get(), MalumMod.malumPath(CatalystFlingerItem.STATE), (stack, level, holder, holderID) -> {
+                if (!stack.has(DataComponentRegistry.CATALYST_FLINGER_STATE)) {
                     return -1;
                 }
-                CompoundTag nbt = stack.getTag();
-                if (!nbt.contains(CatalystFlingerItem.STATE)) {
-                    return -1;
-                }
-                return nbt.getInt(CatalystFlingerItem.STATE);
+                return stack.get(DataComponentRegistry.CATALYST_FLINGER_STATE);
             });
         }
 

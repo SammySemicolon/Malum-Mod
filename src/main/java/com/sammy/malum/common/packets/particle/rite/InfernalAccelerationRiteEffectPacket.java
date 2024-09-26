@@ -1,10 +1,11 @@
-package com.sammy.malum.common.packets.particle.curiosities.rite;
+package com.sammy.malum.common.packets.particle.rite;
 
 import com.sammy.malum.common.packets.particle.base.spirit.SpiritBasedBlockParticleEffectPacket;
 import com.sammy.malum.core.systems.spirit.MalumSpiritType;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.Level;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
@@ -23,6 +24,10 @@ import java.util.function.Supplier;
 
 public class InfernalAccelerationRiteEffectPacket extends SpiritBasedBlockParticleEffectPacket {
 
+    public InfernalAccelerationRiteEffectPacket(List<String> spirits, BlockPos pos) {
+        super(spirits, pos);
+    }
+
     public InfernalAccelerationRiteEffectPacket(FriendlyByteBuf buf) {
         super(buf);
     }
@@ -31,7 +36,7 @@ public class InfernalAccelerationRiteEffectPacket extends SpiritBasedBlockPartic
     @Override
     protected void handle(IPayloadContext iPayloadContext, MalumSpiritType spiritType) {
         Level level = Minecraft.getInstance().level;
-        var rand = level.random;
+        RandomSource rand = level.random;
         Color color = spiritType.getPrimaryColor();
         Color endColor = spiritType.getSecondaryColor();
         for (int i = 0; i < 3; i++) {

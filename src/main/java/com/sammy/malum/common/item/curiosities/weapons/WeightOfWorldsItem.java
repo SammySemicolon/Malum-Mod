@@ -33,7 +33,7 @@ public class WeightOfWorldsItem extends LodestoneAxeItem implements IEventRespon
             level.playSound(null, target.getX(), target.getY(), target.getZ(), SoundRegistry.WEIGHT_OF_WORLDS_SLASH.get(), attacker.getSoundSource(), 1, 0.5f);
             final var effect = MobEffectRegistry.GRIM_CERTAINTY;
             if (attacker.hasEffect(effect) || level.random.nextFloat() < 0.25f) {
-                event.setAmount(event.getAmount()*2);
+                event.newDamage = event.getNewDamage()*2;
                 level.playSound(null, target.getX(), target.getY(), target.getZ(), SoundRegistry.MALIGNANT_METAL_RESONATES.get(), attacker.getSoundSource(), 2, 0.5f);
                 level.playSound(null, target.getX(), target.getY(), target.getZ(), SoundRegistry.MALIGNANT_METAL_RESONATES.get(), attacker.getSoundSource(), 2, 1.5f);
                 level.playSound(null, target.getX(), target.getY(), target.getZ(), SoundRegistry.DRAINING_MOTIF.get(), attacker.getSoundSource(), 2, 0.5f);

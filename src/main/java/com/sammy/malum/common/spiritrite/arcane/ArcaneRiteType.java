@@ -3,8 +3,8 @@ package com.sammy.malum.common.spiritrite.arcane;
 import com.sammy.malum.common.block.blight.*;
 import com.sammy.malum.common.block.curiosities.totem.*;
 import com.sammy.malum.common.block.storage.*;
-import com.sammy.malum.common.packets.particle.curiosities.blight.*;
-import com.sammy.malum.common.packets.particle.curiosities.rite.generic.*;
+import com.sammy.malum.common.packets.particle.rite.BlightTransformItemParticlePacket;
+import com.sammy.malum.common.packets.particle.rite.generic.BlockSparkleParticlePacket;
 import com.sammy.malum.common.recipe.spirit.transmutation.*;
 import com.sammy.malum.common.spiritrite.*;
 import com.sammy.malum.common.worldevent.*;
@@ -12,18 +12,18 @@ import net.minecraft.core.*;
 import net.minecraft.server.level.*;
 import net.minecraft.world.entity.item.*;
 import net.minecraft.world.item.*;
+import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.*;
 import net.minecraft.world.level.block.state.*;
 import net.minecraft.world.phys.*;
-import net.minecraftforge.network.*;
+import net.neoforged.neoforge.network.PacketDistributor;
 import team.lodestar.lodestone.handlers.*;
 import team.lodestar.lodestone.helpers.*;
 import team.lodestar.lodestone.systems.blockentity.*;
 
 import java.util.*;
 
-import static com.sammy.malum.registry.common.PacketRegistry.*;
 import static com.sammy.malum.registry.common.SpiritTypeRegistry.*;
 
 public class ArcaneRiteType extends TotemicRiteType {
@@ -62,7 +62,7 @@ public class ArcaneRiteType extends TotemicRiteType {
                         if (recipe != null && !inventoryForAltar.extractItem(0, 1, true).isEmpty()) {
                             Vec3 itemPos = iMalumSpecialItemAccessPoint.getItemPos();
                             level.addFreshEntity(new ItemEntity(level, itemPos.x, itemPos.y, itemPos.z, recipe.output.copy()));
-                            MALUM_CHANNEL.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(p)), new BlightTransformItemParticlePacket(List.of(ARCANE_SPIRIT.identifier), itemPos));
+                            PacketDistributor.sendToPlayersTrackingChunk(level, new ChunkPos(p), new BlightTransformItemParticlePacket(List.of(ARCANE_SPIRIT.getIdentifier()), itemPos));
                             inventoryForAltar.extractItem(0, 1, false);
                             BlockHelper.updateAndNotifyState(level, p);
                         }
@@ -76,8 +76,7 @@ public class ArcaneRiteType extends TotemicRiteType {
                             BlockEntity entity = level.getBlockEntity(posToTransmute);
                             BlockState newState = BlockHelper.setBlockStateWithExistingProperties(level, posToTransmute, block.defaultBlockState(), 3);
                             level.levelEvent(2001, posToTransmute, Block.getId(newState));
-                            MALUM_CHANNEL.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(posToTransmute)), new BlockSparkleParticlePacket(ARCANE_SPIRIT.getPrimaryColor(), posToTransmute));
-                            MALUM_CHANNEL.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(posToTransmute)), new BlightMistParticlePacket(posToTransmute)); //TODO: convert these 2 into a single packet, rlly don't feel like doing it rn
+                            PacketDistributor.sendToPlayersTrackingChunk(level, new ChunkPos(posToTransmute), new BlockSparkleParticlePacket(ARCANE_SPIRIT.getPrimaryColor(), posToTransmute, true));
                             if (block instanceof EntityBlock entityBlock) {
                                 if (entity != null) {
                                     BlockEntity newEntity = entityBlock.newBlockEntity(pos, newState);

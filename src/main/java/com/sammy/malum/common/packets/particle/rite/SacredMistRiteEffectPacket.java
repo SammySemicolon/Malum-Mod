@@ -1,4 +1,4 @@
-package com.sammy.malum.common.packets.particle.curiosities.rite;
+package com.sammy.malum.common.packets.particle.rite;
 
 import com.sammy.malum.common.packets.particle.base.spirit.SpiritBasedBlockParticleEffectPacket;
 import com.sammy.malum.core.systems.spirit.MalumSpiritType;
@@ -22,9 +22,15 @@ import java.util.List;
 import java.util.function.Supplier;
 
 public class SacredMistRiteEffectPacket extends SpiritBasedBlockParticleEffectPacket {
+
+    public SacredMistRiteEffectPacket(List<String> spirits, BlockPos pos) {
+        super(spirits, pos);
+    }
+
     public SacredMistRiteEffectPacket(FriendlyByteBuf buf) {
         super(buf);
     }
+
     @OnlyIn(Dist.CLIENT)
     @Override
     protected void handle(IPayloadContext iPayloadContext, MalumSpiritType spiritType) {

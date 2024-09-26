@@ -16,6 +16,11 @@ import java.util.function.Supplier;
 public abstract class SpiritBasedBlockParticleEffectPacket extends BlockBasedParticleEffectPacket {
     protected final List<String> spirits;
 
+    public SpiritBasedBlockParticleEffectPacket(List<String> spirits, BlockPos pos) {
+        super(pos);
+        this.spirits = spirits;
+    }
+
     public SpiritBasedBlockParticleEffectPacket(FriendlyByteBuf buf) {
         super(buf);
         int strings = buf.readInt();

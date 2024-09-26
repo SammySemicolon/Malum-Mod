@@ -1,6 +1,6 @@
-package com.sammy.malum.common.packets.particle.curiosities.rite;
+package com.sammy.malum.common.packets.particle.rite;
 
-import com.sammy.malum.common.packets.particle.curiosities.rite.generic.BlockSparkleParticlePacket;
+import com.sammy.malum.common.packets.particle.rite.generic.BlockSparkleParticlePacket;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
@@ -11,9 +11,13 @@ import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
 
 import java.awt.*;
-import java.util.function.Supplier;
 
 public class InfernalExtinguishRiteEffectPacket extends BlockSparkleParticlePacket {
+
+    public InfernalExtinguishRiteEffectPacket(Color col, BlockPos pos) {
+        super(col, pos, false);
+    }
+
     public InfernalExtinguishRiteEffectPacket(FriendlyByteBuf buf) {
         super(buf);
     }

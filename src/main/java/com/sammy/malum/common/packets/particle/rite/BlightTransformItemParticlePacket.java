@@ -1,10 +1,11 @@
-package com.sammy.malum.common.packets.particle.curiosities.blight;
+package com.sammy.malum.common.packets.particle.rite;
 
 import com.sammy.malum.common.packets.particle.base.spirit.SpiritBasedParticleEffectPacket;
 import com.sammy.malum.core.systems.spirit.MalumSpiritType;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.api.distmarker.Dist;
@@ -22,10 +23,12 @@ import team.lodestar.lodestone.systems.particle.render_types.LodestoneWorldParti
 
 import java.awt.*;
 import java.util.List;
-import java.util.function.Supplier;
 
 public class BlightTransformItemParticlePacket extends SpiritBasedParticleEffectPacket {
 
+    public BlightTransformItemParticlePacket(List<String> spirits, Vec3 pos) {
+        super(spirits, pos);
+    }
 
     public BlightTransformItemParticlePacket(FriendlyByteBuf buf) {
         super(buf);
@@ -87,7 +90,7 @@ public class BlightTransformItemParticlePacket extends SpiritBasedParticleEffect
     @Override
     protected void handle(IPayloadContext iPayloadContext, MalumSpiritType spiritType) {
         Level level = Minecraft.getInstance().level;
-        var rand = level.random;
+        RandomSource rand = level.random;
         Color color = spiritType.getPrimaryColor();
         for (int i = 0; i < 3; i++) {
             int spinDirection = (rand.nextBoolean() ? 1 : -1);

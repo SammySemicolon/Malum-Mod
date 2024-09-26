@@ -1,15 +1,22 @@
 package com.sammy.malum.common.item.spirit;
 
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.sammy.malum.core.systems.ritual.*;
 import com.sammy.malum.core.systems.spirit.*;
 import com.sammy.malum.registry.common.*;
+import com.sammy.malum.registry.common.item.DataComponentRegistry;
 import com.sammy.malum.visual_effects.*;
+import io.netty.buffer.ByteBuf;
 import net.minecraft.client.*;
+import net.minecraft.core.component.DataComponentMap;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.*;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.*;
-import org.jetbrains.annotations.*;
 import team.lodestar.lodestone.handlers.screenparticle.ParticleEmitterHandler.*;
 import team.lodestar.lodestone.helpers.*;
 import team.lodestar.lodestone.registry.common.particle.*;
@@ -30,14 +37,13 @@ public class RitualShardItem extends Item implements ItemParticleSupplier {
         super(properties);
     }
 
-    @Override
-    public Rarity getRarity(ItemStack pStack) {
-        final MalumRitualType ritualType = getRitualType(pStack);
-        if (ritualType != null) {
-            return ritualType.spirit.getItemRarity();
-        }
-        return super.getRarity(pStack);
-    }
+//    @Override
+//    public void readComponent(int stackQuantity, DataComponentMap.Builder mutableMap, ComponentGetter originalSupplier) {
+//        originalSupplier.get(DataComponentRegistry.RITUAL_SHARD_PROPS).ifPresent(props -> {
+//            if (originalSupplier.get(DataComponents.RARITY).isEmpty())
+//                mutableMap.set(DataComponents.RARITY, getRitualType(props).spirit.getItemRarity());
+//        });
+//    }
 
     @Override
     public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
@@ -82,11 +88,26 @@ public class RitualShardItem extends Item implements ItemParticleSupplier {
         }
     }
 
+    public static MalumRitualType getRitualType(Props props) {
+        return RitualRegistry.get(ResourceLocation.parse(props.ritualType()));
+    }
+
     public static MalumRitualType getRitualType(ItemStack stack) {
-        return stack.hasTag() ? RitualRegistry.get(new ResourceLocation(stack.getTag().getString(RITUAL_TYPE))) : null;
+        try { return RitualRegistry.get(ResourceLocation.parse(stack.get(DataComponentRegistry.RITUAL_SHARD_PROPS).ritualType())); }
+        catch (NullPointerException noComponent) { return null; }
     }
 
     public static MalumRitualTier getRitualTier(ItemStack stack) {
-        return stack.hasTag() ? MalumRitualTier.figureOutTier(stack.getTag().getInt(STORED_SPIRITS)) : null;
+        try { return MalumRitualTier.figureOutTier(stack.get(DataComponentRegistry.RITUAL_SHARD_PROPS).storedSpirits()); }
+        catch (NullPointerException noComponent) { return null; }
+    }
+
+    public record Props(String ritualType, int storedSpirits) {
+        public static Codec<Props> CODEC = RecordCodecBuilder.create(instance -> instance.group(
+                Codec.STRING.fieldOf(RITUAL_TYPE).forGetter(Props::ritualType),
+                Codec.INT.fieldOf(STORED_SPIRITS).forGetter(Props::storedSpirits)
+        ).apply(instance, Props::new));
+
+        public static StreamCodec<ByteBuf, Props> STREAM_CODEC = ByteBufCodecs.fromCodec(RitualShardItem.Props.CODEC);
     }
 }

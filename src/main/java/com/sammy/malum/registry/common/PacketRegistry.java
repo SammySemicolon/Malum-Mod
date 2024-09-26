@@ -2,14 +2,11 @@ package com.sammy.malum.registry.common;
 
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.common.packets.*;
-import com.sammy.malum.common.packets.particle.curiosities.blight.BlightMistParticlePacket;
-import com.sammy.malum.common.packets.particle.curiosities.blight.BlightTransformItemParticlePacket;
-import com.sammy.malum.common.packets.particle.curiosities.rite.*;
-import com.sammy.malum.common.packets.particle.curiosities.rite.generic.BlockSparkleParticlePacket;
-import com.sammy.malum.common.packets.particle.curiosities.rite.generic.MajorEntityEffectParticlePacket;
+import com.sammy.malum.common.packets.particle.rite.*;
+import com.sammy.malum.common.packets.particle.rite.generic.BlockSparkleParticlePacket;
+import com.sammy.malum.common.packets.particle.rite.generic.MajorEntityEffectParticlePacket;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
-import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
 import net.neoforged.neoforge.network.registration.PayloadRegistrar;
 import team.lodestar.lodestone.registry.common.LodestoneNetworkPayloads;
@@ -39,7 +36,7 @@ public class PacketRegistry {
         MALUM_CHANNEL.playToClient(registrar, "sync_malum_player_capability", SyncMalumPlayerCapabilityDataPacket.class, SyncMalumPlayerCapabilityDataPacket::new);
         MALUM_CHANNEL.playToClient(registrar, "sync_living_capability_data", SyncLivingCapabilityDataPacket.class, SyncLivingCapabilityDataPacket::new);
 
-        MALUM_CHANNEL.playToClient(registrar, "blight_mist_particle", BlightMistParticlePacket.class, BlightMistParticlePacket::new);
+        MALUM_CHANNEL.playToClient(registrar, "blight_mist_particle", BlockSparkleParticlePacket.class, BlockSparkleParticlePacket::new);
         MALUM_CHANNEL.playToClient(registrar, "blight_transformation_item_particle", BlightTransformItemParticlePacket.class, BlightTransformItemParticlePacket::new);
     }
 }

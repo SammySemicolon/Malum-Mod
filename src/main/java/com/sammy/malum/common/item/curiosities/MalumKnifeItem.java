@@ -1,29 +1,60 @@
 package com.sammy.malum.common.item.curiosities;
 
-import com.google.common.collect.*;
-import net.minecraft.world.entity.*;
-import net.minecraft.world.entity.ai.attributes.*;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.*;
+import net.minecraft.world.item.component.ItemAttributeModifiers;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.level.block.Block;
+import vectorwing.farmersdelight.common.item.KnifeItem;
 
 public class MalumKnifeItem extends KnifeItem {
-    private Multimap<Attribute, AttributeModifier> attributes;
+    private ItemAttributeModifiers attributes;
 
     public MalumKnifeItem(Tier tier, float attackDamageIn, float attackSpeedIn, Properties properties) {
-        super(tier, attackDamageIn, attackSpeedIn - 2f, properties);
+        super(makeTier(tier, attackDamageIn, attackSpeedIn - 2f), properties);
     }
 
     @Override
-    public Multimap<Attribute, AttributeModifier> getDefaultAttributeModifiers(EquipmentSlot equipmentSlot) {
+    public ItemAttributeModifiers getDefaultAttributeModifiers(ItemStack stack) {
+        ItemAttributeModifiers defaultModifiers = super.getDefaultAttributeModifiers(stack);
         if (attributes == null) {
-            ImmutableMultimap.Builder<Attribute, AttributeModifier> attributeBuilder = new ImmutableMultimap.Builder<>();
-            attributeBuilder.putAll(defaultModifiers);
-            attributeBuilder.putAll(createExtraAttributes().build());
-            attributes = attributeBuilder.build();
+            ItemAttributeModifiers.Builder builder = ItemAttributeModifiers.builder();
+            createExtraAttributes().build().modifiers().forEach(e -> builder.add(e.attribute(), e.modifier(), e.slot()));
+            defaultModifiers.modifiers().forEach(e -> builder.add(e.attribute(), e.modifier(), e.slot()));
+            attributes = builder.build();
         }
-        return equipmentSlot == EquipmentSlot.MAINHAND ? this.attributes : super.getDefaultAttributeModifiers(equipmentSlot);
+        return super.getDefaultAttributeModifiers(stack);
     }
 
-    public ImmutableMultimap.Builder<Attribute, AttributeModifier> createExtraAttributes() {
-        return new ImmutableMultimap.Builder<>();
+    public ItemAttributeModifiers.Builder createExtraAttributes() {
+        return ItemAttributeModifiers.builder();
+    }
+
+    protected static Tier makeTier(Tier tier, float attackDamageIn, float attackSpeedIn) {
+        return new Tier() {
+            @Override
+            public int getUses() { return tier.getUses(); }
+
+            @Override
+            public float getSpeed() { return attackSpeedIn; }
+
+            @Override
+            public float getAttackDamageBonus() { return attackDamageIn; }
+
+            @Override
+            public TagKey<Block> getIncorrectBlocksForDrops() {
+                return tier.getIncorrectBlocksForDrops();
+            }
+
+            @Override
+            public int getEnchantmentValue() {
+                return tier.getEnchantmentValue();
+            }
+
+            @Override
+            public Ingredient getRepairIngredient() {
+                return tier.getRepairIngredient();
+            }
+        };
     }
 }

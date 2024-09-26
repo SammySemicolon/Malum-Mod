@@ -1,15 +1,15 @@
 package com.sammy.malum.common.spiritrite.eldritch;
 
 import com.sammy.malum.common.block.curiosities.totem.*;
-import com.sammy.malum.common.packets.particle.curiosities.rite.generic.*;
+import com.sammy.malum.common.packets.particle.rite.generic.BlockSparkleParticlePacket;
 import com.sammy.malum.common.spiritrite.*;
 import net.minecraft.server.level.*;
 import net.minecraft.world.item.*;
+import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.*;
-import net.minecraftforge.network.*;
+import net.neoforged.neoforge.network.PacketDistributor;
 
-import static com.sammy.malum.registry.common.PacketRegistry.*;
 import static com.sammy.malum.registry.common.SpiritTypeRegistry.*;
 
 public class EldritchEarthenRiteType extends TotemicRiteType {
@@ -29,7 +29,7 @@ public class EldritchEarthenRiteType extends TotemicRiteType {
                         level.destroyBlock(p, true);
                         state.getBlock().spawnAfterBreak(state, level, p, ItemStack.EMPTY, true);
 
-                        MALUM_CHANNEL.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(p)), new BlockSparkleParticlePacket(EARTHEN_SPIRIT.getPrimaryColor(), p));
+                        PacketDistributor.sendToPlayersTrackingChunk(level, new ChunkPos(p), new BlockSparkleParticlePacket(EARTHEN_SPIRIT.getPrimaryColor(), p));
                     }
                 });
             }
@@ -49,7 +49,7 @@ public class EldritchEarthenRiteType extends TotemicRiteType {
                         BlockState cobblestone = Blocks.COBBLESTONE.defaultBlockState();
                         level.setBlockAndUpdate(p, cobblestone);
                         level.levelEvent(2001, p, Block.getId(cobblestone));
-                        MALUM_CHANNEL.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(p)), new BlockSparkleParticlePacket(EARTHEN_SPIRIT.getPrimaryColor(), p));
+                        PacketDistributor.sendToPlayersTrackingChunk(level, new ChunkPos(p), new BlockSparkleParticlePacket(EARTHEN_SPIRIT.getPrimaryColor(), p));
                     }
                 });
             }

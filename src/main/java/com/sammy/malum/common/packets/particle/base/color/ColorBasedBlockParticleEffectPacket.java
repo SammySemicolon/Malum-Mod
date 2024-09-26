@@ -9,6 +9,11 @@ import java.awt.*;
 public abstract class ColorBasedBlockParticleEffectPacket extends BlockBasedParticleEffectPacket {
     protected final Color color;
 
+    public ColorBasedBlockParticleEffectPacket(Color color, BlockPos pos) {
+        super(pos);
+        this.color = color;
+    }
+
     public ColorBasedBlockParticleEffectPacket(FriendlyByteBuf buf) {
         super(buf);
         this.color =  new Color(buf.readInt(), buf.readInt(), buf.readInt());

@@ -1,20 +1,20 @@
 package com.sammy.malum.common.spiritrite.eldritch;
 
 import com.sammy.malum.common.block.curiosities.totem.*;
-import com.sammy.malum.common.packets.particle.curiosities.rite.*;
-import com.sammy.malum.common.packets.particle.curiosities.rite.generic.*;
+import com.sammy.malum.common.packets.particle.rite.SacredMistRiteEffectPacket;
+import com.sammy.malum.common.packets.particle.rite.generic.MajorEntityEffectParticlePacket;
 import com.sammy.malum.common.spiritrite.*;
 import net.minecraft.core.*;
 import net.minecraft.server.level.*;
 import net.minecraft.world.entity.animal.*;
+import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.*;
-import net.minecraftforge.network.*;
+import net.neoforged.neoforge.network.PacketDistributor;
 
 import java.util.*;
 import java.util.stream.*;
 
-import static com.sammy.malum.registry.common.PacketRegistry.*;
 import static com.sammy.malum.registry.common.SpiritTypeRegistry.*;
 
 public class EldritchSacredRiteType extends TotemicRiteType {
@@ -49,13 +49,13 @@ public class EldritchSacredRiteType extends TotemicRiteType {
                                 state.randomTick(level, p, level.random);
                             }
                         }
-                        else if (block instanceof BonemealableBlock bonemealableBlock && bonemealableBlock.isValidBonemealTarget(level, p, state, false)) {
+                        else if (block instanceof BonemealableBlock bonemealableBlock && bonemealableBlock.isValidBonemealTarget(level, p, state)) {
                             if (bonemealableBlock.isBonemealSuccess(level, level.random, p, state)) {
                                 bonemealableBlock.performBonemeal(level, level.random, p, state);
                             }
                         }
                         BlockPos particlePos = state.canOcclude() ? p : p.below();
-                        MALUM_CHANNEL.send(PacketDistributor.TRACKING_CHUNK.with(() -> level.getChunkAt(pos)), new SacredMistRiteEffectPacket(List.of(SACRED_SPIRIT.identifier), particlePos));
+                        PacketDistributor.sendToPlayersTrackingChunk(level, new ChunkPos(pos), new SacredMistRiteEffectPacket(List.of(SACRED_SPIRIT.getIdentifier()), particlePos));
                     }
                 });
             }
@@ -79,7 +79,7 @@ public class EldritchSacredRiteType extends TotemicRiteType {
                         if (e.canFallInLove() && e.getAge() == 0) {
                             if (level.random.nextFloat() <= 0.2f) {
                                 e.setInLoveTime(600);
-                                MALUM_CHANNEL.send(PacketDistributor.TRACKING_ENTITY.with(() -> e), new MajorEntityEffectParticlePacket(SACRED_SPIRIT.getPrimaryColor(), e.getX(), e.getY() + e.getBbHeight() / 2f, e.getZ()));
+                                PacketDistributor.sendToPlayersTrackingEntity(e, new MajorEntityEffectParticlePacket(SACRED_SPIRIT.getPrimaryColor(), e.getX(), e.getY() + e.getBbHeight() / 2f, e.getZ()));
                             }
                         }
                     });

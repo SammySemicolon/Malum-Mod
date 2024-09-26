@@ -3,7 +3,6 @@ package com.sammy.malum.data;
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.common.block.curiosities.spirit_crucible.*;
 import com.sammy.malum.common.block.ether.EtherWallTorchBlock;
-import com.sammy.malum.common.effect.aura.EarthenAura;
 import com.sammy.malum.common.item.spirit.SpiritJarItem;
 import com.sammy.malum.common.spiritrite.*;
 import com.sammy.malum.core.systems.ritual.*;
@@ -20,13 +19,11 @@ import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemNameBlockItem;
 import net.minecraft.world.item.enchantment.Enchantment;
-import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.WallSignBlock;
 import net.minecraft.world.level.block.WallTorchBlock;
 import net.neoforged.neoforge.common.data.LanguageProvider;
 import net.neoforged.neoforge.registries.DeferredHolder;
-import net.neoforged.neoforge.registries.NeoForgeRegistries;
 import team.lodestar.lodestone.helpers.DataHelper;
 
 import java.util.*;
@@ -110,7 +107,7 @@ public class MalumLang extends LanguageProvider {
             add("entity.malum." + BuiltInRegistries.ENTITY_TYPE.getKey(e.get()).getPath(), name);
         });
 
-        spirits.forEach(s -> add(s.getSpiritDescription(), DataHelper.toTitleCase(s.identifier + "_spirit", "_")));
+        spirits.forEach(s -> add(s.getSpiritDescription(), DataHelper.toTitleCase(s.getIdentifier() + "_spirit", "_")));
 
         for (CrucibleTuning.CrucibleAttributeType value : CrucibleTuning.CrucibleAttributeType.values()) {
             if (value.equals(CrucibleTuning.CrucibleAttributeType.NONE)) {
