@@ -13,7 +13,8 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.phys.*;
-import net.minecraftforge.api.distmarker.*;
+import net.neoforged.api.distmarker.*;
+import net.neoforged.neoforge.registries.*;
 import team.lodestar.lodestone.handlers.*;
 import team.lodestar.lodestone.helpers.*;
 import team.lodestar.lodestone.systems.easing.*;
@@ -41,10 +42,9 @@ public class DrainingBoltEntity extends AbstractBoltProjectileEntity {
 
     @Override
     public void onDealDamage(LivingEntity target) {
-        MobEffect silenced = MobEffectRegistry.SILENCED.get();
-        MobEffectInstance effect = target.getEffect(silenced);
+        var effect = target.getEffect(MobEffectRegistry.SILENCED);
         if (effect == null) {
-            target.addEffect(new MobEffectInstance(silenced, 300, 0, true, true, true));
+            target.addEffect(new MobEffectInstance(MobEffectRegistry.SILENCED, 300, 0, true, true, true));
         } else {
             EntityHelper.amplifyEffect(effect, target, 1, 9);
             EntityHelper.extendEffect(effect, target, 30, 600);

@@ -39,7 +39,6 @@ public abstract class ArmorSkin {
     }
 
     public static ArmorSkin getAppliedItemSkin(ItemStack stack) {
-        return stack.get()
         return stack.hasTag() ? ArmorSkinRegistry.SKINS.get(stack.getTag().getString(MALUM_SKIN_TAG)) : null;
     }
 

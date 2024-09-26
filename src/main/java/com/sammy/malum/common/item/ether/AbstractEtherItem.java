@@ -6,7 +6,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 import team.lodestar.lodestone.handlers.screenparticle.ParticleEmitterHandler;
 
-public abstract class AbstractEtherItem extends BlockItem implements DyeableLeatherItem, ParticleEmitterHandler.ItemParticleSupplier {
+public abstract class AbstractEtherItem extends BlockItem implements ParticleEmitterHandler.ItemParticleSupplier {
     public static final String FIRST_COLOR = "firstColor";
     public static final String SECOND_COLOR = "secondColor";
     public static final int DEFAULT_FIRST_COLOR = 15712278;

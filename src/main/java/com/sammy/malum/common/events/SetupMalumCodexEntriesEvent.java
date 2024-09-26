@@ -1,6 +1,7 @@
 package com.sammy.malum.common.events;
 
-import net.minecraftforge.eventbus.api.Event;
+
+import net.neoforged.bus.api.*;
 
 /**
  * Called when the book is opened for the first time per minecraft client instance, prior to setting up book objects.
@@ -10,8 +11,4 @@ public class SetupMalumCodexEntriesEvent extends Event {
     public SetupMalumCodexEntriesEvent() {
     }
 
-    @Override
-    public boolean isCancelable() {
-        return false;
-    }
 }

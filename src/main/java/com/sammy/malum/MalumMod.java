@@ -3,6 +3,7 @@ package com.sammy.malum;
 import com.sammy.malum.compability.farmersdelight.*;
 import com.sammy.malum.compability.tetra.*;
 import com.sammy.malum.config.*;
+import com.sammy.malum.registry.common.*;
 import com.sammy.malum.registry.common.item.tabs.*;
 import net.minecraft.resources.*;
 import net.minecraft.util.*;
@@ -20,7 +21,6 @@ import static com.sammy.malum.registry.common.SoundRegistry.*;
 import static com.sammy.malum.registry.common.block.BlockEntityRegistry.*;
 import static com.sammy.malum.registry.common.block.BlockRegistry.*;
 import static com.sammy.malum.registry.common.entity.EntityRegistry.*;
-import static com.sammy.malum.registry.common.item.EnchantmentRegistry.*;
 import static com.sammy.malum.registry.common.item.ItemRegistry.*;
 import static com.sammy.malum.registry.common.item.tabs.CreativeTabRegistry.*;
 import static com.sammy.malum.registry.common.recipe.RecipeSerializerRegistry.*;
@@ -41,7 +41,6 @@ public class MalumMod {
         ModLoadingContext.get().getActiveContainer().registerConfig(ModConfig.Type.CLIENT, ClientConfig.SPEC);
         ModLoadingContext.get().getActiveContainer().registerConfig(ModConfig.Type.COMMON, CommonConfig.SPEC);
 
-        ENCHANTMENTS.register(modBus);
         BLOCKS.register(modBus);
         BLOCK_ENTITY_TYPES.register(modBus);
         ITEMS.register(modBus);

@@ -5,6 +5,7 @@ import com.sammy.malum.common.item.*;
 import com.sammy.malum.registry.common.*;
 import com.sammy.malum.registry.common.entity.*;
 import com.sammy.malum.visual_effects.*;
+import net.minecraft.network.syncher.*;
 import net.minecraft.sounds.*;
 import net.minecraft.util.*;
 import net.minecraft.world.entity.ai.attributes.*;
@@ -31,7 +32,7 @@ public class SpiritCollectionActivatorEntity extends FloatingEntity {
 
     @Override
     public void collect() {
-        AttributeInstance instance = owner.getAttribute(AttributeRegistry.ARCANE_RESONANCE.get());
+        AttributeInstance instance = owner.getAttribute(AttributeRegistry.ARCANE_RESONANCE);
         ItemHelper.getEventResponders(owner).forEach(s -> {
             if (s.getItem() instanceof IMalumEventResponderItem eventItem) {
                 eventItem.pickupSpirit(owner, instance != null ? instance.getValue() : 0);
@@ -61,7 +62,7 @@ public class SpiritCollectionActivatorEntity extends FloatingEntity {
     }
 
     @Override
-    protected void defineSynchedData() {
+    protected void defineSynchedData(SynchedEntityData.Builder builder) {
 
     }
 }

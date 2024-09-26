@@ -5,7 +5,9 @@ import com.sammy.malum.registry.common.*;
 import com.sammy.malum.registry.common.entity.*;
 import com.sammy.malum.registry.common.item.*;
 import net.minecraft.core.particles.*;
+import net.minecraft.core.registries.*;
 import net.minecraft.nbt.*;
+import net.minecraft.server.level.*;
 import net.minecraft.sounds.*;
 import net.minecraft.util.*;
 import net.minecraft.world.damagesource.*;
@@ -17,7 +19,7 @@ import net.minecraft.world.item.*;
 import net.minecraft.world.item.enchantment.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.phys.*;
-import net.minecraftforge.items.*;
+import net.neoforged.neoforge.items.*;
 import team.lodestar.lodestone.helpers.*;
 
 import java.util.*;
@@ -96,18 +98,14 @@ public class ScytheBoomerangEntity extends ThrowableItemProjectile {
 
     @Override
     protected void onHitEntity(EntityHitResult result) {
-        if (getOwner() instanceof LivingEntity scytheOwner && !level().isClientSide) {
+        if (getOwner() instanceof LivingEntity scytheOwner && level() instanceof ServerLevel level) {
             Entity target = result.getEntity();
             DamageSource source = target.damageSources().mobProjectile(this, scytheOwner);
             boolean success = target.hurt(source, damage);
             if (success && target instanceof LivingEntity livingentity) {
                 ItemStack scythe = getItem();
-                scythe.hurtAndBreak(1, scytheOwner, (e) -> remove(RemovalReason.KILLED));
-                ItemHelper.applyEnchantments(scytheOwner, livingentity, scythe);
-                int i = EnchantmentHelper.getItemEnchantmentLevel(Enchantments.FIRE_ASPECT, scythe);
-                if (i > 0) {
-                    livingentity.setSecondsOnFire(i * 4);
-                }
+                scythe.hurtAndBreak(1, level, scytheOwner, (e) -> remove(RemovalReason.KILLED));
+                ItemHelper.applyEnchantments(scytheOwner, livingentity, source, scythe);
                 if (magicDamage > 0) {
                     if (!livingentity.isDeadOrDying()) {
                         livingentity.invulnerableTime = 0;
@@ -126,11 +124,11 @@ public class ScytheBoomerangEntity extends ThrowableItemProjectile {
     public void tick() {
         super.tick();
         age++;
-        ItemStack scythe = getItem();
-        final Level level = level();
+        var scythe = getItem();
+        var level = level();
         if (level.isClientSide) {
             if (!isInWaterRainOrBubble()) {
-                if (getItem().getEnchantmentLevel(Enchantments.FIRE_ASPECT) > 0) {
+                if (getItem().getEnchantmentLevel(level.holderLookup(Registries.ENCHANTMENT).getOrThrow(Enchantments.FIRE_ASPECT)) > 0) {
                     Vec3 vector = new Vec3(getRandomX(0.7), getRandomY(), getRandomZ(0.7));
                     if (scythe.getItem() instanceof MalumScytheItem) {
                         Random random = new Random();
@@ -175,7 +173,7 @@ public class ScytheBoomerangEntity extends ThrowableItemProjectile {
                         if (scytheOwner instanceof Player player) {
                             ItemHandlerHelper.giveItemToPlayer(player, scythe, slot);
                             if (!player.isCreative()) {
-                                int enchantmentLevel = EnchantmentHelper.getItemEnchantmentLevel(EnchantmentRegistry.REBOUND.get(), scythe);
+                                int enchantmentLevel = EnchantmentHelper.getItemEnchantmentLevel(level.holderLookup(Registries.ENCHANTMENT).getOrThrow(EnchantmentRegistry.REBOUND), scythe);
                                 if (enchantmentLevel < 4) {
                                     int cooldown = 100 - 25 * (enchantmentLevel - 1);
                                     if (cooldown > 0) {
@@ -222,7 +220,7 @@ public class ScytheBoomerangEntity extends ThrowableItemProjectile {
     }
 
     @Override
-    public boolean ignoreExplosion() {
+    public boolean ignoreExplosion(Explosion explosion) {
         return true;
     }
 }
