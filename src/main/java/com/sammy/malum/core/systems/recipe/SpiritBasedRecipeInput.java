@@ -37,11 +37,15 @@ public class SpiritBasedRecipeInput implements RecipeInput {
     public boolean test(SizedIngredient mainIngredient, List<SizedIngredient> extraIngredients, List<SpiritIngredient> spirits) {
         final List<SizedIngredient> ingredients = new ArrayList<>(List.of(mainIngredient));
         ingredients.addAll(extraIngredients);
-        return testItems(ingredients) && testSpirits(spirits);
+        return test(ingredients, spirits);
+    }
+
+    public boolean test(SizedIngredient ingredient, SpiritIngredient spirit) {
+        return test(ingredient, List.of(spirit));
     }
 
     public boolean test(SizedIngredient ingredient, List<SpiritIngredient> spirits) {
-        return testItems(List.of(ingredient)) && testSpirits(spirits);
+        return test(List.of(ingredient), spirits);
     }
 
     public boolean test(List<SizedIngredient> ingredients, List<SpiritIngredient> spirits) {

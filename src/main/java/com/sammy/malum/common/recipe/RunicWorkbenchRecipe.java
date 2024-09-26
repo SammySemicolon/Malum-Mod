@@ -2,24 +2,27 @@ package com.sammy.malum.common.recipe;
 
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import com.sammy.malum.*;
 import com.sammy.malum.core.systems.recipe.*;
 import com.sammy.malum.registry.common.recipe.*;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.resources.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.*;
+import net.neoforged.neoforge.common.crafting.*;
 
-public class RunicWorkbenchRecipe extends LodestoneInWorldRecipe<RunicWorkbenchRecipe.Input> {
+public class RunicWorkbenchRecipe extends LodestoneInWorldRecipe<SpiritBasedRecipeInput> {
     public static final String NAME = "runeworking";
 
-    public final ItemStack primaryInput;
-    public final ItemStack secondaryInput;
+    public final SizedIngredient primaryInput;
+    public final SpiritIngredient secondaryInput;
     public final ItemStack output;
 
-    public RunicWorkbenchRecipe(ItemStack primaryInput, ItemStack secondaryInput, ItemStack output) {
+    public RunicWorkbenchRecipe(SizedIngredient primaryInput, SpiritIngredient secondaryInput, ItemStack output) {
         super(RecipeSerializerRegistry.RUNEWORKING_RECIPE_SERIALIZER.get(), RecipeTypeRegistry.RUNEWORKING.get());
         this.primaryInput = primaryInput;
         this.secondaryInput = secondaryInput;
@@ -27,15 +30,12 @@ public class RunicWorkbenchRecipe extends LodestoneInWorldRecipe<RunicWorkbenchR
     }
 
     @Override
-    public boolean matches(Input input, Level level) {
-        return input.primaryInput.is(primaryInput.getItem())
-                && input.primaryInput.getCount() >= primaryInput.getCount()
-                && input.secondaryInput.is(secondaryInput.getItem())
-                && input.secondaryInput.getCount() >= secondaryInput.getCount();
+    public boolean matches(SpiritBasedRecipeInput input, Level level) {
+        return input.test(primaryInput, secondaryInput);
     }
 
     @Override
-    public ItemStack assemble(Input input, HolderLookup.Provider registries) {
+    public ItemStack assemble(SpiritBasedRecipeInput input, HolderLookup.Provider registries) {
         return this.output.copy();
     }
 
@@ -44,26 +44,11 @@ public class RunicWorkbenchRecipe extends LodestoneInWorldRecipe<RunicWorkbenchR
         return this.output;
     }
 
-    public record Input(ItemStack primaryInput, ItemStack secondaryInput) implements RecipeInput {
-
-        @Override
-        public ItemStack getItem(int index) {
-            return switch (index) {
-                case 0 -> this.primaryInput;
-                case 1 -> this.secondaryInput;
-                default -> throw new IllegalArgumentException("Recipe does not contain slot " + index);
-            };
-        }
-
-        @Override
-        public int size() { return 2; }
-    }
-
     public static class Serializer implements RecipeSerializer<RunicWorkbenchRecipe> {
 
         public static final MapCodec<RunicWorkbenchRecipe> CODEC = RecordCodecBuilder.mapCodec(obj -> obj.group(
-                ItemStack.CODEC.fieldOf("primaryInput").forGetter(recipe -> recipe.primaryInput),
-                ItemStack.CODEC.fieldOf("secondaryInput").forGetter(recipe -> recipe.secondaryInput),
+                SizedIngredient.FLAT_CODEC.fieldOf("primaryInput").forGetter(recipe -> recipe.primaryInput),
+                SpiritIngredient.CODEC.fieldOf("secondaryInput").forGetter(recipe -> recipe.secondaryInput),
                 ItemStack.CODEC.fieldOf("result").forGetter(recipe -> recipe.output)
         ).apply(obj, RunicWorkbenchRecipe::new));
 

@@ -16,14 +16,14 @@ public class RecipeTypeRegistry {
 
     public static final DeferredRegister<RecipeType<?>> RECIPE_TYPES = DeferredRegister.create(BuiltInRegistries.RECIPE_TYPE, MalumMod.MALUM);
 
-    public static final DeferredHolder<RecipeType<?>, LodestoneRecipeType<SingleRecipeInput, FavorOfTheVoidRecipe>> VOID_FAVOR = registerRecipeType(FavorOfTheVoidRecipe.NAME);
-    public static final DeferredHolder<RecipeType<?>, LodestoneRecipeType<SpiritBasedRecipeInput, SpiritInfusionRecipe>> SPIRIT_INFUSION = registerRecipeType(SpiritInfusionRecipe.NAME);
-    public static final DeferredHolder<RecipeType<?>, LodestoneRecipeType<SpiritBasedRecipeInput>> RUNEWORKING = registerRecipeType(RunicWorkbenchRecipe.NAME);
-    public static final DeferredHolder<RecipeType<?>, LodestoneRecipeType<SpiritBasedRecipeInput, SpiritFocusingRecipe>> SPIRIT_FOCUSING = registerRecipeType(SpiritFocusingRecipe.NAME);
-    public static final DeferredHolder<RecipeType<?>, LodestoneRecipeType<SingleRecipeInput>> SPIRIT_TRANSMUTATION = registerRecipeType(SpiritTransmutationRecipe.NAME);
-    public static final DeferredHolder<RecipeType<?>, LodestoneRecipeType<SpiritBasedRecipeInput>> SPIRIT_REPAIR = registerRecipeType(SpiritRepairRecipe.NAME);
+    public static final DeferredHolder<RecipeType<?>, LodestoneRecipeType<FavorOfTheVoidRecipe>> VOID_FAVOR = registerRecipeType(FavorOfTheVoidRecipe.NAME);
+    public static final DeferredHolder<RecipeType<?>, LodestoneRecipeType<SpiritInfusionRecipe>> SPIRIT_INFUSION = registerRecipeType(SpiritInfusionRecipe.NAME);
+    public static final DeferredHolder<RecipeType<?>, LodestoneRecipeType<RunicWorkbenchRecipe>> RUNEWORKING = registerRecipeType(RunicWorkbenchRecipe.NAME);
+    public static final DeferredHolder<RecipeType<?>, LodestoneRecipeType<SpiritFocusingRecipe>> SPIRIT_FOCUSING = registerRecipeType(SpiritFocusingRecipe.NAME);
+    public static final DeferredHolder<RecipeType<?>, LodestoneRecipeType<SpiritTransmutationRecipe>> SPIRIT_TRANSMUTATION = registerRecipeType(SpiritTransmutationRecipe.NAME);
+    public static final DeferredHolder<RecipeType<?>, LodestoneRecipeType<SpiritRepairRecipe>> SPIRIT_REPAIR = registerRecipeType(SpiritRepairRecipe.NAME);
 
-    public static <T extends RecipeInput, K extends Recipe<T>> DeferredHolder<RecipeType<?>, LodestoneRecipeType<T, K>> registerRecipeType(ResourceLocation identifier) {
-        return RECIPE_TYPES.register(identifier.getPath(), () -> new LodestoneRecipeType<>(identifier));
+    public static <T extends Recipe<?>> DeferredHolder<RecipeType<?>, LodestoneRecipeType<T>> registerRecipeType(String identifier) {
+        return RECIPE_TYPES.register(identifier, () -> new LodestoneRecipeType<>(MalumMod.malumPath(identifier)));
     }
 }

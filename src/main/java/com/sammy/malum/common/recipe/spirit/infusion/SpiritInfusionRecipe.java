@@ -16,7 +16,7 @@ import net.neoforged.neoforge.common.crafting.SizedIngredient;
 import java.util.*;
 
 public class SpiritInfusionRecipe extends LodestoneInWorldRecipe<SpiritBasedRecipeInput>  {
-    public static final ResourceLocation NAME = MalumMod.malumPath("spirit_infusion");
+    public static final String NAME = "spirit_infusion";
 
     public final SizedIngredient ingredient;
     public final ItemStack output;

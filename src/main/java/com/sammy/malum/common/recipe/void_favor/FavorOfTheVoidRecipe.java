@@ -14,7 +14,7 @@ import net.minecraft.world.level.*;
 
 public class FavorOfTheVoidRecipe extends LodestoneInWorldRecipe<SingleRecipeInput> {
 
-    public static final ResourceLocation NAME = MalumMod.malumPath("malum:favor_of_the_void");
+    public static final String NAME = "malum:favor_of_the_void";
 
     public final Ingredient ingredient;
 

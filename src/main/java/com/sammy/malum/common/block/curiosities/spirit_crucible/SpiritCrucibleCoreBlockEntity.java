@@ -17,6 +17,7 @@ import com.sammy.malum.visual_effects.*;
 import com.sammy.malum.visual_effects.networked.data.*;
 import net.minecraft.core.*;
 import net.minecraft.nbt.*;
+import net.minecraft.sounds.*;
 import net.minecraft.util.*;
 import net.minecraft.world.*;
 import net.minecraft.world.entity.item.*;
@@ -222,7 +223,7 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity implemen
         if (level.isClientSide && recipe == null) {
             CrucibleSoundInstance.playSound(this);
         }
-        recipe = RecipeTypeRegistry.SPIRIT_FOCUSING.get().getRecipe(level, new SpiritBasedRecipeInput(inventory.getStackInSlot(0), spiritInventory.nonEmptyItemStacks));
+        recipe = LodestoneRecipeType.getRecipe(level, RecipeTypeRegistry.SPIRIT_FOCUSING.get(), new SpiritBasedRecipeInput(inventory.getStackInSlot(0), spiritInventory.nonEmptyItemStacks));
     }
 
     @Override
@@ -322,7 +323,7 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity implemen
             }
             bonusYieldChance-=1;
         }
-        recipe = RecipeTypeRegistry.SPIRIT_FOCUSING.get().getRecipe(level, new SpiritBasedRecipeInput(stack, spiritInventory.nonEmptyItemStacks));
+        recipe = LodestoneRecipeType.getRecipe(level, RecipeTypeRegistry.SPIRIT_FOCUSING.get(), new SpiritBasedRecipeInput(inventory.getStackInSlot(0), spiritInventory.nonEmptyItemStacks));
         BlockHelper.updateAndNotifyState(level, worldPosition);
     }
 

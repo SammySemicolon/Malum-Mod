@@ -13,7 +13,7 @@ import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.*;
 
 public class SpiritTransmutationRecipe extends LodestoneInWorldRecipe<SingleRecipeInput> {
-    public static final ResourceLocation NAME = MalumMod.malumPath("spirit_transmutation");
+    public static final String NAME = "spirit_transmutation";
 
     public final Ingredient ingredient;
 
@@ -53,6 +53,6 @@ public class SpiritTransmutationRecipe extends LodestoneInWorldRecipe<SingleReci
 
     @SuppressWarnings("unchecked")
     public static SpiritTransmutationRecipe getRecipe(Level level, ItemStack stack) {
-        return level.getRecipeManager().getRecipeFor((RecipeType<SpiritTransmutationRecipe>) RecipeTypeRegistry.SPIRIT_TRANSMUTATION.get(), new SingleRecipeInput(stack), level).get().value();
+        return level.getRecipeManager().getRecipeFor(RecipeTypeRegistry.SPIRIT_TRANSMUTATION.get(), new SingleRecipeInput(stack), level).get().value();
     }
 }

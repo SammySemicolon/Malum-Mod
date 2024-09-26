@@ -17,7 +17,7 @@ import java.util.*;
 
 public class SpiritFocusingRecipe extends LodestoneInWorldRecipe<SpiritBasedRecipeInput> {
 
-    public static final ResourceLocation NAME = MalumMod.malumPath("spirit_focusing");
+    public static final String NAME = "spirit_focusing";
 
     public final int time;
     public final int durabilityCost;
