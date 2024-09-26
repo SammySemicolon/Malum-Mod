@@ -23,6 +23,7 @@ import net.minecraft.world.*;
 import net.minecraft.world.entity.item.*;
 import net.minecraft.world.entity.player.*;
 import net.minecraft.world.item.*;
+import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.entity.*;
 import net.minecraft.world.level.block.state.*;
 import net.minecraft.world.phys.*;
@@ -153,6 +154,42 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity implemen
         coreAugmentInventory.load(pRegistries, compound, "coreAugmentInventory");
 
         super.loadAdditional(compound, pRegistries);
+    }
+
+    @Override
+    public ItemInteractionResult onUseWithItem(Player pPlayer, ItemStack pStack, InteractionHand pHand) {
+        if (pHand.equals(InteractionHand.MAIN_HAND)) {
+            var item = pStack.getItem();
+            var level = pPlayer.level();
+            if (item.equals(ItemRegistry.TUNING_FORK.get())) {
+                tuningType = tuningType.next(tuningType, this);
+                level.playSound(null, worldPosition, SoundRegistry.TUNING_FORK_TINKERS.get(), SoundSource.BLOCKS, 1.25f + level.random.nextFloat() * 0.5f, 0.75f + level.random.nextFloat() * 0.5f);
+                recalibrateAccelerators(level, worldPosition);
+                BlockHelper.updateAndNotifyState(level, worldPosition);
+                return ItemInteractionResult.SUCCESS;
+            }
+            final boolean augmentOnly = item instanceof AbstractAugmentItem;
+            final boolean isEmpty = pStack.isEmpty();
+            if (augmentOnly || (isEmpty && inventory.isEmpty() && spiritInventory.isEmpty())) {
+                final boolean isCoreAugment = item instanceof AbstractCoreAugmentItem;
+                if ((augmentOnly && !isCoreAugment) || isEmpty) {
+                    ItemStack stack = augmentInventory.interact(level, pPlayer, pHand);
+                    if (!stack.isEmpty()) {
+                        recalibrateAccelerators(this.level, worldPosition);
+                        return InteractionResult.SUCCESS;
+                    }
+                }
+                if ((augmentOnly && isCoreAugment) || isEmpty) {
+                    ItemStack stack = coreAugmentInventory.interact(level, pPlayer, pHand);
+                    if (!stack.isEmpty()) {
+                        recalibrateAccelerators(this.level, worldPosition);
+                        return InteractionResult.SUCCESS;
+                    }
+                }
+            }
+        }
+
+        return super.onUseWithItem(pPlayer, pStack, pHand);
     }
 
     @Override
