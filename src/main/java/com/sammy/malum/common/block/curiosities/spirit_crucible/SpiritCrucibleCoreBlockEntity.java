@@ -158,93 +158,63 @@ public class SpiritCrucibleCoreBlockEntity extends MultiBlockCoreEntity implemen
 
     @Override
     public ItemInteractionResult onUseWithItem(Player pPlayer, ItemStack pStack, InteractionHand pHand) {
+        if (level.isClientSide) {
+            return ItemInteractionResult.CONSUME;
+        }
         if (pHand.equals(InteractionHand.MAIN_HAND)) {
             var item = pStack.getItem();
-            var level = pPlayer.level();
             if (item.equals(ItemRegistry.TUNING_FORK.get())) {
-                tuningType = tuningType.next(tuningType, this);
-                level.playSound(null, worldPosition, SoundRegistry.TUNING_FORK_TINKERS.get(), SoundSource.BLOCKS, 1.25f + level.random.nextFloat() * 0.5f, 0.75f + level.random.nextFloat() * 0.5f);
-                recalibrateAccelerators(level, worldPosition);
-                BlockHelper.updateAndNotifyState(level, worldPosition);
-                return ItemInteractionResult.SUCCESS;
-            }
-            final boolean augmentOnly = item instanceof AbstractAugmentItem;
-            final boolean isEmpty = pStack.isEmpty();
-            if (augmentOnly || (isEmpty && inventory.isEmpty() && spiritInventory.isEmpty())) {
-                final boolean isCoreAugment = item instanceof AbstractCoreAugmentItem;
-                if ((augmentOnly && !isCoreAugment) || isEmpty) {
-                    ItemStack stack = augmentInventory.interact(level, pPlayer, pHand);
-                    if (!stack.isEmpty()) {
-                        recalibrateAccelerators(this.level, worldPosition);
-                        return InteractionResult.SUCCESS;
-                    }
-                }
-                if ((augmentOnly && isCoreAugment) || isEmpty) {
-                    ItemStack stack = coreAugmentInventory.interact(level, pPlayer, pHand);
-                    if (!stack.isEmpty()) {
-                        recalibrateAccelerators(this.level, worldPosition);
-                        return InteractionResult.SUCCESS;
-                    }
-                }
-            }
-        }
-
-        return super.onUseWithItem(pPlayer, pStack, pHand);
-    }
-
-    @Override
-    public InteractionResult onUse(Player player, InteractionHand hand) {
-        if (level.isClientSide) {
-            return InteractionResult.CONSUME;
-        }
-        if (hand.equals(InteractionHand.MAIN_HAND)) {
-            ItemStack heldStack = player.getMainHandItem();
-            if (heldStack.getItem().equals(ItemRegistry.TUNING_FORK.get())) {
                 tuningType = tuningType.next(tuningType, this);
                 recalibrateAccelerators(level, worldPosition);
                 level.playSound(null, worldPosition, SoundRegistry.TUNING_FORK_TINKERS.get(), SoundSource.BLOCKS, 1.25f+level.random.nextFloat()*0.5f, 0.75f+level.random.nextFloat()*0.5f);
                 BlockHelper.updateAndNotifyState(level, worldPosition);
-                return InteractionResult.SUCCESS;
-            }
-            final boolean augmentOnly = heldStack.getItem() instanceof AbstractAugmentItem;
-            final boolean isEmpty = heldStack.isEmpty();
-            if (augmentOnly || (isEmpty && inventory.isEmpty() && spiritInventory.isEmpty())) {
-                final boolean isCoreAugment = heldStack.getItem() instanceof AbstractCoreAugmentItem;
-                if ((augmentOnly && !isCoreAugment) || isEmpty) {
-                    ItemStack stack = augmentInventory.interact(player.level(), player, hand);
-                    if (!stack.isEmpty()) {
-                        recalibrateAccelerators(level, worldPosition);
-                        return InteractionResult.SUCCESS;
-                    }
-                }
-                if ((augmentOnly && isCoreAugment) || isEmpty) {
-                    ItemStack stack = coreAugmentInventory.interact(player.level(), player, hand);
-                    if (!stack.isEmpty()) {
-                        recalibrateAccelerators(level, worldPosition);
-                        return InteractionResult.SUCCESS;
-                    }
-                }
-            }
-            recalibrateAccelerators(level, worldPosition);
-            if (!augmentOnly) {
-                ItemStack spiritStack = spiritInventory.interact(level, player, hand);
-                if (!spiritStack.isEmpty()) {
-                    return InteractionResult.SUCCESS;
-                }
-                if (!(heldStack.getItem() instanceof SpiritShardItem)) {
-                    ItemStack stack = inventory.interact(level, player, hand);
-                    if (!stack.isEmpty()) {
-                        return InteractionResult.SUCCESS;
-                    }
-                }
-            }
-            if (isEmpty) {
-                return InteractionResult.SUCCESS;
-            } else {
-                return InteractionResult.FAIL;
+                return ItemInteractionResult.SUCCESS;
             }
         }
-        return super.onUse(player, hand);
+        return super.onUseWithItem(pPlayer, pStack, pHand);
+    }
+
+    @Override
+    public ItemInteractionResult onUse(Player pPlayer, InteractionHand pHand) {
+        var heldStack = pPlayer.getItemInHand(pHand);
+        var item = heldStack.getItem();
+        final boolean augmentOnly = item instanceof AbstractAugmentItem;
+        final boolean isEmpty = heldStack.isEmpty();
+        if (augmentOnly || (isEmpty && inventory.isEmpty() && spiritInventory.isEmpty())) {
+            final boolean isCoreAugment = item instanceof AbstractCoreAugmentItem;
+            if ((augmentOnly && !isCoreAugment) || isEmpty) {
+                var stack = augmentInventory.interact(level, pPlayer, pHand);
+                if (!stack.isEmpty()) {
+                    recalibrateAccelerators(level, worldPosition);
+                    return ItemInteractionResult.SUCCESS;
+                }
+            }
+            if ((augmentOnly && isCoreAugment) || isEmpty) {
+                var stack = coreAugmentInventory.interact(level, pPlayer, pHand);
+                if (!stack.isEmpty()) {
+                    recalibrateAccelerators(level, worldPosition);
+                    return ItemInteractionResult.SUCCESS;
+                }
+            }
+        }
+        recalibrateAccelerators(level, worldPosition);
+        if (!augmentOnly) {
+            var spiritStack = spiritInventory.interact(level, pPlayer, pHand);
+            if (!spiritStack.isEmpty()) {
+                return ItemInteractionResult.SUCCESS;
+            }
+            if (!(item instanceof SpiritShardItem)) {
+                ItemStack stack = inventory.interact(level, pPlayer, pHand);
+                if (!stack.isEmpty()) {
+                    return ItemInteractionResult.SUCCESS;
+                }
+            }
+        }
+        if (isEmpty) {
+            return ItemInteractionResult.SUCCESS;
+        } else {
+            return ItemInteractionResult.FAIL;
+        }
     }
 
     @Override
