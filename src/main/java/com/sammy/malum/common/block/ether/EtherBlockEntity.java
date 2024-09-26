@@ -49,25 +49,25 @@ public class EtherBlockEntity extends LodestoneBlockEntity {
     }
 
     @Override
-    public void load(CompoundTag compound) {
-        setFirstColor(compound.contains("firstColor") ? compound.getInt("firstColor") : EtherItem.DEFAULT_FIRST_COLOR);
+    protected void loadAdditional(CompoundTag compound, HolderLookup.Provider registries) {
+        setFirstColor(compound.contains("firstColor") ? compound.getInt("firstColor") : EtherItem.DEFAULT_FIRST_COLOR.rgb());
         if (getBlockState().getBlock().asItem() instanceof AbstractEtherItem etherItem && etherItem.iridescent) {
-            setSecondColor(compound.contains("secondColor") ? compound.getInt("secondColor") : EtherItem.DEFAULT_SECOND_COLOR);
+            setSecondColor(compound.contains("secondColor") ? compound.getInt("secondColor") : EtherItem.DEFAULT_SECOND_COLOR.rgb());
         }
-        super.load(compound);
+        super.loadAdditional(compound, registries);
     }
 
     @Override
-    protected void saveAdditional(CompoundTag compound) {
+    protected void saveAdditional(CompoundTag compound, HolderLookup.Provider registries) {
         if (firstColor != null) {
             compound.putInt("firstColor", firstColor.getRGB());
         }
         if (getBlockState().getBlock().asItem() instanceof AbstractEtherItem etherItem && etherItem.iridescent) {
-            if (secondColor != null && secondColor.getRGB() != EtherItem.DEFAULT_SECOND_COLOR) {
+            if (secondColor != null && secondColor.getRGB() != EtherItem.DEFAULT_SECOND_COLOR.rgb()) {
                 compound.putInt("secondColor", secondColor.getRGB());
             }
         }
-        super.saveAdditional(compound);
+        super.saveAdditional(compound, registries);
     }
 
     @Override

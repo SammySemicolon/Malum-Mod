@@ -38,7 +38,7 @@ public class SpiritTransmutationRecipe extends LodestoneInWorldRecipe<SingleReci
         ).apply(obj, SpiritTransmutationRecipe::new));
 
         public static final StreamCodec<RegistryFriendlyByteBuf, SpiritTransmutationRecipe> STREAM_CODEC =
-                StreamCodec.of(SpiritTransmutationRecipe.Serializer::toNetwork, SpiritTransmutationRecipe.Serializer::fromNetwork);
+                ByteBufCodecs.fromCodecWithRegistries(CODEC.codec());
 
         @Override
         public MapCodec<SpiritTransmutationRecipe> codec() {
@@ -48,17 +48,6 @@ public class SpiritTransmutationRecipe extends LodestoneInWorldRecipe<SingleReci
         @Override
         public StreamCodec<RegistryFriendlyByteBuf, SpiritTransmutationRecipe> streamCodec() {
             return STREAM_CODEC;
-        }
-
-        public static SpiritTransmutationRecipe fromNetwork(RegistryFriendlyByteBuf buffer) {
-            var input = Ingredient.CONTENTS_STREAM_CODEC.decode(buffer);
-            var output = ItemStack.STREAM_CODEC.decode(buffer);
-            return new SpiritTransmutationRecipe(input, output);
-        }
-
-        public static void toNetwork(RegistryFriendlyByteBuf buffer, SpiritTransmutationRecipe recipe) {
-            Ingredient.CONTENTS_STREAM_CODEC.encode(buffer, recipe.ingredient);
-            ItemStack.STREAM_CODEC.encode(buffer, recipe.output);
         }
     }
 

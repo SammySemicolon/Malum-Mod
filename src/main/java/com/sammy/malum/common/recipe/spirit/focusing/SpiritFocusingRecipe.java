@@ -51,7 +51,7 @@ public class SpiritFocusingRecipe extends LodestoneInWorldRecipe<SpiritBasedReci
         ).apply(obj, SpiritFocusingRecipe::new));
 
         public static final StreamCodec<RegistryFriendlyByteBuf, SpiritFocusingRecipe> STREAM_CODEC =
-                StreamCodec.of(SpiritFocusingRecipe.Serializer::toNetwork, SpiritFocusingRecipe.Serializer::fromNetwork);
+                ByteBufCodecs.fromCodecWithRegistries(CODEC.codec());
 
         @Override
         public MapCodec<SpiritFocusingRecipe> codec() {
@@ -61,33 +61,6 @@ public class SpiritFocusingRecipe extends LodestoneInWorldRecipe<SpiritBasedReci
         @Override
         public StreamCodec<RegistryFriendlyByteBuf, SpiritFocusingRecipe> streamCodec() {
             return STREAM_CODEC;
-        }
-
-        public static SpiritFocusingRecipe fromNetwork(RegistryFriendlyByteBuf buffer) {
-            int time = buffer.readInt();
-            int durabilityCost = buffer.readInt();
-            var ingredient = Ingredient.CONTENTS_STREAM_CODEC.decode(buffer);
-            var output = ItemStack.STREAM_CODEC.decode(buffer);
-            int spiritCount = buffer.readInt();
-            ArrayList<SpiritIngredient> spirits = new ArrayList<>();
-            for (int i = 0; i < spiritCount; i++) {
-                var spirit = Ingredient.CONTENTS_STREAM_CODEC.decode(buffer);
-                if (spirit.getCustomIngredient() instanceof SpiritIngredient spiritIngredient) {
-                    spirits.add(spiritIngredient);
-                }
-            }
-            return new SpiritFocusingRecipe(time, durabilityCost, ingredient, output, spirits);
-        }
-
-        public static void toNetwork(RegistryFriendlyByteBuf buffer, SpiritFocusingRecipe recipe) {
-            buffer.writeInt(recipe.time);
-            buffer.writeInt(recipe.durabilityCost);
-            Ingredient.CONTENTS_STREAM_CODEC.encode(buffer, recipe.ingredient);
-            ItemStack.STREAM_CODEC.encode(buffer, recipe.output);
-            buffer.writeInt(recipe.spirits.size());
-            for (SpiritIngredient spirit : recipe.spirits) {
-                Ingredient.CONTENTS_STREAM_CODEC.encode(buffer, spirit.toVanilla());
-            }
         }
     }
 }

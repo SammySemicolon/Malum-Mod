@@ -2,7 +2,6 @@ package com.sammy.malum.common.item.spirit;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import com.sammy.malum.common.item.IMalumCustomRarityItem;
 import com.sammy.malum.core.systems.ritual.*;
 import com.sammy.malum.core.systems.spirit.*;
 import com.sammy.malum.registry.common.*;
@@ -10,6 +9,8 @@ import com.sammy.malum.registry.common.item.DataComponentRegistry;
 import com.sammy.malum.visual_effects.*;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.client.*;
+import net.minecraft.core.component.DataComponentMap;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.*;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
@@ -26,9 +27,8 @@ import team.lodestar.lodestone.systems.particle.data.spin.*;
 import team.lodestar.lodestone.systems.particle.screen.*;
 
 import java.util.*;
-import java.util.concurrent.atomic.AtomicReference;
 
-public class RitualShardItem extends Item implements ItemParticleSupplier, IMalumCustomRarityItem {
+public class RitualShardItem extends Item implements ItemParticleSupplier {
 
     public static final String RITUAL_TYPE = "stored_ritual";
     public static final String STORED_SPIRITS = "stored_spirits";
@@ -37,14 +37,13 @@ public class RitualShardItem extends Item implements ItemParticleSupplier, IMalu
         super(properties);
     }
 
-    @Override
-    public Rarity getRarity(ItemStack stack) {
-        if (Objects.nonNull(getRitualType(stack))) {
-            //noinspection ConstantConditions
-            return getRitualType(stack).spirit.getItemRarity();
-        }
-        return null;
-    }
+//    @Override
+//    public void readComponent(int stackQuantity, DataComponentMap.Builder mutableMap, ComponentGetter originalSupplier) {
+//        originalSupplier.get(DataComponentRegistry.RITUAL_SHARD_PROPS).ifPresent(props -> {
+//            if (originalSupplier.get(DataComponents.RARITY).isEmpty())
+//                mutableMap.set(DataComponents.RARITY, getRitualType(props).spirit.getItemRarity());
+//        });
+//    }
 
     @Override
     public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
@@ -87,6 +86,10 @@ public class RitualShardItem extends Item implements ItemParticleSupplier, IMalu
                 }
             }
         }
+    }
+
+    public static MalumRitualType getRitualType(Props props) {
+        return RitualRegistry.get(ResourceLocation.parse(props.ritualType()));
     }
 
     public static MalumRitualType getRitualType(ItemStack stack) {

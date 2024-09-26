@@ -39,7 +39,7 @@ public class FavorOfTheVoidRecipe extends LodestoneInWorldRecipe<SingleRecipeInp
         ).apply(obj, FavorOfTheVoidRecipe::new));
 
         public static final StreamCodec<RegistryFriendlyByteBuf, FavorOfTheVoidRecipe> STREAM_CODEC =
-                StreamCodec.of(FavorOfTheVoidRecipe.Serializer::toNetwork, FavorOfTheVoidRecipe.Serializer::fromNetwork);
+                ByteBufCodecs.fromCodecWithRegistries(CODEC.codec());
 
         @Override
         public MapCodec<FavorOfTheVoidRecipe> codec() {
@@ -49,17 +49,6 @@ public class FavorOfTheVoidRecipe extends LodestoneInWorldRecipe<SingleRecipeInp
         @Override
         public StreamCodec<RegistryFriendlyByteBuf, FavorOfTheVoidRecipe> streamCodec() {
             return STREAM_CODEC;
-        }
-
-        public static FavorOfTheVoidRecipe fromNetwork(RegistryFriendlyByteBuf buffer) {
-            var input = Ingredient.CONTENTS_STREAM_CODEC.decode(buffer);
-            var output = ItemStack.STREAM_CODEC.decode(buffer);
-            return new FavorOfTheVoidRecipe(input, output);
-        }
-
-        public static void toNetwork(RegistryFriendlyByteBuf buffer, FavorOfTheVoidRecipe recipe) {
-            Ingredient.CONTENTS_STREAM_CODEC.encode(buffer, recipe.ingredient);
-            ItemStack.STREAM_CODEC.encode(buffer, recipe.output);
         }
     }
 }

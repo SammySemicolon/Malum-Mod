@@ -44,12 +44,12 @@ public class SpiritInfusionRecipe extends LodestoneInWorldRecipe<SpiritBasedReci
                 SizedIngredient.FLAT_CODEC.fieldOf("ingredient").forGetter(recipe -> recipe.ingredient),
                 ItemStack.CODEC.fieldOf("output").forGetter(recipe -> recipe.output),
                 SizedIngredient.FLAT_CODEC.listOf().fieldOf("extraIngredients").forGetter(recipe -> recipe.extraIngredients),
-                SpiritIngredient.CODEC.listOf().fieldOf("spirits").forGetter(recipe -> recipe.spirits),
+                SpiritIngredient.CODEC.codec().listOf().fieldOf("spirits").forGetter(recipe -> recipe.spirits),
                 Codec.BOOL.fieldOf("carryOverComponentData").forGetter(recipe -> recipe.carryOverData)
         ).apply(obj, SpiritInfusionRecipe::new));
 
         public static final StreamCodec<RegistryFriendlyByteBuf, SpiritInfusionRecipe> STREAM_CODEC =
-                StreamCodec.of(SpiritInfusionRecipe.Serializer::toNetwork, SpiritInfusionRecipe.Serializer::fromNetwork);
+                ByteBufCodecs.fromCodecWithRegistries(CODEC.codec());
 
         @Override
         public MapCodec<SpiritInfusionRecipe> codec() {
@@ -59,41 +59,6 @@ public class SpiritInfusionRecipe extends LodestoneInWorldRecipe<SpiritBasedReci
         @Override
         public StreamCodec<RegistryFriendlyByteBuf, SpiritInfusionRecipe> streamCodec() {
             return STREAM_CODEC;
-        }
-
-        public static SpiritInfusionRecipe fromNetwork(RegistryFriendlyByteBuf buffer) {
-            var ingredient = SizedIngredient.STREAM_CODEC.decode(buffer);
-            var output = ItemStack.STREAM_CODEC.decode(buffer);
-
-            int extraIngredientCount = buffer.readInt();
-            ArrayList<SizedIngredient> extraIngredients = new ArrayList<>();
-            for (int i = 0; i < extraIngredientCount; i++) {
-                extraIngredients.add(SizedIngredient.STREAM_CODEC.decode(buffer));
-            }
-
-            int spiritCount = buffer.readInt();
-            ArrayList<SpiritIngredient> spirits = new ArrayList<>();
-            for (int i = 0; i < spiritCount; i++) {
-                var spirit = Ingredient.CONTENTS_STREAM_CODEC.decode(buffer);
-                if (spirit.getCustomIngredient() instanceof SpiritIngredient spiritIngredient) {
-                    spirits.add(spiritIngredient);
-                }
-            }
-            boolean carryOverComponentData = buffer.readBoolean();
-            return new SpiritInfusionRecipe(ingredient, output, extraIngredients, spirits, carryOverComponentData);
-        }
-
-        public static void toNetwork(RegistryFriendlyByteBuf buffer, SpiritInfusionRecipe recipe) {
-            SizedIngredient.STREAM_CODEC.encode(buffer, recipe.ingredient);
-            ItemStack.STREAM_CODEC.encode(buffer, recipe.output);
-            buffer.writeInt(recipe.extraIngredients.size());
-            for (SizedIngredient extraIngredient : recipe.extraIngredients) {
-                SizedIngredient.STREAM_CODEC.encode(buffer, extraIngredient);
-            }
-            buffer.writeInt(recipe.spirits.size());
-            for (SpiritIngredient spirit : recipe.spirits) {
-                Ingredient.CONTENTS_STREAM_CODEC.encode(buffer, spirit.toVanilla());
-            }
         }
     }
 }

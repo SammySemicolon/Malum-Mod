@@ -3,7 +3,6 @@ package com.sammy.malum.common.item.spirit;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.sammy.malum.client.renderer.item.SpiritJarItemRenderer;
-import com.sammy.malum.common.item.IMalumCustomRarityItem;
 import com.sammy.malum.core.handlers.*;
 import com.sammy.malum.core.systems.spirit.MalumSpiritType;
 import com.sammy.malum.registry.common.item.DataComponentRegistry;
@@ -11,24 +10,18 @@ import io.netty.buffer.ByteBuf;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
+import net.minecraft.core.component.DataComponentMap;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
-import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Rarity;
-import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.world.level.Level;
+import net.minecraft.world.item.*;
 import net.minecraft.world.level.block.Block;
 import net.neoforged.neoforge.client.extensions.common.IClientItemExtensions;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
-import java.util.Optional;
-import java.util.concurrent.atomic.AtomicReference;
-import java.util.function.Consumer;
 
-public class SpiritJarItem extends BlockItem implements IMalumCustomRarityItem {
+public class SpiritJarItem extends BlockItem {
     public SpiritJarItem(Block pBlock, Properties pProperties) {
         super(pBlock, pProperties);
     }
@@ -41,15 +34,13 @@ public class SpiritJarItem extends BlockItem implements IMalumCustomRarityItem {
         return super.getDescriptionId(pStack);
     }
 
-    @Override
-    public Rarity getRarity(ItemStack stack) {
-        if (stack.has(DataComponentRegistry.SPIRIT_JAR_CONTENTS)) {
-            return SpiritHarvestHandler.getSpiritType(
-                    stack.get(DataComponentRegistry.SPIRIT_JAR_CONTENTS).spirit()
-            ).getItemRarity();
-        }
-        return null;
-    }
+//    @Override
+//    public void readComponent(int stackQuantity, DataComponentMap.Builder mutableMap, ComponentGetter originalSupplier) {
+//        originalSupplier.get(DataComponentRegistry.SPIRIT_JAR_CONTENTS).ifPresent(contents -> {
+//            if (originalSupplier.get(DataComponents.RARITY).isEmpty())
+//                mutableMap.set(DataComponents.RARITY, SpiritHarvestHandler.getSpiritType(contents.spirit()).getItemRarity());
+//        });
+//    }
 
     @Override
     public void appendHoverText(ItemStack pStack, TooltipContext context, List<Component> pTooltip, TooltipFlag tooltipFlag) {
