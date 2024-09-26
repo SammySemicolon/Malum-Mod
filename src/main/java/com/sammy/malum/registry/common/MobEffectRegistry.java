@@ -21,6 +21,7 @@ import java.util.Map;
 
 @EventBusSubscriber(bus = EventBusSubscriber.Bus.MOD)
 public class MobEffectRegistry {
+
     public static final Map<ResourceLocation, Float> ALCHEMICAL_PROFICIENCY_MAP = new HashMap<>();
     public static final DeferredRegister<MobEffect> EFFECTS = DeferredRegister.create(BuiltInRegistries.MOB_EFFECT, MalumMod.MALUM);
 

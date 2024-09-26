@@ -59,26 +59,6 @@ public class MalumItemTags extends ItemTagsProvider {
         copy(Tags.Blocks.ORES, Tags.Items.ORES);
         copy(Tags.Blocks.STORAGE_BLOCKS, Tags.Items.STORAGE_BLOCKS);
 
-        tag(Tags.Items.GEMS).add(PROCESSED_SOULSTONE.get(), BLAZING_QUARTZ.get());
-        tag(ItemTags.LOGS).addTag(ItemTagRegistry.RUNEWOOD_LOGS).addTag(ItemTagRegistry.SOULWOOD_LOGS);
-        tag(ItemTags.LOGS_THAT_BURN).addTag(ItemTagRegistry.RUNEWOOD_LOGS).addTag(ItemTagRegistry.SOULWOOD_LOGS);
-        tag(Tags.Items.SLIMEBALLS).add(RUNIC_SAPBALL.get(), CURSED_SAPBALL.get());
-        tag(Tags.Items.GEMS_QUARTZ).add(NATURAL_QUARTZ.get());
-        tag(Tags.Items.ORES_QUARTZ).add(NATURAL_QUARTZ_ORE.get(), DEEPSLATE_QUARTZ_ORE.get());
-
-        tag(ItemTags.CREEPER_DROP_MUSIC_DISCS).add(ARCANE_ELEGY.get(), AESTHETICA.get());
-        tag(ItemTagRegistry.ARCANE_ELEGY_COMPONENTS).addTag(ItemTags.CREEPER_DROP_MUSIC_DISCS).remove(ARCANE_ELEGY.get(), AESTHETICA.get());
-
-        tag(ItemTagRegistry.SAPBALLS).add(RUNIC_SAPBALL.get(), CURSED_SAPBALL.get());
-        tag(ItemTagRegistry.GROSS_FOODS).add(Items.ROTTEN_FLESH, ROTTING_ESSENCE.get(), CONCENTRATED_GLUTTONY.get());
-
-        ITEMS.getEntries().stream().filter(i -> i.get() instanceof NodeItem).map(DeferredHolder::get).forEach(i -> {
-            tag(ItemTagRegistry.METAL_NODES).add(i);
-        });
-        tag(ItemTagRegistry.PROSPECTORS_TREASURE)
-                .addTags(Tags.Items.ORES, Tags.Items.STORAGE_BLOCKS, Tags.Items.INGOTS, Tags.Items.NUGGETS, Tags.Items.GEMS, Tags.Items.RAW_MATERIALS, ItemTags.COALS, ItemTagRegistry.METAL_NODES)
-                .addOptional(ResourceLocation.fromNamespaceAndPath("tetra", "geode"));
-
         tag(ItemTagRegistry.RUNEWOOD_LOGS).add(RUNEWOOD_LOG.get(), STRIPPED_RUNEWOOD_LOG.get(), RUNEWOOD.get(), STRIPPED_RUNEWOOD.get(), EXPOSED_RUNEWOOD_LOG.get(), REVEALED_RUNEWOOD_LOG.get());
         tag(ItemTagRegistry.RUNEWOOD_BOARD_INGREDIENT).add(RUNEWOOD_LOG.get(), RUNEWOOD.get());
         tag(ItemTagRegistry.RUNEWOOD_PLANKS).add(
@@ -129,6 +109,32 @@ public class MalumItemTags extends ItemTagsProvider {
         safeCopy(BlockTagRegistry.TWISTED_WALLS, ItemTagRegistry.TWISTED_WALLS);
         safeCopy(BlockTagRegistry.TWISTED_BLOCKS, ItemTagRegistry.TWISTED_BLOCKS);
 
+        tag(Tags.Items.NUGGETS).add(COPPER_NUGGET.get(), HALLOWED_GOLD_NUGGET.get(), SOUL_STAINED_STEEL_NUGGET.get());
+        tag(Tags.Items.INGOTS).add(SOUL_STAINED_STEEL_INGOT.get(), HALLOWED_GOLD_INGOT.get());
+        tag(Tags.Items.GEMS).add(PROCESSED_SOULSTONE.get(), NATURAL_QUARTZ.get(), BLAZING_QUARTZ.get(), CLUSTER_OF_BRILLIANCE.get());
+        tag(Tags.Items.GEMS_QUARTZ).add(NATURAL_QUARTZ.get());
+        tag(Tags.Items.ORES_QUARTZ).add(NATURAL_QUARTZ_ORE.get(), DEEPSLATE_QUARTZ_ORE.get());
+        tag(Tags.Items.SLIME_BALLS).add(RUNIC_SAPBALL.get(), CURSED_SAPBALL.get());
+        tag(NUGGETS_COPPER).add(COPPER_NUGGET.get());
+
+        tag(ItemTags.LOGS).addTag(ItemTagRegistry.RUNEWOOD_LOGS).addTag(ItemTagRegistry.SOULWOOD_LOGS);
+        tag(ItemTags.LOGS_THAT_BURN).addTag(ItemTagRegistry.RUNEWOOD_LOGS).addTag(ItemTagRegistry.SOULWOOD_LOGS);
+
+        tag(ItemTagRegistry.ARCANE_ELEGY_COMPONENTS).addTag(ItemTags.CREEPER_DROP_MUSIC_DISCS);
+
+        tag(ItemTagRegistry.SAPBALLS).add(RUNIC_SAPBALL.get(), CURSED_SAPBALL.get());
+        tag(ItemTagRegistry.GROSS_FOODS).add(Items.ROTTEN_FLESH, ROTTING_ESSENCE.get(), CONCENTRATED_GLUTTONY.get());
+
+        ITEMS.getEntries().stream().filter(i -> i.get() instanceof NodeItem).map(DeferredHolder::get).forEach(i -> {
+            tag(ItemTagRegistry.METAL_NODES).add(i);
+        });
+        tag(ItemTagRegistry.PROSPECTORS_TREASURE)
+                .addTags(Tags.Items.ORES, Tags.Items.STORAGE_BLOCKS, Tags.Items.INGOTS, Tags.Items.NUGGETS, Tags.Items.GEMS, Tags.Items.RAW_MATERIALS, ItemTags.COALS, ItemTagRegistry.METAL_NODES)
+                .addOptional(ResourceLocation.fromNamespaceAndPath("tetra", "geode"));
+
+        tag(ItemTagRegistry.KNIVES).add(SOUL_STAINED_STEEL_KNIFE.get());
+        tag(ItemTagRegistry.KNIVES_FD).add(SOUL_STAINED_STEEL_KNIFE.get());
+
         tag(ItemTagRegistry.SCYTHE).add(CRUDE_SCYTHE.get(), SOUL_STAINED_STEEL_SCYTHE.get(), CREATIVE_SCYTHE.get());
         tag(ItemTagRegistry.STAFF).add(MNEMONIC_HEX_STAFF.get(), STAFF_OF_THE_AURIC_FLAME.get(), EROSION_SCEPTER.get());
 
@@ -139,15 +145,6 @@ public class MalumItemTags extends ItemTagsProvider {
                 .add(TYRVING.get(), CRUDE_SCYTHE.get(), SOUL_STAINED_STEEL_SCYTHE.get(), CREATIVE_SCYTHE.get(), WEIGHT_OF_WORLDS.get())
                 //soul stained steel gear
                 .add(SOUL_STAINED_STEEL_AXE.get(), SOUL_STAINED_STEEL_PICKAXE.get(), SOUL_STAINED_STEEL_SHOVEL.get(), SOUL_STAINED_STEEL_SWORD.get(), SOUL_STAINED_STEEL_HOE.get(), SOUL_STAINED_STEEL_KNIFE.get());
-
-        tag(Tags.Items.NUGGETS).add(COPPER_NUGGET.get(), HALLOWED_GOLD_NUGGET.get(), SOUL_STAINED_STEEL_NUGGET.get());
-        tag(Tags.Items.GEMS).add(NATURAL_QUARTZ.get(), BLAZING_QUARTZ.get(), CLUSTER_OF_BRILLIANCE.get());
-        tag(Tags.Items.INGOTS).add(SOUL_STAINED_STEEL_INGOT.get(), HALLOWED_GOLD_INGOT.get());
-
-        tag(ItemTagRegistry.KNIVES).add(SOUL_STAINED_STEEL_KNIFE.get());
-        tag(ItemTagRegistry.KNIVES_FD).add(SOUL_STAINED_STEEL_KNIFE.get());
-
-        tag(NUGGETS_COPPER).add(COPPER_NUGGET.get());
 
         tag(ItemTagRegistry.HIDDEN_ALWAYS).add(THE_DEVICE.get(), THE_VESSEL.get());
 

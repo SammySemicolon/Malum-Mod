@@ -7,7 +7,6 @@ import net.minecraft.world.item.enchantment.Enchantment;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
 public class EnchantmentRegistry {
-    public static final DeferredRegister<Enchantment> ENCHANTMENTS = DeferredRegister.create(Registries.ENCHANTMENT, MalumMod.MALUM);
 
     public static final ResourceKey<Enchantment> REBOUND = keyOf("rebound");
     public static final ResourceKey<Enchantment> HAUNTED = keyOf("haunted");

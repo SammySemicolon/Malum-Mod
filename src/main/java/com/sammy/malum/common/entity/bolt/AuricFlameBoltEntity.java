@@ -13,7 +13,7 @@ import net.minecraft.world.entity.projectile.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.phys.*;
-import net.minecraftforge.api.distmarker.*;
+import net.neoforged.api.distmarker.*;
 import team.lodestar.lodestone.handlers.*;
 import team.lodestar.lodestone.systems.easing.*;
 import team.lodestar.lodestone.systems.particle.*;
@@ -55,7 +55,7 @@ public class AuricFlameBoltEntity extends AbstractBoltProjectileEntity {
             return;
         }
         if (result.getEntity() instanceof LivingEntity livingentity) {
-            livingentity.setSecondsOnFire(4);
+            livingentity.igniteForSeconds(4);
         }
         super.onHitEntity(result);
     }
