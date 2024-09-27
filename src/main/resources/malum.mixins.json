@@ -5,15 +5,16 @@
   "refmap": "malum.refmap.json",
   "mixins": [
     "AccessorEvent",
+    "AccessorEvent$PostDamage",
     "AccessorFeatureFlagSet",
-    "AccessorPostDamageEvent",
     "ExplosionMixin",
     "FeatureFlagSetMixin",
     "FishingHookEntityMixin",
     "ItemStackMixin",
     "PlayerMixin",
     "VanillaRecipeProviderMixin",
-    "VanillaRecipeProviderMixin$RecipeBuilderMixin"
+    "VanillaRecipeProviderMixin$RecipeBuilderMixin",
+    "AccessorEvent.PostDamage"
   ],
   "client": [
     "client.AccessorBakedGlyph",

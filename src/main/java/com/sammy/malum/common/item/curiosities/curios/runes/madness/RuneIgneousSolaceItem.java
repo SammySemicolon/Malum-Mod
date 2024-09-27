@@ -1,7 +1,7 @@
 package com.sammy.malum.common.item.curiosities.curios.runes.madness;
 
 import com.sammy.malum.common.item.curiosities.curios.runes.AbstractRuneCurioItem;
-import com.sammy.malum.mixin.AccessorPostDamageEvent;
+import com.sammy.malum.mixin.AccessorEvent;
 import com.sammy.malum.registry.common.SpiritTypeRegistry;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.LivingEntity;
@@ -25,7 +25,7 @@ public class RuneIgneousSolaceItem extends AbstractRuneCurioItem implements IEve
     @Override
     public void takeDamageEvent(LivingDamageEvent.Post event, LivingEntity attacker, LivingEntity attacked, ItemStack stack) {
         if (attacked.isOnFire()) {
-            ((AccessorPostDamageEvent)event).malum$setNewDamage(event.getNewDamage()*0.75f);
+            ((AccessorEvent.PostDamage)event).malum$setNewDamage(event.getNewDamage()*0.75f);
         }
     }
 }
