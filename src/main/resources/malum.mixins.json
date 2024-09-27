@@ -4,7 +4,9 @@
   "compatibilityLevel": "JAVA_17",
   "refmap": "malum.refmap.json",
   "mixins": [
+    "AccessorEvent",
     "AccessorFeatureFlagSet",
+    "AccessorPostDamageEvent",
     "ExplosionMixin",
     "FeatureFlagSetMixin",
     "FishingHookEntityMixin",
