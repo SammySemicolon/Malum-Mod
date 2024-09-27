@@ -26,6 +26,8 @@ public class MalumCurioItem extends AbstractMalumCurioItem implements ICurioItem
 
     public void addExtraTooltipLines(Consumer<Component> consumer) {}
 
+
+    // TODO: Will be valid when Curios PR is merged
     @Override
     public List<Component> getAttributesTooltip(List<Component> tooltips, HolderLookup.Provider registriesProvider, ItemStack stack) {
         final List<Component> attributesTooltip = super.getAttributesTooltip(tooltips, registriesProvider, stack);
