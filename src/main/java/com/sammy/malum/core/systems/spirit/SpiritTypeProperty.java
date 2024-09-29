@@ -2,9 +2,7 @@ package com.sammy.malum.core.systems.spirit;
 
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Maps;
-import com.sammy.malum.registry.common.item.*;
 import net.minecraft.world.level.block.state.properties.Property;
-import net.minecraftforge.registries.*;
 
 import java.util.Collection;
 import java.util.Map;

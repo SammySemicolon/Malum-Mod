@@ -43,7 +43,7 @@ public class TotemPoleBlock<T extends TotemPoleBlockEntity> extends LodestoneEnt
     public int getAnalogOutputSignal(BlockState pState, Level pLevel, BlockPos pPos) {
         BlockEntity be = pLevel.getBlockEntity(pPos);
         if (be instanceof TotemPoleBlockEntity pole) {
-            return Math.min(SpiritTypeRegistry.getIndexForSpiritType(pole.type) + 1, 15);
+            return Math.min(SpiritTypeRegistry.getIndexForSpiritType(pole.spirit) + 1, 15);
         }
         return 0;
     }
