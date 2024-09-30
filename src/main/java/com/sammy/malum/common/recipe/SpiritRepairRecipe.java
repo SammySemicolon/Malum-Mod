@@ -53,6 +53,9 @@ public class SpiritRepairRecipe extends AbstractSpiritListMalumRecipe {
                     if (!modIdRegex.equals("") && !BuiltInRegistries.ITEM.getKey(item).getNamespace().matches(modIdRegex)) {
                         break iteration;
                     }
+                    if (item instanceof IRepairOutputOverride repairOutputOverride && repairOutputOverride.ignoreDuringLookup()) {
+                        break iteration;
+                    }
                     if (!inputs.contains(item)) {
                         inputs.add(item);
                     }
@@ -64,6 +67,16 @@ public class SpiritRepairRecipe extends AbstractSpiritListMalumRecipe {
     @Override
     public boolean matches(SingleRecipeInput singleRecipeInput, Level level) {
         return inputs.contains(singleRecipeInput.item().getItem());
+    }
+
+    public interface IRepairOutputOverride {
+        default Item overrideRepairResult() {
+            return Items.AIR;
+        }
+
+        default boolean ignoreDuringLookup() {
+            return false;
+        }
     }
 
     public static class Serializer implements RecipeSerializer<SpiritRepairRecipe> {
