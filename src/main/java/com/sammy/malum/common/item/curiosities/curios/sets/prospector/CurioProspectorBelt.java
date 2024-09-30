@@ -29,8 +29,8 @@ public class CurioProspectorBelt extends MalumCurioItem {
     }
 
     @Override
-    public void addExtraTooltipLines(Consumer<Component> consumer, HolderLookup.Provider registriesProvider) {
-        consumer.accept(positiveEffect("enchanted_explosions", Enchantment.getFullname(registriesProvider.holderOrThrow(Enchantments.FORTUNE), 3).copy().withStyle(ChatFormatting.BLUE)));
+    public void addExtraTooltipLines(Consumer<Component> consumer, TooltipContext context) {
+        consumer.accept(positiveEffect("enchanted_explosions", Enchantment.getFullname(context.registries().holderOrThrow(Enchantments.FORTUNE), 3).copy().withStyle(ChatFormatting.BLUE)));
         consumer.accept(positiveEffect("explosions_spare_valuables"));
     }
 

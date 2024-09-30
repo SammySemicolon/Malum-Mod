@@ -20,9 +20,13 @@ import net.minecraft.world.*;
 import net.minecraft.world.entity.item.*;
 import net.minecraft.world.entity.player.*;
 import net.minecraft.world.item.*;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.*;
 import net.minecraft.world.level.block.state.*;
 import net.minecraft.world.phys.*;
+import net.neoforged.neoforge.capabilities.Capabilities;
+import net.neoforged.neoforge.capabilities.IBlockCapabilityProvider;
+import net.neoforged.neoforge.common.crafting.SizedIngredient;
 import net.neoforged.neoforge.items.IItemHandler;
 import net.neoforged.neoforge.items.wrapper.CombinedInvWrapper;
 import team.lodestar.lodestone.helpers.*;
@@ -34,7 +38,7 @@ import java.util.*;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
 
-public class RitualPlinthBlockEntity extends LodestoneBlockEntity {
+public class RitualPlinthBlockEntity extends LodestoneBlockEntity implements IBlockCapabilityProvider<IItemHandler, Direction> {
 
     private static final Vec3 PLINTH_ITEM_OFFSET = new Vec3(0.5f, 1.375f, 0.5f);
 
@@ -50,8 +54,8 @@ public class RitualPlinthBlockEntity extends LodestoneBlockEntity {
     public LodestoneBlockEntityInventory inventory;
     public LodestoneBlockEntityInventory extrasInventory;
 
-    public LazyOptional<IItemHandler> internalInventory = LazyOptional.of(() -> new CombinedInvWrapper(inventory, extrasInventory));
-    public LazyOptional<IItemHandler> exposedInventory = LazyOptional.of(() -> new CombinedInvWrapper(inventory));
+    public Supplier<IItemHandler> internalInventory = () -> new CombinedInvWrapper(inventory, extrasInventory);
+    public Supplier<IItemHandler> exposedInventory = () -> new CombinedInvWrapper(inventory);
 
     public RitualPlinthBlockEntity(BlockEntityType<? extends RitualPlinthBlockEntity> type, BlockPos pos, BlockState state) {
         super(type, pos, state);
@@ -118,21 +122,20 @@ public class RitualPlinthBlockEntity extends LodestoneBlockEntity {
         extrasInventory.dumpItems(level, worldPosition);
         if (ritualType != null && ritualTier != null) {
             ItemStack shard = new ItemStack(ItemRegistry.RITUAL_SHARD.get());
-            shard.setTag(ritualType.createShardNBT(ritualTier));
+            shard.set(DataComponentRegistry.RITUAL_SHARD_PROPS, ritualType.createShardProps(ritualTier));
             level.addFreshEntity(new ItemEntity(level, worldPosition.getX(), worldPosition.getY(), worldPosition.getZ(), shard));
         }
     }
 
     @Override
-    public InteractionResult onUse(Player player, InteractionHand hand) {
+    public ItemInteractionResult onUseWithItem(Player player, ItemStack stack, InteractionHand hand) {
         if (ritualType != null) {
-            InteractionResult interactionResult = ritualType.onUsePlinth(this, player, hand);
-            if (!interactionResult.equals(InteractionResult.PASS)) {
+            ItemInteractionResult interactionResult = ritualType.onUsePlinth(this, player, hand);
+            if (!interactionResult.equals(ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION)) {
                 return interactionResult;
             }
         }
         else if (inventory.getStackInSlot(0).isEmpty() && extrasInventory.isEmpty()) {
-            ItemStack stack = player.getItemInHand(hand);
             if (stack.getItem() instanceof RitualShardItem) {
                 if (!level.isClientSide) {
                     ritualType = RitualShardItem.getRitualType(stack);
@@ -145,18 +148,18 @@ public class RitualPlinthBlockEntity extends LodestoneBlockEntity {
                     player.setItemInHand(hand, ItemStack.EMPTY);
                     BlockHelper.updateAndNotifyState(level, worldPosition);
                 }
-                return InteractionResult.SUCCESS;
+                return ItemInteractionResult.SUCCESS;
             }
         }
         inventory.interact(player.level(), player, hand);
-        return InteractionResult.SUCCESS;
+        return ItemInteractionResult.SUCCESS;
     }
 
     @Override
     public void init() {
         ItemStack stack = inventory.getStackInSlot(0);
         boolean wasLackingRecipe = ritualRecipe == null;
-        ritualRecipe = RitualRegistry.RITUALS.stream().map(MalumRitualType::getRecipeData).filter(recipeData -> recipeData != null && recipeData.input.matches(stack)).findAny().orElse(null);
+        ritualRecipe = RitualRegistry.RITUALS.stream().map(MalumRitualType::getRecipeData).filter(recipeData -> recipeData != null && recipeData.input.test(stack)).findAny().orElse(null);
         if (ritualType == null && wasLackingRecipe && ritualRecipe != null) {
             level.playSound(null, getBlockPos(), SoundRegistry.RITUAL_BEGINS.get(), SoundSource.BLOCKS, 1, 0.9f + level.random.nextFloat() * 0.2f);
         }
@@ -219,7 +222,7 @@ public class RitualPlinthBlockEntity extends LodestoneBlockEntity {
         if (level.isClientSide) {
             final ItemStack stack = inventory.getStackInSlot(0);
             if (!stack.isEmpty()) {
-                boolean isItemValid = ritualType != null ? ritualType.isItemStackValid(this, stack) : ritualRecipe != null && ritualRecipe.input.matches(stack);
+                boolean isItemValid = ritualType != null ? ritualType.isItemStackValid(this, stack) : ritualRecipe != null && ritualRecipe.input.test(stack);
                 if (isItemValid) {
                     RitualPlinthParticleEffects.holdingPrimeItemPlinthParticles(this);
                 }
@@ -241,11 +244,11 @@ public class RitualPlinthBlockEntity extends LodestoneBlockEntity {
             for (IMalumSpecialItemAccessPoint provider : altarProviders) {
                 LodestoneBlockEntityInventory inventoryForAltar = provider.getSuppliedInventory();
                 ItemStack providedStack = inventoryForAltar.getStackInSlot(0);
-                IngredientWithCount requestedItem = ritualRecipe.extraItems.get(extras);
-                if (requestedItem.matches(providedStack)) {
+                SizedIngredient requestedItem = ritualRecipe.extraItems.get(extras);
+                if (requestedItem.test(providedStack)) {
                     level.playSound(null, provider.getAccessPointBlockPos(), SoundRegistry.RITUAL_ABSORBS_ITEM.get(), SoundSource.BLOCKS, 1, 0.9f + level.random.nextFloat() * 0.2f);
                     ParticleEffectTypeRegistry.RITUAL_PLINTH_EATS_ITEM.createPositionedEffect(level, new PositionEffectData(worldPosition), new ColorEffectData(ritualRecipe.ritualType.spirit), RitualPlinthAbsorbItemParticleEffect.createData(provider.getItemPos(), providedStack));
-                    extrasInventory.insertItem(providedStack.split(requestedItem.count));
+                    extrasInventory.insertItem(providedStack.split(requestedItem.count()));
                     inventoryForAltar.updateData();
                     BlockHelper.updateAndNotifyState(level, provider.getAccessPointBlockPos());
                     break;
@@ -258,7 +261,7 @@ public class RitualPlinthBlockEntity extends LodestoneBlockEntity {
 
     public void beginCharging() {
         ritualType = ritualRecipe.ritualType;
-        inventory.getStackInSlot(0).shrink(ritualRecipe.input.count);
+        inventory.getStackInSlot(0).shrink(ritualRecipe.input.count());
         inventory.updateData();
         extrasInventory.clear();
         ParticleEffectTypeRegistry.RITUAL_PLINTH_BEGINS_CHARGING.createPositionedEffect(level, new PositionEffectData(worldPosition), new ColorEffectData(ritualType.spirit));
@@ -303,7 +306,7 @@ public class RitualPlinthBlockEntity extends LodestoneBlockEntity {
                         jar.type = null;
                     }
                     level.playSound(null, jarPosition, SoundRegistry.RITUAL_ABSORBS_SPIRIT.get(), SoundSource.BLOCKS, 1, 0.9f + level.random.nextFloat() * 0.2f);
-                    ParticleEffectTypeRegistry.RITUAL_PLINTH_EATS_SPIRIT.createPositionedEffect(level, new PositionEffectData(worldPosition), new ColorEffectData(spirit), RitualPlinthAbsorbItemParticleEffect.createData(jar.getItemPos(), spirit.spiritShard.get().getDefaultInstance()));
+                    ParticleEffectTypeRegistry.RITUAL_PLINTH_EATS_SPIRIT.createPositionedEffect(level, new PositionEffectData(worldPosition), new ColorEffectData(spirit), RitualPlinthAbsorbItemParticleEffect.createData(jar.getItemPos(), spirit.getSpiritShard().getDefaultInstance()));
                     absorptionProgress.remove(jar);
                     BlockHelper.updateAndNotifyState(level, jarPosition);
                 }
@@ -315,7 +318,7 @@ public class RitualPlinthBlockEntity extends LodestoneBlockEntity {
                 absorptionProgress.compute(itemEntity, (p, i) -> i == null ? 1 : i + 1);
                 if (absorptionProgress.get(itemEntity) >= 5) {
                     level.playSound(null, itemEntity.blockPosition(), SoundRegistry.RITUAL_ABSORBS_SPIRIT.get(), SoundSource.BLOCKS, 1, 0.9f + level.random.nextFloat() * 0.2f);
-                    ParticleEffectTypeRegistry.RITUAL_PLINTH_EATS_SPIRIT.createPositionedEffect(level, new PositionEffectData(worldPosition), new ColorEffectData(spirit), RitualPlinthAbsorbItemParticleEffect.createData(itemEntity.position().add(0, itemEntity.getBbHeight()/2f, 0), spirit.spiritShard.get().getDefaultInstance()));
+                    ParticleEffectTypeRegistry.RITUAL_PLINTH_EATS_SPIRIT.createPositionedEffect(level, new PositionEffectData(worldPosition), new ColorEffectData(spirit), RitualPlinthAbsorbItemParticleEffect.createData(itemEntity.position().add(0, itemEntity.getBbHeight()/2f, 0), spirit.getSpiritShard().getDefaultInstance()));
                     increase += item.getCount();
                     itemEntity.discard();
                     absorptionProgress.remove(itemEntity);
@@ -377,23 +380,18 @@ public class RitualPlinthBlockEntity extends LodestoneBlockEntity {
         return new Vec3(x, y, z);
     }
 
-    @Nonnull
+
     @Override
-    public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, Direction side) {
-        if (cap == ForgeCapabilities.ITEM_HANDLER) {
-            if (side == null) {
-                return internalInventory.cast();
-            }
-            return exposedInventory.cast();
+    public @Nullable IItemHandler getCapability(Level level, BlockPos blockPos, BlockState blockState, @Nullable BlockEntity blockEntity, Direction side) {
+        if (side == null) {
+            return internalInventory.get();
         }
-        return super.getCapability(cap, side);
+        return exposedInventory.get();
     }
 
-
-
-    @Override
-    public AABB getRenderBoundingBox() {
-        var pos = worldPosition;
-        return new AABB(pos.getX() - 1, pos.getY(), pos.getZ() - 1, pos.getX() + 1, pos.getY() + 6, pos.getZ() + 1);
-    }
+//    @Override
+//    public AABB getRenderBoundingBox() {
+//        var pos = worldPosition;
+//        return new AABB(pos.getX() - 1, pos.getY(), pos.getZ() - 1, pos.getX() + 1, pos.getY() + 6, pos.getZ() + 1);
+//    }
 }

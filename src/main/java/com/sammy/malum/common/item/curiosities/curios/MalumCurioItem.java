@@ -1,7 +1,6 @@
 package com.sammy.malum.common.item.curiosities.curios;
 
 import net.minecraft.ChatFormatting;
-import net.minecraft.core.HolderLookup;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.fml.loading.FMLLoader;
@@ -20,20 +19,19 @@ public class MalumCurioItem extends AbstractMalumCurioItem implements ICurioItem
         super(properties, type);
     }
 
-    public void addExtraTooltipLines(Consumer<Component> consumer, HolderLookup.Provider registriesProvider) {
+    public void addExtraTooltipLines(Consumer<Component> consumer, TooltipContext context) {
         addExtraTooltipLines(consumer);
     }
 
     public void addExtraTooltipLines(Consumer<Component> consumer) {}
 
 
-    // TODO: Will be valid when Curios PR is merged
     @Override
-    public List<Component> getAttributesTooltip(List<Component> tooltips, HolderLookup.Provider registriesProvider, ItemStack stack) {
-        final List<Component> attributesTooltip = super.getAttributesTooltip(tooltips, registriesProvider, stack);
+    public List<Component> getAttributesTooltip(List<Component> tooltips, TooltipContext context, ItemStack stack) {
+        final List<Component> attributesTooltip = super.getAttributesTooltip(tooltips, context, stack);
 
         final List<Component> extraTooltipLines = new ArrayList<>();
-        addExtraTooltipLines(extraTooltipLines::add, registriesProvider);
+        addExtraTooltipLines(extraTooltipLines::add, context);
 
         if (!extraTooltipLines.isEmpty()) {
             if (attributesTooltip.isEmpty()) {
