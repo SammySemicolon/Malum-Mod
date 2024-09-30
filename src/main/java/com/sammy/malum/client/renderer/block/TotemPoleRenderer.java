@@ -13,7 +13,6 @@ import net.minecraft.util.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.state.properties.*;
 import org.joml.*;
-import team.lodestar.lodestone.registry.client.*;
 import team.lodestar.lodestone.systems.easing.*;
 import team.lodestar.lodestone.systems.rendering.rendeertype.*;
 
@@ -29,7 +28,7 @@ public class TotemPoleRenderer implements BlockEntityRenderer<TotemPoleBlockEnti
     @Override
     public void render(TotemPoleBlockEntity blockEntityIn, float partialTicks, PoseStack poseStack, MultiBufferSource bufferIn, int combinedLightIn, int combinedOverlayIn) {
         Direction direction = blockEntityIn.getBlockState().getValue(BlockStateProperties.HORIZONTAL_FACING);
-        MalumSpiritType spiritType = blockEntityIn.type;
+        MalumSpiritType spiritType = blockEntityIn.spirit;
         if (spiritType == null) {
             return;
         }

@@ -177,7 +177,7 @@ public class TotemBaseBlockEntity extends LodestoneBlockEntity {
             this.direction = direction;
         }
         if (pole.isSoulwood == isSoulwood && direction.equals(this.direction)) {
-            if (pole.type != null) {
+            if (pole.spirit != null) {
                 totemPolePositions.add(pole.getBlockPos());
                 pole.riteStarting(this, totemPolePositions.size());
             }
@@ -254,7 +254,7 @@ public class TotemBaseBlockEntity extends LodestoneBlockEntity {
     }
 
     public List<MalumSpiritType> getSpirits() {
-        return getTotemPoles().stream().map(t -> t.type).toList();
+        return getTotemPoles().stream().map(t -> t.spirit).toList();
     }
 
     public Direction getDirection() {

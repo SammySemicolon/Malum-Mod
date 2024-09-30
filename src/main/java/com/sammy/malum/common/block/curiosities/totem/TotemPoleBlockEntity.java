@@ -18,7 +18,7 @@ import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.*;
 import net.minecraft.world.level.block.state.*;
 import net.minecraft.world.level.block.state.properties.*;
-import net.minecraftforge.common.*;
+import net.neoforged.neoforge.common.ItemAbilities;
 import team.lodestar.lodestone.helpers.*;
 import team.lodestar.lodestone.systems.blockentity.*;
 
@@ -33,7 +33,7 @@ public class TotemPoleBlockEntity extends LodestoneBlockEntity {
         ACTIVE
     }
 
-    public MalumSpiritType type;
+    public MalumSpiritType spirit;
     public TotemPoleState totemPoleState = TotemPoleState.INACTIVE;
     public TotemBaseBlockEntity totemBase;
     public int totemBaseYLevel;
@@ -43,8 +43,8 @@ public class TotemPoleBlockEntity extends LodestoneBlockEntity {
     public final Block logBlock;
     public final Direction direction;
 
-    public TotemPoleBlockEntity(BlockEntityType<? extends TotemPoleBlockEntity> type, BlockPos pos, BlockState state) {
-        super(type, pos, state);
+    public TotemPoleBlockEntity(BlockEntityType<? extends TotemPoleBlockEntity> spirit, BlockPos pos, BlockState state) {
+        super(spirit, pos, state);
         this.isSoulwood = ((TotemPoleBlock<?>) state.getBlock()).isSoulwood;
         this.logBlock = ((TotemPoleBlock<?>) state.getBlock()).logBlock.get();
         this.direction = state.getValue(BlockStateProperties.HORIZONTAL_FACING);
@@ -55,21 +55,20 @@ public class TotemPoleBlockEntity extends LodestoneBlockEntity {
     }
 
     @Override
-    public InteractionResult onUse(Player player, InteractionHand hand) {
-        ItemStack held = player.getItemInHand(hand);
+    public ItemInteractionResult onUseWithItem(Player player, ItemStack held, InteractionHand hand) {
         boolean success = false;
         if (held.getItem() instanceof TotemicStaffItem && !totemPoleState.equals(TotemPoleState.ACTIVE) && !totemPoleState.equals(TotemPoleState.CHARGING)) {
             if (level.isClientSide) {
-                return InteractionResult.SUCCESS;
+                return ItemInteractionResult.SUCCESS;
             }
             totemPoleState = totemPoleState.equals(TotemPoleState.INACTIVE) ? TotemPoleState.VISUAL_ONLY : TotemPoleState.INACTIVE;
             success = true;
         }
-        else if (held.canPerformAction(ToolActions.AXE_STRIP)) {
+        else if (held.canPerformAction(ItemAbilities.AXE_STRIP)) {
             if (level.isClientSide) {
-                return InteractionResult.SUCCESS;
+                return ItemInteractionResult.SUCCESS;
             }
-            if (type != null) {
+            if (spirit != null) {
                 level.setBlockAndUpdate(worldPosition, logBlock.defaultBlockState());
                 success = true;
                 onBreak(player);
@@ -82,37 +81,37 @@ public class TotemPoleBlockEntity extends LodestoneBlockEntity {
                 level.playSound(null, worldPosition, SoundRegistry.MAJOR_BLIGHT_MOTIF.get(), SoundSource.BLOCKS, 1, 1);
             }
             BlockHelper.updateState(level, worldPosition);
-            return InteractionResult.SUCCESS;
+            return ItemInteractionResult.SUCCESS;
         }
         return super.onUse(player, hand);
     }
 
     @Override
-    protected void saveAdditional(CompoundTag compound) {
-        if (type != null) {
-            compound.putString("type", type.identifier);
+    protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
+        if (spirit != null) {
+            tag.putString("spirit", spirit.getIdentifier());
         }
         if (!totemPoleState.equals(TotemPoleState.INACTIVE)) {
-            compound.putInt("totemPoleState", totemPoleState.ordinal());
+            tag.putInt("state", totemPoleState.ordinal());
         }
         if (chargeProgress != 0) {
-            compound.putInt("chargeProgress", chargeProgress);
+            tag.putInt("chargeProgress", chargeProgress);
         }
         if (totemBaseYLevel != 0) {
-            compound.putInt("totemBaseYLevel", totemBaseYLevel);
+            tag.putInt("totemBaseYLevel", totemBaseYLevel);
         }
-        super.saveAdditional(compound);
+        super.saveAdditional(tag, registries);
     }
 
     @Override
-    public void load(CompoundTag compound) {
-        if (compound.contains("type")) {
-            type = SpiritHarvestHandler.getSpiritType(compound.getString("type"));
+    protected void loadAdditional(CompoundTag tag, HolderLookup.Provider pRegistries) {
+        if (tag.contains("spirit")) {
+            spirit = SpiritHarvestHandler.getSpiritType(tag.getString("spirit"));
         }
-        totemPoleState = compound.contains("totemPoleState") ? TotemPoleState.values()[compound.getInt("totemPoleState")] : TotemPoleState.INACTIVE;
-        chargeProgress = compound.getInt("chargeProgress");
-        totemBaseYLevel = compound.getInt("totemBaseYLevel");
-        super.load(compound);
+        totemPoleState = tag.contains("state") ? TotemPoleState.values()[tag.getInt("state")] : TotemPoleState.INACTIVE;
+        chargeProgress = tag.getInt("chargeProgress");
+        totemBaseYLevel = tag.getInt("totemBaseYLevel");
+        super.loadAdditional(tag, pRegistries);
     }
 
     @Override
@@ -133,7 +132,7 @@ public class TotemPoleBlockEntity extends LodestoneBlockEntity {
             chargeProgress = chargeProgress < cap ? chargeProgress + 1 : cap;
         }
         if (level.isClientSide) {
-            if (type != null && totemPoleState.equals(TotemPoleState.ACTIVE)) {
+            if (spirit != null && totemPoleState.equals(TotemPoleState.ACTIVE)) {
                 TotemParticleEffects.activeTotemPoleParticles(this);
             }
         }
@@ -143,7 +142,7 @@ public class TotemPoleBlockEntity extends LodestoneBlockEntity {
         level.playSound(null, worldPosition, SoundRegistry.TOTEM_ENGRAVE.get(), SoundSource.BLOCKS, 1, Mth.nextFloat(level.random, 0.9f, 1.1f));
         level.playSound(null, worldPosition, SoundEvents.AXE_STRIP, SoundSource.BLOCKS, 1, Mth.nextFloat(level.random, 0.9f, 1.1f));
         ParticleEffectTypeRegistry.TOTEM_POLE_ACTIVATED.createPositionedEffect(level, new PositionEffectData(worldPosition));
-        this.type = type;
+        this.spirit = type;
         this.chargeProgress = 10;
         BlockHelper.updateState(level, worldPosition);
     }

@@ -8,7 +8,8 @@ import com.sammy.malum.visual_effects.*;
 import net.minecraft.core.*;
 import net.minecraft.world.level.block.state.*;
 import net.minecraft.world.phys.*;
-import net.minecraftforge.api.distmarker.*;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
 import team.lodestar.lodestone.systems.multiblock.*;
 
 import java.util.function.*;

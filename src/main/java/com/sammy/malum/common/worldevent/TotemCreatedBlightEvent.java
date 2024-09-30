@@ -34,7 +34,7 @@ public class TotemCreatedBlightEvent extends ActiveBlightEvent {
             int offset = totemTakeoverTimer / 4;
             BlockPos totemPos = sourcePos.above(offset);
             if (level.getBlockEntity(totemPos) instanceof TotemPoleBlockEntity totemPoleTile) {
-                MalumSpiritType type = totemPoleTile.type;
+                MalumSpiritType type = totemPoleTile.spirit;
                 BlockState state = BlockHelper.setBlockStateWithExistingProperties(level, totemPos, SOULWOOD_TOTEM_POLE.get().defaultBlockState(), 3);
                 TotemPoleBlockEntity newTotemPole = new TotemPoleBlockEntity(totemPos, state);
                 newTotemPole.setLevel(level);

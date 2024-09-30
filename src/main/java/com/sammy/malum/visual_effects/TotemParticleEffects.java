@@ -13,7 +13,7 @@ import static com.sammy.malum.visual_effects.SpiritLightSpecs.*;
 public class TotemParticleEffects {
 
     public static void activeTotemPoleParticles(TotemPoleBlockEntity totemPoleBlockEntity) {
-        MalumSpiritType spiritType = totemPoleBlockEntity.type;
+        MalumSpiritType spiritType = totemPoleBlockEntity.spirit;
         Level level = totemPoleBlockEntity.getLevel();
         long gameTime = level.getGameTime();
         var random = level.random;
@@ -42,7 +42,7 @@ public class TotemParticleEffects {
     }
 
     public static void activateTotemPoleParticles(TotemPoleBlockEntity totemPoleBlockEntity) {
-        MalumSpiritType spiritType = totemPoleBlockEntity.type;
+        MalumSpiritType spiritType = totemPoleBlockEntity.spirit;
         Level level = totemPoleBlockEntity.getLevel();
         long gameTime = level.getGameTime();
         var random = level.random;
