@@ -4,6 +4,7 @@ import com.sammy.malum.common.block.MalumBlockEntityInventory;
 import com.sammy.malum.common.block.storage.IMalumSpecialItemAccessPoint;
 import com.sammy.malum.common.item.spirit.SpiritShardItem;
 import com.sammy.malum.common.recipe.spirit.infusion.SpiritInfusionRecipe;
+import com.sammy.malum.core.systems.recipe.SpiritIngredient;
 import com.sammy.malum.registry.common.ParticleEffectTypeRegistry;
 import com.sammy.malum.registry.common.SoundRegistry;
 import com.sammy.malum.registry.common.SpiritTypeRegistry;
@@ -63,8 +64,8 @@ public class SpiritAltarBlockEntity extends LodestoneBlockEntity {
     public Map<SpiritInfusionRecipe, AltarCraftingHelper.Ranking> possibleRecipes = new HashMap<>();
     public SpiritInfusionRecipe recipe;
 
-    public LazyOptional<IItemHandler> internalInventory = LazyOptional.of(() -> new CombinedInvWrapper(inventory, extrasInventory, spiritInventory));
-    public LazyOptional<IItemHandler> exposedInventory = LazyOptional.of(() -> new CombinedInvWrapper(inventory, spiritInventory));
+    public Optional<IItemHandler> internalInventory = Optional.of(() -> new CombinedInvWrapper(inventory, extrasInventory, spiritInventory));
+    public Optional<IItemHandler> exposedInventory = Optional.of(() -> new CombinedInvWrapper(inventory, spiritInventory));
 
     public SpiritAltarBlockEntity(BlockEntityType<? extends SpiritAltarBlockEntity> type, BlockPos pos, BlockState state) {
         super(type, pos, state);
@@ -322,16 +323,16 @@ public class SpiritAltarBlockEntity extends LodestoneBlockEntity {
         ItemStack stack = inventory.getStackInSlot(0);
         ItemStack outputStack = recipe.output.copy();
         Vec3 itemPos = getItemPos();
-        if (recipe.carryOverData && inventory.getStackInSlot(0).hasTag()) {
-            outputStack.setTag(stack.getTag());
+        if (recipe.carryOverData) {
+            outputStack.applyComponents(stack.getComponents());
         }
         stack.shrink(recipe.input.count);
         inventory.updateData();
-        for (SpiritWithCount spirit : recipe.spirits) {
+        for (SpiritIngredient spirit : recipe.spirits) {
             for (int i = 0; i < spiritInventory.slotCount; i++) {
                 ItemStack spiritStack = spiritInventory.getStackInSlot(i);
-                if (spirit.matches(spiritStack)) {
-                    spiritStack.shrink(spirit.count);
+                if (spirit.test(spiritStack)) {
+                    spiritStack.shrink(spirit.getCount());
                     break;
                 }
             }
@@ -413,11 +414,5 @@ public class SpiritAltarBlockEntity extends LodestoneBlockEntity {
             return exposedInventory.cast();
         }
         return super.getCapability(cap, side);
-    }
-
-    @Override
-    public AABB getRenderBoundingBox() {
-        var pos = worldPosition;
-        return new AABB(pos.getX() - 1, pos.getY(), pos.getZ() - 1, pos.getX() + 2, pos.getY() + 2, pos.getZ() + 2);
     }
 }
