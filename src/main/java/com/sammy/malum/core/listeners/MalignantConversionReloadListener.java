@@ -29,27 +29,41 @@ public class MalignantConversionReloadListener extends SimpleJsonResourceReloadL
         for (int i = 0; i < objectIn.size(); i++) {
             ResourceLocation location = (ResourceLocation) objectIn.keySet().toArray()[i];
             JsonObject object = objectIn.get(location).getAsJsonObject();
-            String name = object.getAsJsonPrimitive("source_attribute").getAsString();
-            ResourceLocation sourceAttribute = new ResourceLocation(name);
-            if (!ForgeRegistries.ATTRIBUTES.containsKey(sourceAttribute)) {
-                continue;
+            ArrayList<String> sourceAttributeNames = new ArrayList<>();
+            if (object.has("source_attribute")) {
+                String name = object.getAsJsonPrimitive("source_attribute").getAsString();
+                sourceAttributeNames.add(name);
             }
-            double consumptionRatio = object.has("ratio") ? object.getAsJsonPrimitive("ratio").getAsDouble() : 1;
-            JsonArray targetAttributes = object.getAsJsonArray("target_attributes");
-            List<Pair<Attribute, Double>> attributeList = new ArrayList<>();
-            for (JsonElement attribute : targetAttributes) {
-                JsonObject attributeObject = attribute.getAsJsonObject();
-                ResourceLocation attributeName = new ResourceLocation(attributeObject.getAsJsonPrimitive("attribute").getAsString());
-                if (!ForgeRegistries.ATTRIBUTES.containsKey(attributeName)) {
+            else if (object.has("source_attributes")) {
+                JsonArray sourceAttributes = object.getAsJsonArray("source_attributes");
+                for (JsonElement sourceAttribute : sourceAttributes) {
+                    sourceAttributeNames.add(sourceAttribute.getAsString());
+                }
+            }
+
+            for (String name : sourceAttributeNames) {
+                ResourceLocation sourceAttribute = new ResourceLocation(name);
+                if (!ForgeRegistries.ATTRIBUTES.containsKey(sourceAttribute)) {
                     continue;
                 }
-                double ratio = attributeObject.getAsJsonPrimitive("ratio").getAsDouble();
-                attributeList.add(Pair.of(ForgeRegistries.ATTRIBUTES.getValue(attributeName), ratio));
+                double consumptionRatio = object.has("ratio") ? object.getAsJsonPrimitive("ratio").getAsDouble() : 1;
+                boolean ignoreBaseValue = object.has("ignore_base_value") && object.getAsJsonPrimitive("ignore_base_value").getAsBoolean();
+                JsonArray targetAttributes = object.getAsJsonArray("target_attributes");
+                List<Pair<Attribute, Double>> attributeList = new ArrayList<>();
+                for (JsonElement attribute : targetAttributes) {
+                    JsonObject attributeObject = attribute.getAsJsonObject();
+                    ResourceLocation attributeName = new ResourceLocation(attributeObject.getAsJsonPrimitive("attribute").getAsString());
+                    if (!ForgeRegistries.ATTRIBUTES.containsKey(attributeName)) {
+                        continue;
+                    }
+                    double ratio = attributeObject.getAsJsonPrimitive("ratio").getAsDouble();
+                    attributeList.add(Pair.of(ForgeRegistries.ATTRIBUTES.getValue(attributeName), ratio));
+                }
+                CONVERSION_DATA.put(sourceAttribute, new MalignantConversionData(ForgeRegistries.ATTRIBUTES.getValue(sourceAttribute), consumptionRatio, ignoreBaseValue, attributeList));
             }
-            CONVERSION_DATA.put(sourceAttribute, new MalignantConversionData(ForgeRegistries.ATTRIBUTES.getValue(sourceAttribute), consumptionRatio, attributeList));
         }
     }
 
-    public record MalignantConversionData(Attribute sourceAttribute, double consumptionRatio, List<Pair<Attribute, Double>> targetAttributes) {
+    public record MalignantConversionData(Attribute sourceAttribute, double consumptionRatio, boolean ignoreBaseValue, List<Pair<Attribute, Double>> targetAttributes) {
     }
 }
