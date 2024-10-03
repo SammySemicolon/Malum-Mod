@@ -4,6 +4,7 @@ import com.sammy.malum.MalumMod;
 import com.sammy.malum.common.packets.ParticleEffectPacket;
 import com.sammy.malum.common.packets.SyncStaffCooldownChangesPacket;
 import com.sammy.malum.common.packets.VoidRejectionPacket;
+import com.sammy.malum.common.packets.malignant_conversion.SyncMalignantConversionPacket;
 import com.sammy.malum.common.packets.particle.curiosities.blight.BlightMistParticlePacket;
 import com.sammy.malum.common.packets.particle.curiosities.blight.BlightTransformItemParticlePacket;
 import com.sammy.malum.common.packets.particle.curiosities.rite.*;
@@ -28,6 +29,8 @@ public class PacketRegistry {
         //functionality
         MALUM_CHANNEL.registerS2CPacket(VoidRejectionPacket.class, index++);
         MALUM_CHANNEL.registerS2CPacket(SyncStaffCooldownChangesPacket.class, index++);
+        MALUM_CHANNEL.registerS2CPacket(SyncMalignantConversionPacket.class, index++);
+
         MALUM_CHANNEL.registerS2CPacket(ParticleEffectPacket.class, index++);
         MALUM_CHANNEL.registerS2CPacket(MajorEntityEffectParticlePacket.class, index++);
         MALUM_CHANNEL.registerS2CPacket(SacredMistRiteEffectPacket.class, index++);
