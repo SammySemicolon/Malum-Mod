@@ -193,6 +193,10 @@ dependencies {
     implementation(fg.deobf("curse.maven:mutil-351914:4824501"))
     implementation(fg.deobf("curse.maven:tetra-289712:5544287"))
 
+
+    implementation(fg.deobf("curse.maven:placebo-283644:5414631"))
+    implementation(fg.deobf("curse.maven:apothic-attributes-898963:5634071"))
+
     runtimeOnly(fg.deobf("curse.maven:world-stripper-250603:4578579"))
     runtimeOnly(fg.deobf("curse.maven:spark-361579:4587309"))
     runtimeOnly(fg.deobf("curse.maven:attributefix-280510:4911084"))
