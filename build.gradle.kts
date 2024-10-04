@@ -189,9 +189,8 @@ dependencies {
     compileOnly(fg.deobf("curse.maven:farmers_delight-398521:4638874"))
 
     runtimeOnly(fg.deobf("curse.maven:create-328085:4626108"))
-    //implementation(fg.deobf("curse.maven:jeed-532286:4599236"))
-    implementation(fg.deobf("curse.maven:mutil-351914:4824501"))
-    implementation(fg.deobf("curse.maven:tetra-289712:5544287"))
+    compileOnly(fg.deobf("curse.maven:mutil-351914:4824501"))
+    compileOnly(fg.deobf("curse.maven:tetra-289712:5544287"))
 
 
     implementation(fg.deobf("curse.maven:placebo-283644:5414631"))

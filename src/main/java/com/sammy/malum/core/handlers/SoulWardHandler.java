@@ -1,7 +1,6 @@
 package com.sammy.malum.core.handlers;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.blaze3d.vertex.PoseStack;
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.common.capability.MalumPlayerDataCapability;
 import com.sammy.malum.config.CommonConfig;
@@ -10,13 +9,10 @@ import com.sammy.malum.registry.common.AttributeRegistry;
 import com.sammy.malum.registry.common.SoundRegistry;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.sounds.*;
 import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -32,116 +28,118 @@ import team.lodestar.lodestone.systems.rendering.shader.ExtendedShaderInstance;
 
 
 public class SoulWardHandler {
-    public float soulWard;
-    public float soulWardProgress;
+    public double soulWard;
+    public double soulWardProgress;
 
     public CompoundTag serializeNBT() {
         CompoundTag tag = new CompoundTag();
-        tag.putFloat("soulWard", soulWard);
-        tag.putFloat("soulWardProgress", soulWardProgress);
+        tag.putDouble("soulWard", soulWard);
+        tag.putDouble("soulWardProgress", soulWardProgress);
         return tag;
     }
 
     public void deserializeNBT(CompoundTag tag) {
-        soulWard = tag.getFloat("soulWard");
-        soulWardProgress = tag.getFloat("soulWardProgress");
+        soulWard = tag.getDouble("soulWard");
+        soulWardProgress = tag.getDouble("soulWardProgress");
     }
 
-    public static void recoverSoulWard(TickEvent.PlayerTickEvent event) {
-        Player player = event.player;
+    public static void playerTick(TickEvent.PlayerTickEvent event) {
+        var player = event.player;
         if (!player.level().isClientSide) {
-            SoulWardHandler soulWardHandler = MalumPlayerDataCapability.getCapability(player).soulWardHandler;
-            AttributeInstance soulWardCap = player.getAttribute(AttributeRegistry.SOUL_WARD_CAP.get());
-            if (soulWardCap != null) {
-                if (soulWardHandler.soulWard < soulWardCap.getValue() && soulWardHandler.soulWardProgress <= 0) {
-                    soulWardHandler.soulWard++;
-                    if (!player.isCreative()) {
-                        SoundEvent sound = soulWardHandler.soulWard >= soulWardCap.getValue() ? SoundRegistry.SOUL_WARD_CHARGE.get() : SoundRegistry.SOUL_WARD_GROW.get();
-                        float pitch = 1f + (soulWardHandler.soulWard / (float) soulWardCap.getValue()) * 0.5f + (Mth.ceil(soulWardHandler.soulWard) % 3) * 0.25f;
-                        player.level().playSound(null, player.blockPosition(), sound, SoundSource.PLAYERS, 0.25f, pitch);
+            var handler = MalumPlayerDataCapability.getCapability(player).soulWardHandler;
+            var capacity = player.getAttribute(AttributeRegistry.SOUL_WARD_CAP.get());
+            if (capacity != null) {
+                if (handler.soulWard < capacity.getValue()) {
+                    if (handler.soulWardProgress <= 0) {
+                        handler.recoverSoulWard(player);
+                    } else {
+                        handler.soulWardProgress--;
                     }
-                    soulWardHandler.soulWardProgress = getSoulWardCooldown(player);
-                    MalumPlayerDataCapability.syncTrackingAndSelf(player);
-                } else {
-                    soulWardHandler.soulWardProgress--;
                 }
-                if (soulWardHandler.soulWard > soulWardCap.getValue()) {
-                    soulWardHandler.soulWard = (float) soulWardCap.getValue();
+                if (handler.soulWard > capacity.getValue()) {
+                    handler.soulWard = (float) capacity.getValue();
                     MalumPlayerDataCapability.syncTrackingAndSelf(player);
                 }
             }
         }
     }
 
-    public static void shieldPlayer(LivingHurtEvent event) {
+    public static void livingHurt(LivingHurtEvent event) {
+        if (event.getEntity().level().isClientSide()) {
+            return;
+        }
         if (event.isCanceled() || event.getAmount() <= 0) {
             return;
         }
         if (event.getEntity() instanceof Player player) {
-            if (!player.level().isClientSide) {
-                SoulWardHandler soulWardHandler = MalumPlayerDataCapability.getCapability(player).soulWardHandler;
-                soulWardHandler.soulWardProgress = getSoulWardCooldown(0) + getSoulWardCooldown(player);
-                if (soulWardHandler.soulWard > 0) {
-                    DamageSource source = event.getSource();
+            SoulWardHandler soulWardHandler = MalumPlayerDataCapability.getCapability(player).soulWardHandler;
+            soulWardHandler.soulWardProgress = getSoulWardCooldown(1) + getSoulWardCooldown(player);
+            if (soulWardHandler.soulWard > 0) {
+                DamageSource source = event.getSource();
 
-                    float amount = event.getAmount();
-                    float multiplier = source.is(LodestoneDamageTypeTags.IS_MAGIC) ? CommonConfig.SOUL_WARD_MAGIC.getConfigValue().floatValue() : CommonConfig.SOUL_WARD_PHYSICAL.getConfigValue().floatValue();
+                float amount = event.getAmount();
+                float multiplier = source.is(LodestoneDamageTypeTags.IS_MAGIC) ? CommonConfig.SOUL_WARD_MAGIC.getConfigValue().floatValue() : CommonConfig.SOUL_WARD_PHYSICAL.getConfigValue().floatValue();
 
-                    for (ItemStack s : ItemHelper.getEventResponders(player)) {
-                        if (s.getItem() instanceof IMalumEventResponderItem eventItem) {
-                            multiplier = eventItem.overrideSoulwardDamageAbsorbPercentage(event, player, s, multiplier);
-                            break;
-                        }
+                for (ItemStack s : ItemHelper.getEventResponders(player)) {
+                    if (s.getItem() instanceof IMalumEventResponderItem eventItem) {
+                        multiplier = eventItem.adjustSoulWardDamageAbsorption(event, player, s, multiplier);
+                        break;
                     }
-                    float result = amount * multiplier;
-                    float absorbed = amount - result;
-                    double strength = 1+player.getAttributeValue(AttributeRegistry.SOUL_WARD_STRENGTH.get());
-                    float soulwardLost = (float) (soulWardHandler.soulWard - (absorbed / strength));
-                    if (strength != 0) {
-                        soulWardHandler.soulWard = Math.max(0, soulwardLost);
-                    } else {
-                        soulwardLost = soulWardHandler.soulWard;
-                        soulWardHandler.soulWard = 0;
-                    }
-                    for (ItemStack s : ItemHelper.getEventResponders(player)) {
-                        if (s.getItem() instanceof IMalumEventResponderItem eventItem) {
-                            eventItem.onSoulwardAbsorbDamage(event, player, s, soulwardLost, absorbed);
-                        }
-                    }
-                    SoundEvent sound = soulWardHandler.soulWard == 0 ? SoundRegistry.SOUL_WARD_DEPLETE.get() : SoundRegistry.SOUL_WARD_HIT.get();
-                    player.level().playSound(null, player.blockPosition(), sound, player.getSoundSource(), 1, Mth.nextFloat(player.getRandom(), 1f, 1.5f));
-                    event.setAmount(result);
-
-                    MalumPlayerDataCapability.syncTrackingAndSelf(player);
                 }
+                float result = amount * multiplier;
+                float absorbed = amount - result;
+                double strength = player.getAttributeValue(AttributeRegistry.SOUL_WARD_INTEGRITY.get());
+                double soulwardLost =  soulWardHandler.soulWard - (absorbed / strength);
+                if (strength != 0) {
+                    soulWardHandler.soulWard = Math.max(0, soulwardLost);
+                } else {
+                    soulwardLost = soulWardHandler.soulWard;
+                    soulWardHandler.soulWard = 0;
+                }
+                for (ItemStack s : ItemHelper.getEventResponders(player)) {
+                    if (s.getItem() instanceof IMalumEventResponderItem eventItem) {
+                        eventItem.onSoulwardAbsorbDamage(event, player, s, soulwardLost, absorbed);
+                    }
+                }
+                var sound = soulWardHandler.soulWard == 0 ? SoundRegistry.SOUL_WARD_DEPLETE.get() : SoundRegistry.SOUL_WARD_HIT.get();
+                player.playSound(sound, 1, Mth.nextFloat(player.getRandom(), 1f, 1.5f));
+                event.setAmount(result);
+                MalumPlayerDataCapability.syncTrackingAndSelf(player);
             }
         }
     }
 
-    public static int getSoulWardCooldown(Player player) {
+    public void recoverSoulWard(Player player) {
+        soulWard++;
+        if (!player.isCreative()) {
+            var capacity = player.getAttribute(AttributeRegistry.SOUL_WARD_CAP.get());
+            if (capacity != null) {
+                var sound = soulWard >= capacity.getValue() ? SoundRegistry.SOUL_WARD_CHARGE.get() : SoundRegistry.SOUL_WARD_GROW.get();
+                double pitchOffset = (soulWard / capacity.getValue()) * 0.5f + (Mth.ceil(soulWard) % 3) * 0.25f;
+                player.playSound(sound, 0.25f, (float) (1f + pitchOffset));
+            }
+        }
+        soulWardProgress += getSoulWardCooldown(player);
+        MalumPlayerDataCapability.syncTrackingAndSelf(player);
+    }
+
+    public static float getSoulWardCooldown(Player player) {
         return getSoulWardCooldown(player.getAttributeValue(AttributeRegistry.SOUL_WARD_RECOVERY_RATE.get()));
     }
 
-    public static int getSoulWardCooldown(double recoverySpeed) {
-        int baseValue = CommonConfig.SOUL_WARD_RATE.getConfigValue();
-        if (recoverySpeed == 0) {
-            return baseValue;
-        }
-        float n = 0.6f;
-        double exponent = 1 + (Math.pow(recoverySpeed * 0.25f + 1, 1 - n) - 1) / (1 - n);
-        return (int) (baseValue * (1 / exponent));
+    public static float getSoulWardCooldown(double recoverySpeed) {
+        return Mth.floor(CommonConfig.SOUL_WARD_RATE.getConfigValue() / recoverySpeed);
     }
 
     public static class ClientOnly {
         public static void renderSoulWard(ForgeGui gui, GuiGraphics guiGraphics, int width, int height) {
-            Minecraft minecraft = Minecraft.getInstance();
-            PoseStack poseStack = guiGraphics.pose();
+            var minecraft = Minecraft.getInstance();
+            var poseStack = guiGraphics.pose();
             if (!minecraft.options.hideGui && gui.shouldDrawSurvivalElements()) {
-                gui.setupOverlayRenderState(true, false);
-                LocalPlayer player = minecraft.player;
+                var player = minecraft.player;
                 if (!player.isCreative() && !player.isSpectator()) {
-                    SoulWardHandler soulWardHandler = MalumPlayerDataCapability.getCapability(player).soulWardHandler;
-                    final float soulWard = soulWardHandler.soulWard;
+                    var handler = MalumPlayerDataCapability.getCapability(player).soulWardHandler;
+                    double soulWard = handler.soulWard;
                     if (soulWard > 0) {
                         float absorb = Mth.ceil(player.getAbsorptionAmount());
                         float maxHealth = (float) player.getAttribute(Attributes.MAX_HEALTH).getValue();
@@ -157,6 +155,7 @@ public class SoulWardHandler {
                         int rowHeight = Math.max(10 - (healthRows - 2), 3);
 
                         poseStack.pushPose();
+                        gui.setupOverlayRenderState(true, false);
                         RenderSystem.setShaderTexture(0, getSoulWardTexture());
                         RenderSystem.depthMask(true);
                         RenderSystem.enableBlend();
@@ -166,7 +165,7 @@ public class SoulWardHandler {
                         shaderInstance.safeGetUniform("XFrequency").set(15f);
                         shaderInstance.safeGetUniform("Speed").set(550f);
                         shaderInstance.safeGetUniform("Intensity").set(120f);
-                        VFXBuilders.ScreenVFXBuilder builder = VFXBuilders.createScreen()
+                        var builder = VFXBuilders.createScreen()
                                 .setPosColorTexDefaultFormat()
                                 .setShader(() -> shaderInstance);
 

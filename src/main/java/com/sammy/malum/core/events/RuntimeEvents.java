@@ -131,7 +131,7 @@ public class RuntimeEvents {
     @SubscribeEvent
     public static void onPlayerTick(TickEvent.PlayerTickEvent event) {
         ReserveStaffChargeHandler.recoverStaffCharges(event);
-        SoulWardHandler.recoverSoulWard(event);
+        SoulWardHandler.playerTick(event);
     }
 
     @SubscribeEvent
@@ -189,7 +189,7 @@ public class RuntimeEvents {
 
     @SubscribeEvent(priority = EventPriority.LOWEST)
     public static void onLateHurt(LivingHurtEvent event) {
-        SoulWardHandler.shieldPlayer(event);
+        SoulWardHandler.livingHurt(event);
     }
 
     @SubscribeEvent(priority = EventPriority.LOWEST)

@@ -11,19 +11,19 @@ public interface IMalumEventResponderItem extends IEventResponderItem {
 
     }
 
-    default float overrideSoulwardDamageAbsorbPercentage(LivingHurtEvent event, LivingEntity wardedEntity, ItemStack stack, float original) {
-        return overrideSoulwardDamageAbsorbPercentage(wardedEntity, stack, original);
+    default float adjustSoulWardDamageAbsorption(LivingHurtEvent event, LivingEntity wardedEntity, ItemStack stack, float original) {
+        return adjustSoulWardDamageAbsorption(wardedEntity, stack, original);
     }
 
-    default float overrideSoulwardDamageAbsorbPercentage(LivingEntity wardedEntity, ItemStack stack, float original) {
+    default float adjustSoulWardDamageAbsorption(LivingEntity wardedEntity, ItemStack stack, float original) {
         return original;
     }
 
-    default void onSoulwardAbsorbDamage(LivingHurtEvent event, Player wardedPlayer, ItemStack stack, float soulwardLost, float damageAbsorbed) {
+    default void onSoulwardAbsorbDamage(LivingHurtEvent event, Player wardedPlayer, ItemStack stack, double soulwardLost, float damageAbsorbed) {
         onSoulwardAbsorbDamage(wardedPlayer, stack, soulwardLost, damageAbsorbed);
     }
 
-    default void onSoulwardAbsorbDamage(Player wardedPlayer, ItemStack stack, float soulwardLost, float damageAbsorbed) {
+    default void onSoulwardAbsorbDamage(Player wardedPlayer, ItemStack stack, double soulwardLost, float damageAbsorbed) {
 
     }
 }

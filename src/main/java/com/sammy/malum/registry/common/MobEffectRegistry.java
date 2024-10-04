@@ -20,7 +20,6 @@ import java.util.Map;
 
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
 public class MobEffectRegistry {
-    public static final Map<ResourceLocation, Float> ALCHEMICAL_PROFICIENCY_MAP = new HashMap<>();
     public static final DeferredRegister<MobEffect> EFFECTS = DeferredRegister.create(ForgeRegistries.MOB_EFFECTS, MalumMod.MALUM);
 
     public static final RegistryObject<MobEffect> GAIAS_BULWARK = EFFECTS.register("gaias_bulwark", EarthenAura::new);
@@ -38,18 +37,13 @@ public class MobEffectRegistry {
     public static final RegistryObject<MobEffect> REACTIVE_SHIELDING = EFFECTS.register("reactive_shielding", ReactiveShieldingEffect::new);
     public static final RegistryObject<MobEffect> SACRIFICIAL_EMPOWERMENT = EFFECTS.register("sacrificial_empowerment", SacrificialEmpowermentEffect::new);
 
-    public static final RegistryObject<MobEffect> GLUTTONY = attachAlchemicalProficiency(EFFECTS.register("gluttony", GluttonyEffect::new), 0.5f);
+    public static final RegistryObject<MobEffect> GLUTTONY = EFFECTS.register("gluttony", GluttonyEffect::new);
     public static final RegistryObject<MobEffect> CANCEROUS_GROWTH = EFFECTS.register("cancerous_growth", GrowingFleshEffect::new);
-    public static final RegistryObject<MobEffect> WICKED_INTENT = attachAlchemicalProficiency(EFFECTS.register("wicked_intent", WickedIntentEffect::new), 0.2f);
+    public static final RegistryObject<MobEffect> WICKED_INTENT = EFFECTS.register("wicked_intent", WickedIntentEffect::new);
     public static final RegistryObject<MobEffect> SILENCED = EFFECTS.register("silenced", SilencedEffect::new);
     public static final RegistryObject<MobEffect> GRIM_CERTAINTY = EFFECTS.register("grim_certainty", GrimCertaintyEffect::new);
 
     public static final RegistryObject<MobEffect> REJECTED = EFFECTS.register("rejected", RejectedEffect::new);
-
-    public static RegistryObject<MobEffect> attachAlchemicalProficiency(RegistryObject<MobEffect> effect, float proficiency) {
-        ALCHEMICAL_PROFICIENCY_MAP.put(effect.getId(), proficiency);
-        return effect;
-    }
 
     @SubscribeEvent
     public static void addPotionRecipes(FMLCommonSetupEvent event) {
