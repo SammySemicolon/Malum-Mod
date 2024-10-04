@@ -31,7 +31,7 @@ public class TrinketsMagebaneBelt extends MalumTinketsItem implements IMalumEven
     }
 
     @Override
-    public void onSoulwardAbsorbDamage(LivingHurtEvent event, Player wardedPlayer, ItemStack stack, float soulwardLost, float damageAbsorbed) {
+    public void onSoulwardAbsorbDamage(LivingHurtEvent event, Player wardedPlayer, ItemStack stack, double soulwardLost, float damageAbsorbed) {
         DamageSource source = event.getSource();
         if (source.getEntity() != null) {
             if (source.is(LodestoneDamageTypeTags.IS_MAGIC)) {
@@ -44,7 +44,7 @@ public class TrinketsMagebaneBelt extends MalumTinketsItem implements IMalumEven
     @Override
     public void addAttributeModifiers(Multimap<Attribute, AttributeModifier> map, SlotReference slotContext, ItemStack stack, LivingEntity entity) {
         addAttributeModifier(map, AttributeRegistry.SOUL_WARD_RECOVERY_RATE.get(), uuid -> new AttributeModifier(uuid,
-                "Curio Soul Ward Recovery Speed", 3f, AttributeModifier.Operation.ADDITION));
+                "Curio Soul Ward Recovery Rate", 0.4f, AttributeModifier.Operation.MULTIPLY_BASE));
         addAttributeModifier(map, AttributeRegistry.SOUL_WARD_CAP.get(), uuid -> new AttributeModifier(uuid,
                 "Curio Soul Ward Capacity", 6f, AttributeModifier.Operation.ADDITION));
     }

@@ -40,7 +40,7 @@ import com.sammy.malum.common.item.curiosities.trinkets.runes.madness.*;
 import com.sammy.malum.common.item.curiosities.trinkets.runes.miracle.*;
 import com.sammy.malum.common.item.curiosities.trinkets.sets.alchemical.TrinketsAlchemicalRing;
 import com.sammy.malum.common.item.curiosities.trinkets.sets.alchemical.TrinketsCurativeRing;
-import com.sammy.malum.common.item.curiosities.trinkets.sets.alchemical.TrinketsRingOfProwess;
+import com.sammy.malum.common.item.curiosities.trinkets.sets.alchemical.TrinketsProwessRing;
 import com.sammy.malum.common.item.curiosities.trinkets.sets.misc.TrinketsHarmonyNecklace;
 import com.sammy.malum.common.item.curiosities.trinkets.sets.misc.TrinketsNarrowNecklace;
 import com.sammy.malum.common.item.curiosities.trinkets.sets.misc.TrinketsWaterNecklace;
@@ -721,7 +721,7 @@ public class ItemRegistry {
 
     public static final RegistryObject<Item> RING_OF_ESOTERIC_SPOILS = register("ring_of_esoteric_spoils", GEAR_PROPERTIES(), TrinketsArcaneSpoilRing::new);
     public static final RegistryObject<Item> RING_OF_CURATIVE_TALENT = register("ring_of_curative_talent", GEAR_PROPERTIES(), TrinketsCurativeRing::new);
-    public static final RegistryObject<Item> RING_OF_ARCANE_PROWESS = register("ring_of_arcane_prowess", GEAR_PROPERTIES(), TrinketsRingOfProwess::new);
+    public static final RegistryObject<Item> RING_OF_ARCANE_PROWESS = register("ring_of_arcane_prowess", GEAR_PROPERTIES(), TrinketsProwessRing::new);
     public static final RegistryObject<Item> RING_OF_ALCHEMICAL_MASTERY = register("ring_of_alchemical_mastery", GEAR_PROPERTIES(), TrinketsAlchemicalRing::new);
     public static final RegistryObject<Item> RING_OF_DESPERATE_VORACITY = register("ring_of_desperate_voracity", GEAR_PROPERTIES(), TrinketsVoraciousRing::new);
     public static final RegistryObject<Item> RING_OF_THE_HOARDER = register("ring_of_the_hoarder", GEAR_PROPERTIES(), TrinketsHoarderRing::new);

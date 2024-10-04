@@ -31,9 +31,8 @@ public class RuneAlimentCleansingItem extends AbstractRuneTrinketsItem {
         if (mobEffectInstance == null && TrinketsHelper.hasTrinketEquipped(livingEntity, ItemRegistry.RUNE_OF_ALIMENT_CLEANSING.get())) {
             MobEffectInstance effect = mobEffectInstance1;
             MobEffect type = effect.getEffect();
-            float multiplier = MobEffectRegistry.ALCHEMICAL_PROFICIENCY_MAP.getOrDefault(BuiltInRegistries.MOB_EFFECT.getKey(type), 1f);
-            if (type.getCategory().equals(MobEffectCategory.HARMFUL)) {
-                EntityHelper.shortenEffect(effect, livingEntity, (int) (effect.getDuration() * 0.33f * multiplier));
+            if (type.getCategory().equals(MobEffectCategory.HARMFUL) && entity instanceof LivingEntity livingEntity1) {
+                EntityHelper.shortenEffect(effect, livingEntity1, effect.getDuration() / 4);
             }
         }
         return true;

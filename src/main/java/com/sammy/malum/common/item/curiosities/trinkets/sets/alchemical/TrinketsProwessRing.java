@@ -5,12 +5,12 @@ import com.sammy.malum.common.item.curiosities.trinkets.MalumTinketsItem;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.ExperienceOrb;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.level.Level;
+import team.lodestar.lodestone.helpers.RandomHelper;
 
 import java.util.function.Consumer;
 
-public class TrinketsRingOfProwess extends MalumTinketsItem implements IMalumEventResponderItem {
-    public TrinketsRingOfProwess(Properties builder) {
+public class TrinketsProwessRing extends MalumTinketsItem implements IMalumEventResponderItem {
+    public TrinketsProwessRing(Properties builder) {
         super(builder, MalumTrinketType.ALCHEMICAL);
     }
 
@@ -21,14 +21,13 @@ public class TrinketsRingOfProwess extends MalumTinketsItem implements IMalumEve
 
     @Override
     public void pickupSpirit(LivingEntity collector, double arcaneResonance) {
-        Level level = collector.level();
-        int floored = (int) Math.floor(arcaneResonance);
-        int i = 1 + level.random.nextInt(1 + floored) + level.random.nextInt(2 + floored);
+        var level = collector.level();
+        int generatedExperience = (int) Math.round(RandomHelper.randomBetween(level.random, 1, 4) * arcaneResonance);
 
-        while (i > 0) {
-            int j = ExperienceOrb.getExperienceValue(i);
-            i -= j;
-            level.addFreshEntity(new ExperienceOrb(level, collector.getX(), collector.getY(), collector.getZ(), j));
+        while (generatedExperience > 0) {
+            int value = ExperienceOrb.getExperienceValue(generatedExperience);
+            generatedExperience -= value;
+            level.addFreshEntity(new ExperienceOrb(level, collector.getX(), collector.getY(), collector.getZ(), value));
         }
     }
 }

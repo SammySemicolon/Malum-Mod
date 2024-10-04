@@ -1,15 +1,16 @@
 package com.sammy.malum.common.packets.malignant_conversion;
 
-import com.sammy.malum.common.capability.*;
 import com.sammy.malum.core.handlers.*;
+import me.pepperbell.simplenetworking.SimpleChannel;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
+import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.minecraft.client.*;
+import net.minecraft.client.multiplayer.ClientPacketListener;
 import net.minecraft.client.player.*;
 import net.minecraft.core.registries.*;
 import net.minecraft.network.*;
 import net.minecraft.world.entity.ai.attributes.*;
-import net.minecraftforge.api.distmarker.*;
-import net.minecraftforge.network.*;
-import net.minecraftforge.network.simple.*;
 import team.lodestar.lodestone.systems.network.*;
 
 import java.util.*;
@@ -29,16 +30,14 @@ public class SyncMalignantConversionPacket extends LodestoneClientPacket {
         buf.writeId(BuiltInRegistries.ATTRIBUTE, attribute);
         buf.writeUUID(uuid);
     }
-
-    @OnlyIn(Dist.CLIENT)
-    public void execute(Supplier<NetworkEvent.Context> context) {
+    @Environment(EnvType.CLIENT)
+    @Override
+    public void executeClient(Minecraft client, ClientPacketListener listener, PacketSender responseSender, SimpleChannel channel) {
         final LocalPlayer player = Minecraft.getInstance().player;
         MalignantConversionHandler.syncPositiveUUIDS(player, attribute, uuid);
     }
 
-    public static void register(SimpleChannel instance, int index) {
-        instance.registerMessage(index, SyncMalignantConversionPacket.class, SyncMalignantConversionPacket::encode, SyncMalignantConversionPacket::decode, SyncMalignantConversionPacket::handle);
-    }
+
 
     public static SyncMalignantConversionPacket decode(FriendlyByteBuf buf) {
         return new SyncMalignantConversionPacket(buf.readById(BuiltInRegistries.ATTRIBUTE), buf.readUUID());
