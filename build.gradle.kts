@@ -30,6 +30,10 @@ val mixinVersion: String by extra
 val modJavaVersion: String by extra
 val lodestoneVersion: String by extra
 val fusionVersion: String by extra
+var caelusVersion: String by extra
+val geckoLibVersion: String by extra
+val playerAnimatorVersion: String by extra
+val ironsSpellsVersion: String by extra
 
 jarJar.enable()
 
@@ -145,6 +149,18 @@ repositories {
         }
     }
 
+    //Iron's Spellbooks requirements
+    maven {
+        name = "Iron's Maven - Release"
+        url = uri("https://code.redspace.io/releases")
+    }
+    maven {
+        url = uri("https://maven.kosmx.dev/")
+    }
+    maven {
+        url = uri("https://dl.cloudsmith.io/public/geckolib3/geckolib/maven/")
+    }
+
     exclusiveContent {
         forRepository {
             maven {
@@ -184,22 +200,30 @@ dependencies {
 
     implementation(fg.deobf("team.lodestar.lodestone:lodestone:${minecraftVersion}-${lodestoneVersion}"))
 
-    runtimeOnly(fg.deobf("maven.modrinth:fusion-connected-textures:${fusionVersion}-forge-mc${minecraftVersion}"))
-
+    //FD Optional Dependency
     compileOnly(fg.deobf("curse.maven:farmers_delight-398521:4638874"))
 
-    runtimeOnly(fg.deobf("curse.maven:create-328085:4626108"))
+    //Tetra Optional Dependency
     compileOnly(fg.deobf("curse.maven:mutil-351914:4824501"))
     compileOnly(fg.deobf("curse.maven:tetra-289712:5544287"))
 
+    //Iron's Spellbooks Optional Dependency
+    compileOnly(fg.deobf("top.theillusivec4.caelus:caelus-forge:${caelusVersion}:api"))
+    runtimeOnly(fg.deobf("top.theillusivec4.caelus:caelus-forge:${caelusVersion}"))
+    implementation(fg.deobf("software.bernie.geckolib:geckolib-forge-${geckoLibVersion}"))
+    implementation(fg.deobf("dev.kosmx.player-anim:player-animation-lib-forge:${playerAnimatorVersion}"))
+    compileOnly(fg.deobf("io.redspace.ironsspellbooks:irons_spellbooks:${ironsSpellsVersion}:api"))
+    runtimeOnly(fg.deobf("io.redspace.ironsspellbooks:irons_spellbooks:${ironsSpellsVersion}"))
 
+    //Apothic Attributes
     implementation(fg.deobf("curse.maven:placebo-283644:5414631"))
     implementation(fg.deobf("curse.maven:apothic-attributes-898963:5634071"))
 
-    runtimeOnly(fg.deobf("curse.maven:world-stripper-250603:4578579"))
+    //Misc
     runtimeOnly(fg.deobf("curse.maven:spark-361579:4587309"))
     runtimeOnly(fg.deobf("curse.maven:attributefix-280510:4911084"))
     runtimeOnly(fg.deobf("curse.maven:overloaded-armor-bar-314002:4631133"))
+    runtimeOnly(fg.deobf("maven.modrinth:fusion-connected-textures:${fusionVersion}-forge-mc${minecraftVersion}"))
 }
 
 tasks.withType<ProcessResources> {

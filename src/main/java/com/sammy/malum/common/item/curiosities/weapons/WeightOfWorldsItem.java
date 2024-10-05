@@ -1,7 +1,6 @@
 package com.sammy.malum.common.item.curiosities.weapons;
 
-import com.sammy.malum.common.item.curiosities.weapons.scythe.*;
-import com.sammy.malum.registry.client.*;
+import com.sammy.malum.core.helpers.*;
 import com.sammy.malum.registry.common.*;
 import net.minecraft.world.effect.*;
 import net.minecraft.world.entity.*;
@@ -17,7 +16,6 @@ public class WeightOfWorldsItem extends LodestoneAxeItem implements IEventRespon
         super(material, attackDamage, attackSpeed, properties);
     }
 
-
     @Override
     public void killEvent(LivingDeathEvent event, LivingEntity attacker, LivingEntity target, ItemStack stack) {
         attacker.addEffect(new MobEffectInstance(MobEffectRegistry.GRIM_CERTAINTY.get(), 200));
@@ -25,20 +23,18 @@ public class WeightOfWorldsItem extends LodestoneAxeItem implements IEventRespon
 
     @Override
     public void hurtEvent(LivingHurtEvent event, LivingEntity attacker, LivingEntity target, ItemStack stack) {
-        if (attacker != null) {
-            if (attacker instanceof Player player) {
-                MalumScytheItem.spawnSweepParticles(player, ParticleRegistry.SCYTHE_CUT_PARTICLE.get());
-            }
-            final Level level = attacker.level();
-            level.playSound(null, target.getX(), target.getY(), target.getZ(), SoundRegistry.WEIGHT_OF_WORLDS_SLASH.get(), attacker.getSoundSource(), 1, 0.5f);
-            final MobEffect effect = MobEffectRegistry.GRIM_CERTAINTY.get();
-            if (attacker.hasEffect(effect) || level.random.nextFloat() < 0.25f) {
-                event.setAmount(event.getAmount()*2);
-                level.playSound(null, target.getX(), target.getY(), target.getZ(), SoundRegistry.MALIGNANT_METAL_RESONATES.get(), attacker.getSoundSource(), 2, 0.5f);
-                level.playSound(null, target.getX(), target.getY(), target.getZ(), SoundRegistry.MALIGNANT_METAL_RESONATES.get(), attacker.getSoundSource(), 2, 1.5f);
-                level.playSound(null, target.getX(), target.getY(), target.getZ(), SoundRegistry.DRAINING_MOTIF.get(), attacker.getSoundSource(), 2, 0.5f);
-                attacker.removeEffect(effect);
-            }
+        if (attacker instanceof Player) {
+            ParticleHelper.spawnVerticalSlashParticle(ParticleEffectTypeRegistry.SCYTHE_SLASH, attacker);
+        }
+        final Level level = attacker.level();
+        level.playSound(null, target.getX(), target.getY(), target.getZ(), SoundRegistry.WEIGHT_OF_WORLDS_SLASH.get(), attacker.getSoundSource(), 1, 0.5f);
+        final MobEffect effect = MobEffectRegistry.GRIM_CERTAINTY.get();
+        if (attacker.hasEffect(effect) || level.random.nextFloat() < 0.25f) {
+            event.setAmount(event.getAmount() * 2);
+            level.playSound(null, target.getX(), target.getY(), target.getZ(), SoundRegistry.MALIGNANT_METAL_RESONATES.get(), attacker.getSoundSource(), 2, 0.5f);
+            level.playSound(null, target.getX(), target.getY(), target.getZ(), SoundRegistry.MALIGNANT_METAL_RESONATES.get(), attacker.getSoundSource(), 2, 1.5f);
+            level.playSound(null, target.getX(), target.getY(), target.getZ(), SoundRegistry.DRAINING_MOTIF.get(), attacker.getSoundSource(), 2, 0.5f);
+            attacker.removeEffect(effect);
         }
     }
 }

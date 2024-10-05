@@ -1,21 +1,18 @@
 package com.sammy.malum.common.item.curiosities.weapons;
 
 import com.sammy.malum.common.item.*;
-import com.sammy.malum.common.packets.particle.curiosities.rite.generic.*;
 import com.sammy.malum.core.handlers.*;
+import com.sammy.malum.core.helpers.*;
 import com.sammy.malum.registry.common.*;
-import net.minecraft.sounds.*;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.player.*;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.*;
 import net.minecraftforge.common.*;
 import net.minecraftforge.event.entity.living.*;
-import net.minecraftforge.network.*;
+import team.lodestar.lodestone.helpers.*;
 import team.lodestar.lodestone.registry.common.tag.*;
 import team.lodestar.lodestone.systems.item.tools.*;
-
-import static com.sammy.malum.registry.common.PacketRegistry.*;
 
 public class TyrvingItem extends LodestoneSwordItem implements IMalumEventResponderItem {
     public TyrvingItem(Tier material, int attackDamage, float attackSpeed, Properties properties) {
@@ -38,8 +35,9 @@ public class TyrvingItem extends LodestoneSwordItem implements IMalumEventRespon
                 target.invulnerableTime = 0;
                 target.hurt(DamageTypeRegistry.create(level, DamageTypeRegistry.VOODOO, attacker), damage);
             }
-            level.playSound(null, target.blockPosition(), SoundRegistry.VOID_SLASH.get(), SoundSource.PLAYERS, 1, 1f + level.random.nextFloat() * 0.25f);
-            MALUM_CHANNEL.send(PacketDistributor.TRACKING_ENTITY.with(() -> target), new MajorEntityEffectParticlePacket(SpiritTypeRegistry.ELDRITCH_SPIRIT.getPrimaryColor(), target.getX(), target.getY() + target.getBbHeight() / 2, target.getZ()));
+
+            SoundHelper.playSound(attacker, SoundRegistry.TYRVING_SLASH.get(), 1, RandomHelper.randomBetween(attacker.getRandom(), 1f, 1.5f));
+            ParticleHelper.spawnVerticalSlashParticle(ParticleEffectTypeRegistry.TYRVING_SLASH, attacker);
         }
     }
 

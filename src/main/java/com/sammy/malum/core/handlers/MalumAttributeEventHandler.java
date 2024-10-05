@@ -18,7 +18,7 @@ public class MalumAttributeEventHandler {
         DamageSource source = event.getSource();
         if (source.getEntity() instanceof LivingEntity attacker) {
             float amount = event.getAmount();
-            ItemStack stack = MalumScytheItem.getScytheItemStack(source, attacker);
+            ItemStack stack = SoulDataHandler.getScytheWeapon(source, attacker);
             if (stack.isEmpty()) {
                 return;
             }
