@@ -4,11 +4,13 @@ import com.sammy.malum.registry.common.*;
 import com.sammy.malum.visual_effects.networked.*;
 import com.sammy.malum.visual_effects.networked.data.*;
 import com.sammy.malum.visual_effects.networked.slash.*;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.*;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.phys.*;
 
 public class ParticleHelper {
+
     public static void spawnHorizontalSlashParticle(ParticleEffectType effectType, LivingEntity attacker) {
         if (!attacker.level().isClientSide()) {
             spawnSlashingParticle(effectType, attacker, 0f);
@@ -18,6 +20,12 @@ public class ParticleHelper {
     public static void spawnVerticalSlashParticle(ParticleEffectType effectType, LivingEntity attacker) {
         if (!attacker.level().isClientSide()) {
             spawnSlashingParticle(effectType, attacker, 0.4f, 1.57f, false);
+        }
+    }
+
+    public static void spawnRandomOrientationSlashParticle(ParticleEffectType effectType, LivingEntity attacker) {
+        if (!attacker.level().isClientSide()) {
+            spawnSlashingParticle(effectType, attacker, attacker.getRandom().nextFloat() * 3.14f);
         }
     }
 
@@ -44,6 +52,8 @@ public class ParticleHelper {
         double yOffset = slashOffset.y + attacker.getBbHeight() * 0.5f;
         double zOffset = slashOffset.z;
         var position = attacker.position().add(xOffset, yOffset, zOffset);
-        effectType.createPositionedEffect(attacker.level(), new PositionEffectData(position), SlashAttackParticleEffect.createData(slashDirection, mirror, slashAngle));
+        if (attacker.level() instanceof ServerLevel serverLevel) {
+            effectType.createPositionedEffect(serverLevel, new PositionEffectData(position), SlashAttackParticleEffect.createData(slashDirection, mirror, slashAngle));
+        }
     }
 }

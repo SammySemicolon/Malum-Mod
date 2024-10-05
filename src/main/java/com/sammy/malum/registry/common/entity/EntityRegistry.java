@@ -57,6 +57,10 @@ public class EntityRegistry {
             () -> EntityType.Builder.<SpiritCollectionActivatorEntity>of((e, w) -> new SpiritCollectionActivatorEntity(w), MobCategory.MISC).sized(1f, 1f).clientTrackingRange(10)
                     .build(MalumMod.malumPath("pneuma_void").toString()));
 
+    public static final RegistryObject<EntityType<HiddenBladeDelayedImpactEntity>> HIDDEN_BLADE_DELAYED_IMPACT = ENTITY_TYPES.register("hidden_blade_delayed_impact",
+            () -> EntityType.Builder.<HiddenBladeDelayedImpactEntity>of((e, w) -> new HiddenBladeDelayedImpactEntity(w), MobCategory.MISC).sized(8F, 8F).clientTrackingRange(10)
+                    .build(MalumMod.malumPath("hidden_blade_delayed_impact").toString()));
+
     public static final RegistryObject<EntityType<ThrownConcentratedGluttony>> THROWN_GLUTTONY = ENTITY_TYPES.register("thrown_gluttony",
             () -> EntityType.Builder.<ThrownConcentratedGluttony>of((e, w) -> new ThrownConcentratedGluttony(w), MobCategory.MISC).sized(0.25f, 0.25f).clientTrackingRange(10)
                     .build(MalumMod.malumPath("thrown_gluttony").toString()));
@@ -84,6 +88,8 @@ public class EntityRegistry {
             EntityRendererRegistry.register(EntityRegistry.ETHERIC_NITRATE.get(), EthericNitrateEntityRenderer::new);
             EntityRendererRegistry.register(EntityRegistry.VIVID_NITRATE.get(), VividNitrateEntityRenderer::new);
 
+            EntityRenderers.register(EntityRegistry.SPIRIT_COLLECTION_ACTIVATOR.get(), SpiritCollectionActivatorEntityRenderer::new);
+            EntityRenderers.register(EntityRegistry.HIDDEN_BLADE_DELAYED_IMPACT.get(), NoopRenderer::new);
             EntityRendererRegistry.register(EntityRegistry.HEX_BOLT.get(), HexBoltEntityRenderer::new);
             EntityRendererRegistry.register(EntityRegistry.DRAINING_BOLT.get(), DrainingBoltEntityRenderer::new);
             EntityRendererRegistry.register(EntityRegistry.AURIC_FLAME_BOLT.get(), AuricFlameBoltEntityRenderer::new);

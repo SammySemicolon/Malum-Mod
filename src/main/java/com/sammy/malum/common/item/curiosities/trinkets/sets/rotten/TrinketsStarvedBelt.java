@@ -13,6 +13,7 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;
 import team.lodestar.lodestone.helpers.EntityHelper;
+import team.lodestar.lodestone.helpers.RandomHelper;
 
 import java.util.function.Consumer;
 

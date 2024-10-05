@@ -43,7 +43,8 @@ public class ReboundEnchantment extends Enchantment implements CustomEnchantingT
                 entity.setData(player, baseDamage, magicDamage, slot);
                 entity.setItem(stack);
 
-                entity.shootFromRotation(player, player.getXRot(), player.getYRot(), 0.0F, (float) (1.5F + player.getAttributeValue(AttributeRegistry.SCYTHE_PROFICIENCY.get()) * 0.125f), 0F);
+                float velocity = (float) (1.5F + player.getAttributeValue(AttributeRegistry.SCYTHE_PROFICIENCY.get()) * 0.125f);
+                entity.shootFromRotation(player, player.getXRot(), player.getYRot(), 0.0F, velocity, 0F);
                 level.addFreshEntity(entity);
             }
             player.awardStat(Stats.ITEM_USED.get(stack.getItem()));

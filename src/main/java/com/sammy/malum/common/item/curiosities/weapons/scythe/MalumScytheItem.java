@@ -38,8 +38,7 @@ public class MalumScytheItem extends ModCombatItem implements IMalumEventRespond
         boolean canSweep = canSweep(attacker);
         var level = attacker.level();
 
-
-        if (event.getSource().is(LodestoneDamageTypeTags.IS_MAGIC) || event.getSource().getMsgId().equals(DamageTypeRegistry.SCYTHE_SWEEP_IDENTIFIER)) {
+        if (!event.getSource().is(DamageTypeRegistry.SCYTHE_MELEE)) {
             return;
         }
         if (!canSweep) {
