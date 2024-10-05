@@ -183,11 +183,6 @@ public class RuntimeEvents {
         SoulWardHandler.livingHurt(event);
     }
 
-    @SubscribeEvent(priority = EventPriority.LOWEST)
-    public static void onLateDamage(LivingDamageEvent event) {
-        WickedIntentEffect.livingHurt(event);
-    }
-
     @SubscribeEvent
     public static void onDeath(LivingDeathEvent event) {
         EsotericReapingHandler.onDeath(event);
