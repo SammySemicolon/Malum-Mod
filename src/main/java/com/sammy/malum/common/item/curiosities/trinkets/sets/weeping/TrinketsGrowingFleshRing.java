@@ -12,6 +12,7 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;
 import team.lodestar.lodestone.helpers.EntityHelper;
+import team.lodestar.lodestone.helpers.RandomHelper;
 
 import java.util.function.Consumer;
 
@@ -27,15 +28,15 @@ public class TrinketsGrowingFleshRing extends MalumTinketsItem implements IVoidI
 
     @Override
     public void pickupSpirit(LivingEntity collector, double arcaneResonance) {
-        MobEffect cancerousGrowth = MobEffectRegistry.CANCEROUS_GROWTH.get();
-        MobEffectInstance effect = collector.getEffect(cancerousGrowth);
+        var cancerousGrowth = MobEffectRegistry.CANCEROUS_GROWTH.get();
+        var effect = collector.getEffect(cancerousGrowth);
+        int addedDuration = (int) (300 * arcaneResonance);
         if (effect == null) {
-            collector.addEffect(new MobEffectInstance(cancerousGrowth, 1200, 0, true, true, true));
+            collector.addEffect(new MobEffectInstance(cancerousGrowth, addedDuration*4, 0, true, true, true));
         } else {
-            EntityHelper.extendEffect(effect, collector, (int) (300 + arcaneResonance * 300), 72000);
+            EntityHelper.extendEffect(effect, collector, addedDuration, 72000);
             EntityHelper.amplifyEffect(effect, collector, 1, 19);
         }
-        Level level = collector.level();
-        level.playSound(null, collector.blockPosition(), SoundRegistry.FLESH_RING_ABSORBS.get(), SoundSource.PLAYERS, 0.3f, 1.5f + level.random.nextFloat() * 0.5f);
+        collector.playSound(SoundRegistry.FLESH_RING_ABSORBS.get(), 0.3f, RandomHelper.randomBetween(collector.getRandom(), 1.5f, 2f));
     }
 }

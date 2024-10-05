@@ -32,6 +32,11 @@ public class SpiritCollectionActivatorEntity extends FloatingEntity {
     }
 
     @Override
+    public SoundSource getSoundSource() {
+        return SoundSource.NEUTRAL;
+    }
+
+    @Override
     public void collect() {
         AttributeInstance instance = owner.getAttribute(AttributeRegistry.ARCANE_RESONANCE.get());
         ItemHelper.getEventResponders(owner).forEach(s -> {
@@ -39,7 +44,7 @@ public class SpiritCollectionActivatorEntity extends FloatingEntity {
                 eventItem.pickupSpirit(owner, instance != null ? instance.getValue() : 0);
             }
         });
-        level().playSound(null, blockPosition(), SoundRegistry.SPIRIT_PICKUP.get(), SoundSource.NEUTRAL, 0.3f, Mth.nextFloat(random, 1.2f, 1.5f));
+        SoundHelper.playSound(this, SoundRegistry.SPIRIT_PICKUP.get(), 0.3f, Mth.nextFloat(random, 1.2f, 1.5f));
     }
 
     @Override

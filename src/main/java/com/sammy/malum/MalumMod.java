@@ -137,9 +137,9 @@ public class MalumMod implements ModInitializer {
         LivingEntityUseItemEvents.LIVING_USE_ITEM_FINISH.register(TrinketsVoraciousRing::finishEating);
         LivingHurtEvent.HURT.register(MalumAttributeEventHandler::processAttributes);
         LivingHurtEvent.HURT.register(SoulDataHandler::exposeSoul);
-        LivingHurtEvent.HURT.register(WickedIntentEffect::removeWickedIntent);
-        LivingHurtEvent.HURT.register(SoulWardHandler::shieldPlayer);
-        LivingEntityEvents.DROPS.register(SpiritHarvestHandler::modifyDroppedItems);
+        LivingHurtEvent.HURT.register(WickedIntentEffect::livingHurt);
+        LivingHurtEvent.HURT.register(SoulWardHandler::livingHurt);
+        LivingEntityEvents.DROPS.register(SpiritHarvestHandler::primeItemForShatter);
         PlayerTickEvents.START.register(SoulWardHandler::recoverSoulWard);
         PlayerTickEvents.START.register(ReserveStaffChargeHandler::recoverStaffCharges);
         PlayerInteractionEvents.LEFT_CLICK_BLOCK.register(this::leftClickBlock);

@@ -2,8 +2,10 @@ package com.sammy.malum.common.item.curiosities.weapons.scythe;
 
 import com.sammy.malum.common.entity.boomerang.ScytheBoomerangEntity;
 import com.sammy.malum.common.item.IMalumEventResponderItem;
+import com.sammy.malum.core.helpers.ParticleHelper;
 import com.sammy.malum.registry.client.ParticleRegistry;
 import com.sammy.malum.registry.common.DamageTypeRegistry;
+import com.sammy.malum.registry.common.ParticleEffectTypeRegistry;
 import com.sammy.malum.registry.common.SoundRegistry;
 import com.sammy.malum.registry.common.item.ItemRegistry;
 import io.github.fabricators_of_create.porting_lib.enchant.CustomEnchantingBehaviorItem;
@@ -33,41 +35,40 @@ public class MalumScytheItem extends ModCombatItem implements IMalumEventRespond
 
     @Override
     public void hurtEvent(LivingHurtEvent event, LivingEntity attacker, LivingEntity target, ItemStack stack) {
-        //TODO: convert this to a ToolAction, or something alike
-        boolean canSweep = !TrinketsHelper.hasTrinketEquipped(attacker, ItemRegistry.NECKLACE_OF_THE_NARROW_EDGE.get()) && !TrinketsHelper.hasTrinketEquipped(attacker, ItemRegistry.NECKLACE_OF_THE_HIDDEN_BLADE.get());
-        if (attacker instanceof Player player) {
-            SoundEvent sound;
-            if (canSweep) {
-                spawnSweepParticles(player, ParticleRegistry.SCYTHE_SWEEP_PARTICLE.get());
-                sound = SoundEvents.PLAYER_ATTACK_SWEEP;
-            } else {
-                spawnSweepParticles(player, ParticleRegistry.SCYTHE_CUT_PARTICLE.get());
-                sound = SoundRegistry.SCYTHE_CUT.get();
-            }
-            attacker.level().playSound(null, target.getX(), target.getY(), target.getZ(), sound, attacker.getSoundSource(), 1, 1);
-        }
+        boolean canSweep = canSweep(attacker);
+        var level = attacker.level();
 
-        if (!canSweep || event.getSource().is(LodestoneDamageTypeTags.IS_MAGIC) || event.getSource().getMsgId().equals(DamageTypeRegistry.SCYTHE_SWEEP_IDENTIFIER)) {
+
+        if (event.getSource().is(LodestoneDamageTypeTags.IS_MAGIC) || event.getSource().getMsgId().equals(DamageTypeRegistry.SCYTHE_SWEEP_IDENTIFIER)) {
             return;
         }
+        if (!canSweep) {
+            SoundHelper.playSound(attacker, SoundRegistry.SCYTHE_CUT.get(), 1, 0.75f);
+            ParticleHelper.spawnVerticalSlashParticle(ParticleEffectTypeRegistry.SCYTHE_SLASH, attacker);
+            return;
+        }
+
+        SoundHelper.playSound(attacker, SoundRegistry.SCYTHE_SWEEP.get(), 1, 1);
+        ParticleHelper.spawnHorizontalSlashParticle(ParticleEffectTypeRegistry.SCYTHE_SLASH, attacker);
         int sweeping = EnchantmentHelper.getEnchantmentLevel(Enchantments.SWEEPING_EDGE, attacker);
         float damage = event.getAmount() * (0.5f + EnchantmentHelper.getSweepingDamageRatio(attacker));
-        attacker.level().getEntities(attacker, target.getBoundingBox().inflate(1 + sweeping * 0.25f)).forEach(e -> {
+        float radius = 1 + sweeping * 0.25f;
+        level.getEntities(attacker, target.getBoundingBox().inflate(radius)).forEach(e -> {
             if (e instanceof LivingEntity livingEntity) {
                 if (livingEntity.isAlive()) {
-                    livingEntity.hurt((DamageTypeRegistry.create(attacker.level(), DamageTypeRegistry.SCYTHE_SWEEP, attacker)), damage);
-                    livingEntity.knockback(0.4F, Mth.sin(attacker.getYRot() * ((float) Math.PI / 180F)), (-Mth.cos(attacker.getYRot() * ((float) Math.PI / 180F))));
+                    livingEntity.hurt((DamageTypeRegistry.create(level, DamageTypeRegistry.SCYTHE_SWEEP, attacker)), damage);
+                    livingEntity.knockback(0.4F,
+                            Mth.sin(attacker.getYRot() * ((float) Math.PI / 180F)),
+                            (-Mth.cos(attacker.getYRot() * ((float) Math.PI / 180F))));
                 }
             }
         });
     }
 
-    public static void spawnSweepParticles(Player player, SimpleParticleType type) {
-        double d0 = (-Mth.sin(player.getYRot() * ((float) Math.PI / 180F)));
-        double d1 = Mth.cos(player.getYRot() * ((float) Math.PI / 180F));
-        if (player.level() instanceof ServerLevel serverLevel) {
-            serverLevel.sendParticles(type, player.getX() + d0, player.getY(0.5D), player.getZ() + d1, 0, d0, 0.0D, d1, 0.0D);
-        }
+    public static boolean canSweep(LivingEntity attacker) {
+        //TODO: convert this to a ToolAction, or something alike
+        return !TrinketsHelper.hasTrinketEquipped(attacker, ItemRegistry.NECKLACE_OF_THE_NARROW_EDGE.get()) &&
+                !TrinketsHelper.hasTrinketEquipped(attacker, ItemRegistry.NECKLACE_OF_THE_HIDDEN_BLADE.get());
     }
 
     public static ItemStack getScytheItemStack(DamageSource source, LivingEntity attacker) {

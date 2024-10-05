@@ -11,6 +11,12 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.MobSpawnType;
+import com.sammy.malum.common.item.curiosities.weapons.scythe.*;
+import com.sammy.malum.compability.tetra.*;
+import com.sammy.malum.registry.common.item.*;
+import net.minecraft.nbt.*;
+import net.minecraft.world.damagesource.*;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BaseSpawner;
@@ -18,6 +24,8 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 
 public class SoulDataHandler {
+
+    public static final String SOUL_SHATTER_ENTITY_TAG = "malum:can_shatter_souls";
 
     public float exposedSoulDuration;
     public boolean soulless;
@@ -89,7 +97,8 @@ public class SoulDataHandler {
                 soulData.exposedSoulDuration = 200;
             }
         }
-        if (source.getDirectEntity() != null && source.getDirectEntity().getTags().contains("malum:soul_arrow")) {
+        var directEntity = source.getDirectEntity();
+        if (directEntity != null && directEntity.getTags().contains(SOUL_SHATTER_ENTITY_TAG)) {
             soulData.exposedSoulDuration = 200;
         }
     }
@@ -104,6 +113,11 @@ public class SoulDataHandler {
 
     public static void removeSentience(Mob mob) {
         mob.goalSelector.getAvailableGoals().removeIf(g -> g.getGoal() instanceof LookAtPlayerGoal || g.getGoal() instanceof MeleeAttackGoal || g.getGoal() instanceof SwellGoal || g.getGoal() instanceof PanicGoal || g.getGoal() instanceof RandomLookAroundGoal || g.getGoal() instanceof AvoidEntityGoal);
+    }
+
+    public static ItemStack getScytheWeapon(DamageSource source, LivingEntity attacker) {
+        var soulHunterWeapon = getSoulHunterWeapon(source, attacker);
+        return soulHunterWeapon.getItem() instanceof MalumScytheItem ? soulHunterWeapon : ItemStack.EMPTY;
     }
 
     public static ItemStack getSoulHunterWeapon(DamageSource source, LivingEntity attacker) {

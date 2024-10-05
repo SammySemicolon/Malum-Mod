@@ -1,6 +1,7 @@
 package com.sammy.malum.common.effect;
 
 import com.sammy.malum.common.item.curiosities.weapons.scythe.MalumScytheItem;
+import com.sammy.malum.core.handlers.SoulDataHandler;
 import com.sammy.malum.registry.common.AttributeRegistry;
 import com.sammy.malum.registry.common.MobEffectRegistry;
 import com.sammy.malum.registry.common.SoundRegistry;
@@ -23,13 +24,13 @@ public class WickedIntentEffect extends MobEffect {
         addAttributeModifier(AttributeRegistry.SCYTHE_PROFICIENCY.get(), "0cd21cec-758c-456b-9955-06713e732303", 4f, AttributeModifier.Operation.ADDITION);
     }
 
-    public static void removeWickedIntent(LivingHurtEvent event) {
+    public static void livingHurt(LivingHurtEvent event) {
         DamageSource source = event.getSource();
         if (source.is(LodestoneDamageTypeTags.IS_MAGIC) || (source.is(DamageTypes.THORNS))) {
             return;
         }
         if (source.getEntity() instanceof LivingEntity livingEntity) {
-            if (MalumScytheItem.getScytheItemStack(source, livingEntity).isEmpty()) {
+            if (SoulDataHandler.getScytheWeapon(source, livingEntity).isEmpty()) {
                 return;
             }
             MobEffectInstance effect = livingEntity.getEffect(MobEffectRegistry.WICKED_INTENT.get());

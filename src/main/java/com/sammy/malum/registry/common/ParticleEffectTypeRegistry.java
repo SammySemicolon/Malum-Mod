@@ -15,6 +15,8 @@ import com.sammy.malum.visual_effects.networked.nitrate.EthericNitrateImpactPart
 import com.sammy.malum.visual_effects.networked.pylon.PylonPrepareRepairParticleEffect;
 import com.sammy.malum.visual_effects.networked.pylon.PylonRepairParticleEffect;
 import com.sammy.malum.visual_effects.networked.ritual.*;
+import com.sammy.malum.visual_effects.networked.slash.SlashAttackParticleEffect;
+import com.sammy.malum.visual_effects.networked.slash.TyrvingSlashParticleEffect;
 import com.sammy.malum.visual_effects.networked.spirit_mote.SpiritMotePlaceParticleEffect;
 import com.sammy.malum.visual_effects.networked.staff.AuricBoltImpactParticleEffect;
 import com.sammy.malum.visual_effects.networked.staff.DrainingBoltImpactParticleEffect;
@@ -58,6 +60,10 @@ public class ParticleEffectTypeRegistry {
     public static final ParticleEffectType RITUAL_PLINTH_BEGINS_CHARGING = new RitualPlinthBeginChargingParticleEffect("ritual_plinth_begins_charging");
     public static final ParticleEffectType RITUAL_PLINTH_CHANGES_TIER = new RitualPlinthChangeTierParticleEffect("ritual_plinth_changes_tier");
     public static final ParticleEffectType RITUAL_PLINTH_FAILURE = new RitualPlinthFailureParticleEffect("ritual_plinth_failure");
+
+    //Slash Effects
+    public static final ParticleEffectType SCYTHE_SLASH = new SlashAttackParticleEffect("scythe_slash");
+    public static final ParticleEffectType TYRVING_SLASH = new TyrvingSlashParticleEffect("tyrving_slash");
 
     //Wand
     public static final ParticleEffectType HEX_BOLT_IMPACT = new HexBoltImpactParticleEffect("hex_bolt_impact");
