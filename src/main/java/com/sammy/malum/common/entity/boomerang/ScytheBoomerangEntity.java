@@ -109,7 +109,7 @@ public class ScytheBoomerangEntity extends ThrowableItemProjectile {
         }
         if (getOwner() instanceof LivingEntity scytheOwner) {
             Entity target = result.getEntity();
-            DamageSource source = target.damageSources().mobProjectile(this, scytheOwner);
+            DamageSource source = DamageTypeHelper.create(level(), DamageTypeRegistry.SCYTHE_SWEEP, this, scytheOwner);
             target.invulnerableTime = 0;
             boolean success = target.hurt(source, damage);
             if (success && target instanceof LivingEntity livingentity) {
@@ -123,7 +123,7 @@ public class ScytheBoomerangEntity extends ThrowableItemProjectile {
                 if (magicDamage > 0) {
                     if (!livingentity.isDeadOrDying()) {
                         livingentity.invulnerableTime = 0;
-                        livingentity.hurt(DamageTypeRegistry.create(level(), DamageTypeRegistry.VOODOO, this, scytheOwner), magicDamage);
+                        livingentity.hurt(DamageTypeHelper.create(level(), DamageTypeRegistry.VOODOO, this, scytheOwner), magicDamage);
                     }
                 }
                 enemiesHit+=1;

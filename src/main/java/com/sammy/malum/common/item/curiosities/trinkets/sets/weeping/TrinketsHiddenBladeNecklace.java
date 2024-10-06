@@ -39,13 +39,10 @@ public class TrinketsHiddenBladeNecklace extends MalumTinketsItem implements IMa
 
     @Override
     public void takeDamageEvent(LivingHurtEvent event, LivingEntity attacker, LivingEntity attacked, ItemStack stack) {
-        float amount = event.getAmount();
-        int amplifier = (int) Math.ceil(amount / 4f);
-        if (amplifier >= 6) {
-            amplifier = Mth.ceil(amplifier * 1.5f);
-        }
+        float damage = event.getAmount();
+        int amplifier = 1 + Mth.ceil(damage * 0.6f);
         MobEffect effect = MobEffectRegistry.WICKED_INTENT.get();
-        attacked.addEffect(new MobEffectInstance(effect, 40, amplifier + 1));
+        attacked.addEffect(new MobEffectInstance(effect, 40, amplifier));
     }
 
     @Override
@@ -55,7 +52,7 @@ public class TrinketsHiddenBladeNecklace extends MalumTinketsItem implements IMa
         if (level.isClientSide()) {
             return;
         }
-        if (source.is(LodestoneDamageTypeTags.IS_MAGIC) || (source.is(DamageTypes.THORNS))) {
+        if (!source.is(DamageTypeTagRegistry.IS_SCYTHE_MELEE)) {
             return;
         }
 
@@ -68,10 +65,11 @@ public class TrinketsHiddenBladeNecklace extends MalumTinketsItem implements IMa
                 return;
             }
             int duration = 25;
-            float baseDamage = (float) (attacker.getAttributes().getValue(Attributes.ATTACK_DAMAGE) / duration);
-            float magicDamage = (float) (attacker.getAttributes().getValue(LodestoneAttributeRegistry.MAGIC_DAMAGE.get()) / duration);
+            var attributes = attacker.getAttributes();
+            float baseDamage = (float) (attributes.getValue(Attributes.ATTACK_DAMAGE) / duration) * effect.amplifier;
+            float magicDamage = (float) (attributes.getValue(LodestoneAttributeRegistry.MAGIC_DAMAGE.get()) / duration);
             var center = attacker.position().add(attacker.getLookAngle().scale(4));
-            HiddenBladeDelayedImpactEntity entity = new HiddenBladeDelayedImpactEntity(level, center.x, center.y-3f+attacker.getBbHeight()/2f, center.z);
+            var entity = new HiddenBladeDelayedImpactEntity(level, center.x, center.y-3f+attacker.getBbHeight()/2f, center.z);
             entity.setData(attacker, baseDamage, magicDamage, duration);
             entity.setItem(stack);
             level.addFreshEntity(entity);

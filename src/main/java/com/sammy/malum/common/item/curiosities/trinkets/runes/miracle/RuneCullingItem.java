@@ -19,6 +19,6 @@ public class RuneCullingItem extends AbstractRuneTrinketsItem {
     @Override
     public void addAttributeModifiers(Multimap<Attribute, AttributeModifier> map, SlotReference slotContext, ItemStack stack, LivingEntity entity) {
         addAttributeModifier(map, LodestoneAttributeRegistry.MAGIC_PROFICIENCY.get(), uuid -> new AttributeModifier(uuid,
-                "Curio Magic Proficiency", 4f, AttributeModifier.Operation.ADDITION));
+                "Curio Magic Proficiency", 0.2f, AttributeModifier.Operation.MULTIPLY_BASE));
     }
 }

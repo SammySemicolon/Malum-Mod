@@ -38,4 +38,5 @@ public class DamageTypeRegistry {
         context.register(VOODOO, new DamageType(VOODOO_IDENTIFIER, DamageScaling.WHEN_CAUSED_BY_LIVING_NON_PLAYER, 0));
         context.register(SCYTHE_SWEEP, new DamageType(SCYTHE_SWEEP_IDENTIFIER, DamageScaling.WHEN_CAUSED_BY_LIVING_NON_PLAYER, 0));
     }
+    public static final ResourceKey<DamageType> HIDDEN_BLADE_COUNTER = ResourceKey.create(Registries.DAMAGE_TYPE, MalumMod.malumPath("hidden_blade_counter"));
 }

@@ -25,6 +25,6 @@ public class TrinketsNarrowNecklace extends MalumTinketsItem {
     @Override
     public void addAttributeModifiers(Multimap<Attribute, AttributeModifier> map, SlotReference slotReference, ItemStack stack, LivingEntity entity) {
         addAttributeModifier(map, AttributeRegistry.SCYTHE_PROFICIENCY.get(), uuid -> new AttributeModifier(uuid,
-                "Curio Scythe Proficiency", 4f, AttributeModifier.Operation.ADDITION));
+                "Curio Scythe Proficiency", 0.5f, AttributeModifier.Operation.MULTIPLY_BASE));
     }
 }

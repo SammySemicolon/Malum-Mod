@@ -55,7 +55,7 @@ public class MalumScytheItem extends ModCombatItem implements IMalumEventRespond
         level.getEntities(attacker, target.getBoundingBox().inflate(radius)).forEach(e -> {
             if (e instanceof LivingEntity livingEntity) {
                 if (livingEntity.isAlive()) {
-                    livingEntity.hurt((DamageTypeRegistry.create(level, DamageTypeRegistry.SCYTHE_SWEEP, attacker)), damage);
+                    livingEntity.hurt((DamageTypeHelper.create(level, DamageTypeRegistry.SCYTHE_SWEEP, attacker)), damage);
                     livingEntity.knockback(0.4F,
                             Mth.sin(attacker.getYRot() * ((float) Math.PI / 180F)),
                             (-Mth.cos(attacker.getYRot() * ((float) Math.PI / 180F))));
