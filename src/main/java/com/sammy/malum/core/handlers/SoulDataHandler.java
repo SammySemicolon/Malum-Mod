@@ -12,8 +12,6 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.MobSpawnType;
 import com.sammy.malum.common.item.curiosities.weapons.scythe.*;
-import com.sammy.malum.compability.tetra.*;
-import com.sammy.malum.registry.common.item.*;
 import net.minecraft.nbt.*;
 import net.minecraft.world.damagesource.*;
 import net.minecraft.world.entity.*;
@@ -99,8 +97,13 @@ public class SoulDataHandler {
         }
         var directEntity = source.getDirectEntity();
         if (directEntity != null && directEntity.getTags().contains(SOUL_SHATTER_ENTITY_TAG)) {
-            soulData.exposedSoulDuration = 200;
+            exposeSoul(target);
         }
+    }
+    public static void exposeSoul(LivingEntity entity) {
+        SoulDataHandler soulData = MalumLivingEntityDataCapability.getCapability(entity).soulData;
+        soulData.exposedSoulDuration = 200;
+
     }
 
     public static void manageSoul(LivingEntityEvents.LivingTickEvent event) {

@@ -289,7 +289,4 @@ public class SpiritHarvestHandler {
     public static MalumSpiritType getSpiritType(String spirit) {
         return SpiritTypeRegistry.SPIRITS.getOrDefault(spirit, SpiritTypeRegistry.SACRED_SPIRIT);
     }
-
-
-
 }

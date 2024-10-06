@@ -109,11 +109,25 @@ public class SoulWardHandler {
                     }
                 }
                 var sound = soulWardHandler.soulWard == 0 ? SoundRegistry.SOUL_WARD_DEPLETE.get() : SoundRegistry.SOUL_WARD_HIT.get();
-                player.playSound(sound, 1, Mth.nextFloat(player.getRandom(), 1f, 1.5f));
+                SoundHelper.playSound(player, sound, 1, Mth.nextFloat(player.getRandom(), 1f, 1.5f));
                 event.setAmount(result);
                 MalumComponents.MALUM_PLAYER_COMPONENT.sync(player);
             }
         }
+    }
+
+    public void recoverSoulWard(Player player) {
+        soulWard++;
+        if (!player.isCreative()) {
+            var capacity = player.getAttribute(AttributeRegistry.SOUL_WARD_CAP.get());
+            if (capacity != null) {
+                var sound = soulWard >= capacity.getValue() ? SoundRegistry.SOUL_WARD_CHARGE.get() : SoundRegistry.SOUL_WARD_GROW.get();
+                double pitchOffset = (soulWard / capacity.getValue()) * 0.5f + (Mth.ceil(soulWard) % 3) * 0.25f;
+                SoundHelper.playSound(player, sound, 0.25f, (float) (1f + pitchOffset));
+            }
+        }
+        soulWardProgress += getSoulWardCooldown(player);
+        MalumPlayerDataCapability.syncTrackingAndSelf(player);
     }
 
     public static float getSoulWardCooldown(Player player) {
@@ -126,8 +140,23 @@ public class SoulWardHandler {
 
 
     public static class ClientOnly {
-        public static void renderSoulWard(GuiGraphics guiGraphics, Window window) {
-            Minecraft minecraft = Minecraft.getInstance();
+        public static int fadeOut;
+        public static void tick(TickEvent.ClientTickEvent event) {
+            final LocalPlayer player = Minecraft.getInstance().player;
+            if (player != null) {
+                var handler = MalumPlayerDataCapability.getCapability(player).soulWardHandler;
+                if (handler.soulWard >= player.getAttributeValue(AttributeRegistry.SOUL_WARD_CAP.get())) {
+                    if (fadeOut < 80) {
+                        fadeOut++;
+                    }
+                } else {
+                    fadeOut = Mth.clamp(fadeOut-2, 0, 30);
+                }
+            }
+        }
+
+        public static void renderSoulWard(ForgeGui gui, GuiGraphics guiGraphics, int width, int height) {
+            var minecraft = Minecraft.getInstance();
             var poseStack = guiGraphics.pose();
             if (!minecraft.options.hideGui) {
                 LocalPlayer player = minecraft.player;
@@ -140,10 +169,10 @@ public class SoulWardHandler {
                         float armor = (float) player.getAttribute(Attributes.ARMOR).getValue();
 
                         int left = window.getGuiScaledWidth() / 2 - 91;
-                        int top = window.getGuiScaledHeight() - 59;
+                        int top = window.getGuiScaledHeight() - 66;
 
                         if (armor == 0) {
-                            top += 4;
+                            top += 10;
                         }
                         int healthRows = Mth.ceil((maxHealth + absorb) / 2.0F / 10.0F);
                         int rowHeight = Math.max(10 - (healthRows - 2), 3);
@@ -162,6 +191,10 @@ public class SoulWardHandler {
                         var builder = VFXBuilders.createScreen()
                                 .setPosColorTexDefaultFormat()
                                 .setShader(() -> shaderInstance);
+                        if (fadeOut > 20) {
+                            final boolean isDamaged = soulWard < player.getAttributeValue(AttributeRegistry.SOUL_WARD_CAP.get());
+                            builder.setAlpha((80 - fadeOut) / (isDamaged ? 10f : 60f));
+                        }
 
                         int size = 13;
                         boolean forceDisplay = soulWard <= 1;
@@ -179,9 +212,14 @@ public class SoulWardHandler {
                             builder.setPositionWithWidth(x - 2, y - 2, size, size)
                                     .setUVWithWidth(xTextureOffset, 0, size, size, 45)
                                     .draw(poseStack);
+                            if (fadeOut > 0 && fadeOut < 20) {
+                                float glow = (10 - Math.abs(10 - fadeOut)) / 10f;
+                                RenderSystem.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE);
+                                builder.setAlpha(glow).draw(poseStack).setAlpha(1);
+                                RenderSystem.defaultBlendFunc();
+                            }
                         }
                         shaderInstance.setUniformDefaults();
-                        RenderSystem.depthMask(true);
                         RenderSystem.disableBlend();
                         poseStack.popPose();
                     }
@@ -190,7 +228,7 @@ public class SoulWardHandler {
         }
 
         public static ResourceLocation getSoulWardTexture() {
-            return MalumMod.malumPath("textures/gui/soul_ward/default.png");
+            return MalumMod.malumPath("textures/gui/hud/soul_ward.png");
         }
     }
 }

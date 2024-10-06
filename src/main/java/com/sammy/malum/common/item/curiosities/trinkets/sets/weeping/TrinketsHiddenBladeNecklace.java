@@ -34,15 +34,24 @@ public class TrinketsHiddenBladeNecklace extends MalumTinketsItem implements IMa
     @Override
     public void addExtraTooltipLines(Consumer<Component> consumer) {
         consumer.accept(positiveEffect("scythe_counterattack"));
+        consumer.accept(negativeEffect("pacifist_recharge"));
         consumer.accept(negativeEffect("no_sweep"));
     }
 
     @Override
     public void takeDamageEvent(LivingHurtEvent event, LivingEntity attacker, LivingEntity attacked, ItemStack stack) {
-        float damage = event.getAmount();
-        int amplifier = 1 + Mth.ceil(damage * 0.6f);
-        MobEffect effect = MobEffectRegistry.WICKED_INTENT.get();
-        attacked.addEffect(new MobEffectInstance(effect, 40, amplifier));
+        if (attacked.level().isClientSide()) {
+            return;
+        }
+        MalumLivingEntityDataCapability.getCapabilityOptional(attacked).ifPresent(c -> {
+            if (c.hiddenBladeCounterCooldown == 0) {
+                float damage = event.getAmount();
+                int amplifier = 1 + Mth.ceil(damage * 0.6f);
+                MobEffect effect = MobEffectRegistry.WICKED_INTENT.get();
+                attacked.addEffect(new MobEffectInstance(effect, 60, amplifier));
+                SoundHelper.playSound(attacked, SoundRegistry.HIDDEN_BLADE_PRIMED.get(), 1f, RandomHelper.randomBetween(attacked.level().getRandom(), 1.4f, 1.6f));
+            }
+        });
     }
 
     @Override
@@ -55,31 +64,140 @@ public class TrinketsHiddenBladeNecklace extends MalumTinketsItem implements IMa
         if (!source.is(DamageTypeTagRegistry.IS_SCYTHE_MELEE)) {
             return;
         }
+        if (CurioHelper.hasCurioEquipped(attacker, ItemRegistry.NECKLACE_OF_THE_HIDDEN_BLADE.get())) {
+            MalumLivingEntityDataCapability.getCapabilityOptional(attacker).ifPresent(c -> {
+                if (c.hiddenBladeCounterCooldown != 0) {
+                    if (c.hiddenBladeCounterCooldown <= COOLDOWN_DURATION) {
+                        SoundHelper.playSound(attacker, SoundRegistry.HIDDEN_BLADE_DISRUPTED.get(), 1f, RandomHelper.randomBetween(level.getRandom(), 0.7f, 0.8f));
+                    }
+                    c.hiddenBladeCounterCooldown = (int) (COOLDOWN_DURATION *1.5);
+                    MalumLivingEntityDataCapability.syncSelf((ServerPlayer) attacker);
+                    return;
+                }
+                var effect = attacker.getEffect(MobEffectRegistry.WICKED_INTENT.get());
+                if (effect == null) {
+                    return;
+                }
+                int duration = 25;
+                var attributes = attacker.getAttributes();
+                float baseDamage = (float) (attributes.getValue(Attributes.ATTACK_DAMAGE) / duration) * 2 * effect.amplifier;
+                float magicDamage = (float) (attributes.getValue(LodestoneAttributeRegistry.MAGIC_DAMAGE.get()) / duration) * 2;
+                var center = attacker.position().add(attacker.getLookAngle().scale(4));
+                var entity = new HiddenBladeDelayedImpactEntity(level, center.x, center.y-3f+attacker.getBbHeight()/2f, center.z);
+                entity.setData(attacker, baseDamage, magicDamage, duration);
+                entity.setItem(stack);
+                level.addFreshEntity(entity);
+                ParticleHelper.spawnRandomOrientationSlashParticle(ParticleEffectTypeRegistry.HIDDEN_BLADE_COUNTER_SLASH, attacker);
+                for (int i = 0; i < 3; i++) {
+                    SoundHelper.playSound(attacker, SoundRegistry.HIDDEN_BLADE_UNLEASHED.get(), 3f, RandomHelper.randomBetween(level.getRandom(), 0.75f, 1.25f));
+                }
+                attacker.removeEffect(effect.getEffect());
+                c.hiddenBladeCounterCooldown = 200;
+                MalumLivingEntityDataCapability.syncSelf((ServerPlayer) attacker);
+                event.setCanceled(true);
+            });
+        }
+    }
+    public static void entityTick(LivingEvent.LivingTickEvent event) {
+        var entity = event.getEntity();
+        var level = entity.level();
+        MalumLivingEntityDataCapability.getCapabilityOptional(entity).ifPresent(c -> {
+            if (c.hiddenBladeCounterCooldown > 0) {
+                c.hiddenBladeCounterCooldown--;
+                if (!level.isClientSide()) {
+                    if (c.hiddenBladeCounterCooldown == 0) {
+                        SoundHelper.playSound(entity, SoundRegistry.HIDDEN_BLADE_CHARGED.get(), 1f, RandomHelper.randomBetween(level.getRandom(), 1.0f, 1.2f));
+                    }
+                }
+            }
+        });
+    }
 
-        if (TrinketsHelper.hasTrinketEquipped(attacker, ItemRegistry.NECKLACE_OF_THE_HIDDEN_BLADE.get())) {
-            if (SoulDataHandler.getScytheWeapon(source, attacker).isEmpty()) {
-                return;
+    public static class ClientOnly {
+
+        public static int fadeOut;
+
+        public static void tick(TickEvent.ClientTickEvent event) {
+            final LocalPlayer player = Minecraft.getInstance().player;
+            if (player != null) {
+                var cooldown = MalumLivingEntityDataCapability.getCapability(player).hiddenBladeCounterCooldown;
+                if (cooldown == 0) {
+                    if (player.hasEffect(MobEffectRegistry.WICKED_INTENT.get())) {
+                        if (fadeOut > 30) {
+                            fadeOut = 30;
+                        }
+                        fadeOut -= 2;
+                        return;
+                    }
+                    else if (fadeOut < 0) {
+                        fadeOut = 20;
+                    }
+                    if (fadeOut < 80) {
+                        fadeOut++;
+                    }
+                } else {
+                    fadeOut = 0;
+                }
             }
-            var effect = attacker.getEffect(MobEffectRegistry.WICKED_INTENT.get());
-            if (effect == null) {
-                return;
-            }
-            int duration = 25;
-            var attributes = attacker.getAttributes();
-            float baseDamage = (float) (attributes.getValue(Attributes.ATTACK_DAMAGE) / duration) * effect.amplifier;
-            float magicDamage = (float) (attributes.getValue(LodestoneAttributeRegistry.MAGIC_DAMAGE.get()) / duration);
-            var center = attacker.position().add(attacker.getLookAngle().scale(4));
-            var entity = new HiddenBladeDelayedImpactEntity(level, center.x, center.y-3f+attacker.getBbHeight()/2f, center.z);
-            entity.setData(attacker, baseDamage, magicDamage, duration);
-            entity.setItem(stack);
-            level.addFreshEntity(entity);
-            ParticleHelper.spawnRandomOrientationSlashParticle(ParticleEffectTypeRegistry.HIDDEN_BLADE_COUNTER_SLASH, attacker);
-            for (int i = 0; i < 3; i++) {
-                SoundHelper.playSound(attacker, SoundRegistry.HIDDEN_BLADE_UNLEASHED.get(), 3f, RandomHelper.randomBetween(level.getRandom(), 0.75f, 1.25f));
-            }
-            attacker.removeEffect(effect.getEffect());
-            event.setCanceled(true);
         }
 
+        public static void renderHiddenBladeCooldown(ForgeGui gui, GuiGraphics guiGraphics, int width, int height) {
+            var minecraft = Minecraft.getInstance();
+            var poseStack = guiGraphics.pose();
+            if (!minecraft.options.hideGui && gui.shouldDrawSurvivalElements()) {
+                var player = minecraft.player;
+                if (!player.isCreative() && !player.isSpectator()) {
+                    var cooldown = MalumLivingEntityDataCapability.getCapability(player).hiddenBladeCounterCooldown;
+                    if (cooldown > 0 || fadeOut <= 80) {
+                        int left = width / 2 - 8;
+                        int top = height - 52;
+                        poseStack.pushPose();
+                        gui.setupOverlayRenderState(true, false);
+                        RenderSystem.setShaderTexture(0, getTexture());
+                        RenderSystem.depthMask(true);
+                        RenderSystem.enableBlend();
+                        RenderSystem.defaultBlendFunc();
+                        ExtendedShaderInstance shaderInstance = (ExtendedShaderInstance) LodestoneShaderRegistry.DISTORTED_TEXTURE.getInstance().get();
+                        shaderInstance.safeGetUniform("YFrequency").set(15f);
+                        shaderInstance.safeGetUniform("XFrequency").set(15f);
+                        shaderInstance.safeGetUniform("Speed").set(550f);
+                        shaderInstance.safeGetUniform("Intensity").set(120f);
+                        var builder = VFXBuilders.createScreen()
+                                .setPosColorTexDefaultFormat()
+                                .setShader(() -> shaderInstance);
+
+                        float size = 16;
+                        double delta = Mth.clamp((COOLDOWN_DURATION-cooldown) / (float)COOLDOWN_DURATION, 0, 1);
+                        delta -= 0.125f;
+                        final boolean secondRow = delta >= 0.5f;
+                        int xOffset = 16*(Mth.floor(delta*8)) - (secondRow ? 64 : 0);
+                        int yOffset = secondRow ? 16 : 0;
+
+                        if (fadeOut > 20) {
+                            final boolean hasEffect = player.hasEffect(MobEffectRegistry.WICKED_INTENT.get());
+                            builder.setAlpha((80 - fadeOut) / (hasEffect ? 10f : 60f));
+                        }
+                        builder.setPosColorTexDefaultFormat()
+                                .setPositionWithWidth(left, top, size, size)
+                                .setUVWithWidth(xOffset, yOffset, 16, 16, 64)
+                                .draw(poseStack);
+                        if (fadeOut > 0 && fadeOut < 20) {
+                            float glow = (10 - Math.abs(10 - fadeOut)) / 10f;
+                            RenderSystem.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE);
+
+                            builder.setAlpha(glow).draw(poseStack);
+                        }
+
+                        shaderInstance.setUniformDefaults();
+                        RenderSystem.disableBlend();
+                        poseStack.popPose();
+                    }
+                }
+            }
+        }
+
+        public static ResourceLocation getTexture() {
+            return MalumMod.malumPath("textures/gui/hud/hidden_blade.png");
+        }
     }
 }
