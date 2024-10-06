@@ -26,17 +26,16 @@ public class CurioStarvedBelt extends MalumCurioItem implements IMalumEventRespo
 
     @Override
     public void pickupSpirit(LivingEntity collector, double arcaneResonance) {
-        MobEffect gluttony = MobEffectRegistry.GLUTTONY.get();
-        MobEffectInstance effect = collector.getEffect(gluttony);
+        var gluttony = MobEffectRegistry.GLUTTONY.get();
+        var effect = collector.getEffect(gluttony);
         if (effect == null) {
-            collector.addEffect(new MobEffectInstance(gluttony, 600 + (int) (arcaneResonance * 600), 0, true, true, true));
+            collector.addEffect(new MobEffectInstance(gluttony, (int) (600 * arcaneResonance), 0, true, true, true));
         } else {
             EntityHelper.amplifyEffect(effect, collector, 1, 9);
         }
-        Level level = collector.level();
-        collector.playSound(SoundRegistry.HUNGRY_BELT_FEEDS.get(), 0.7f, 1.5f + level.random.nextFloat() * 0.5f);
-        collector.playSound(SoundEvents.GENERIC_EAT, 0.7f, 0.8f + level.random.nextFloat() * 0.4f);
-        if (!level.isClientSide) {
+        SoundHelper.playSound(collector, SoundRegistry.HUNGRY_BELT_FEEDS.get(), 0.7f, RandomHelper.randomBetween(collector.getRandom(), 1.5f, 2f));
+        SoundHelper.playSound(collector, SoundEvents.GENERIC_EAT, 0.7f, RandomHelper.randomBetween(collector.getRandom(), 0.8f, 1.2f));
+        if (!collector.level().isClientSide) {
             ConcentratedGluttonyItem.createGluttonyVFX(collector, 0.5f);
         }
 

@@ -2,6 +2,7 @@ package com.sammy.malum.core.handlers;
 
 import com.sammy.malum.common.capability.*;
 import com.sammy.malum.common.entity.boomerang.*;
+import com.sammy.malum.common.item.curiosities.weapons.scythe.*;
 import com.sammy.malum.compability.tetra.*;
 import com.sammy.malum.registry.common.item.*;
 import net.minecraft.nbt.*;
@@ -13,6 +14,8 @@ import net.minecraftforge.event.entity.*;
 import net.minecraftforge.event.entity.living.*;
 
 public class SoulDataHandler {
+
+    public static final String SOUL_SHATTER_ENTITY_TAG = "malum:can_shatter_souls";
 
     public float exposedSoulDuration;
     public boolean soulless;
@@ -74,19 +77,24 @@ public class SoulDataHandler {
         }
         LivingEntity target = event.getEntity();
         DamageSource source = event.getSource();
-        SoulDataHandler soulData = MalumLivingEntityDataCapability.getCapability(target).soulData;
         if (source.getEntity() instanceof LivingEntity attacker) {
             ItemStack stack = getSoulHunterWeapon(source, attacker);
-            if (stack.is(ItemTagRegistry.SOUL_HUNTER_WEAPON) || (TetraCompat.LOADED && TetraCompat.LoadedOnly.hasSoulStrike(stack))) {
-                soulData.exposedSoulDuration = 200;
+            if (stack.is(ItemTagRegistry.SOUL_HUNTER_WEAPON) || TetraCompat.hasSoulStrikeModifier(stack)) {
+                exposeSoul(target);
             }
         }
-        if (source.getDirectEntity() != null && source.getDirectEntity().getTags().contains("malum:soul_arrow")) {
-            soulData.exposedSoulDuration = 200;
+        var directEntity = source.getDirectEntity();
+        if (directEntity != null && directEntity.getTags().contains(SOUL_SHATTER_ENTITY_TAG)) {
+            exposeSoul(target);
         }
     }
+    public static void exposeSoul(LivingEntity entity) {
+        SoulDataHandler soulData = MalumLivingEntityDataCapability.getCapability(entity).soulData;
+        soulData.exposedSoulDuration = 200;
 
-    public static void manageSoul(LivingEvent.LivingTickEvent event) {
+    }
+
+    public static void livingTick(LivingEvent.LivingTickEvent event) {
         LivingEntity entity = event.getEntity();
         SoulDataHandler soulData = MalumLivingEntityDataCapability.getCapability(entity).soulData;
         if (soulData.exposedSoulDuration > 0) {
@@ -96,6 +104,11 @@ public class SoulDataHandler {
 
     public static void removeSentience(Mob mob) {
         mob.goalSelector.getAvailableGoals().removeIf(g -> g.getGoal() instanceof LookAtPlayerGoal || g.getGoal() instanceof MeleeAttackGoal || g.getGoal() instanceof SwellGoal || g.getGoal() instanceof PanicGoal || g.getGoal() instanceof RandomLookAroundGoal || g.getGoal() instanceof AvoidEntityGoal);
+    }
+
+    public static ItemStack getScytheWeapon(DamageSource source, LivingEntity attacker) {
+        var soulHunterWeapon = getSoulHunterWeapon(source, attacker);
+        return soulHunterWeapon.getItem() instanceof MalumScytheItem ? soulHunterWeapon : ItemStack.EMPTY;
     }
 
     public static ItemStack getSoulHunterWeapon(DamageSource source, LivingEntity attacker) {

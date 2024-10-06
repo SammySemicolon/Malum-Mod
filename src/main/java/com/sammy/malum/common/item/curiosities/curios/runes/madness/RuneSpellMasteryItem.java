@@ -17,7 +17,7 @@ public class RuneSpellMasteryItem extends AbstractRuneCurioItem {
     @Override
     public void addAttributeModifiers(Multimap<Attribute, AttributeModifier> map, SlotContext slotContext, ItemStack stack) {
         addAttributeModifier(map, LodestoneAttributeRegistry.MAGIC_PROFICIENCY.get(), uuid -> new AttributeModifier(uuid,
-                "Curio Magic Proficiency", 2f, AttributeModifier.Operation.ADDITION));
+                "Curio Magic Proficiency", 0.1, AttributeModifier.Operation.MULTIPLY_BASE));
         addAttributeModifier(map, AttributeRegistry.RESERVE_STAFF_CHARGES.get(), uuid -> new AttributeModifier(uuid,
                 "Curio Reserve Staff Charges", 2f, AttributeModifier.Operation.ADDITION));
     }

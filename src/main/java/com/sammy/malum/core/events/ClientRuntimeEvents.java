@@ -2,6 +2,8 @@ package com.sammy.malum.core.events;
 
 import com.sammy.malum.client.renderer.block.*;
 import com.sammy.malum.common.item.augment.*;
+import com.sammy.malum.common.item.curiosities.curios.sets.weeping.*;
+import com.sammy.malum.core.handlers.*;
 import net.minecraftforge.api.distmarker.*;
 import net.minecraftforge.client.event.*;
 import net.minecraftforge.event.*;
@@ -23,6 +25,8 @@ public class ClientRuntimeEvents {
     @SubscribeEvent
     public static void clientTickEvent(TickEvent.ClientTickEvent event) {
         SpiritCrucibleRenderer.checkForTuningFork(event);
+        CurioHiddenBladeNecklace.ClientOnly.tick(event);
+        SoulWardHandler.ClientOnly.tick(event);
         TotemBaseRenderer.checkForTotemicStaff(event);
     }
 

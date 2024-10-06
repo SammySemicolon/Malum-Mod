@@ -27,6 +27,7 @@ import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.wrapper.InvWrapper;
 import net.minecraftforge.network.NetworkHooks;
+import team.lodestar.lodestone.helpers.*;
 import team.lodestar.lodestone.systems.container.ItemInventory;
 
 import javax.annotation.Nonnull;
@@ -110,10 +111,9 @@ public class SpiritPouchItem extends Item {
     public InteractionResultHolder<ItemStack> use(Level level, Player playerIn, InteractionHand handIn) {
         if (!level.isClientSide) {
             ItemStack stack = playerIn.getItemInHand(handIn);
-            MenuProvider container =
-                    new SimpleMenuProvider((w, p, pl) -> new SpiritPouchContainer(w, p, stack), stack.getHoverName());
+            MenuProvider container = new SimpleMenuProvider((w, p, pl) -> new SpiritPouchContainer(w, p, stack), stack.getHoverName());
             NetworkHooks.openScreen((ServerPlayer) playerIn, container, b -> b.writeItem(stack));
-            playerIn.level().playSound(null, playerIn.getX(), playerIn.getY(), playerIn.getZ(), SoundEvents.ARMOR_EQUIP_LEATHER, SoundSource.PLAYERS, 1, 1);
+            SoundHelper.playSound(playerIn, SoundEvents.ARMOR_EQUIP_LEATHER, 1, 1);
         }
         return InteractionResultHolder.success(playerIn.getItemInHand(handIn));
     }

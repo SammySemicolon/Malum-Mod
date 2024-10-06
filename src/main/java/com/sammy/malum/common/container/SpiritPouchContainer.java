@@ -12,6 +12,7 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
+import team.lodestar.lodestone.helpers.*;
 import team.lodestar.lodestone.systems.container.ItemInventory;
 
 import javax.annotation.Nonnull;
@@ -72,7 +73,7 @@ public class SpiritPouchContainer extends AbstractContainerMenu {
 
     @Override
     public void removed(Player playerIn) {
-        playerIn.level().playSound(null, playerIn.blockPosition(), SoundEvents.ARMOR_EQUIP_LEATHER, SoundSource.PLAYERS, 1, 1);
+        SoundHelper.playSound(playerIn, SoundEvents.ARMOR_EQUIP_LEATHER, 1, 1);
         super.removed(playerIn);
         this.inventory.stopOpen(playerIn);
     }

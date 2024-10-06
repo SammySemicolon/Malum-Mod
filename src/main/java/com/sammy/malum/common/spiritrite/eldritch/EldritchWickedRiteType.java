@@ -10,6 +10,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.network.PacketDistributor;
+import team.lodestar.lodestone.helpers.*;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -28,9 +29,9 @@ public class EldritchWickedRiteType extends TotemicRiteType {
             @Override
             public void doRiteEffect(TotemBaseBlockEntity totemBase, ServerLevel level) {
                 getNearbyEntities(totemBase, LivingEntity.class, e -> !(e instanceof Player)).forEach(e -> {
-                    if (e.getHealth() <= 2.5f && !e.isInvulnerableTo(DamageTypeRegistry.create(e.level(), DamageTypeRegistry.VOODOO))) {
+                    if (e.getHealth() <= 2.5f && !e.isInvulnerableTo(DamageTypeHelper.create(e.level(), DamageTypeRegistry.VOODOO))) {
                         MALUM_CHANNEL.send(PacketDistributor.TRACKING_ENTITY.with(() -> e), new MajorEntityEffectParticlePacket(getIdentifyingSpirit().getPrimaryColor(), e.getX(), e.getY() + e.getBbHeight() / 2f, e.getZ()));
-                        e.hurt(DamageTypeRegistry.create(e.level(), DamageTypeRegistry.VOODOO), 10f);
+                        e.hurt(DamageTypeHelper.create(e.level(), DamageTypeRegistry.VOODOO), 10f);
                     }
                 });
             }
@@ -42,7 +43,7 @@ public class EldritchWickedRiteType extends TotemicRiteType {
         return new TotemicRiteEffect(TotemicRiteEffect.MalumRiteEffectCategory.LIVING_ENTITY_EFFECT) {
             @Override
             public void doRiteEffect(TotemBaseBlockEntity totemBase, ServerLevel level) {
-                Map<Class<? extends Animal>, List<Animal>> animalMap = getNearbyEntities(totemBase, Animal.class, e -> e.getAge() > 0 && !e.isInvulnerableTo(DamageTypeRegistry.create(e.level(), DamageTypeRegistry.VOODOO))).collect(Collectors.groupingBy(Animal::getClass));
+                Map<Class<? extends Animal>, List<Animal>> animalMap = getNearbyEntities(totemBase, Animal.class, e -> e.getAge() > 0 && !e.isInvulnerableTo(DamageTypeHelper.create(e.level(), DamageTypeRegistry.VOODOO))).collect(Collectors.groupingBy(Animal::getClass));
                 for (List<Animal> animals : animalMap.values()) {
                     if (animals.size() < 20) {
                         return;
@@ -50,7 +51,7 @@ public class EldritchWickedRiteType extends TotemicRiteType {
                     int maxKills = animals.size() - 20;
                     animals.removeIf(Animal::isInLove);
                     for (Animal entity : animals) {
-                        entity.hurt(DamageTypeRegistry.create(entity.level(), DamageTypeRegistry.VOODOO), entity.getMaxHealth());
+                        entity.hurt(DamageTypeHelper.create(entity.level(), DamageTypeRegistry.VOODOO), entity.getMaxHealth());
                         MALUM_CHANNEL.send(PacketDistributor.TRACKING_ENTITY.with(() -> entity), new MajorEntityEffectParticlePacket(WICKED_SPIRIT.getPrimaryColor(), entity.getX(), entity.getY() + entity.getBbHeight() / 2f, entity.getZ()));
                         if (maxKills-- <= 0) {
                             return;

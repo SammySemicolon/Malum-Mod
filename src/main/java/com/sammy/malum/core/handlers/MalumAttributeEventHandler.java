@@ -1,7 +1,7 @@
 package com.sammy.malum.core.handlers;
 
 import com.sammy.malum.common.item.curiosities.weapons.scythe.MalumScytheItem;
-import com.sammy.malum.registry.common.AttributeRegistry;
+import com.sammy.malum.registry.common.*;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.entity.LivingEntity;
@@ -18,17 +18,18 @@ public class MalumAttributeEventHandler {
         DamageSource source = event.getSource();
         if (source.getEntity() instanceof LivingEntity attacker) {
             float amount = event.getAmount();
-            ItemStack stack = MalumScytheItem.getScytheItemStack(source, attacker);
+            var stack = SoulDataHandler.getScytheWeapon(source, attacker);
             if (stack.isEmpty()) {
                 return;
             }
             if (source.is(DamageTypes.THORNS)) {
                 return;
             }
-            if (!event.getSource().is(LodestoneDamageTypeTags.IS_MAGIC)) {
-                AttributeInstance scytheProficiency = attacker.getAttribute(AttributeRegistry.SCYTHE_PROFICIENCY.get());
-                if (scytheProficiency != null && scytheProficiency.getValue() > 0) {
-                    event.setAmount((float) (amount + scytheProficiency.getValue() * 0.5f));
+            if (event.getSource().is(DamageTypeTagRegistry.IS_SCYTHE)) {
+                var scytheProficiency = attacker.getAttribute(AttributeRegistry.SCYTHE_PROFICIENCY.get());
+                if (scytheProficiency != null) {
+                    final float amount1 = (float) (amount * scytheProficiency.getValue());
+                    event.setAmount(amount1);
                 }
             }
         }

@@ -35,10 +35,10 @@ public class CurioLimitlessBelt extends MalumCurioItem implements IMalumEventRes
     }
 
     @Override
-    public float overrideSoulwardDamageAbsorbPercentage(LivingHurtEvent event, LivingEntity wardedEntity, ItemStack stack, float original) {
+    public float adjustSoulWardDamageAbsorption(LivingHurtEvent event, LivingEntity wardedEntity, ItemStack stack, float original) {
         if (!event.getSource().is(LodestoneDamageTypeTags.IS_MAGIC)) {
             return CommonConfig.SOUL_WARD_MAGIC.getConfigValue().floatValue();
         }
-        return IMalumEventResponderItem.super.overrideSoulwardDamageAbsorbPercentage(event, wardedEntity, stack, original);
+        return IMalumEventResponderItem.super.adjustSoulWardDamageAbsorption(event, wardedEntity, stack, original);
     }
 }

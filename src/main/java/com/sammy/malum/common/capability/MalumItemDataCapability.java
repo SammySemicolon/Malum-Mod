@@ -24,7 +24,6 @@ public class MalumItemDataCapability implements LodestoneCapability {
 
     public List<ItemStack> soulsToDrop;
     public UUID attackerForSouls;
-    public float totalSoulCount;
 
     public static Capability<MalumItemDataCapability> CAPABILITY = CapabilityManager.get(new CapabilityToken<>() {
     });
@@ -56,7 +55,6 @@ public class MalumItemDataCapability implements LodestoneCapability {
         if (attackerForSouls != null) {
             tag.putUUID("attacker", attackerForSouls);
         }
-        tag.putFloat("soulCount", totalSoulCount);
         return tag;
     }
 
@@ -77,8 +75,6 @@ public class MalumItemDataCapability implements LodestoneCapability {
         } else {
             attackerForSouls = null;
         }
-
-        totalSoulCount = tag.getFloat("soulCount");
     }
 
     public static LazyOptional<MalumItemDataCapability> getCapabilityOptional(ItemEntity entity) {

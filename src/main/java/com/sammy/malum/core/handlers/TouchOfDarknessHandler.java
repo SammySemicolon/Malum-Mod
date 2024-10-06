@@ -32,7 +32,7 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.ForgeMod;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.network.PacketDistributor;
-import team.lodestar.lodestone.helpers.BlockHelper;
+import team.lodestar.lodestone.helpers.*;
 import team.lodestar.lodestone.systems.easing.Easing;
 import team.lodestar.lodestone.systems.rendering.VFXBuilders;
 import team.lodestar.lodestone.systems.rendering.shader.ExtendedShaderInstance;
@@ -150,7 +150,7 @@ public class TouchOfDarknessHandler {
                 handler.progressToRejection++;
                 if (!level.isClientSide) {
                     if (livingEntity instanceof Player && level.getGameTime() % 6L == 0) {
-                        level.playSound(null, livingEntity.blockPosition(), SoundRegistry.SONG_OF_THE_VOID.get(), SoundSource.HOSTILE, 0.5f + handler.progressToRejection * 0.02f, 0.5f + handler.progressToRejection * 0.03f);
+                        SoundHelper.playSound(livingEntity, SoundRegistry.SONG_OF_THE_VOID.get(), SoundSource.HOSTILE, 0.5f + handler.progressToRejection * 0.02f, 0.5f + handler.progressToRejection * 0.03f);
                     }
                     if (handler.rejection == 0 && handler.progressToRejection > 60) {
                         handler.reject(livingEntity);
@@ -201,7 +201,7 @@ public class TouchOfDarknessHandler {
                 ParticleEffectTypeRegistry.WEEPING_WELL_REACTS.createEntityEffect(livingEntity);
             }
             if (!player.isCreative()) {
-                livingEntity.hurt(DamageTypeRegistry.create(level, DamageTypeRegistry.VOODOO), 4);
+                livingEntity.hurt(DamageTypeHelper.create(level, DamageTypeRegistry.VOODOO), 4);
             }
             if (!playerDataCapability.hasBeenRejected) {
                 SpiritHarvestHandler.spawnItemAsSpirit(ItemRegistry.UMBRAL_SPIRIT.get().getDefaultInstance(), player, player);

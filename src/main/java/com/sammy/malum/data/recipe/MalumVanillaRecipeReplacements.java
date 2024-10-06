@@ -35,11 +35,13 @@ public class MalumVanillaRecipeReplacements extends VanillaRecipeProvider {
         replace(Items.QUARTZ, Tags.Items.GEMS_QUARTZ);
         replace(Items.SLIME_BALL, Tags.Items.SLIMEBALLS);
 
-        super.buildRecipes(vanilla -> {
-            FinishedRecipe modified = enhance(vanilla);
-            if (modified != null)
-                pWriter.accept(modified);
-        });
+
+        //this fucker literally for no reason makes datagen not work, 1.20 is close to it's end, we're just gonna figure it out in 1.21
+//        super.buildRecipes(vanilla -> {
+//            FinishedRecipe modified = enhance(vanilla);
+//            if (modified != null)
+//                pWriter.accept(modified);
+//        });
     }
 
 

@@ -7,7 +7,6 @@ import com.sammy.malum.common.effect.aura.*;
 import com.sammy.malum.common.enchantment.*;
 import com.sammy.malum.common.entity.nitrate.*;
 import com.sammy.malum.common.item.cosmetic.curios.*;
-import com.sammy.malum.common.item.curiosities.*;
 import com.sammy.malum.common.item.curiosities.curios.runes.madness.*;
 import com.sammy.malum.common.item.curiosities.curios.runes.miracle.*;
 import com.sammy.malum.common.item.curiosities.curios.sets.misc.*;
@@ -49,9 +48,7 @@ public class RuntimeEvents {
         MalumPlayerDataCapability.playerJoin(event);
         CurioTokenOfGratitude.giveItem(event);
         SoulDataHandler.updateAi(event);
-        if (TetraCompat.LOADED) {
-            TetraCompat.LoadedOnly.fireArrow(event);
-        }
+        TetraCompat.onEntityJoin(event);
     }
 
 
@@ -71,12 +68,6 @@ public class RuntimeEvents {
             }
         }
     }
-
-    @SubscribeEvent
-    public static void anvilUpdate(AnvilUpdateEvent event) {
-        CatalystFlingerItem.anvilUpdate(event);
-    }
-
 
     @SubscribeEvent
     public static void onEntityJoin(MobSpawnEvent.PositionCheck event) {
@@ -105,10 +96,11 @@ public class RuntimeEvents {
 
     @SubscribeEvent
     public static void onLivingTick(LivingEvent.LivingTickEvent event) {
-        SoulDataHandler.manageSoul(event);
+        SoulDataHandler.livingTick(event);
         MalignantConversionHandler.checkForAttributeChanges(event);
         TouchOfDarknessHandler.entityTick(event);
         CurioWatcherNecklace.entityTick(event);
+        CurioHiddenBladeNecklace.entityTick(event);
     }
 
     @SubscribeEvent
@@ -131,7 +123,7 @@ public class RuntimeEvents {
     @SubscribeEvent
     public static void onPlayerTick(TickEvent.PlayerTickEvent event) {
         ReserveStaffChargeHandler.recoverStaffCharges(event);
-        SoulWardHandler.recoverSoulWard(event);
+        SoulWardHandler.playerTick(event);
     }
 
     @SubscribeEvent
@@ -189,23 +181,18 @@ public class RuntimeEvents {
 
     @SubscribeEvent(priority = EventPriority.LOWEST)
     public static void onLateHurt(LivingHurtEvent event) {
-        SoulWardHandler.shieldPlayer(event);
-    }
-
-    @SubscribeEvent(priority = EventPriority.LOWEST)
-    public static void onLateDamage(LivingDamageEvent event) {
-        WickedIntentEffect.removeWickedIntent(event);
+        SoulWardHandler.livingHurt(event);
     }
 
     @SubscribeEvent
     public static void onDeath(LivingDeathEvent event) {
-        EsotericReapingHandler.tryCreateReapingDrops(event);
-        SpiritHarvestHandler.shatterSoul(event);
+        EsotericReapingHandler.onDeath(event);
+        SpiritHarvestHandler.spawnSpiritsOnDeath(event);
     }
 
     @SubscribeEvent
     public static void onDrops(LivingDropsEvent event) {
-        SpiritHarvestHandler.modifyDroppedItems(event);
+        SpiritHarvestHandler.primeItemForShatter(event);
     }
 
     @SubscribeEvent

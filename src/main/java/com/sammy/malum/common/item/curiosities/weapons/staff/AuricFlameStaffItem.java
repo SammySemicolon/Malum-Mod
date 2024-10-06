@@ -35,7 +35,7 @@ public class AuricFlameStaffItem extends AbstractStaffItem {
     public void hurtEvent(LivingHurtEvent event, LivingEntity attacker, LivingEntity target, ItemStack stack) {
         if (!(event.getSource().getDirectEntity() instanceof AbstractBoltProjectileEntity)) {
             target.setSecondsOnFire(4);
-            attacker.level().playSound(null, target.getX(), target.getY(), target.getZ(), SoundRegistry.AURIC_FLAME_MOTIF.get(), attacker.getSoundSource(), 1, 1.25f);
+            SoundHelper.playSound(target, SoundRegistry.AURIC_FLAME_MOTIF.get(), attacker.getSoundSource(), 1, 1.25f);
         }
         super.hurtEvent(event, attacker, target, stack);
     }
