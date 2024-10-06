@@ -15,7 +15,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "malum:ether_torch_alternative"
+        "recipe": "minecraft:ether_torch_alternative"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -28,7 +28,7 @@
   ],
   "rewards": {
     "recipes": [
-      "malum:ether_torch_alternative"
+      "minecraft:ether_torch_alternative"
     ]
   },
   "sends_telemetry_event": true

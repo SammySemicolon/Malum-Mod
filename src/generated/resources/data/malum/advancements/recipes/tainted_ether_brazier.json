@@ -15,7 +15,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "minecraft:tainted_ether_brazier"
+        "recipe": "malum:tainted_ether_brazier"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -28,7 +28,7 @@
   ],
   "rewards": {
     "recipes": [
-      "minecraft:tainted_ether_brazier"
+      "malum:tainted_ether_brazier"
     ]
   },
   "sends_telemetry_event": true

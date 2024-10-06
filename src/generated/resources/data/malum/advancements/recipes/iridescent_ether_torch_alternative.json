@@ -15,7 +15,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "minecraft:iridescent_ether_torch_alternative"
+        "recipe": "malum:iridescent_ether_torch_alternative"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -28,7 +28,7 @@
   ],
   "rewards": {
     "recipes": [
-      "minecraft:iridescent_ether_torch_alternative"
+      "malum:iridescent_ether_torch_alternative"
     ]
   },
   "sends_telemetry_event": true
