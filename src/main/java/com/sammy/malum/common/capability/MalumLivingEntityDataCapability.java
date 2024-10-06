@@ -1,14 +1,16 @@
 package com.sammy.malum.common.capability;
 
 import com.sammy.malum.MalumMod;
-import com.sammy.malum.common.packets.SyncLivingCapabilityDataPacket;
+import com.sammy.malum.common.packets.*;
 import com.sammy.malum.core.handlers.*;
+import com.sammy.malum.registry.common.*;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.Tag;
-import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.*;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.*;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.CapabilityManager;
@@ -37,6 +39,7 @@ public class MalumLivingEntityDataCapability implements LodestoneCapability {
     public TouchOfDarknessHandler touchOfDarknessHandler = new TouchOfDarknessHandler();
 
     public int watcherNecklaceCooldown;
+    public int hiddenBladeCounterCooldown;
 
     public List<ItemStack> soulsToApplyToDrops;
     public UUID killerUUID;
@@ -58,7 +61,7 @@ public class MalumLivingEntityDataCapability implements LodestoneCapability {
     public static void syncEntityCapability(PlayerEvent.StartTracking event) {
         if (event.getTarget() instanceof LivingEntity livingEntity) {
             if (livingEntity.level() instanceof ServerLevel) {
-                MalumLivingEntityDataCapability.sync(livingEntity);
+                MalumLivingEntityDataCapability.syncTracking(livingEntity);
             }
         }
     }
@@ -72,6 +75,9 @@ public class MalumLivingEntityDataCapability implements LodestoneCapability {
 
         if (watcherNecklaceCooldown > 0) {
             tag.putInt("watcherNecklaceCooldown", watcherNecklaceCooldown);
+        }
+        if (hiddenBladeCounterCooldown > 0) {
+            tag.putInt("hiddenBladeCounterCooldown", hiddenBladeCounterCooldown);
         }
         if (soulsToApplyToDrops != null) {
             ListTag souls = new ListTag();
@@ -94,12 +100,8 @@ public class MalumLivingEntityDataCapability implements LodestoneCapability {
         if (tag.contains("darknessAfflictionData")) {
             touchOfDarknessHandler.deserializeNBT(tag.getCompound("darknessAfflictionData"));
         }
-        if (tag.contains("watcherNecklaceCooldown")) {
-            watcherNecklaceCooldown = tag.getInt("watcherNecklaceCooldown");
-        }
-        else {
-            watcherNecklaceCooldown = 0;
-        }
+        watcherNecklaceCooldown = tag.contains("watcherNecklaceCooldown") ? tag.getInt("watcherNecklaceCooldown") : 0;
+        hiddenBladeCounterCooldown = tag.contains("hiddenBladeCounterCooldown") ? tag.getInt("hiddenBladeCounterCooldown") : 0;
 
         if (tag.contains("soulsToApplyToDrops", Tag.TAG_LIST)) {
             soulsToApplyToDrops = new ArrayList<>();
@@ -118,8 +120,20 @@ public class MalumLivingEntityDataCapability implements LodestoneCapability {
         }
     }
 
-    public static void sync(LivingEntity entity) {
-        getCapabilityOptional(entity).ifPresent(c -> MALUM_CHANNEL.send(PacketDistributor.TRACKING_ENTITY.with(() -> entity), new SyncLivingCapabilityDataPacket(entity.getId(), c.serializeNBT())));
+    public static void syncSelf(ServerPlayer player) {
+        sync(player, PacketDistributor.PLAYER.with(() -> player));
+    }
+
+    public static void syncTrackingAndSelf(ServerPlayer player) {
+        sync(player, PacketDistributor.TRACKING_ENTITY_AND_SELF.with(() -> player));
+    }
+
+    public static void syncTracking(LivingEntity entity) {
+        sync(entity, PacketDistributor.TRACKING_ENTITY.with(() -> entity));
+    }
+
+    public static void sync(LivingEntity entity, PacketDistributor.PacketTarget target) {
+        getCapabilityOptional(entity).ifPresent(c -> PacketRegistry.MALUM_CHANNEL.send(target, new SyncLivingCapabilityDataPacket(entity.getId(), c.serializeNBT())));
     }
 
     public static LazyOptional<MalumLivingEntityDataCapability> getCapabilityOptional(LivingEntity entity) {

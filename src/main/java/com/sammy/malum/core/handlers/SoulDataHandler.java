@@ -77,17 +77,21 @@ public class SoulDataHandler {
         }
         LivingEntity target = event.getEntity();
         DamageSource source = event.getSource();
-        SoulDataHandler soulData = MalumLivingEntityDataCapability.getCapability(target).soulData;
         if (source.getEntity() instanceof LivingEntity attacker) {
             ItemStack stack = getSoulHunterWeapon(source, attacker);
             if (stack.is(ItemTagRegistry.SOUL_HUNTER_WEAPON) || TetraCompat.hasSoulStrikeModifier(stack)) {
-                soulData.exposedSoulDuration = 200;
+                exposeSoul(target);
             }
         }
         var directEntity = source.getDirectEntity();
         if (directEntity != null && directEntity.getTags().contains(SOUL_SHATTER_ENTITY_TAG)) {
-            soulData.exposedSoulDuration = 200;
+            exposeSoul(target);
         }
+    }
+    public static void exposeSoul(LivingEntity entity) {
+        SoulDataHandler soulData = MalumLivingEntityDataCapability.getCapability(entity).soulData;
+        soulData.exposedSoulDuration = 200;
+
     }
 
     public static void livingTick(LivingEvent.LivingTickEvent event) {

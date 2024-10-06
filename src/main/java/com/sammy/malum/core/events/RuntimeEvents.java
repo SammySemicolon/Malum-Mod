@@ -100,6 +100,7 @@ public class RuntimeEvents {
         MalignantConversionHandler.checkForAttributeChanges(event);
         TouchOfDarknessHandler.entityTick(event);
         CurioWatcherNecklace.entityTick(event);
+        CurioHiddenBladeNecklace.entityTick(event);
     }
 
     @SubscribeEvent
