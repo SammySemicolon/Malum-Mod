@@ -24,6 +24,6 @@ public class CurioNarrowNecklace extends MalumCurioItem {
     @Override
     public void addAttributeModifiers(Multimap<Attribute, AttributeModifier> map, SlotContext slotContext, ItemStack stack) {
         addAttributeModifier(map, AttributeRegistry.SCYTHE_PROFICIENCY.get(), uuid -> new AttributeModifier(uuid,
-                "Curio Scythe Proficiency", 4f, AttributeModifier.Operation.ADDITION));
+                "Curio Scythe Proficiency", 0.5f, AttributeModifier.Operation.MULTIPLY_BASE));
     }
 }

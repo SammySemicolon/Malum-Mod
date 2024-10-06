@@ -9,7 +9,6 @@ import team.lodestar.lodestone.helpers.ColorHelper;
 public class WickedIntentEffect extends MobEffect {
     public WickedIntentEffect() {
         super(MobEffectCategory.BENEFICIAL, ColorHelper.getColor(88, 86, 60));
-        addAttributeModifier(AttributeRegistry.SCYTHE_PROFICIENCY.get(), "0cd21cec-758c-456b-9955-06713e732303", 4f, AttributeModifier.Operation.ADDITION);
     }
 
     @Override
