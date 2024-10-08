@@ -2,8 +2,10 @@ package com.sammy.malum.common.item.curiosities.weapons.scythe;
 
 import com.sammy.malum.common.item.*;
 import com.sammy.malum.core.helpers.*;
+import com.sammy.malum.core.systems.spirit.*;
 import com.sammy.malum.registry.common.*;
 import com.sammy.malum.registry.common.item.*;
+import net.minecraft.sounds.*;
 import net.minecraft.util.*;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.item.*;
@@ -13,10 +15,12 @@ import team.lodestar.lodestone.helpers.*;
 import team.lodestar.lodestone.registry.common.tag.*;
 import team.lodestar.lodestone.systems.item.*;
 
+import javax.annotation.*;
+
 public class MalumScytheItem extends ModCombatItem implements IMalumEventResponderItem {
 
-    public MalumScytheItem(Tier tier, float attackDamageIn, float attackSpeedIn, Properties builderIn) {
-        super(tier, attackDamageIn + 3 + tier.getAttackDamageBonus(), attackSpeedIn - 3.2f, builderIn);
+    public MalumScytheItem(Tier tier, float damage, float speed, Properties builderIn) {
+        super(tier, damage + 3 + tier.getAttackDamageBonus(), speed - 3.2f, builderIn);
     }
 
     @Override
@@ -29,20 +33,24 @@ public class MalumScytheItem extends ModCombatItem implements IMalumEventRespond
 
     @Override
     public void hurtEvent(LivingHurtEvent event, LivingEntity attacker, LivingEntity target, ItemStack stack) {
-        boolean canSweep = canSweep(attacker);
         var level = attacker.level();
-
+        if (level.isClientSide()) {
+            return;
+        }
         if (!event.getSource().is(DamageTypeRegistry.SCYTHE_MELEE)) {
             return;
         }
+        boolean canSweep = canSweep(attacker);
+        var particle = ParticleHelper.createSlashingEffect(ParticleEffectTypeRegistry.SCYTHE_SLASH);
+
         if (!canSweep) {
-            SoundHelper.playSound(attacker, SoundRegistry.SCYTHE_CUT.get(), 1, 0.75f);
-            ParticleHelper.spawnVerticalSlashParticle(ParticleEffectTypeRegistry.SCYTHE_SLASH, attacker);
+            SoundHelper.playSound(attacker, getScytheSound(false), 1, 0.75f);
+            particle.setVertical().spawnForwardSlashingParticle(attacker);
             return;
         }
+        SoundHelper.playSound(attacker, getScytheSound(true), 1, 1);
+        particle.mirrorRandomly(attacker.getRandom()).spawnForwardSlashingParticle(attacker);
 
-        SoundHelper.playSound(attacker, SoundRegistry.SCYTHE_SWEEP.get(), 1, 1);
-        ParticleHelper.spawnHorizontalSlashParticle(ParticleEffectTypeRegistry.SCYTHE_SLASH, attacker);
         int sweeping = EnchantmentHelper.getEnchantmentLevel(Enchantments.SWEEPING_EDGE, attacker);
         float damage = event.getAmount() * (0.5f + EnchantmentHelper.getSweepingDamageRatio(attacker));
         float radius = 1 + sweeping * 0.25f;
@@ -56,6 +64,10 @@ public class MalumScytheItem extends ModCombatItem implements IMalumEventRespond
                 }
             }
         });
+    }
+
+    public SoundEvent getScytheSound(boolean canSweep) {
+        return canSweep ? SoundRegistry.SCYTHE_SWEEP.get() : SoundRegistry.SCYTHE_CUT.get();
     }
 
     public static boolean canSweep(LivingEntity attacker) {
