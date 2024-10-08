@@ -45,7 +45,7 @@ public class ReboundEnchantment extends Enchantment implements CustomEnchantingT
                 entity.setItem(stack);
                 entity.shootFromRotation(player, player.getXRot(), player.getYRot(), 0.0F, velocity, 0F);
                 level.addFreshEntity(entity);
-                player.setItemInHand(event.getHand(), ItemStack.EMPTY);
+                player.setItemInHand(interactionHand, ItemStack.EMPTY);
 //                SoundHelper.playSound(player, SoundRegistry.SCYTHE_THROW.get(),2.0f, RandomHelper.randomBetween(level.getRandom(), 0.75f, 1.25f));
             }
             player.awardStat(Stats.ITEM_USED.get(stack.getItem()));

@@ -15,8 +15,7 @@ import com.sammy.malum.visual_effects.networked.nitrate.EthericNitrateImpactPart
 import com.sammy.malum.visual_effects.networked.pylon.PylonPrepareRepairParticleEffect;
 import com.sammy.malum.visual_effects.networked.pylon.PylonRepairParticleEffect;
 import com.sammy.malum.visual_effects.networked.ritual.*;
-import com.sammy.malum.visual_effects.networked.slash.SlashAttackParticleEffect;
-import com.sammy.malum.visual_effects.networked.slash.TyrvingSlashParticleEffect;
+import com.sammy.malum.visual_effects.networked.slash.*;
 import com.sammy.malum.visual_effects.networked.spirit_mote.SpiritMotePlaceParticleEffect;
 import com.sammy.malum.visual_effects.networked.staff.AuricBoltImpactParticleEffect;
 import com.sammy.malum.visual_effects.networked.staff.DrainingBoltImpactParticleEffect;

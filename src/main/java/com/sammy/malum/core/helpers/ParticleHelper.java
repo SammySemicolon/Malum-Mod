@@ -12,6 +12,17 @@ import net.minecraft.world.level.*;
 import net.minecraft.world.phys.*;
 import team.lodestar.lodestone.helpers.*;
 
+import com.sammy.malum.common.item.*;
+import com.sammy.malum.core.systems.spirit.*;
+import com.sammy.malum.visual_effects.networked.*;
+import com.sammy.malum.visual_effects.networked.data.*;
+import com.sammy.malum.visual_effects.networked.slash.*;
+import net.minecraft.util.*;
+import net.minecraft.world.entity.*;
+import net.minecraft.world.level.*;
+import net.minecraft.world.phys.*;
+import team.lodestar.lodestone.helpers.*;
+
 public class ParticleHelper {
 
     public static SlashParticleEffectBuilder createSlashingEffect(ParticleEffectType effectType) {
@@ -85,20 +96,14 @@ public class ParticleHelper {
             spawnForwardSlashingParticle(attacker, offset, direction);
         }
 
-    public static void spawnSlashingParticle(ParticleEffectType effectType, LivingEntity attacker, Vec3 slashOffset, Vec3 slashDirection, float slashAngle, boolean mirror) {
-        double xOffset = slashOffset.x;
-        double yOffset = slashOffset.y + attacker.getBbHeight() * 0.5f;
-        double zOffset = slashOffset.z;
-        var position = attacker.position().add(xOffset, yOffset, zOffset);
-        if (attacker.level() instanceof ServerLevel serverLevel) {
-            effectType.createPositionedEffect(serverLevel, new PositionEffectData(position), SlashAttackParticleEffect.createData(slashDirection, mirror, slashAngle));
-        }
         public void spawnForwardSlashingParticle(LivingEntity attacker, Vec3 slashOffset, Vec3 slashDirection) {
             double xOffset = slashOffset.x;
             double yOffset = slashOffset.y + attacker.getBbHeight() * 0.5f;
             double zOffset = slashOffset.z;
             var position = attacker.position().add(xOffset, yOffset, zOffset);
-            spawnSlashingParticle(attacker.level(), position, slashDirection);
+            if (attacker.level() instanceof ServerLevel serverLevel) {
+                spawnSlashingParticle(serverLevel, position, slashDirection);
+            }
         }
 
         public void spawnTargetBoundSlashingParticle(LivingEntity attacker, LivingEntity target) {
@@ -122,10 +127,12 @@ public class ParticleHelper {
             double yOffset = slashOffset.y + attacker.getBbHeight() * 0.5f;
             double zOffset = slashOffset.z;
             var position = target.position().add(xOffset, yOffset, zOffset);
-            spawnSlashingParticle(attacker.level(), position, slashDirection);
+            if (attacker.level() instanceof ServerLevel serverLevel) {
+                spawnSlashingParticle(serverLevel, position, slashDirection);
+            }
         }
 
-        public void spawnSlashingParticle(Level level, Vec3 slashPosition, Vec3 slashDirection) {
+        public void spawnSlashingParticle(ServerLevel level, Vec3 slashPosition, Vec3 slashDirection) {
             effectType.createPositionedEffect(level, new PositionEffectData(slashPosition), SlashAttackParticleEffect.createData(slashDirection, isMirrored, slashAngle, spiritType));
         }
 

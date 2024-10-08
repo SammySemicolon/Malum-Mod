@@ -2,6 +2,7 @@ package com.sammy.malum.core.handlers;
 
 import com.sammy.malum.common.item.curiosities.weapons.scythe.MalumScytheItem;
 import com.sammy.malum.registry.common.AttributeRegistry;
+import com.sammy.malum.registry.common.DamageTypeTagRegistry;
 import io.github.fabricators_of_create.porting_lib.entity.events.living.LivingHurtEvent;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageTypes;

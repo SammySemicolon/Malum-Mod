@@ -27,6 +27,7 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.Vec3;
 import team.lodestar.lodestone.helpers.ItemHelper;
+import team.lodestar.lodestone.helpers.RandomHelper;
 
 import java.util.Random;
 

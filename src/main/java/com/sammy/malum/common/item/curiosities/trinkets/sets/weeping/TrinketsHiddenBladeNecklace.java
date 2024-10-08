@@ -1,17 +1,21 @@
 package com.sammy.malum.common.item.curiosities.trinkets.sets.weeping;
 
+import com.sammy.malum.common.components.MalumComponents;
 import com.sammy.malum.common.entity.hidden_blade.HiddenBladeDelayedImpactEntity;
 import com.sammy.malum.common.item.IMalumEventResponderItem;
+import com.sammy.malum.common.item.ISpiritAffiliatedItem;
 import com.sammy.malum.common.item.IVoidItem;
 import com.sammy.malum.common.item.curiosities.trinkets.MalumTinketsItem;
 import com.sammy.malum.core.handlers.SoulDataHandler;
 import com.sammy.malum.core.helpers.ParticleHelper;
+import com.sammy.malum.registry.common.DamageTypeTagRegistry;
 import com.sammy.malum.registry.common.MobEffectRegistry;
 import com.sammy.malum.registry.common.ParticleEffectTypeRegistry;
 import com.sammy.malum.registry.common.SoundRegistry;
 import com.sammy.malum.registry.common.item.ItemRegistry;
 import io.github.fabricators_of_create.porting_lib.entity.events.living.LivingHurtEvent;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.effect.MobEffect;
@@ -43,7 +47,7 @@ public class TrinketsHiddenBladeNecklace extends MalumTinketsItem implements IMa
         if (attacked.level().isClientSide()) {
             return;
         }
-        MalumLivingEntityDataCapability.getCapabilityOptional(attacked).ifPresent(c -> {
+        MalumComponents.MALUM_LIVING_ENTITY_COMPONENT.maybeGet(attacked).ifPresent(c -> {
             if (c.hiddenBladeCounterCooldown == 0) {
                 float damage = event.getAmount();
                 int amplifier = 1 + Mth.ceil(damage * 0.6f);
@@ -64,15 +68,15 @@ public class TrinketsHiddenBladeNecklace extends MalumTinketsItem implements IMa
         if (!source.is(DamageTypeTagRegistry.IS_SCYTHE_MELEE)) {
             return;
         }
-        if (CurioHelper.hasCurioEquipped(attacker, ItemRegistry.NECKLACE_OF_THE_HIDDEN_BLADE.get())) {
-            MalumLivingEntityDataCapability.getCapabilityOptional(attacker).ifPresent(c -> {
+        if (TrinketsHelper.hasTrinketEquipped(attacker, ItemRegistry.NECKLACE_OF_THE_HIDDEN_BLADE.get())) {
+            MalumComponents.MALUM_LIVING_ENTITY_COMPONENT.maybeGet(attacker).ifPresent(c -> {
                 var random = level.getRandom();
                 if (c.hiddenBladeCounterCooldown != 0) {
                     if (c.hiddenBladeCounterCooldown <= COOLDOWN_DURATION) {
                         SoundHelper.playSound(attacker, SoundRegistry.HIDDEN_BLADE_DISRUPTED.get(), 1f, RandomHelper.randomBetween(random, 0.7f, 0.8f));
                     }
                     c.hiddenBladeCounterCooldown = (int) (COOLDOWN_DURATION * 1.5);
-                    MalumLivingEntityDataCapability.syncSelf((ServerPlayer) attacker);
+                    MalumComponents.MALUM_LIVING_ENTITY_COMPONENT.sync(attacker);
                     return;
                 }
                 var effect = attacker.getEffect(MobEffectRegistry.WICKED_INTENT.get());

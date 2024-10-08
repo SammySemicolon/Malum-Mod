@@ -175,15 +175,6 @@ public class CurioSpiritInfusionRecipes {
                 .addSpirit(ELDRITCH_SPIRIT, 8)
                 .build(consumer);
 
-        new SpiritInfusionRecipeBuilder(ItemRegistry.RING_OF_MANAWEAVING.get(), 1, ItemRegistry.RING_OF_ECHOING_ARCANA.get(), 1)
-                .addExtraItem(ItemRegistry.NULL_SLATE.get(), 16)
-                .addExtraItem(ItemRegistry.MNEMONIC_FRAGMENT.get(), 8)
-                .addSpirit(AQUEOUS_SPIRIT, 32)
-                .addSpirit(ARCANE_SPIRIT, 16)
-                .addSpirit(WICKED_SPIRIT, 16)
-                .addSpirit(ELDRITCH_SPIRIT, 8)
-                .build(consumer);
-
         new SpiritInfusionRecipeBuilder(ItemRegistry.NECKLACE_OF_THE_NARROW_EDGE.get(), 1, ItemRegistry.NECKLACE_OF_THE_HIDDEN_BLADE.get(), 1)
                 .addExtraItem(ItemRegistry.NULL_SLATE.get(), 16)
                 .addExtraItem(ItemRegistry.MALIGNANT_LEAD.get(), 1)

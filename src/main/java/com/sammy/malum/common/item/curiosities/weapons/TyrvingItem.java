@@ -3,7 +3,9 @@ package com.sammy.malum.common.item.curiosities.weapons;
 import com.sammy.malum.common.item.IMalumEventResponderItem;
 import com.sammy.malum.common.packets.particle.curiosities.rite.generic.MajorEntityEffectParticlePacket;
 import com.sammy.malum.core.handlers.SpiritHarvestHandler;
+import com.sammy.malum.core.helpers.ParticleHelper;
 import com.sammy.malum.registry.common.DamageTypeRegistry;
+import com.sammy.malum.registry.common.ParticleEffectTypeRegistry;
 import com.sammy.malum.registry.common.SoundRegistry;
 import com.sammy.malum.registry.common.SpiritTypeRegistry;
 import io.github.fabricators_of_create.porting_lib.entity.events.living.LivingHurtEvent;
@@ -16,6 +18,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Tier;
 import net.minecraft.world.level.Level;
+import team.lodestar.lodestone.helpers.RandomHelper;
 import team.lodestar.lodestone.registry.common.tag.LodestoneDamageTypeTags;
 import team.lodestar.lodestone.systems.item.tools.LodestoneSwordItem;
 

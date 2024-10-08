@@ -101,7 +101,7 @@ public class SoulDataHandler {
         }
     }
     public static void exposeSoul(LivingEntity entity) {
-        SoulDataHandler soulData = MalumLivingEntityDataCapability.getCapability(entity).soulData;
+        SoulDataHandler soulData = MalumComponents.MALUM_LIVING_ENTITY_COMPONENT.get(entity).soulData;
         soulData.exposedSoulDuration = 200;
 
     }

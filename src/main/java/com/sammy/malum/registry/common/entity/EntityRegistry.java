@@ -12,6 +12,7 @@ import com.sammy.malum.common.entity.bolt.AuricFlameBoltEntity;
 import com.sammy.malum.common.entity.bolt.DrainingBoltEntity;
 import com.sammy.malum.common.entity.bolt.HexBoltEntity;
 import com.sammy.malum.common.entity.boomerang.ScytheBoomerangEntity;
+import com.sammy.malum.common.entity.hidden_blade.HiddenBladeDelayedImpactEntity;
 import com.sammy.malum.common.entity.nitrate.EthericNitrateEntity;
 import com.sammy.malum.common.entity.nitrate.VividNitrateEntity;
 import com.sammy.malum.common.entity.spirit.SpiritItemEntity;
@@ -21,6 +22,7 @@ import io.github.fabricators_of_create.porting_lib.util.LazyRegistrar;
 import io.github.fabricators_of_create.porting_lib.util.RegistryObject;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.minecraft.client.renderer.entity.EntityRenderers;
+import net.minecraft.client.renderer.entity.NoopRenderer;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
@@ -88,11 +90,7 @@ public class EntityRegistry {
             EntityRendererRegistry.register(EntityRegistry.ETHERIC_NITRATE.get(), EthericNitrateEntityRenderer::new);
             EntityRendererRegistry.register(EntityRegistry.VIVID_NITRATE.get(), VividNitrateEntityRenderer::new);
 
-            EntityRenderers.register(EntityRegistry.SPIRIT_COLLECTION_ACTIVATOR.get(), SpiritCollectionActivatorEntityRenderer::new);
-            EntityRenderers.register(EntityRegistry.HIDDEN_BLADE_DELAYED_IMPACT.get(), NoopRenderer::new);
-            EntityRendererRegistry.register(EntityRegistry.HEX_BOLT.get(), HexBoltEntityRenderer::new);
-            EntityRendererRegistry.register(EntityRegistry.DRAINING_BOLT.get(), DrainingBoltEntityRenderer::new);
-            EntityRendererRegistry.register(EntityRegistry.AURIC_FLAME_BOLT.get(), AuricFlameBoltEntityRenderer::new);
+            EntityRendererRegistry.register(EntityRegistry.HIDDEN_BLADE_DELAYED_IMPACT.get(), NoopRenderer::new);
             EntityRendererRegistry.register(EntityRegistry.SPIRIT_COLLECTION_ACTIVATOR.get(), SpiritCollectionActivatorEntityRenderer::new);
 
             EntityRendererRegistry.register(EntityRegistry.THROWN_GLUTTONY.get(), ThrownConcentratedGluttonyRenderer::new);

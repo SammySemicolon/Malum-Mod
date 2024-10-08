@@ -23,6 +23,7 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import org.joml.Vector4f;
+import org.lwjgl.opengl.GL11;
 import team.lodestar.lodestone.helpers.ItemHelper;
 import team.lodestar.lodestone.registry.client.LodestoneShaderRegistry;
 import team.lodestar.lodestone.registry.common.tag.LodestoneDamageTypeTags;
@@ -44,31 +45,6 @@ public class SoulWardHandler {
     public void deserializeNBT(CompoundTag tag) {
         soulWard = tag.getDouble("soulWard");
         soulWardProgress = tag.getDouble("soulWardProgress");
-    }
-
-    public static void recoverSoulWard(Player player) {
-        if (!player.level().isClientSide) {
-            SoulWardHandler soulWardHandler = MalumComponents.MALUM_PLAYER_COMPONENT.get(player).soulWardHandler;
-            AttributeInstance soulWardCap = player.getAttribute(AttributeRegistry.SOUL_WARD_CAP.get());
-            if (soulWardCap != null) {
-                if (soulWardHandler.soulWard < soulWardCap.getValue() && soulWardHandler.soulWardProgress <= 0) {
-                    soulWardHandler.soulWard++;
-                    if (!player.isCreative()) {
-                        SoundEvent sound = soulWardHandler.soulWard >= soulWardCap.getValue() ? SoundRegistry.SOUL_WARD_CHARGE.get() : SoundRegistry.SOUL_WARD_GROW.get();
-                        double pitch = 1f + (soulWardHandler.soulWard / (float) soulWardCap.getValue()) * 0.5f + (Mth.ceil(soulWardHandler.soulWard) % 3) * 0.25f;
-                        player.level().playSound(null, player.blockPosition(), sound, SoundSource.PLAYERS, 0.25f, (float)pitch);
-                    }
-                    soulWardHandler.soulWardProgress = getSoulWardCooldown(player);
-                    MalumComponents.MALUM_PLAYER_COMPONENT.sync(player);
-                } else {
-                    soulWardHandler.soulWardProgress--;
-                }
-                if (soulWardHandler.soulWard > soulWardCap.getValue()) {
-                    soulWardHandler.soulWard = (float) soulWardCap.getValue();
-                    MalumComponents.MALUM_PLAYER_COMPONENT.sync(player);
-                }
-            }
-        }
     }
 
     public static void livingHurt(LivingHurtEvent event) {
@@ -127,7 +103,7 @@ public class SoulWardHandler {
             }
         }
         soulWardProgress += getSoulWardCooldown(player);
-        MalumPlayerDataCapability.syncTrackingAndSelf(player);
+        MalumComponents.MALUM_PLAYER_COMPONENT.sync(player);
     }
 
     public static float getSoulWardCooldown(Player player) {

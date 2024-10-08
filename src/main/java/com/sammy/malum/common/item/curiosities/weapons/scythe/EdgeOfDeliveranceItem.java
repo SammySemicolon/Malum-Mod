@@ -2,12 +2,11 @@ package com.sammy.malum.common.item.curiosities.weapons.scythe;
 
 import com.sammy.malum.core.helpers.*;
 import com.sammy.malum.registry.common.*;
+import io.github.fabricators_of_create.porting_lib.entity.events.living.LivingHurtEvent;
 import net.minecraft.sounds.*;
 import net.minecraft.world.effect.*;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.item.*;
-import net.minecraftforge.event.entity.living.*;
-import team.lodestar.lodestone.helpers.*;
 
 public class EdgeOfDeliveranceItem extends MalumScytheItem {
 
