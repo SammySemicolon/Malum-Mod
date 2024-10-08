@@ -7,27 +7,27 @@
     },
     {
       "count": 8,
-      "item": "malum:void_salts"
+      "item": "malum:mnemonic_fragment"
     }
   ],
   "input": {
     "count": 1,
-    "item": "malum:ring_of_desperate_voracity"
+    "item": "malum:ring_of_manaweaving"
   },
   "output": {
-    "item": "malum:ring_of_gruesome_concentration"
+    "item": "malum:ring_of_echoing_arcana"
   },
   "spirits": [
     {
-      "type": "sacred",
+      "type": "aqueous",
+      "count": 32
+    },
+    {
+      "type": "arcane",
       "count": 16
     },
     {
       "type": "wicked",
-      "count": 16
-    },
-    {
-      "type": "arcane",
       "count": 16
     },
     {

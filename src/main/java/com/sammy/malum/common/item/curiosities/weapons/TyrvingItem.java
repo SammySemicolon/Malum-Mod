@@ -28,23 +28,28 @@ public class TyrvingItem extends LodestoneSwordItem implements IMalumEventRespon
 
     @Override
     public void hurtEvent(LivingHurtEvent event, LivingEntity attacker, LivingEntity target, ItemStack stack) {
+        final Level level = attacker.level();
+        if (level.isClientSide) {
+            return;
+        }
         if (event.getSource().is(LodestoneDamageTypeTags.IS_MAGIC)) {
             return;
         }
-        final Level level = attacker.level();
-        if (!level.isClientSide) {
-            float damage = SpiritHarvestHandler.getSpiritData(target).map(d -> d.totalSpirits).orElse(0) * 2f;
-            if (target instanceof Player) {
-                damage = 4 * Math.max(1, (1 + target.getArmorValue() / 12f) * (1 + (1 - 1 / (float) target.getArmorValue())) / 12f);
-            }
-
-            if (target.isAlive()) {
-                target.invulnerableTime = 0;
-                target.hurt(DamageTypeHelper.create(level, DamageTypeRegistry.VOODOO, attacker), damage);
-            }
-            level.playSound(null, target.blockPosition(), SoundRegistry.TYRVING_SLASH.get(), SoundSource.PLAYERS, 1, 1f + level.random.nextFloat() * 0.25f);
-            MALUM_CHANNEL.sendToClientsTracking(new MajorEntityEffectParticlePacket(SpiritTypeRegistry.ELDRITCH_SPIRIT.getPrimaryColor(), target.getX(), target.getY() + target.getBbHeight() / 2, target.getZ()), target);
+        float damage = SpiritHarvestHandler.getSpiritData(target).map(d -> d.totalSpirits).orElse(0) * 2f;
+        if (target instanceof Player) {
+            damage = 4 * Math.max(1, (1 + target.getArmorValue() / 12f) * (1 + (1 - 1 / (float) target.getArmorValue())) / 12f);
         }
+
+        if (target.isAlive()) {
+            target.invulnerableTime = 0;
+            target.hurt(DamageTypeHelper.create(level, DamageTypeRegistry.VOODOO, attacker), damage);
+        }
+
+        SoundHelper.playSound(attacker, SoundRegistry.TYRVING_SLASH.get(), 1, RandomHelper.randomBetween(attacker.getRandom(), 1f, 1.5f));
+        ParticleHelper.createSlashingEffect(ParticleEffectTypeRegistry.TYRVING_SLASH)
+                .setSpiritType(SpiritTypeRegistry.WICKED_SPIRIT)
+                .setVerticalSlashAngle()
+                .spawnForwardSlashingParticle(attacker);
     }
 
     @Override

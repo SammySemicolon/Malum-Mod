@@ -195,6 +195,11 @@ public class MalumLang extends LanguageProvider {
         add("malum.gui.trinket.effect.fervor", "Increased Mining Speed");
         add("malum.gui.trinket.effect.burning_resistance", "Damage Resistance While Burning");
         add("malum.gui.trinket.effect.spirits_weave_mana", "Spirit Collection Recovers Soul Ward");
+        add("malum.gui.trinket.effect.no_sweep", "Disables Scythe Sweeping");
+        add("malum.gui.trinket.effect.friendly_enemies", "Reduces Enemy Aggression");
+        add("malum.gui.trinket.effect.soul_ward_magic_resilience", "Soul Ward Magic Resilience");
+        add("malum.gui.trinket.effect.rotten_gluttony", "Eating Rotten Food Generates Gluttony");
+        add("malum.gui.trinket.effect.scythe_counterattack", "Powerful Scythe Counterattack When Struck");
 
         add("malum.gui.trinket.effect.spirits_heal", "Spirit Collection Replenishes Health");
         add("malum.gui.trinket.effect.spirits_xp", "Spirit Collection Generates Experience Points");
@@ -396,6 +401,10 @@ public class MalumLang extends LanguageProvider {
         addSimpleEntryHeader("void.ring_of_growing_flesh", "Ring of Growing Flesh", "Creeping and crawling");
         addPages("void.ring_of_growing_flesh",
                 "I have overclocked the Ring of Curative Talent, creating a ring that does not simply heal, but overheal, granting additional health instead of regeneration whenever I collect a spirit crystal.");
+
+        addSimpleEntryHeader("void.ring_of_echoing_arcana", "Ring of Echoing Arcana", "I can see see the future " + italic("future future"));
+        addPages("void.ring_of_echoing_arcana",
+                "Overclocking the Ring of Curative Talent created a useful ring, so I have applied that principle to another ring, Manaweaving, to not only bind, but create resonance in magic. The Ring of Echoing Arcana grants Arcane Resonance whenever I collect a spirit crystal, empowering all my other spirit-collection effects.");
 
         addEntryHeader("void.ring_of_gruesome_concentration", "Ring of Gruesome Concentration", "Consume and incorporate");
         addHeadline("void.ring_of_gruesome_concentration", "Gruesome Concentration");

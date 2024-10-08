@@ -30,7 +30,7 @@ public class TrinketsGrowingFleshRing extends MalumTinketsItem implements IVoidI
     public void pickupSpirit(LivingEntity collector, double arcaneResonance) {
         var cancerousGrowth = MobEffectRegistry.CANCEROUS_GROWTH.get();
         var effect = collector.getEffect(cancerousGrowth);
-        int addedDuration = (int) (300 * arcaneResonance);
+        int addedDuration = (int) (150 * arcaneResonance);
         if (effect == null) {
             collector.addEffect(new MobEffectInstance(cancerousGrowth, addedDuration*4, 0, true, true, true));
         } else {

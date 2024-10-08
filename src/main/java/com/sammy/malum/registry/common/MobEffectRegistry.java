@@ -36,9 +36,11 @@ public class MobEffectRegistry {
 
     public static final RegistryObject<MobEffect> GLUTTONY = EFFECTS.register("gluttony", GluttonyEffect::new);
     public static final RegistryObject<MobEffect> CANCEROUS_GROWTH = EFFECTS.register("cancerous_growth", GrowingFleshEffect::new);
+    public static final RegistryObject<MobEffect> ARCANE_REVERBERATION = EFFECTS.register("arcane_reverberation", EchoingArcanaEffect::new);
     public static final RegistryObject<MobEffect> WICKED_INTENT = EFFECTS.register("wicked_intent", WickedIntentEffect::new);
     public static final RegistryObject<MobEffect> SILENCED = EFFECTS.register("silenced", SilencedEffect::new);
     public static final RegistryObject<MobEffect> GRIM_CERTAINTY = EFFECTS.register("grim_certainty", GrimCertaintyEffect::new);
+    public static final RegistryObject<MobEffect> IMMINENT_DELIVERANCE = EFFECTS.register("imminent_deliverance", ImminentDeliveranceEffect::new);
 
     public static final RegistryObject<MobEffect> REJECTED = EFFECTS.register("rejected", RejectedEffect::new);
 

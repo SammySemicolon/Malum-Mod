@@ -37,15 +37,16 @@ public class ReboundEnchantment extends Enchantment implements CustomEnchantingT
                 player.setItemInHand(interactionHand, ItemStack.EMPTY);
                 float baseDamage = (float) player.getAttributes().getValue(Attributes.ATTACK_DAMAGE);
                 float magicDamage = (float) player.getAttributes().getValue(LodestoneAttributeRegistry.MAGIC_DAMAGE.get());
+                float velocity = (float) (1.5F * player.getAttributeValue(AttributeRegistry.SCYTHE_PROFICIENCY.get()));
 
                 int slot = interactionHand == InteractionHand.OFF_HAND ? player.getInventory().getContainerSize() - 1 : player.getInventory().selected;
                 ScytheBoomerangEntity entity = new ScytheBoomerangEntity(level, player.position().x, player.position().y + player.getBbHeight() / 2f, player.position().z);
                 entity.setData(player, baseDamage, magicDamage, slot);
                 entity.setItem(stack);
-
-                float velocity = (float) (1.5F * player.getAttributeValue(AttributeRegistry.SCYTHE_PROFICIENCY.get()));
                 entity.shootFromRotation(player, player.getXRot(), player.getYRot(), 0.0F, velocity, 0F);
                 level.addFreshEntity(entity);
+                player.setItemInHand(event.getHand(), ItemStack.EMPTY);
+//                SoundHelper.playSound(player, SoundRegistry.SCYTHE_THROW.get(),2.0f, RandomHelper.randomBetween(level.getRandom(), 0.75f, 1.25f));
             }
             player.awardStat(Stats.ITEM_USED.get(stack.getItem()));
         }

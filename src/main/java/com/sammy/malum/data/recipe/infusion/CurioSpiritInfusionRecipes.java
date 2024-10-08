@@ -149,7 +149,7 @@ public class CurioSpiritInfusionRecipes {
                 .build(consumer);
 
         new SpiritInfusionRecipeBuilder(ItemRegistry.RING_OF_ESOTERIC_SPOILS.get(), 1, ItemRegistry.RING_OF_THE_ENDLESS_WELL.get(), 1)
-                .addExtraItem(ItemRegistry.NULL_SLATE.get(), 8)
+                .addExtraItem(ItemRegistry.NULL_SLATE.get(), 16)
                 .addExtraItem(ItemRegistry.MNEMONIC_FRAGMENT.get(), 8)
                 .addSpirit(WICKED_SPIRIT, 32)
                 .addSpirit(ARCANE_SPIRIT, 16)
@@ -163,7 +163,7 @@ public class CurioSpiritInfusionRecipes {
                 .addSpirit(SACRED_SPIRIT, 16)
                 .addSpirit(WICKED_SPIRIT, 16)
                 .addSpirit(ARCANE_SPIRIT, 16)
-                .addSpirit(ELDRITCH_SPIRIT, 16)
+                .addSpirit(ELDRITCH_SPIRIT, 8)
                 .build(consumer);
 
         new SpiritInfusionRecipeBuilder(ItemRegistry.RING_OF_CURATIVE_TALENT.get(), 1, ItemRegistry.RING_OF_GROWING_FLESH.get(), 1)
@@ -172,7 +172,16 @@ public class CurioSpiritInfusionRecipes {
                 .addSpirit(SACRED_SPIRIT, 16)
                 .addSpirit(WICKED_SPIRIT, 16)
                 .addSpirit(ARCANE_SPIRIT, 16)
-                .addSpirit(ELDRITCH_SPIRIT, 16)
+                .addSpirit(ELDRITCH_SPIRIT, 8)
+                .build(consumer);
+
+        new SpiritInfusionRecipeBuilder(ItemRegistry.RING_OF_MANAWEAVING.get(), 1, ItemRegistry.RING_OF_ECHOING_ARCANA.get(), 1)
+                .addExtraItem(ItemRegistry.NULL_SLATE.get(), 16)
+                .addExtraItem(ItemRegistry.MNEMONIC_FRAGMENT.get(), 8)
+                .addSpirit(AQUEOUS_SPIRIT, 32)
+                .addSpirit(ARCANE_SPIRIT, 16)
+                .addSpirit(WICKED_SPIRIT, 16)
+                .addSpirit(ELDRITCH_SPIRIT, 8)
                 .build(consumer);
 
         new SpiritInfusionRecipeBuilder(ItemRegistry.NECKLACE_OF_THE_NARROW_EDGE.get(), 1, ItemRegistry.NECKLACE_OF_THE_HIDDEN_BLADE.get(), 1)
@@ -198,8 +207,8 @@ public class CurioSpiritInfusionRecipes {
                 .addExtraItem(ItemRegistry.VOID_SALTS.get(), 16)
                 .addExtraItem(ItemRegistry.NULL_SLATE.get(), 8)
                 .addExtraItem(ItemRegistry.MNEMONIC_FRAGMENT.get(), 4)
+                .addSpirit(ARCANE_SPIRIT, 64)
                 .addSpirit(WICKED_SPIRIT, 32)
-                .addSpirit(ARCANE_SPIRIT, 32)
                 .addSpirit(ELDRITCH_SPIRIT, 16)
                 .build(consumer);
     }

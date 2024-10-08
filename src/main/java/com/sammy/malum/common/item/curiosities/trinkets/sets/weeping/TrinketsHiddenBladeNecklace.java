@@ -66,11 +66,12 @@ public class TrinketsHiddenBladeNecklace extends MalumTinketsItem implements IMa
         }
         if (CurioHelper.hasCurioEquipped(attacker, ItemRegistry.NECKLACE_OF_THE_HIDDEN_BLADE.get())) {
             MalumLivingEntityDataCapability.getCapabilityOptional(attacker).ifPresent(c -> {
+                var random = level.getRandom();
                 if (c.hiddenBladeCounterCooldown != 0) {
                     if (c.hiddenBladeCounterCooldown <= COOLDOWN_DURATION) {
-                        SoundHelper.playSound(attacker, SoundRegistry.HIDDEN_BLADE_DISRUPTED.get(), 1f, RandomHelper.randomBetween(level.getRandom(), 0.7f, 0.8f));
+                        SoundHelper.playSound(attacker, SoundRegistry.HIDDEN_BLADE_DISRUPTED.get(), 1f, RandomHelper.randomBetween(random, 0.7f, 0.8f));
                     }
-                    c.hiddenBladeCounterCooldown = (int) (COOLDOWN_DURATION *1.5);
+                    c.hiddenBladeCounterCooldown = (int) (COOLDOWN_DURATION * 1.5);
                     MalumLivingEntityDataCapability.syncSelf((ServerPlayer) attacker);
                     return;
                 }
@@ -80,19 +81,27 @@ public class TrinketsHiddenBladeNecklace extends MalumTinketsItem implements IMa
                 }
                 int duration = 25;
                 var attributes = attacker.getAttributes();
-                float baseDamage = (float) (attributes.getValue(Attributes.ATTACK_DAMAGE) / duration) * 2 * effect.amplifier;
-                float magicDamage = (float) (attributes.getValue(LodestoneAttributeRegistry.MAGIC_DAMAGE.get()) / duration) * 2;
+                float multiplier = (float) Mth.clamp(attributes.getValue(Attributes.ATTACK_SPEED), 0, 1) * 2;
+                float baseDamage = (float) (attributes.getValue(Attributes.ATTACK_DAMAGE) / duration) * multiplier * effect.amplifier;
+                float magicDamage = (float) (attributes.getValue(LodestoneAttributeRegistry.MAGIC_DAMAGE.get()) / duration) * multiplier;
                 var center = attacker.position().add(attacker.getLookAngle().scale(4));
-                var entity = new HiddenBladeDelayedImpactEntity(level, center.x, center.y-3f+attacker.getBbHeight()/2f, center.z);
+                var entity = new HiddenBladeDelayedImpactEntity(level, center.x, center.y - 3f + attacker.getBbHeight() / 2f, center.z);
                 entity.setData(attacker, baseDamage, magicDamage, duration);
                 entity.setItem(stack);
                 level.addFreshEntity(entity);
-                ParticleHelper.spawnRandomOrientationSlashParticle(ParticleEffectTypeRegistry.HIDDEN_BLADE_COUNTER_SLASH, attacker);
-                for (int i = 0; i < 3; i++) {
-                    SoundHelper.playSound(attacker, SoundRegistry.HIDDEN_BLADE_UNLEASHED.get(), 3f, RandomHelper.randomBetween(level.getRandom(), 0.75f, 1.25f));
-                }
                 attacker.removeEffect(effect.getEffect());
                 c.hiddenBladeCounterCooldown = 200;
+                for (int i = 0; i < 3; i++) {
+                    SoundHelper.playSound(attacker, SoundRegistry.HIDDEN_BLADE_UNLEASHED.get(), 3f, RandomHelper.randomBetween(random, 0.75f, 1.25f));
+                }
+                var particle = ParticleHelper.createSlashingEffect(ParticleEffectTypeRegistry.HIDDEN_BLADE_COUNTER_FLURRY);
+                final ItemStack scytheWeapon = SoulDataHandler.getScytheWeapon(source, attacker);
+                if (scytheWeapon.getItem() instanceof ISpiritAffiliatedItem spiritAffiliatedItem) {
+                    particle.setSpiritType(spiritAffiliatedItem);
+                }
+                particle.setRandomSlashAngle(random)
+                        .mirrorRandomly(random)
+                        .spawnForwardSlashingParticle(attacker);
                 MalumLivingEntityDataCapability.syncSelf((ServerPlayer) attacker);
                 event.setCanceled(true);
             });
