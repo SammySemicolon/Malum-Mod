@@ -15,6 +15,7 @@ import com.sammy.malum.visual_effects.networked.ritual.*;
 import net.minecraft.core.*;
 import net.minecraft.nbt.*;
 import net.minecraft.resources.*;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.*;
 import net.minecraft.world.*;
 import net.minecraft.world.entity.item.*;
@@ -142,7 +143,7 @@ public class RitualPlinthBlockEntity extends LodestoneBlockEntity implements IBl
                     ritualTier = RitualShardItem.getRitualTier(stack);
                     spiritAmount = ritualTier.spiritThreshold;
                     setupComplete = true;
-                    ParticleEffectTypeRegistry.RITUAL_PLINTH_BEGINS_CHARGING.createPositionedEffect(level, new PositionEffectData(worldPosition), new ColorEffectData(ritualType.spirit));
+                    ParticleEffectTypeRegistry.RITUAL_PLINTH_BEGINS_CHARGING.createPositionedEffect((ServerLevel) level, new PositionEffectData(worldPosition), new ColorEffectData(ritualType.spirit));
                     level.playSound(null, getBlockPos(), SoundRegistry.RITUAL_BEGINS.get(), SoundSource.BLOCKS, 1, 0.9f + level.random.nextFloat() * 0.2f);
                     level.playSound(null, getBlockPos(), SoundRegistry.RITUAL_COMPLETED.get(), SoundSource.BLOCKS, 1, 0.9f + level.random.nextFloat() * 0.2f);
                     player.setItemInHand(hand, ItemStack.EMPTY);
@@ -247,7 +248,7 @@ public class RitualPlinthBlockEntity extends LodestoneBlockEntity implements IBl
                 SizedIngredient requestedItem = ritualRecipe.extraItems.get(extras);
                 if (requestedItem.test(providedStack)) {
                     level.playSound(null, provider.getAccessPointBlockPos(), SoundRegistry.RITUAL_ABSORBS_ITEM.get(), SoundSource.BLOCKS, 1, 0.9f + level.random.nextFloat() * 0.2f);
-                    ParticleEffectTypeRegistry.RITUAL_PLINTH_EATS_ITEM.createPositionedEffect(level, new PositionEffectData(worldPosition), new ColorEffectData(ritualRecipe.ritualType.spirit), RitualPlinthAbsorbItemParticleEffect.createData(provider.getItemPos(), providedStack));
+                    ParticleEffectTypeRegistry.RITUAL_PLINTH_EATS_ITEM.createPositionedEffect((ServerLevel) level, new PositionEffectData(worldPosition), new ColorEffectData(ritualRecipe.ritualType.spirit), RitualPlinthAbsorbItemParticleEffect.createData(provider.getItemPos(), providedStack));
                     extrasInventory.insertItem(providedStack.split(requestedItem.count()));
                     inventoryForAltar.updateData();
                     BlockHelper.updateAndNotifyState(level, provider.getAccessPointBlockPos());
@@ -264,7 +265,7 @@ public class RitualPlinthBlockEntity extends LodestoneBlockEntity implements IBl
         inventory.getStackInSlot(0).shrink(ritualRecipe.input.count());
         inventory.updateData();
         extrasInventory.clear();
-        ParticleEffectTypeRegistry.RITUAL_PLINTH_BEGINS_CHARGING.createPositionedEffect(level, new PositionEffectData(worldPosition), new ColorEffectData(ritualType.spirit));
+        ParticleEffectTypeRegistry.RITUAL_PLINTH_BEGINS_CHARGING.createPositionedEffect((ServerLevel) level, new PositionEffectData(worldPosition), new ColorEffectData(ritualType.spirit));
         level.playSound(null, worldPosition, SoundRegistry.RITUAL_FORMS.get(), SoundSource.BLOCKS, 1, 0.9f + level.random.nextFloat() * 0.2f);
         BlockHelper.updateAndNotifyState(level, worldPosition);
     }
@@ -288,7 +289,7 @@ public class RitualPlinthBlockEntity extends LodestoneBlockEntity implements IBl
                     stack.shrink(absorbedAmount);
                     providerInventory.onContentsChanged(0);
                     level.playSound(null, accessPointBlockPos, SoundRegistry.RITUAL_ABSORBS_SPIRIT.get(), SoundSource.BLOCKS, 1, 0.9f + level.random.nextFloat() * 0.2f);
-                    ParticleEffectTypeRegistry.RITUAL_PLINTH_EATS_SPIRIT.createPositionedEffect(level, new PositionEffectData(worldPosition), new ColorEffectData(spirit), RitualPlinthAbsorbItemParticleEffect.createData(altarProvider.getItemPos(), stack));
+                    ParticleEffectTypeRegistry.RITUAL_PLINTH_EATS_SPIRIT.createPositionedEffect((ServerLevel) level, new PositionEffectData(worldPosition), new ColorEffectData(spirit), RitualPlinthAbsorbItemParticleEffect.createData(altarProvider.getItemPos(), stack));
                     absorptionProgress.remove(altarProvider);
                     BlockHelper.updateAndNotifyState(level, accessPointBlockPos);
                 }
@@ -306,7 +307,7 @@ public class RitualPlinthBlockEntity extends LodestoneBlockEntity implements IBl
                         jar.type = null;
                     }
                     level.playSound(null, jarPosition, SoundRegistry.RITUAL_ABSORBS_SPIRIT.get(), SoundSource.BLOCKS, 1, 0.9f + level.random.nextFloat() * 0.2f);
-                    ParticleEffectTypeRegistry.RITUAL_PLINTH_EATS_SPIRIT.createPositionedEffect(level, new PositionEffectData(worldPosition), new ColorEffectData(spirit), RitualPlinthAbsorbItemParticleEffect.createData(jar.getItemPos(), spirit.getSpiritShard().getDefaultInstance()));
+                    ParticleEffectTypeRegistry.RITUAL_PLINTH_EATS_SPIRIT.createPositionedEffect((ServerLevel) level, new PositionEffectData(worldPosition), new ColorEffectData(spirit), RitualPlinthAbsorbItemParticleEffect.createData(jar.getItemPos(), spirit.getSpiritShard().getDefaultInstance()));
                     absorptionProgress.remove(jar);
                     BlockHelper.updateAndNotifyState(level, jarPosition);
                 }
@@ -318,7 +319,7 @@ public class RitualPlinthBlockEntity extends LodestoneBlockEntity implements IBl
                 absorptionProgress.compute(itemEntity, (p, i) -> i == null ? 1 : i + 1);
                 if (absorptionProgress.get(itemEntity) >= 5) {
                     level.playSound(null, itemEntity.blockPosition(), SoundRegistry.RITUAL_ABSORBS_SPIRIT.get(), SoundSource.BLOCKS, 1, 0.9f + level.random.nextFloat() * 0.2f);
-                    ParticleEffectTypeRegistry.RITUAL_PLINTH_EATS_SPIRIT.createPositionedEffect(level, new PositionEffectData(worldPosition), new ColorEffectData(spirit), RitualPlinthAbsorbItemParticleEffect.createData(itemEntity.position().add(0, itemEntity.getBbHeight()/2f, 0), spirit.getSpiritShard().getDefaultInstance()));
+                    ParticleEffectTypeRegistry.RITUAL_PLINTH_EATS_SPIRIT.createPositionedEffect((ServerLevel) level, new PositionEffectData(worldPosition), new ColorEffectData(spirit), RitualPlinthAbsorbItemParticleEffect.createData(itemEntity.position().add(0, itemEntity.getBbHeight()/2f, 0), spirit.getSpiritShard().getDefaultInstance()));
                     increase += item.getCount();
                     itemEntity.discard();
                     absorptionProgress.remove(itemEntity);
@@ -333,7 +334,7 @@ public class RitualPlinthBlockEntity extends LodestoneBlockEntity implements IBl
             if (newTier != null && !newTier.equals(oldTier)) {
                 ritualTier = newTier;
                 level.playSound(null, worldPosition, SoundRegistry.RITUAL_EVOLVES.get(), SoundSource.BLOCKS, 1, 0.9f + level.random.nextFloat() * 0.2f);
-                ParticleEffectTypeRegistry.RITUAL_PLINTH_CHANGES_TIER.createPositionedEffect(level, new PositionEffectData(worldPosition), new ColorEffectData(spirit));
+                ParticleEffectTypeRegistry.RITUAL_PLINTH_CHANGES_TIER.createPositionedEffect((ServerLevel) level, new PositionEffectData(worldPosition), new ColorEffectData(spirit));
             }
             BlockHelper.updateAndNotifyState(level, getBlockPos());
         }
@@ -346,7 +347,7 @@ public class RitualPlinthBlockEntity extends LodestoneBlockEntity implements IBl
             final MalumSpiritType spirit = ritualType.spirit;
             ritualType = null;
             spiritAmount = 0;
-            ParticleEffectTypeRegistry.RITUAL_PLINTH_FAILURE.createPositionedEffect(level, new PositionEffectData(worldPosition), new ColorEffectData(spirit));
+            ParticleEffectTypeRegistry.RITUAL_PLINTH_FAILURE.createPositionedEffect((ServerLevel) level, new PositionEffectData(worldPosition), new ColorEffectData(spirit));
         }
         level.playSound(null, getBlockPos(), SoundRegistry.RITUAL_COMPLETED.get(), SoundSource.BLOCKS, 1, 0.9f + level.random.nextFloat() * 0.2f);
         BlockHelper.updateAndNotifyState(level, worldPosition);

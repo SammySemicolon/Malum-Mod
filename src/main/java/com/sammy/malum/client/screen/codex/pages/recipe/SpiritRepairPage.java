@@ -25,7 +25,7 @@ import static com.sammy.malum.client.screen.codex.ArcanaCodexHelper.*;
 public class SpiritRepairPage extends BookPage {
     private final SpiritRepairRecipe recipe;
 
-    public SpiritRepairPage(Predicate<Recipe<SingleRecipeInput>> predicate) {
+    public SpiritRepairPage(Predicate<SpiritRepairRecipe> predicate) {
         super(MalumMod.malumPath("textures/gui/book/pages/spirit_repair_page.png"));
         //this is null during datagen
         if (Minecraft.getInstance() instanceof Minecraft mcInstance) {

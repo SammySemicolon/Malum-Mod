@@ -8,6 +8,7 @@ import com.sammy.malum.common.recipe.*;
 import com.sammy.malum.core.systems.recipe.*;
 import com.sammy.malum.registry.common.*;
 import com.sammy.malum.registry.common.block.*;
+import com.sammy.malum.registry.common.recipe.RecipeTypeRegistry;
 import com.sammy.malum.visual_effects.*;
 import com.sammy.malum.visual_effects.networked.data.*;
 import com.sammy.malum.visual_effects.networked.pylon.*;
@@ -18,6 +19,8 @@ import net.minecraft.util.*;
 import net.minecraft.world.*;
 import net.minecraft.world.entity.player.*;
 import net.minecraft.world.item.*;
+import net.minecraft.world.item.crafting.SingleRecipeInput;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.*;
 import net.minecraft.world.level.block.state.*;
 import net.minecraft.world.phys.*;
@@ -46,6 +49,7 @@ public class RepairPylonCoreBlockEntity extends MultiBlockCoreEntity implements 
             new MultiBlockStructure.StructurePiece(0, 2, 0, BlockRegistry.REPAIR_PYLON_COMPONENT.get().defaultBlockState().setValue(RepairPylonComponentBlock.TOP, true))));
 
     public static final StringRepresentable.EnumCodec<RepairPylonState> CODEC = StringRepresentable.fromEnum(RepairPylonState::values);
+
     public enum RepairPylonState implements StringRepresentable{
         IDLE("idle"),
         SEARCHING("searching"),
@@ -180,7 +184,7 @@ public class RepairPylonCoreBlockEntity extends MultiBlockCoreEntity implements 
             return;
         }
         boolean wasNull = recipe == null;
-        recipe = SpiritRepairRecipe.getRecipe(level, c -> c.doesRepairMatch(inventory.getStackInSlot(0)) && c.doSpiritsMatch(spiritInventory.nonEmptyItemStacks));
+        recipe = LodestoneRecipeType.findRecipe(level, RecipeTypeRegistry.SPIRIT_REPAIR.get(), c -> c.matches(new SingleRecipeInput(inventory.getStackInSlot(0)), level) && c.doSpiritsMatch(spiritInventory.nonEmptyItemStacks));
         if (wasNull) {
             setState(RepairPylonState.SEARCHING);
         }
@@ -280,7 +284,8 @@ public class RepairPylonCoreBlockEntity extends MultiBlockCoreEntity implements 
 
     public boolean tryRepair(IMalumSpecialItemAccessPoint provider) {
         LodestoneBlockEntityInventory inventoryForAltar = provider.getSuppliedInventory();
-        if (getLevel() instanceof ServerLevel serverSide) return SpiritRepairRecipe.getRecipe(serverSide, inventoryForAltar.getStackInSlot(0), inventory.getStackInSlot(0), spiritInventory.nonEmptyItemStacks) != null;
+        if (inventoryForAltar.getStackInSlot(0).isRepairable() && !inventoryForAltar.getStackInSlot(0).isDamaged()) return false;
+        if (getLevel() instanceof ServerLevel serverSide) return LodestoneRecipeType.findRecipe(serverSide, RecipeTypeRegistry.SPIRIT_REPAIR.get(), c -> c.matches(new SingleRecipeInput(inventoryForAltar.getStackInSlot(0)), level) && c.doesRepairMatch(inventory.getStackInSlot(0)) && c.doSpiritsMatch(spiritInventory.nonEmptyItemStacks)) != null;
         else MalumMod.LOGGER.warn("RepairPylonCBE.tryRepair called from wrong side"); return false;
     }
 
@@ -295,20 +300,23 @@ public class RepairPylonCoreBlockEntity extends MultiBlockCoreEntity implements 
         ItemStack damagedItem = suppliedInventory.getStackInSlot(0);
         ItemStack repairMaterial = inventory.getStackInSlot(0);
         repairMaterial.shrink(recipe.repairMaterial.count());
-        for (SpiritWithCount spirit : recipe.spirits) {
+        for (SpiritIngredient spirit : recipe.spirits) {
             for (int i = 0; i < spiritInventory.slotCount; i++) {
                 ItemStack spiritStack = spiritInventory.getStackInSlot(i);
-                if (spirit.matches(spiritStack)) {
-                    spiritStack.shrink(spirit.count);
+                if (spirit.test(spiritStack)) {
+                    spiritStack.shrink(spirit.getCount());
                     break;
                 }
             }
         }
         spiritInventory.updateData();
-        ItemStack result = SpiritRepairRecipe.getRepairRecipeOutput(damagedItem);
+        ItemStack result = LodestoneRecipeType.getRecipe(
+                level, RecipeTypeRegistry.SPIRIT_REPAIR.get(),
+                new SingleRecipeInput(damagedItem)
+        ).getResultItem(level.registryAccess());
         result.setDamageValue(Math.max(0, result.getDamageValue() - (int) (result.getMaxDamage() * recipe.durabilityPercentage)));
         suppliedInventory.setStackInSlot(0, result);
-        ParticleEffectTypeRegistry.REPAIR_PYLON_REPAIRS.createPositionedEffect(level, new PositionEffectData(worldPosition), ColorEffectData.fromRecipe(recipe.spirits), PylonPrepareRepairParticleEffect.createData(provider.getAccessPointBlockPos()));
+        ParticleEffectTypeRegistry.REPAIR_PYLON_REPAIRS.createPositionedEffect((ServerLevel) level, new PositionEffectData(worldPosition), ColorEffectData.fromRecipe(recipe.spirits), PylonPrepareRepairParticleEffect.createData(provider.getAccessPointBlockPos()));
         setState(RepairPylonState.COOLDOWN);
     }
 
@@ -343,18 +351,14 @@ public class RepairPylonCoreBlockEntity extends MultiBlockCoreEntity implements 
         return easing.ease(relativeCooldown / 30f, 0, 1, 1);
     }
 
-    @Nonnull
     @Override
-    public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, Direction side) {
-        if (cap == ForgeCapabilities.ITEM_HANDLER) {
-            return combinedInventory.cast();
-        }
-        return super.getCapability(cap, side);
+    public @Nullable IItemHandler getCapability(Level level, BlockPos blockPos, BlockState blockState, @Nullable BlockEntity blockEntity, Direction direction) {
+        return combinedInventory.get();
     }
 
-    @Override
+    /*@Override
     public AABB getRenderBoundingBox() {
         var pos = worldPosition;
         return new AABB(pos.getX() - 1, pos.getY(), pos.getZ() - 1, pos.getX() + 1, pos.getY() + 4, pos.getZ() + 1);
-    }
+    }*/
 }
