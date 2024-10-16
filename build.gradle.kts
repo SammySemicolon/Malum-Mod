@@ -269,6 +269,7 @@ tasks.withType<Jar> {
         )
     }
     finalizedBy("reobfJar")
+    finalizedBy("reobfJarJar")
 }
 
 tasks.jar.configure {
