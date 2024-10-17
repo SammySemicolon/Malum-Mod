@@ -16,6 +16,6 @@ public class RuneToughnessItem extends AbstractRuneCurioItem {
     @Override
     public void addAttributeModifiers(Multimap<Attribute, AttributeModifier> map, SlotContext slotContext, ItemStack stack) {
         addAttributeModifier(map, Attributes.ARMOR_TOUGHNESS, uuid -> new AttributeModifier(uuid,
-                "Curio Armor Toughness", 3f, AttributeModifier.Operation.ADDITION));
+                "Curio Armor Toughness", 0.2f, AttributeModifier.Operation.MULTIPLY_TOTAL));
     }
 }
