@@ -1,0 +1,18 @@
+{
+  "registry_name": "sullysmod:jungle_spider",
+  "primary_type": "aerial",
+  "spirits": [
+    {
+      "spirit": "wicked",
+      "count": 1
+    },
+    {
+      "spirit": "aerial",
+      "count": 1
+    },
+    {
+      "spirit": "earthen",
+      "count": 1
+    }
+  ]
+}
