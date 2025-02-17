@@ -8,7 +8,7 @@
   ],
   "textures": {
     "plinth": "malum:block/ritual_plinth",
-    "particle": "malum:block/soulwood/soulwood_planks"
+    "particle": "malum:block/soulwood_planks"
   },
   "elements": [
     {

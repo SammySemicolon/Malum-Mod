@@ -8,7 +8,7 @@
   ],
   "textures": {
     "1": "malum:block/alteration_plinth",
-    "particle": "malum:block/soulwood/soulwood_planks"
+    "particle": "malum:block/soulwood_planks"
   },
   "elements": [
     {
