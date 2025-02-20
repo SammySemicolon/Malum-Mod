@@ -3,6 +3,6 @@
   "textures": {
     "bottom": "malum:block/blight/blighted_soil_0",
     "side": "malum:block/blight/blighted_soulwood",
-    "top": "malum:block/soulwood/soulwood_log_top"
+    "top": "malum:block/soulwood_log_top"
   }
 }

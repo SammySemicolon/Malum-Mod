@@ -8,7 +8,7 @@
   ],
   "textures": {
     "0": "malum:block/runic_workbench",
-    "particle": "malum:block/runewood/runewood_planks"
+    "particle": "malum:block/runewood_planks"
   },
   "elements": [
     {

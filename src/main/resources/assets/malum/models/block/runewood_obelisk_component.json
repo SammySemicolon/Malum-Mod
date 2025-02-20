@@ -7,7 +7,7 @@
   ],
   "textures": {
     "obelisk": "malum:block/runewood_obelisk",
-    "particle": "malum:block/runewood/runewood_planks"
+    "particle": "malum:block/runewood_planks"
   },
   "elements": [
     {

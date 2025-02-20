@@ -4,7 +4,7 @@
   "ambientocclusion": false,
   "textures": {
     "1": "malum:block/ether_torch",
-    "particle": "malum:block/runewood/runewood_planks"
+    "particle": "malum:block/runewood_planks"
   },
   "elements": [
     {

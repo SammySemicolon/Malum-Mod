@@ -2,8 +2,8 @@
   "parent": "malum:block/templates/template_totem_base",
   "textures": {
     "panel": "malum:block/soulwood/soulwood_panel",
-    "planks": "malum:block/soulwood/soulwood_planks",
-    "side": "malum:block/soulwood/soulwood_log",
-    "top": "malum:block/soulwood/soulwood_log_top"
+    "planks": "malum:block/soulwood_planks",
+    "side": "malum:block/soulwood_log",
+    "top": "malum:block/soulwood_log_top"
   }
 }
