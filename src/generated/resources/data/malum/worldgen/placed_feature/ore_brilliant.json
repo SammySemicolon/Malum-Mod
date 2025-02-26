@@ -2,6 +2,10 @@
   "feature": "malum:brilliant_ore",
   "placement": [
     {
+      "type": "minecraft:count",
+      "count": 3
+    },
+    {
       "type": "minecraft:height_range",
       "height": {
         "type": "minecraft:trapezoid",
@@ -12,10 +16,6 @@
           "absolute": -64
         }
       }
-    },
-    {
-      "type": "minecraft:count",
-      "count": 3
     },
     {
       "type": "minecraft:in_square"

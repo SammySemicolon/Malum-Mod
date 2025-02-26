@@ -2,6 +2,10 @@
   "feature": "malum:cthonic_gold_ore",
   "placement": [
     {
+      "type": "minecraft:count",
+      "count": 1
+    },
+    {
       "type": "minecraft:height_range",
       "height": {
         "type": "minecraft:trapezoid",
@@ -12,10 +16,6 @@
           "absolute": -48
         }
       }
-    },
-    {
-      "type": "minecraft:count",
-      "count": 1
     },
     {
       "type": "minecraft:in_square"
