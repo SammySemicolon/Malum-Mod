@@ -594,24 +594,26 @@ public class ItemRegistry {
 
         @SubscribeEvent(priority = EventPriority.LOWEST)
         public static void addItemProperties(FMLClientSetupEvent event) {
-            Set<LodestoneArmorItem> armors = ItemRegistry.ITEMS.getEntries().stream().filter(r -> r.get() instanceof LodestoneArmorItem).map(r -> (LodestoneArmorItem)r.get()).collect(Collectors.toSet());
-            ItemPropertyFunction itemPropertyFunction = (stack, level, holder, holderID) -> {
-                if (!stack.hasTag()) {
-                    return -1;
+            event.enqueueWork(() -> {
+                Set<LodestoneArmorItem> armors = ItemRegistry.ITEMS.getEntries().stream().filter(r -> r.get() instanceof LodestoneArmorItem).map(r -> (LodestoneArmorItem)r.get()).collect(Collectors.toSet());
+                ItemPropertyFunction itemPropertyFunction = (stack, level, holder, holderID) -> {
+                    if (!stack.hasTag()) {
+                        return -1;
+                    }
+                    CompoundTag nbt = stack.getTag();
+                    if (!nbt.contains(ItemSkin.MALUM_SKIN_TAG)) {
+                        return -1;
+                    }
+                    ItemSkin itemSkin = ItemSkinRegistry.SKINS.get(nbt.getString(ItemSkin.MALUM_SKIN_TAG));
+                    if (itemSkin == null) {
+                        return -1;
+                    }
+                    return itemSkin.index;
+                };
+                for (LodestoneArmorItem armor : armors) {
+                    ItemProperties.register(armor, new ResourceLocation(ItemSkin.MALUM_SKIN_TAG), itemPropertyFunction);
                 }
-                CompoundTag nbt = stack.getTag();
-                if (!nbt.contains(ItemSkin.MALUM_SKIN_TAG)) {
-                    return -1;
-                }
-                ItemSkin itemSkin = ItemSkinRegistry.SKINS.get(nbt.getString(ItemSkin.MALUM_SKIN_TAG));
-                if (itemSkin == null) {
-                    return -1;
-                }
-                return itemSkin.index;
-            };
-            for (LodestoneArmorItem armor : armors) {
-                ItemProperties.register(armor, new ResourceLocation(ItemSkin.MALUM_SKIN_TAG), itemPropertyFunction);
-            }
+            });
         }
 
         @SubscribeEvent
