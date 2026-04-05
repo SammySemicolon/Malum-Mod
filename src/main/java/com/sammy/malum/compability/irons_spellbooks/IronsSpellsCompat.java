@@ -12,6 +12,7 @@ import io.redspace.ironsspellbooks.api.magic.*;
 import io.redspace.ironsspellbooks.api.registry.AttributeRegistry;
 import io.redspace.ironsspellbooks.api.util.*;
 import io.redspace.ironsspellbooks.item.weapons.*;
+import io.redspace.ironsspellbooks.player.ClientMagicData;
 import net.minecraft.server.level.*;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
@@ -119,7 +120,7 @@ public class IronsSpellsCompat {
         public static void generateMana(ServerPlayer collector, float amount) {
             var magicData = MagicData.getPlayerMagicData(collector);
             magicData.addMana(amount);
-            UpdateClient.SendManaUpdate(collector, magicData);
+            ClientMagicData.setMana((int) (ClientMagicData.getPlayerMana()+amount));
         }
 
         public static void recoverSpellCooldowns(ServerPlayer serverPlayer, float amount) {
