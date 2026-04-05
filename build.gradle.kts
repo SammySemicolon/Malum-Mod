@@ -31,6 +31,7 @@ val modJavaVersion: String by extra
 val lodestoneVersion: String by extra
 val fusionVersion: String by extra
 var caelusVersion: String by extra
+var ironApiVersion: String by extra
 val geckoLibVersion: String by extra
 val playerAnimatorVersion: String by extra
 val ironsSpellsVersion: String by extra
@@ -210,12 +211,13 @@ dependencies {
     compileOnly(fg.deobf("curse.maven:tetra-289712:5544287"))
 
     //Iron's Spellbooks Optional Dependency
+    compileOnly(fg.deobf("curse.maven:irons-lib-1492763:${ironApiVersion}"))
     compileOnly(fg.deobf("top.theillusivec4.caelus:caelus-forge:${caelusVersion}:api"))
 //    runtimeOnly(fg.deobf("top.theillusivec4.caelus:caelus-forge:${caelusVersion}"))
     compileOnly(fg.deobf("software.bernie.geckolib:geckolib-forge-${geckoLibVersion}"))
     compileOnly(fg.deobf("dev.kosmx.player-anim:player-animation-lib-forge:${playerAnimatorVersion}"))
 //    compileOnly(fg.deobf("io.redspace.ironsspellbooks:irons_spellbooks:${ironsSpellsVersion}:api"))
-    compileOnly(fg.deobf("io.redspace.ironsspellbooks:irons_spellbooks:${ironsSpellsVersion}"))
+    compileOnly(fg.deobf("io.redspace:irons_spellbooks:${ironsSpellsVersion}"))
 
     //Apothic Attributes
     compileOnly(fg.deobf("curse.maven:placebo-283644:5414631"))
