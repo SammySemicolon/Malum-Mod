@@ -2161,7 +2161,7 @@
   "malum.gui.geas.oath_of_the_overkeen_eye.tooltip": "二度測り、一度で断て",
   "malum.gui.geas.oath_of_the_undiscerned_maw": "無差別の顎の宣誓",
   "malum.gui.geas.oath_of_the_undiscerned_maw.cons": "悪意より出でしもの、喰らわれ た精髄は万象を解く意志を宿す。\n・回復効果を使いすぎると、受 けるあらゆる回復量が徐々に減 少する",
-  "malum.gui.geas.oath_of_the_undiscerned_maw.pros": "$悪意の救済に刻まれた銘記。\n・悪意のクリティカルヒットは、 苦しむ生物の生命精髄を喰らう\n・喰らわれた精髄は、与えたダ メージに基づいて貴方を回復さ せる",
+  "malum.gui.geas.oath_of_the_undiscerned_maw.pros": "悪意の救済に刻まれた銘記。\n・悪意のクリティカルヒットは、 苦しむ生物の生命精髄を喰らう\n・喰らわれた精髄は、与えたダ メージに基づいて貴方を回復さ せる",
   "malum.gui.geas.oath_of_the_undiscerned_maw.tooltip": "敵の命を奪い取れ",
   "malum.gui.geas.oath_of_unmakers_disdain": "解体者の蔑みの宣誓",
   "malum.gui.geas.oath_of_unmakers_disdain.cons": "悪意の盾との共生により、この 宣誓はその強度を削り取る。\n・悪意の盾の容量が減少する",
