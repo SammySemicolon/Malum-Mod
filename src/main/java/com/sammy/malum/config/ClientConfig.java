@@ -30,7 +30,7 @@ public class ClientConfig extends LodestoneConfig {
                     .define("scarfLength", 30)));
     public static ConfigValueHolder<Double> SCARF_OPACITY = new ConfigValueHolder<>(MALUM, "client/scarf", (builder ->
             builder.comment("How visible. should the Malignant Stronghold Scarf be in first person?")
-                    .define("scarfOpacity", 0.4)));
+                    .define("scarfOpacity", 0.4D)));
 
     public static ConfigValueHolder<Boolean> PARALLEL_WORLD = new ConfigValueHolder<>(MALUM, "client/renderpass", (builder ->
             builder.comment("Enable or disable the parallel world renderer, used for various effects related to a certain feature. Disable if it causes framerate issues.")

@@ -134,7 +134,7 @@ public class ScarfRenderHandler {
             float alpha = this.alpha;
             if (entity.equals(minecraft.cameraEntity)) {
                 if (minecraft.options.getCameraType().isFirstPerson()) {
-                    alpha *= ClientConfig.SCARF_OPACITY.getConfigValue();
+                    alpha *= ClientConfig.SCARF_OPACITY.getConfigValue().floatValue();
                 }
             }
             if (alpha <= 0) {
