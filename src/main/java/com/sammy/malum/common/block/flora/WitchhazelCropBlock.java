@@ -40,6 +40,11 @@ public class WitchhazelCropBlock extends CropBlock {
     }
 
     @Override
+    public int getMaxAge() {
+        return 6;
+    }
+
+    @Override
     protected VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
         return SHAPE_BY_AGE[this.getAge(state)];
     }
