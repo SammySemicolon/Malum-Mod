@@ -17,11 +17,6 @@ public abstract class DynamicTextureRequest {
         return writeLocation;
     }
 
-    public void unregister() {
-        var textureManager = Minecraft.getInstance().getTextureManager();
-        textureManager.release(getWriteLocation());
-    }
-
     public abstract void drawTexture(RenderedDynamicTexture texture, GuiGraphics guiGraphics);
 
 }
