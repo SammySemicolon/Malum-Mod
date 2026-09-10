@@ -15,6 +15,7 @@ import team.lodestar.lodestone.registry.client.*;
 import team.lodestar.lodestone.systems.rendering.builder.VFXBuilders;
 import team.lodestar.lodestone.systems.rendering.builder.WorldVFXBuilder;
 import team.lodestar.lodestone.systems.rendering.rendeertype.*;
+import team.lodestar.lodestone.systems.rendering.uniform.UniformData;
 
 import java.awt.*;
 
@@ -62,13 +63,14 @@ public class VoidConduitRenderer implements BlockEntityRenderer<VoidConduitBlock
             float speed = 1000f + 250f * i;
             float alpha = 0.115f - i * 0.01f;
 
-            ShaderUniformHandler uniforms = new ShaderUniformHandler()
-                    .modifyUniform("Speed", speed)
-                    .modifyUniform("Width", 1024f)
-                    .modifyUniform("Height", 1024f)
-                    .setSamplerTexture("Skybox", ParallelWorldRenderer.INSTANCE.getTarget().getColorTextureId());
+            var uniforms = UniformData.create()
+                    .setUniform("Speed", speed)
+                    .setUniform("Width", 1024f)
+                    .setUniform("Height", 1024f)
+                    .setSampler("Skybox", ParallelWorldRenderer.INSTANCE.getTarget().getColorTextureId())
+                    .build();
 
-            var distortion = MalumRenderTypes.WEEPING_SPYHOLE.apply(MalumRenderTypeTokens.VOID_NOISE).withUniformHandler(uniforms);
+            var distortion = MalumRenderTypes.WEEPING_SPYHOLE.apply(MalumRenderTypeTokens.VOID_NOISE).addUniformData(uniforms);
             builder.setColor(colors[i % 4]).setLightLevel(blockEntityIn.getBlockPos()).setRenderType(distortion);
 
             builder.setAlpha(alpha);

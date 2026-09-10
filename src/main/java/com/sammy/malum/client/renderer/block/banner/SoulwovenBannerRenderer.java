@@ -13,6 +13,7 @@ import org.joml.*;
 import team.lodestar.lodestone.registry.client.*;
 import team.lodestar.lodestone.systems.rendering.builder.VFXBuilders;
 import team.lodestar.lodestone.systems.rendering.rendeertype.*;
+import team.lodestar.lodestone.systems.rendering.uniform.UniformData;
 
 import java.awt.*;
 import java.lang.Math;
@@ -52,16 +53,16 @@ public class SoulwovenBannerRenderer implements BlockEntityRenderer<SoulwovenBan
         float yEnd = 0;
         var patternData = blockEntityIn.patternData;
         var token = RenderTypeToken.createToken(patternData.texturePath());
-        var banner = LodestoneRenderTypes.CUTOUT_TEXTURE.apply(token).withModifier(b -> b.setCullState(RenderStateShard.NO_CULL));
+        var banner = LodestoneRenderTypes.CUTOUT_TEXTURE.apply(token).addModifier(b -> b.setCullState(RenderStateShard.NO_CULL));
         var vertices = new Vector3f[]{new Vector3f(xEnd, yStart, 0), new Vector3f(xStart, yStart, 0), new Vector3f(xStart, yEnd, 0), new Vector3f(xEnd, yEnd, 0)};
         var builder = VFXBuilders.createWorld()
                 .setRenderType(banner)
                 .setLightLevel(pos);
         builder.renderQuad(poseStack, vertices, 1f);
         if (spirit != null) {
-            var glow = LodestoneRenderTypes.ADDITIVE_TEXTURE.apply(token).withModifier(b -> b.setCullState(RenderStateShard.NO_CULL));
+            var glow = LodestoneRenderTypes.ADDITIVE_TEXTURE.apply(token).addModifier(b -> b.setCullState(RenderStateShard.NO_CULL));
             if (!blockEntityIn.intense) {
-                glow.withUniformHandler(ShaderUniformHandler::withLumiTransparency);
+                glow.addUniformData(UniformData.LUMITRANSPARENT);
             }
             for (int i = 1; i < 4; i++) {
                 Color color = spirit.getPrimaryColor();

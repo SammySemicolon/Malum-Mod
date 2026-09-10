@@ -16,7 +16,7 @@ import team.lodestar.lodestone.registry.client.LodestoneRenderTypes;
 import team.lodestar.lodestone.systems.rendering.builder.VFXBuilders;
 import team.lodestar.lodestone.systems.rendering.rendeertype.LodestoneRenderTypeBuilder;
 import team.lodestar.lodestone.systems.rendering.rendeertype.RenderTypeToken;
-import team.lodestar.lodestone.systems.rendering.rendeertype.ShaderUniformHandler;
+import team.lodestar.lodestone.systems.rendering.uniform.UniformData;
 
 public class EntropyChargeRenderer extends AbstractBoltEntityRenderer<EntropyChargeProjectile> {
 
@@ -30,7 +30,7 @@ public class EntropyChargeRenderer extends AbstractBoltEntityRenderer<EntropyCha
 
     @Override
     public LodestoneRenderTypeBuilder getTrailRenderType(boolean isTransparent) {
-        return LodestoneRenderTypes.TRANSPARENT_TWO_SIDED_TEXTURE_TRIANGLE.apply(MalumRenderTypeTokens.CONCENTRATED_TRAIL).withUniformHandler(ShaderUniformHandler.LUMITRANSPARENT);
+        return LodestoneRenderTypes.TRANSPARENT_TWO_SIDED_TEXTURE_TRIANGLE.apply(MalumRenderTypeTokens.CONCENTRATED_TRAIL).addUniformData(UniformData.LUMITRANSPARENT);
     }
 
     @Override
@@ -71,7 +71,7 @@ public class EntropyChargeRenderer extends AbstractBoltEntityRenderer<EntropyCha
             for (int j = 0; j < 2; j++) {
                 float alpha = (j == 1 ? 0.3f : 1.0f) * falloff;
                 var renderType = j == 1 ? LodestoneRenderTypes.ADDITIVE_DISTORTED_TEXTURE : LodestoneRenderTypes.TRANSPARENT_DISTORTED_TEXTURE;
-                var wawawawa = renderType.apply(texture).withUniformHandler(ShaderUniformHandler.LUMITRANSPARENT);
+                var wawawawa = renderType.apply(texture).addUniformData(UniformData.LUMITRANSPARENT);
 
                 builder.setRenderType(wawawawa)
                         .setColor(primaryColor, 0.8f * alpha).renderQuad(poseStack, scale)

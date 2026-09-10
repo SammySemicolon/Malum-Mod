@@ -69,6 +69,6 @@ public class TouchOfDarknessRenderHandler {
         RenderSystem.disableBlend();
         poseStack.popPose();
 
-        shaderInstance.setUniformDefaults();
+        shaderInstance.applyUniformDefaults();
     }
 }

@@ -15,6 +15,8 @@ import team.lodestar.lodestone.modules.core.easing.Easing;
 import team.lodestar.lodestone.systems.rendering.builder.data.CubeVertexData;
 
 import team.lodestar.lodestone.systems.rendering.rendeertype.*;
+import team.lodestar.lodestone.systems.rendering.uniform.UniformData;
+import team.lodestar.lodestone.systems.rendering.uniform.UniformDataBuilder;
 
 
 public class TotemBaseRenderer implements BlockEntityRenderer<TotemBaseBlockEntity> {
@@ -49,19 +51,22 @@ public class TotemBaseRenderer implements BlockEntityRenderer<TotemBaseBlockEnti
 
 
                 var border = LodestoneRenderTypes.ADDITIVE_DISTORTED_NINE_SLICE_TEXTURE.apply(MalumRenderTypeTokens.AREA_COVERAGE_BORDER)
-                        .withUniformHandler(new ShaderUniformHandler()
-                                .modifyUniform("Speed", 1500f)
-                                .modifyUniform("Distortion", distortion)
+                        .addUniformData(UniformData.create()
+                                .setUniform("Speed", 1500f)
+                                .setUniform("Distortion", distortion)
+                                .build()
                         );
                 var squiggles = LodestoneRenderTypes.ADDITIVE_DISTORTED_NINE_SLICE_TEXTURE.apply(MalumRenderTypeTokens.AREA_COVERAGE_SQUIGGLES)
-                        .withUniformHandler(new ShaderUniformHandler()
-                                .modifyUniform("Speed", 2500f)
-                                .modifyUniform("Distortion", distortion * 2f)
+                        .addUniformData(UniformData.create()
+                                .setUniform("Speed", 2500f)
+                                .setUniform("Distortion", distortion * 2f)
+                                .build()
                         );
                 var checkerboard = LodestoneRenderTypes.ADDITIVE_DISTORTED_NINE_SLICE_TEXTURE.apply(MalumRenderTypeTokens.AREA_COVERAGE_CHECKERBOARD)
-                        .withUniformHandler(new ShaderUniformHandler()
-                                .modifyUniform("Speed", 500f)
-                                .modifyUniform("Distortion", distortion / 2f)
+                        .addUniformData(UniformData.create()
+                                .setUniform("Speed", 500f)
+                                .setUniform("Distortion", distortion / 2f)
+                                .build()
                         );
 
                 poseStack.pushPose();

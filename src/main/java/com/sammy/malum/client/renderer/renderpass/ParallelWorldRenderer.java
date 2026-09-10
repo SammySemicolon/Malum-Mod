@@ -23,6 +23,8 @@ import team.lodestar.lodestone.systems.rendering.rendeertype.*;
 import team.lodestar.lodestone.systems.rendering.builder.data.CubeVertexData;
 
 import team.lodestar.lodestone.systems.rendering.renderpass.BeforeLevelRenderPass;
+import team.lodestar.lodestone.systems.rendering.uniform.UniformData;
+import team.lodestar.lodestone.systems.rendering.uniform.UniformDataBuilder;
 
 import java.awt.*;
 import java.lang.Math;
@@ -74,15 +76,16 @@ public class ParallelWorldRenderer extends BeforeLevelRenderPass {
             float blue = 0.7f;
             float alpha = 0.8f - i * 0.05f;
 
-            var uniforms = new ShaderUniformHandler()
-                    .modifyUniform("Speed", speed)
-                    .modifyUniform("Distortion", distortion)
-                    .modifyUniform("Width", 512f)
-                    .modifyUniform("Height", 512f)
-                    .modifyUniform("UVCoordinates", -20f, 40f, -20f, 40f);
+            var uniforms = UniformData.create()
+                    .setUniform("Speed", speed)
+                    .setUniform("Distortion", distortion)
+                    .setUniform("Width", 512f)
+                    .setUniform("Height", 512f)
+                    .setUniform("UVCoordinates", -20f, 40f, -20f, 40f)
+                    .build();
 
             var builder = MalumRenderTypes.WEEPING_SKYBOX.apply(MalumRenderTypeTokens.VOID_NOISE)
-                    .withUniformHandler(uniforms);
+                    .addUniformData(uniforms);
 
             var renderType = builder.getRenderType();
             VertexConsumer consumer = bufferSource.getBuffer(renderType);

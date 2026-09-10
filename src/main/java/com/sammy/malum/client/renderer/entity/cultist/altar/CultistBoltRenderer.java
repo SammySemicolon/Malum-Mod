@@ -6,7 +6,7 @@ import com.sammy.malum.registry.client.MalumRenderTypeTokens;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import team.lodestar.lodestone.registry.client.LodestoneRenderTypes;
 import team.lodestar.lodestone.systems.rendering.rendeertype.LodestoneRenderTypeBuilder;
-import team.lodestar.lodestone.systems.rendering.rendeertype.ShaderUniformHandler;
+import team.lodestar.lodestone.systems.rendering.uniform.UniformData;
 
 public class CultistBoltRenderer extends AbstractBoltEntityRenderer<CursedBoltProjectile> {
     public CultistBoltRenderer(EntityRendererProvider.Context context) {
@@ -15,7 +15,7 @@ public class CultistBoltRenderer extends AbstractBoltEntityRenderer<CursedBoltPr
 
     @Override
     public LodestoneRenderTypeBuilder getTrailRenderType(boolean isTransparent) {
-        return LodestoneRenderTypes.TRANSPARENT_TWO_SIDED_TEXTURE_TRIANGLE.apply(MalumRenderTypeTokens.CONCENTRATED_TRAIL).withUniformHandler(ShaderUniformHandler.LUMITRANSPARENT);
+        return LodestoneRenderTypes.TRANSPARENT_TWO_SIDED_TEXTURE_TRIANGLE.apply(MalumRenderTypeTokens.CONCENTRATED_TRAIL).addUniformData(UniformData.LUMITRANSPARENT);
     }
 
     @Override

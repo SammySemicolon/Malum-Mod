@@ -4,7 +4,9 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.sammy.malum.client.screen.codex.WidgetDesign;
 import com.sammy.malum.client.screen.codex.display.texture.DynamicTextureBuilder;
+import com.sammy.malum.client.screen.codex.display.texture.request.VFXBuilderTextureRequest;
 import com.sammy.malum.core.systems.spirit.SpiritArcanaType;
+import com.sammy.malum.registry.client.MalumShaders;
 import com.sammy.malum.registry.common.magic.MalumSpiritTypes;
 import it.unimi.dsi.fastutil.ints.Int2ObjectFunction;
 import net.minecraft.client.Minecraft;
@@ -13,6 +15,7 @@ import net.minecraft.util.Mth;
 import org.lwjgl.opengl.GL11;
 import team.lodestar.lodestone.registry.client.LodestoneShaders;
 import team.lodestar.lodestone.systems.rendering.builder.VFXBuilders;
+import team.lodestar.lodestone.systems.rendering.uniform.UniformData;
 
 import java.awt.*;
 
@@ -127,9 +130,21 @@ public class CodexOutlineRenderer {
         var minecraft = Minecraft.getInstance();
         float delta = minecraft.getTimer().getGameTimeDeltaPartialTick(true);
 
-        var dynamicTexture = DynamicTextureBuilder.create(output)
+
+        var uniforms = UniformData.create()
+                .setUniform("OutlineWidth", outlineWidth)
+                .setUniform("SourceTextureSize", sourceWidth, sourceHeight)
+                .setUniform("OutputTextureSize", width, height)
+                .build();
+        var request = VFXBuilderTextureRequest.create(output)
+                .setDrawnTexture(sourceTexture)
+                .setUniforms(uniforms)
+                .setShader(MalumShaders.OUTLINED_HUD_ELEMENT);
+
+
+        var dynamicTexture = DynamicTextureBuilder.create(request)
                 .setTextureSize(width, height)
-                .bakeOutlineTexture(sourceTexture, sourceWidth, sourceHeight, outlineWidth);
+                .bakeTexture();
         if (dynamicTexture == null) {
             return;
         }
@@ -160,7 +175,7 @@ public class CodexOutlineRenderer {
                 builder.setAlpha(glowAlpha * glow).blit(poseStack);
             }
         }
-        light.setUniformDefaults();
+        light.applyUniformDefaults();
     }
 
     public Color getSpiritColor(int index) {

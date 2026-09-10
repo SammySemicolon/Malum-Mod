@@ -184,7 +184,7 @@ public class SubspaceEntryObject extends ProgressionEntryObject {
         builder.setAlpha(0.2f * delta);
         RenderSystem.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE);
         shaderInstance.safeGetUniform("Speed").set(800f);
-        shaderInstance.setUniformDefaults();
+        shaderInstance.applyUniformDefaults();
         RenderSystem.defaultBlendFunc();
         RenderSystem.disableDepthTest();
         RenderSystem.disableBlend();

@@ -326,7 +326,7 @@ public abstract class AbstractProgressionCodexScreen extends AbstractMalumCodexS
 //                .setPositionWithWidth(insideLeft, insideTop, BOOK_INSIDE_WIDTH, BOOK_INSIDE_HEIGHT)
 //                .setZLevel(400)
 //                .blit(poseStack);
-//        shaderInstance.setUniformDefaults();
+//        shaderInstance.applyUniformDefaults();
 //        RenderSystem.disableBlend();
 //    }
 

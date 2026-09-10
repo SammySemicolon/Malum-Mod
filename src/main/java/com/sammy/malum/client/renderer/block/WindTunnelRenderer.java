@@ -20,6 +20,7 @@ import team.lodestar.lodestone.systems.rendering.*;
 import team.lodestar.lodestone.systems.rendering.builder.VFXBuilders;
 import team.lodestar.lodestone.systems.rendering.builder.data.CubeVertexData;
 import team.lodestar.lodestone.systems.rendering.rendeertype.*;
+import team.lodestar.lodestone.systems.rendering.uniform.UniformData;
 
 import static com.sammy.malum.core.handlers.WindTunnelHandler.MAX_STRENGTH;
 
@@ -103,11 +104,11 @@ public class WindTunnelRenderer implements BlockEntityRenderer<WindTunnelBlockEn
 
         var windTunnelArea = CubeVertexData.makeCubePositions(xStart, xEnd, yStart, yEnd, zStart, zEnd);
         var windTunnel = LodestoneRenderTypes.TRANSPARENT_TEXTURE.apply(MalumRenderTypeTokens.WIND_TUNNEL)
-                .withUniformHandler(ShaderUniformHandler.LUMITRANSPARENT)
-                .withModifier(b -> b.setCullState(RenderStateShard.NO_CULL));
+                .addUniformData(UniformData.LUMITRANSPARENT)
+                .addModifier(b -> b.setCullState(RenderStateShard.NO_CULL));
         var windFlow = LodestoneRenderTypes.TRANSPARENT_TEXTURE.apply(MalumRenderTypeTokens.WIND_STREAKS)
-                .withUniformHandler(ShaderUniformHandler.LUMITRANSPARENT)
-                .withModifier(b -> b.setCullState(RenderStateShard.NO_CULL));
+                .addUniformData(UniformData.LUMITRANSPARENT)
+                .addModifier(b -> b.setCullState(RenderStateShard.NO_CULL));
 
 
         var builder = VFXBuilders.createWorld();
@@ -151,8 +152,8 @@ public class WindTunnelRenderer implements BlockEntityRenderer<WindTunnelBlockEn
 
     private void renderBorder(PoseStack poseStack, boolean up, boolean down, boolean left, boolean right) {
         var border = LodestoneRenderTypes.TRANSPARENT_TEXTURE.apply(MalumRenderTypeTokens.WIND_COVERAGE_BORDER)
-                .withUniformHandler(ShaderUniformHandler.LUMITRANSPARENT)
-                .withModifier(b -> b.setCullState(RenderStateShard.NO_CULL));
+                .addUniformData(UniformData.LUMITRANSPARENT)
+                .addModifier(b -> b.setCullState(RenderStateShard.NO_CULL));
         var uv = getBorderUV(!up, !down, !left, !right);
         var u0 = uv.x;
         var u1 = uv.x + 0.25f;

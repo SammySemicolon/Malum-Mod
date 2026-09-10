@@ -7,6 +7,7 @@ import com.sammy.malum.registry.client.MalumRenderTypeTokens;
 import net.minecraft.client.renderer.entity.*;
 import team.lodestar.lodestone.registry.client.*;
 import team.lodestar.lodestone.systems.rendering.rendeertype.*;
+import team.lodestar.lodestone.systems.rendering.uniform.UniformData;
 
 public class DrainingBoltRenderer extends AbstractBoltEntityRenderer<DrainingBolt> {
 
@@ -16,7 +17,7 @@ public class DrainingBoltRenderer extends AbstractBoltEntityRenderer<DrainingBol
 
     @Override
     public LodestoneRenderTypeBuilder getTrailRenderType(boolean isTransparent) {
-        return LodestoneRenderTypes.TRANSPARENT_TWO_SIDED_TEXTURE_TRIANGLE.apply(MalumRenderTypeTokens.CONCENTRATED_TRAIL).withUniformHandler(ShaderUniformHandler.LUMITRANSPARENT);
+        return LodestoneRenderTypes.TRANSPARENT_TWO_SIDED_TEXTURE_TRIANGLE.apply(MalumRenderTypeTokens.CONCENTRATED_TRAIL).addUniformData(UniformData.LUMITRANSPARENT);
     }
 
     @Override
