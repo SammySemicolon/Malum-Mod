@@ -1,8 +1,10 @@
 package com.sammy.malum.client.screen.codex.display.texture.request;
 
+import com.sammy.malum.client.screen.codex.display.texture.DynamicTextureBuilder;
 import com.sammy.malum.client.screen.codex.display.texture.RenderedDynamicTexture;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.ItemLike;
 
@@ -53,5 +55,13 @@ public class ItemTextureRequest extends DynamicTextureRequest {
     @Override
     public void drawTexture(RenderedDynamicTexture texture, GuiGraphics guiGraphics) {
         guiGraphics.renderFakeItem(stack, xOffset, yOffset);
+    }
+
+    @Override
+    public void modify(DynamicTextureBuilder builder) {
+        if (stack.getItem() instanceof BlockItem) {
+            builder.setTextureSize(64);
+            builder.setScale(4);
+        }
     }
 }

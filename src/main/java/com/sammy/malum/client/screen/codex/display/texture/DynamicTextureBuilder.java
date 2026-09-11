@@ -45,21 +45,8 @@ public class DynamicTextureBuilder {
         return this;
     }
 
-//    public RenderableDynamicTexture bakeItemTexture(ItemLike item) {
-//        return bakeItemTexture(item.asItem().getDefaultInstance());
-//    }
-//
-//    public RenderableDynamicTexture bakeItemTexture(ItemStack stack) {
-//        if (stack.getItem() instanceof BlockItem) {
-//            setTextureSize(64);
-//            setScale(4);
-//        }
-//        return bakeTexture(t -> drawItem(t, stack));
-//    }
-//
-
-
     public RenderedDynamicTexture bakeTexture() {
+        request.modify(this);
         var texture = DynamicTextureCache.pushTexture(request, this::createTexture);
         if (texture != null && isTicking) {
             texture.redraw();
@@ -81,17 +68,4 @@ public class DynamicTextureBuilder {
         });
         return nested;
     }
-
-//    protected void drawTexture(ResourceLocation texture) {
-//        drawTexture(GameRenderer::getPositionTexColorShader, texture);
-//    }
-//
-//    protected void drawOutline(ResourceLocation texture, int sourceWidth, int sourceHeight, int outlineWidth) {
-//        var outline = MalumShaders.OUTLINED_HUD_ELEMENT.getShaderInstance();
-//        outline.safeGetUniform("OutlineWidth").set(outlineWidth);
-//        outline.safeGetUniform("SourceTextureSize").set((float)sourceWidth, (float)sourceHeight);
-//        outline.safeGetUniform("OutputTextureSize").set((float)width, (float)height);
-//        drawTexture(MalumShaders.OUTLINED_HUD_ELEMENT::getShaderInstance, texture);
-//        outline.applyUniformDefaults();
-//    }
 }

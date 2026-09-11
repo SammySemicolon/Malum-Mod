@@ -57,11 +57,7 @@ public class DisplayedItem extends DisplayedGizmo {
             RenderSystem.enableBlend();
             RenderSystem.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE);
             float alphaScale = color.getRed() / 255f;
-            builder
-                    .setColor(MalumSpiritTypes.ARCANE_COLORS().primaryColor())
-                    .multiplyColor(color.getRed(), color.getBlue(), color.getGreen())
-                    .setAlpha(0.3f * alphaScale)
-                    .blit(stack);
+            builder.setAlpha(0.5f * alphaScale).blit(stack);
             RenderSystem.defaultBlendFunc();
         }
 

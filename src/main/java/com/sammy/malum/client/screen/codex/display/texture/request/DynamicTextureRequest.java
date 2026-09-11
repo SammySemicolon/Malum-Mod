@@ -1,5 +1,6 @@
 package com.sammy.malum.client.screen.codex.display.texture.request;
 
+import com.sammy.malum.client.screen.codex.display.texture.DynamicTextureBuilder;
 import com.sammy.malum.client.screen.codex.display.texture.RenderedDynamicTexture;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
@@ -19,4 +20,7 @@ public abstract class DynamicTextureRequest {
 
     public abstract void drawTexture(RenderedDynamicTexture texture, GuiGraphics guiGraphics);
 
+    public void modify(DynamicTextureBuilder builder) {
+
+    }
 }

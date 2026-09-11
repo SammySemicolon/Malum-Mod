@@ -49,6 +49,15 @@ public class SubspaceEntryObject extends ProgressionEntryObject {
         this.subspaceSize = subspaceSize;
     }
 
+    public void open(AbstractProgressionCodexScreen screen) {
+        isOpen = true;
+        screen.playSweetenedSound(MalumSoundEvents.ARCANA_SUBENTRY_OPEN, 1.25f);
+    }
+
+    public void close(AbstractProgressionCodexScreen screen) {
+        isOpen = false;
+        screen.playSweetenedSound(MalumSoundEvents.ARCANA_SUBENTRY_CLOSE, 0.75f);
+    }
 //    @Override
 //    public boolean shouldGizmoBeConsideredHoveredOver() {
 //        if (isOpen) {
@@ -136,16 +145,16 @@ public class SubspaceEntryObject extends ProgressionEntryObject {
 
     @Override
     public boolean tryClick(AbstractProgressionCodexScreen screen, double mouseX, double mouseY) {
-        if (isOpen) {
-            return storedObjects.click(screen, mouseX, mouseY);
+        if (isOpen && storedObjects.click(screen, mouseX, mouseY)) {
+            return true;
         }
         return super.tryClick(screen, mouseX, mouseY);
     }
 
     @Override
     public boolean tryRelease(AbstractProgressionCodexScreen screen, double mouseX, double mouseY) {
-        if (isOpen) {
-            return storedObjects.release(screen, mouseX, mouseY);
+        if (isOpen && storedObjects.release(screen, mouseX, mouseY)) {
+            return true;
         }
         return super.tryRelease(screen, mouseX, mouseY);
     }
@@ -157,12 +166,13 @@ public class SubspaceEntryObject extends ProgressionEntryObject {
                 return false;
             }
         }
-        if (!isOpen) {
-            screen.playSweetenedSound(MalumSoundEvents.ARCANA_SUBENTRY_OPEN, 1.25f);
-            isOpen = true;
-            return true;
+        if (isOpen) {
+            close(screen);
         }
-        return super.click(screen, mouseX, mouseY);
+        else {
+            open(screen);
+        }
+        return true;
     }
 
     public static void renderSubspace(GuiGraphics graphics, int x, int y, int size, float delta) {
