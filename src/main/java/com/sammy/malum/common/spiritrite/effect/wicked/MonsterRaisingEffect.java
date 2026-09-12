@@ -35,6 +35,6 @@ public class MonsterRaisingEffect extends SpiritRiteEntityEffect<Monster> {
         if (target.isInvulnerableTo(damageSource)) {
             return false;
         }
-        return target.getHealth() < target.getMaxHealth() * 0.1f;
+        return target.getHealth() <= Math.max( target.getMaxHealth() * 0.1f, 2.5f );
     }
 }
