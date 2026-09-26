@@ -3,19 +3,18 @@ package com.sammy.malum.compability.irons_spellbooks;
 import com.google.common.collect.Multimap;
 import com.sammy.malum.common.effect.*;
 import com.sammy.malum.common.item.curiosities.curios.MalumCurioItem;
-import com.sammy.malum.common.item.curiosities.curios.runes.madness.RuneSpellMasteryItem;
 import com.sammy.malum.config.*;
 import com.sammy.malum.core.handlers.*;
 import com.sammy.malum.registry.common.item.EnchantmentRegistry;
-import io.redspace.ironsspellbooks.api.events.*;
-import io.redspace.ironsspellbooks.api.magic.*;
+import io.redspace.ironsspellbooks.api.events.SpellDamageEvent;
+import io.redspace.ironsspellbooks.api.magic.MagicData;
 import io.redspace.ironsspellbooks.api.registry.AttributeRegistry;
-import io.redspace.ironsspellbooks.api.util.*;
-import io.redspace.ironsspellbooks.item.weapons.*;
+import io.redspace.ironsspellbooks.item.weapons.StaffItem;
+import io.redspace.ironsspellbooks.network.SyncManaPacket;
+import io.redspace.ironsspellbooks.setup.PacketDistributor;
 import net.minecraft.server.level.*;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.*;
 import net.minecraft.world.entity.player.*;
 import net.minecraft.world.item.*;
@@ -119,7 +118,7 @@ public class IronsSpellsCompat {
         public static void generateMana(ServerPlayer collector, float amount) {
             var magicData = MagicData.getPlayerMagicData(collector);
             magicData.addMana(amount);
-            UpdateClient.SendManaUpdate(collector, magicData);
+            PacketDistributor.sendToPlayer(collector, new SyncManaPacket(magicData));
         }
 
         public static void recoverSpellCooldowns(ServerPlayer serverPlayer, float amount) {
