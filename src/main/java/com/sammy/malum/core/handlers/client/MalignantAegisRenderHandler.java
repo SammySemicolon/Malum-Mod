@@ -125,10 +125,10 @@ public class MalignantAegisRenderHandler {
                             builder.setTexture(REINFORCEMENT).blit(poseStack);
                         }
                         builder.setTexture(GLOW).blit(poseStack);
-                        light.setUniformDefaults();
+                        light.applyUniformDefaults();
                     }
-                    distorted.setUniformDefaults();
-                    hud.setUniformDefaults();
+                    distorted.applyUniformDefaults();
+                    hud.applyUniformDefaults();
                     RenderSystem.defaultBlendFunc();
                     RenderSystem.disableBlend();
                     poseStack.popPose();

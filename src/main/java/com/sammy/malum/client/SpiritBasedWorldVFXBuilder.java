@@ -7,7 +7,7 @@ import net.minecraft.client.renderer.RenderType;
 import team.lodestar.lodestone.systems.rendering.StateShards;
 import team.lodestar.lodestone.systems.rendering.builder.WorldVFXBuilder;
 import team.lodestar.lodestone.systems.rendering.rendeertype.LodestoneRenderType;
-import team.lodestar.lodestone.systems.rendering.rendeertype.ShaderUniformHandler;
+import team.lodestar.lodestone.systems.rendering.uniform.UniformData;
 
 public class SpiritBasedWorldVFXBuilder extends WorldVFXBuilder {
 
@@ -28,7 +28,7 @@ public class SpiritBasedWorldVFXBuilder extends WorldVFXBuilder {
     @Override
     public WorldVFXBuilder setRenderType(RenderType renderType) {
         if (spiritType instanceof UmbralSpiritArcanaType && renderType instanceof LodestoneRenderType lodestoneRenderType) {
-            var umbral = lodestoneRenderType.copy("umbral", ShaderUniformHandler.LUMITRANSPARENT, b -> b.setTransparencyState(StateShards.NORMAL_TRANSPARENCY));
+            var umbral = lodestoneRenderType.copy("umbral", UniformData.LUMITRANSPARENT, b -> b.setTransparencyState(StateShards.NORMAL_TRANSPARENCY));
             return super.setRenderType(umbral);
         }
         return super.setRenderType(renderType);

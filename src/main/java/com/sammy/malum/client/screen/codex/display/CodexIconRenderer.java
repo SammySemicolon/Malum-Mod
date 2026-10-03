@@ -111,6 +111,6 @@ public class CodexIconRenderer {
 
         RenderSystem.defaultBlendFunc();
         RenderSystem.depthMask(true);
-        shader.setUniformDefaults();
+        shader.applyUniformDefaults();
     }
 }

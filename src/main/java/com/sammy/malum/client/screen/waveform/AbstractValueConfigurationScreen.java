@@ -317,7 +317,7 @@ public abstract class AbstractValueConfigurationScreen extends Screen {
         renderDialTexture(graphics, builder, texture, x + 1, y);
         renderDialTexture(graphics, builder, texture, x, y - 1);
         renderDialTexture(graphics, builder, texture, x, y + 1);
-        shaderInstance.setUniformDefaults();
+        shaderInstance.applyUniformDefaults();
         RenderSystem.defaultBlendFunc();
         RenderSystem.disableDepthTest();
         RenderSystem.disableBlend();
@@ -347,7 +347,7 @@ public abstract class AbstractValueConfigurationScreen extends Screen {
         renderDialTexture(graphics, builder, texture, x + 1, y);
         renderDialTexture(graphics, builder, texture, x, y - 1);
         renderDialTexture(graphics, builder, texture, x, y + 1);
-        shaderInstance.setUniformDefaults();
+        shaderInstance.applyUniformDefaults();
         RenderSystem.defaultBlendFunc();
         RenderSystem.disableDepthTest();
         RenderSystem.disableBlend();

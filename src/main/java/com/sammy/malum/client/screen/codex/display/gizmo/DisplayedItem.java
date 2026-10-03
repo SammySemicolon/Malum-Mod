@@ -5,6 +5,7 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.sammy.malum.client.screen.codex.display.IGizmoHolder;
 import com.sammy.malum.client.screen.codex.display.texture.DynamicTextureBuilder;
+import com.sammy.malum.client.screen.codex.display.texture.request.ItemTextureRequest;
 import com.sammy.malum.client.screen.codex.screens.AbstractMalumCodexScreen;
 import com.sammy.malum.registry.common.magic.MalumSpiritTypes;
 import net.minecraft.client.Minecraft;
@@ -37,8 +38,8 @@ public class DisplayedItem extends DisplayedGizmo {
 
     @Override
     public void renderDecals(AbstractMalumCodexScreen screen, IGizmoHolder holder, GuiGraphics guiGraphics, int x, int y, int mouseX, int mouseY) {
-        var dynamicTexture = DynamicTextureBuilder.create(itemDisplay.getItem())
-                .setTextureSize(16, 16).bakeItemTexture(itemDisplay.getItem().getDefaultInstance());
+        var request = ItemTextureRequest.create(itemDisplay, r -> r.withSuffix("_gizmo"));
+        var dynamicTexture = DynamicTextureBuilder.create(request).setTextureSize(16, 16).bakeTexture();
         if (dynamicTexture == null) {
             return;
         }
@@ -56,11 +57,7 @@ public class DisplayedItem extends DisplayedGizmo {
             RenderSystem.enableBlend();
             RenderSystem.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE);
             float alphaScale = color.getRed() / 255f;
-            builder
-                    .setColor(MalumSpiritTypes.ARCANE_COLORS().primaryColor())
-                    .multiplyColor(color.getRed(), color.getBlue(), color.getGreen())
-                    .setAlpha(0.3f * alphaScale)
-                    .blit(stack);
+            builder.setAlpha(0.5f * alphaScale).blit(stack);
             RenderSystem.defaultBlendFunc();
         }
 

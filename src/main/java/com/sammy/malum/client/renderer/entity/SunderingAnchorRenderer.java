@@ -19,6 +19,7 @@ import team.lodestar.lodestone.systems.rendering.*;
 import team.lodestar.lodestone.systems.rendering.builder.VFXBuilders;
 import team.lodestar.lodestone.systems.rendering.builder.WorldVFXBuilder;
 import team.lodestar.lodestone.systems.rendering.rendeertype.*;
+import team.lodestar.lodestone.systems.rendering.uniform.UniformData;
 
 public class SunderingAnchorRenderer extends EntityRenderer<SunderingAnchorProjectile> {
 
@@ -49,7 +50,7 @@ public class SunderingAnchorRenderer extends EntityRenderer<SunderingAnchorProje
         float scale = delta * 0.7f;
         float alpha = Mth.clamp(delta * 0.4f, 0, 1);
         var additive = LodestoneRenderTypes.ADDITIVE_TWO_SIDED_TEXTURE_TRIANGLE.apply(MalumRenderTypeTokens.CONCENTRATED_TRAIL);
-        var transparent = LodestoneRenderTypes.TRANSPARENT_TWO_SIDED_TEXTURE_TRIANGLE.apply(MalumRenderTypeTokens.CONCENTRATED_TRAIL).withUniformHandler(ShaderUniformHandler.LUMITRANSPARENT);
+        var transparent = LodestoneRenderTypes.TRANSPARENT_TWO_SIDED_TEXTURE_TRIANGLE.apply(MalumRenderTypeTokens.CONCENTRATED_TRAIL).addUniformData(UniformData.LUMITRANSPARENT);
         WorldVFXBuilder builder = VFXBuilders.createWorld().setRenderType(additive);
         RenderUtils.renderEntityTrail(poseStack, builder, entity.trailPointBuilder, entity, MalumSpiritTypes.EARTHEN_SPIRIT, scale * 1.2f, alpha*0.4f, partialTicks);
         RenderUtils.renderEntityTrail(poseStack, builder, entity.spinningTrailPointBuilder, entity, MalumSpiritTypes.EARTHEN_SPIRIT, scale * 2f, alpha, partialTicks);
