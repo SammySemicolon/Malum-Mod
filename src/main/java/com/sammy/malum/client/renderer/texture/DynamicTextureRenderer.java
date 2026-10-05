@@ -1,51 +1,51 @@
-package com.sammy.malum.client.screen.codex.display.texture;
+package com.sammy.malum.client.renderer.texture;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.sammy.malum.*;
-import com.sammy.malum.client.screen.codex.display.texture.request.DynamicTextureRequest;
+import com.sammy.malum.client.renderer.texture.request.DynamicTextureRenderRequest;
 import net.minecraft.resources.ResourceLocation;
 
 import java.util.concurrent.CompletableFuture;
 
 @SuppressWarnings({"unused"})
-public class DynamicTextureBuilder {
+public class DynamicTextureRenderer {
 
-    protected final DynamicTextureRequest request;
+    protected final DynamicTextureRenderRequest request;
     protected int width = 16, height = 16;
     protected float hScale = 1, vScale = 1;
 
     protected boolean isTicking = false;
 
-    public static DynamicTextureBuilder create(DynamicTextureRequest request) {
-        return new DynamicTextureBuilder(request);
+    public static DynamicTextureRenderer create(DynamicTextureRenderRequest request) {
+        return new DynamicTextureRenderer(request);
     }
 
-    private DynamicTextureBuilder(DynamicTextureRequest request) {
+    private DynamicTextureRenderer(DynamicTextureRenderRequest request) {
         this.request = request;
     }
 
-    public DynamicTextureBuilder setTextureSize(int size) {
+    public DynamicTextureRenderer setTextureSize(int size) {
         return setTextureSize(size, size);
     }
 
-    public DynamicTextureBuilder setTextureSize(int width, int height) {
+    public DynamicTextureRenderer setTextureSize(int width, int height) {
         this.width = width;
         this.height = height;
         return this;
     }
 
-    public DynamicTextureBuilder setScale(float scale) {
+    public DynamicTextureRenderer setScale(float scale) {
         this.hScale = scale;
         this.vScale = scale;
         return this;
     }
 
-    public DynamicTextureBuilder setTicking(boolean isTicking) {
+    public DynamicTextureRenderer setTicking(boolean isTicking) {
         this.isTicking = isTicking;
         return this;
     }
 
-    public RenderedDynamicTexture bakeTexture() {
+    public LodestoneDynamicTexture bakeTexture() {
         request.modify(this);
         var texture = DynamicTextureCache.pushTexture(request, this::createTexture);
         if (texture != null && isTicking) {
@@ -55,11 +55,11 @@ public class DynamicTextureBuilder {
         return texture;
     }
 
-    private CompletableFuture<RenderedDynamicTexture> createTexture(ResourceLocation key) {
-        var nested = new CompletableFuture<RenderedDynamicTexture>();
+    private CompletableFuture<LodestoneDynamicTexture> createTexture(ResourceLocation key) {
+        var nested = new CompletableFuture<LodestoneDynamicTexture>();
         RenderSystem.recordRenderCall(() -> {
             try {
-                var texture = new RenderedDynamicTexture(request, width, height, hScale, vScale);
+                var texture = new LodestoneDynamicTexture(request, width, height, hScale, vScale);
                 nested.complete(texture);
             } catch (Throwable t) {
                 MalumMod.LOGGER.error("Failed to create dynamic texture for id {}", request.getWriteLocation(), t);

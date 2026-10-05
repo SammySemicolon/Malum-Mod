@@ -3,8 +3,8 @@ package com.sammy.malum.client.screen.codex.display;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.sammy.malum.client.screen.codex.WidgetDesign;
-import com.sammy.malum.client.screen.codex.display.texture.DynamicTextureBuilder;
-import com.sammy.malum.client.screen.codex.display.texture.request.VFXBuilderTextureRequest;
+import com.sammy.malum.client.renderer.texture.DynamicTextureRenderer;
+import com.sammy.malum.client.renderer.texture.request.VFXBuilderTextureRenderRequest;
 import com.sammy.malum.core.systems.spirit.SpiritArcanaType;
 import com.sammy.malum.registry.client.MalumShaders;
 import com.sammy.malum.registry.common.magic.MalumSpiritTypes;
@@ -136,13 +136,13 @@ public class CodexOutlineRenderer {
                 .setUniform("SourceTextureSize", sourceWidth, sourceHeight)
                 .setUniform("OutputTextureSize", width, height)
                 .build();
-        var request = VFXBuilderTextureRequest.create(output)
+        var request = VFXBuilderTextureRenderRequest.create(output)
                 .setDrawnTexture(sourceTexture)
                 .setUniforms(uniforms)
                 .setShader(MalumShaders.OUTLINED_HUD_ELEMENT);
 
 
-        var dynamicTexture = DynamicTextureBuilder.create(request)
+        var dynamicTexture = DynamicTextureRenderer.create(request)
                 .setTextureSize(width, height)
                 .bakeTexture();
         if (dynamicTexture == null) {

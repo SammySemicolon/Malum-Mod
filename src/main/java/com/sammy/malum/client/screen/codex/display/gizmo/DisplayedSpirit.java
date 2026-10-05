@@ -3,7 +3,7 @@
 //import com.mojang.blaze3d.platform.GlStateManager;
 //import com.mojang.blaze3d.systems.RenderSystem;
 //import com.sammy.malum.client.screen.codex.display.IGizmoHolder;
-//import com.sammy.malum.client.screen.codex.display.texture.DynamicTextureBuilder;
+//import com.sammy.malum.client.renderer.texture.DynamicTextureBuilder;
 //import com.sammy.malum.client.screen.codex.screens.AbstractMalumCodexScreen;
 //import com.sammy.malum.core.systems.spirit.SpiritLike;
 //import com.sammy.malum.registry.common.magic.MalumSpiritTypes;

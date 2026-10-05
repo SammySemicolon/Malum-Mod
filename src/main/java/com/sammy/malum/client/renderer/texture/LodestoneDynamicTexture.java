@@ -1,12 +1,11 @@
-package com.sammy.malum.client.screen.codex.display.texture;
+package com.sammy.malum.client.renderer.texture;
 
 import com.mojang.blaze3d.pipeline.RenderCall;
 import com.mojang.blaze3d.pipeline.RenderTarget;
 import com.mojang.blaze3d.pipeline.TextureTarget;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.VertexSorting;
-import com.sammy.malum.MalumMod;
-import com.sammy.malum.client.screen.codex.display.texture.request.DynamicTextureRequest;
+import com.sammy.malum.client.renderer.texture.request.DynamicTextureRenderRequest;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.renderer.texture.DynamicTexture;
@@ -15,9 +14,9 @@ import org.joml.Matrix4f;
 
 import static net.minecraft.client.Minecraft.ON_OSX;
 
-public class RenderedDynamicTexture extends DynamicTexture implements Tickable {
+public class LodestoneDynamicTexture extends DynamicTexture implements Tickable {
 
-    protected final DynamicTextureRequest request;
+    protected final DynamicTextureRenderRequest request;
     private final int width, height;
     private final float hScale, vScale;
 
@@ -25,7 +24,7 @@ public class RenderedDynamicTexture extends DynamicTexture implements Tickable {
     private boolean needsUpdate = true;
     private boolean closed;
 
-    public RenderedDynamicTexture(DynamicTextureRequest request, int width, int height, float hScale, float vScale) {
+    public LodestoneDynamicTexture(DynamicTextureRenderRequest request, int width, int height, float hScale, float vScale) {
         super(width, height, false);
         RenderSystem.assertOnRenderThread();
         this.request = request;

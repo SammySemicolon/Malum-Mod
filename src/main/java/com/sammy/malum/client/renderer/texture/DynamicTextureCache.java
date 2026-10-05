@@ -1,6 +1,6 @@
-package com.sammy.malum.client.screen.codex.display.texture;
+package com.sammy.malum.client.renderer.texture;
 
-import com.sammy.malum.client.screen.codex.display.texture.request.DynamicTextureRequest;
+import com.sammy.malum.client.renderer.texture.request.DynamicTextureRenderRequest;
 import net.minecraft.resources.ResourceLocation;
 
 import java.util.concurrent.CompletableFuture;
@@ -9,13 +9,13 @@ import java.util.function.Function;
 
 public class DynamicTextureCache {
 
-    public static final ConcurrentHashMap<ResourceLocation, CompletableFuture<RenderedDynamicTexture>> TEXTURES = new ConcurrentHashMap<>();
+    public static final ConcurrentHashMap<ResourceLocation, CompletableFuture<LodestoneDynamicTexture>> TEXTURES = new ConcurrentHashMap<>();
 
-    public static RenderedDynamicTexture pushTexture(DynamicTextureRequest request, Function<ResourceLocation, CompletableFuture<RenderedDynamicTexture>> textureSupplier) {
+    public static LodestoneDynamicTexture pushTexture(DynamicTextureRenderRequest request, Function<ResourceLocation, CompletableFuture<LodestoneDynamicTexture>> textureSupplier) {
         return pushTexture(request, textureSupplier, false);
     }
 
-    public static RenderedDynamicTexture pushTexture(DynamicTextureRequest request, Function<ResourceLocation, CompletableFuture<RenderedDynamicTexture>> textureSupplier, boolean isTicking) {
+    public static LodestoneDynamicTexture pushTexture(DynamicTextureRenderRequest request, Function<ResourceLocation, CompletableFuture<LodestoneDynamicTexture>> textureSupplier, boolean isTicking) {
         var key = request.getWriteLocation();
         var future = DynamicTextureCache.TEXTURES.computeIfAbsent(key, textureSupplier);
         if (!future.isDone()) {

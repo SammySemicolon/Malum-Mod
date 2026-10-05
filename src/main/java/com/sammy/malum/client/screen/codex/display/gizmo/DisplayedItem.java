@@ -4,10 +4,9 @@ import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.sammy.malum.client.screen.codex.display.IGizmoHolder;
-import com.sammy.malum.client.screen.codex.display.texture.DynamicTextureBuilder;
-import com.sammy.malum.client.screen.codex.display.texture.request.ItemTextureRequest;
+import com.sammy.malum.client.renderer.texture.DynamicTextureRenderer;
+import com.sammy.malum.client.renderer.texture.request.ItemTextureRenderRequest;
 import com.sammy.malum.client.screen.codex.screens.AbstractMalumCodexScreen;
-import com.sammy.malum.registry.common.magic.MalumSpiritTypes;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.Screen;
@@ -38,8 +37,8 @@ public class DisplayedItem extends DisplayedGizmo {
 
     @Override
     public void renderDecals(AbstractMalumCodexScreen screen, IGizmoHolder holder, GuiGraphics guiGraphics, int x, int y, int mouseX, int mouseY) {
-        var request = ItemTextureRequest.create(itemDisplay, r -> r.withSuffix("_gizmo"));
-        var dynamicTexture = DynamicTextureBuilder.create(request).setTextureSize(16, 16).bakeTexture();
+        var request = ItemTextureRenderRequest.create(itemDisplay, r -> r.withSuffix("_gizmo"));
+        var dynamicTexture = DynamicTextureRenderer.create(request).setTextureSize(16, 16).bakeTexture();
         if (dynamicTexture == null) {
             return;
         }
