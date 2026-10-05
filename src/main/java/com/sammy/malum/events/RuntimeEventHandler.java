@@ -1,5 +1,6 @@
 package com.sammy.malum.events;
 
+import com.sammy.malum.client.renderer.texture.request.load.*;
 import com.sammy.malum.common.block.storage.jar.*;
 import com.sammy.malum.common.data.attachment.AvariceMarkData;
 import com.sammy.malum.common.data.listener.banner.MalumBannerPatternReloadListener;
@@ -164,6 +165,8 @@ public class RuntimeEventHandler {
     public static void registerListeners(AddReloadListenerEvent event) {
         SpiritDataReloadListener.register(event);
         SpiritRiteTypeReloadListener.register(event);
+
+        TextureLoadRequestReloadListener.register(event);
 
         MalumBannerPatternReloadListener.register(event);
 

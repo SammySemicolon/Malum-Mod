@@ -4,7 +4,7 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.sammy.malum.client.screen.codex.WidgetDesign;
 import com.sammy.malum.client.renderer.texture.DynamicTextureRenderer;
-import com.sammy.malum.client.renderer.texture.request.VFXBuilderTextureRenderRequest;
+import com.sammy.malum.client.renderer.texture.request.render.VFXBuilderTextureRenderRequest;
 import com.sammy.malum.core.systems.spirit.SpiritArcanaType;
 import com.sammy.malum.registry.client.MalumShaders;
 import com.sammy.malum.registry.common.magic.MalumSpiritTypes;

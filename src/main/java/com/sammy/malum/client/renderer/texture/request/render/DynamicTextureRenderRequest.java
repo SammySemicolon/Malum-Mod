@@ -1,4 +1,4 @@
-package com.sammy.malum.client.renderer.texture.request;
+package com.sammy.malum.client.renderer.texture.request.render;
 
 import com.sammy.malum.client.renderer.texture.DynamicTextureRenderer;
 import com.sammy.malum.client.renderer.texture.LodestoneDynamicTexture;

@@ -5,7 +5,7 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.sammy.malum.client.screen.codex.display.IGizmoHolder;
 import com.sammy.malum.client.renderer.texture.DynamicTextureRenderer;
-import com.sammy.malum.client.renderer.texture.request.ItemTextureRenderRequest;
+import com.sammy.malum.client.renderer.texture.request.render.ItemTextureRenderRequest;
 import com.sammy.malum.client.screen.codex.screens.AbstractMalumCodexScreen;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;

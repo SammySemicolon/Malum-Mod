@@ -1,6 +1,6 @@
 package com.sammy.malum.client.renderer.texture;
 
-import com.sammy.malum.client.renderer.texture.request.DynamicTextureRenderRequest;
+import com.sammy.malum.client.renderer.texture.request.render.DynamicTextureRenderRequest;
 import net.minecraft.resources.ResourceLocation;
 
 import java.util.concurrent.CompletableFuture;

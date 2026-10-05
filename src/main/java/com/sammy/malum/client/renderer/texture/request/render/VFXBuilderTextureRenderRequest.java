@@ -1,4 +1,4 @@
-package com.sammy.malum.client.renderer.texture.request;
+package com.sammy.malum.client.renderer.texture.request.render;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.DefaultVertexFormat;
