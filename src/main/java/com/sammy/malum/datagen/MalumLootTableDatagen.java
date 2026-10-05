@@ -24,5 +24,4 @@ public class MalumLootTableDatagen extends LootTableProvider {
                 registries
         );
     }
-
 }

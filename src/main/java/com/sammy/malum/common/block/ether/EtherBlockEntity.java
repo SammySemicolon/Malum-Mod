@@ -84,6 +84,7 @@ public class EtherBlockEntity extends LodestoneBlockEntity {
     public void modifyParticleCenter(MutableDouble x, MutableDouble y, MutableDouble z) {
 
     }
+
     @Override
     public void clientTick(Level level) {
         if (firstColor == null) {
