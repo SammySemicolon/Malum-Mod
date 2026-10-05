@@ -1,0 +1,6 @@
+{
+  "parent": "malum:item/greatsword",
+  "textures": {
+    "layer0": "malum:item/vindictive_brand_huge"
+  }
+}

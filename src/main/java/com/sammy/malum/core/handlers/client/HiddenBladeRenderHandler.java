@@ -84,7 +84,7 @@ public class HiddenBladeRenderHandler {
                         builder.setAlpha(glow).blit(poseStack);
                     }
 
-                    shaderInstance.setUniformDefaults();
+                    shaderInstance.applyUniformDefaults();
                     RenderSystem.defaultBlendFunc();
                     RenderSystem.disableBlend();
                     poseStack.popPose();

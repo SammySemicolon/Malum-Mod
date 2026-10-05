@@ -1,0 +1,45 @@
+{
+	"parent": "block/block",
+	"ambientocclusion": false,
+	"render_type": "minecraft:cutout",
+	"textures": {
+		"holder": "malum:block/banner_holder",
+		"particle": "malum:block/building/runewood/runewood_planks"
+	},
+	"elements": [
+		{
+			"from": [0, 11, 0],
+			"to": [16, 13, 2],
+			"rotation": {"angle": 0, "axis": "y", "origin": [7, 11, 0]},
+			"faces": {
+				"north": {"uv": [0, 4, 16, 6], "texture": "holder", "cullface": "north"},
+				"east": {"uv": [0, 0, 2, 2], "texture": "holder", "cullface": "east"},
+				"south": {"uv": [0, 4, 16, 6], "texture": "holder"},
+				"west": {"uv": [14, 0, 16, 2], "texture": "holder", "cullface": "west"},
+				"up": {"uv": [0, 2, 16, 4], "texture": "holder"},
+				"down": {"uv": [0, 14, 16, 16], "texture": "holder"}
+			}
+		},
+		{
+			"from": [0, 3, 0],
+			"to": [16, 11, 0],
+			"rotation": {"angle": 0, "axis": "y", "origin": [7, 9, 0]},
+			"faces": {
+				"north": {"uv": [0, 6, 16, 14], "texture": "holder", "cullface": "north"},
+				"east": {"uv": [0, 0, 0, 0], "texture": "holder"},
+				"west": {"uv": [0, 0, 0, 0], "texture": "holder"},
+				"up": {"uv": [0, 0, 0, 0], "texture": "holder"},
+				"down": {"uv": [0, 0, 0, 0], "texture": "holder"}
+			}
+		},
+		{
+			"from": [0, 3, 2],
+			"to": [16, 11, 2],
+			"rotation": {"angle": 0, "axis": "y", "origin": [7, 9, 2]},
+			"faces": {
+				"north": {"uv": [0, 6, 16, 14], "texture": "holder"},
+				"south": {"uv": [0, 6, 16, 14], "texture": "holder"}
+			}
+		}
+	]
+}

@@ -1,4 +1,4 @@
-package com.sammy.malum.common.effect.weapon.vindicative_brand;
+package com.sammy.malum.common.effect.weapon.vindictive_brand;
 
 import com.sammy.malum.*;
 import com.sammy.malum.registry.common.*;

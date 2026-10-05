@@ -1,7 +1,7 @@
 package com.sammy.malum.common.effect.gluttony;
 
 import com.sammy.malum.*;
-import com.sammy.malum.common.data.custom.spirit.EntitySpiritDropData;
+import com.sammy.malum.common.data.listener.spirit.EntitySpiritDropData;
 import com.sammy.malum.common.entity.activator.gluttony.*;
 import com.sammy.malum.common.item.*;
 import com.sammy.malum.core.systems.events.*;

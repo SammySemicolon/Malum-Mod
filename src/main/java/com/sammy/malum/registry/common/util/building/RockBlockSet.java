@@ -1,6 +1,6 @@
 package com.sammy.malum.registry.common.util.building;
 
-import com.sammy.malum.common.block.curiosities.decor.ColumnBlock;
+import com.sammy.malum.common.block.building.ColumnBlock;
 import com.sammy.malum.common.block.storage.pedestal.ItemPedestalBlock;
 import com.sammy.malum.common.block.storage.stand.ItemStandBlock;
 import com.sammy.malum.datagen.block.MalumBlockStateDatagen;

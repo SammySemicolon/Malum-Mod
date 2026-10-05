@@ -1,6 +1,6 @@
 package com.sammy.malum.registry.common.util.building;
 
-import com.sammy.malum.common.block.curiosities.decor.ColumnBlock;
+import com.sammy.malum.common.block.building.ColumnBlock;
 import com.sammy.malum.common.block.flora.wood.*;
 import com.sammy.malum.common.block.storage.pedestal.DecoratedItemPedestalBlock;
 import com.sammy.malum.common.block.storage.pedestal.WoodItemPedestalBlock;
@@ -10,8 +10,6 @@ import com.sammy.malum.registry.common.block.MalumWoodTypes;
 import com.sammy.malum.registry.common.util.MalumRegistrySet;
 import com.sammy.malum.registry.common.util.data.BlockBundle;
 import com.sammy.malum.registry.common.util.data.BlockBundleWithWall;
-import com.sammy.malum.registry.common.util.data.ItemlessBlockBundle;
-import com.sammy.malum.registry.common.util.data.ItemlessBlockBundleWithWall;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.SignItem;
 import net.minecraft.world.level.block.*;

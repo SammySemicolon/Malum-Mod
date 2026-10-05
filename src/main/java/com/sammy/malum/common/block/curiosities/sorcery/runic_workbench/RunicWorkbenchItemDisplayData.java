@@ -5,7 +5,7 @@ import net.minecraft.world.phys.*;
 import team.lodestar.lodestone.modules.toolkit.blockentity.*;
 import team.lodestar.lodestone.modules.toolkit.inventory.*;
 
-public class RunicWorkbenchItemDisplayData extends ItemHolderItemDisplayData {
+public class RunicWorkbenchItemDisplayData extends MalumItemHolderItemDisplayData {
 
     public RunicWorkbenchItemDisplayData(LodestoneItemStackBlockHandler parent) {
         super(parent);

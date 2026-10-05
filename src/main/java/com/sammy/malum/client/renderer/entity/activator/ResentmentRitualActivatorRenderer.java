@@ -2,7 +2,7 @@ package com.sammy.malum.client.renderer.entity.activator;
 
 import com.mojang.blaze3d.vertex.*;
 import com.sammy.malum.client.*;
-import com.sammy.malum.common.entity.activator.vindicative_brand.*;
+import com.sammy.malum.common.entity.activator.vindictive_brand.*;
 import com.sammy.malum.registry.client.*;
 import net.minecraft.client.renderer.*;
 import net.minecraft.client.renderer.entity.*;
@@ -12,6 +12,7 @@ import team.lodestar.lodestone.registry.client.*;
 import team.lodestar.lodestone.systems.rendering.builder.*;
 import team.lodestar.lodestone.systems.rendering.rendeertype.*;
 import team.lodestar.lodestone.systems.rendering.trail.*;
+import team.lodestar.lodestone.systems.rendering.uniform.UniformData;
 
 import java.awt.*;
 import java.util.List;
@@ -30,7 +31,7 @@ public class ResentmentRitualActivatorRenderer extends EntityRenderer<Resentment
    public void render(ResentmentRitualActivator entity, float entityYaw, float partialTicks, PoseStack poseStack, MultiBufferSource bufferIn, int packedLightIn) {
       float delta = entity.getVisualEffectScalar();
       var additive = LodestoneRenderTypes.ADDITIVE_TWO_SIDED_TEXTURE_TRIANGLE.apply(MalumRenderTypeTokens.CONCENTRATED_TRAIL);
-      var transparent = LodestoneRenderTypes.TRANSPARENT_TWO_SIDED_TEXTURE_TRIANGLE.apply(MalumRenderTypeTokens.CONCENTRATED_TRAIL).withUniformHandler(ShaderUniformHandler.LUMITRANSPARENT);
+      var transparent = LodestoneRenderTypes.TRANSPARENT_TWO_SIDED_TEXTURE_TRIANGLE.apply(MalumRenderTypeTokens.CONCENTRATED_TRAIL).addUniformData(UniformData.LUMITRANSPARENT);
       var trails = List.of(entity.trail, entity.longTrail);
 
       var builder = VFXBuilders.createWorld().setRenderType(additive);

@@ -8,6 +8,7 @@ import com.sammy.malum.registry.common.MalumContent;
 import com.sammy.malum.registry.common.MalumContent.*;
 import com.sammy.malum.registry.common.util.building.CommonStoneBuildingSet;
 import com.sammy.malum.registry.common.util.building.RockBlockSet;
+import com.sammy.malum.registry.common.util.building.WoolRegistrySet;
 import com.sammy.malum.registry.common.util.data.*;
 import net.minecraft.data.*;
 import net.minecraft.resources.*;
@@ -26,10 +27,8 @@ import java.util.function.*;
 import static com.sammy.malum.MalumMod.*;
 import static com.sammy.malum.registry.common.MalumContent.Artifice.*;
 import static com.sammy.malum.registry.common.MalumContent.CompactBlocks.*;
-import static com.sammy.malum.registry.common.MalumContent.DungeonBlockSets.*;
 import static com.sammy.malum.registry.common.MalumContent.Materials.*;
 import static com.sammy.malum.registry.common.MalumContent.Sorcery.*;
-import static com.sammy.malum.registry.common.MalumContent.WeepingWell.*;
 import static team.lodestar.lodestone.modules.datagen.ItemModelSmithTypes.*;
 
 public class MalumBlockStateDatagen extends LodestoneBlockStateSystem {
@@ -52,7 +51,7 @@ public class MalumBlockStateDatagen extends LodestoneBlockStateSystem {
 
 
         setTexturePath("banners");
-        MalumBlockStateSmithTypes.SOULWOVEN_BANNER.act(data, BuildingBlocks.SOULWOVEN_BANNER);
+        MalumBlockStateSmithTypes.BANNER.act(data, BuildingBlocks.SOULWOVEN_BANNER);
         setTexturePath("building/spirited_glass");
         BlockStateSmithTypes.FULL_BLOCK.act(data,
                 BuildingBlocks.SACRED_SPIRITED_GLASS, BuildingBlocks.WICKED_SPIRITED_GLASS, BuildingBlocks.ARCANE_SPIRITED_GLASS, BuildingBlocks.ELDRITCH_SPIRITED_GLASS,
@@ -73,6 +72,10 @@ public class MalumBlockStateDatagen extends LodestoneBlockStateSystem {
         }
 
         for (RockBlockSet malumSet : RockBlockSet.getMalumSets()) {
+            malumSet.addBlockStates(this, data);
+        }
+
+        for (WoolRegistrySet malumSet : WoolRegistrySet.getMalumSets()) {
             malumSet.addBlockStates(this, data);
         }
 
@@ -182,13 +185,13 @@ public class MalumBlockStateDatagen extends LodestoneBlockStateSystem {
                 BuildingBlocks.ETHER_CRESSET, BuildingBlocks.IRIDESCENT_ETHER_CRESSET);
         itemModelProvider.setTexturePath("");
 
-        setTexturePath("dungeon/flesh");
-        MalumBlockStateSmithTypes.COLUMN.act(data, COLUMNAR_FLESH);
-        BlockStateSmithTypes.CUSTOM_MODEL.act(data, this::directionalBlock, models()::cubeBottomTop, FLESHBULB);
-        MalumBlockStateSmithTypes.WRITHING_FLESH.act(data, WRITHING_FLESH);
+        setTexturePath("enscription/flesh");
+        MalumBlockStateSmithTypes.COLUMN.act(data, Enscription.COLUMNAR_FLESH);
+        BlockStateSmithTypes.CUSTOM_MODEL.act(data, this::directionalBlock, models()::cubeBottomTop, Enscription.FLESHBULB);
+        MalumBlockStateSmithTypes.WRITHING_FLESH.act(data, Enscription.WRITHING_FLESH);
 
-        setTexturePath("dungeon/effigy");
-        BlockStateSmithTypes.CUSTOM_MODEL.act(data, BLOCK_MODEL_ITEM, this::horizontalBlock, models()::predefinedModel, MEDITATING_EFFIGY);
+        setTexturePath("enscription/dungeon");
+        BlockStateSmithTypes.CUSTOM_MODEL.act(data, BLOCK_MODEL_ITEM, this::horizontalBlock, models()::predefinedModel, Enscription.MYRIAD_GATEWAY, Enscription.MEDITATING_EFFIGY);
 
         setTexturePath("");
         BlockStateSmithTypes.CUSTOM_MODEL.act(data, BLOCK_MODEL_ITEM, this::simpleBlock, models()::cubeBottomTop, Totemancy.RITE_ANCHOR, Totemancy.RITE_UNWEAVER);
@@ -215,9 +218,9 @@ public class MalumBlockStateDatagen extends LodestoneBlockStateSystem {
 
         MalumBlockStateSmithTypes.REPAIR_PYLON_COMPONENT.act(data, Focusing.REPAIR_PYLON_COMPONENT);
 
-        BlockStateSmithTypes.CUSTOM_MODEL.act(data, BLOCK_MODEL_ITEM, this::simpleBlock, models()::predefinedModel, WEEPING_WELL_CENTERPIECE);
+        BlockStateSmithTypes.CUSTOM_MODEL.act(data, BLOCK_MODEL_ITEM, this::simpleBlock, models()::predefinedModel, Enscription.WEEPING_WELL_CENTERPIECE);
 
-        MalumBlockStateSmithTypes.PRIMORDIAL_SOUP.act(data, WEEPING_WELL);
+        MalumBlockStateSmithTypes.PRIMORDIAL_SOUP.act(data, Enscription.WEEPING_WELL);
 
         BlockStateSmithTypes.FULL_BLOCK.act(data, BuildingBlocks.THE_DEVICE, BuildingBlocks.THE_VESSEL);
     }

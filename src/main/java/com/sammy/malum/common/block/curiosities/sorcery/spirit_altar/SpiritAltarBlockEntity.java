@@ -2,7 +2,7 @@ package com.sammy.malum.common.block.curiosities.sorcery.spirit_altar;
 
 import com.sammy.malum.common.block.MalumBlockItemStackHandler;
 import com.sammy.malum.common.block.storage.IMalumSpecialItemAccessPoint;
-import com.sammy.malum.common.block.storage.ItemHolderItemDisplayData;
+import com.sammy.malum.common.block.storage.MalumItemHolderItemDisplayData;
 import com.sammy.malum.common.recipe.SpiritInfusionRecipe;
 import com.sammy.malum.core.systems.recipe.SpiritBasedRecipeInput;
 import com.sammy.malum.registry.common.MalumParticleEffectTypes;
@@ -66,7 +66,7 @@ public class SpiritAltarBlockEntity extends LodestoneBlockEntity implements IInv
         extrasInventory = MalumBlockItemStackHandler.create(this, 32).noSpirits().build();
         spiritInventory = MalumBlockItemStackHandler.create(this, 9).onlySpirits().onContentsChanged(this::recalculateRecipes).build();
 
-        inventory.attachDisplayData(ItemHolderItemDisplayData::new);
+        inventory.attachDisplayData(MalumItemHolderItemDisplayData::new);
         spiritInventory.attachDisplayData(SpiritAltarSpiritDisplayData::new);
         inventoryHandler = new ItemStackMultiHandler(inventory, spiritInventory);
     }

@@ -117,15 +117,4 @@ public class MalumBlockProperties {
                 .noCollission()
                 .setCutout();
     }
-
-    public static LodestoneBlockProperties PRIMORDIAL_SOUP() {
-        return new LodestoneBlockProperties()
-                .strength(-1.0F, 3600000.0F)
-                .addTags(FEATURES_CANNOT_REPLACE, WEEPING_WELL)
-                .sound(MalumBlockSoundEvents.BLIGHTED_EARTH)
-                .mapColor(MapColor.TERRACOTTA_BLACK)
-                .pushReaction(PushReaction.BLOCK)
-                .isSuffocating(Blocks::never)
-                .setCutout();
-    }
 }

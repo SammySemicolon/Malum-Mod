@@ -1,13 +1,11 @@
 package com.sammy.malum.common.block.storage.stand;
 
-import com.sammy.malum.common.block.storage.ItemHolderItemDisplayData;
-import com.sammy.malum.common.item.spirit.SpiritShardItem;
-import net.minecraft.util.Mth;
+import com.sammy.malum.common.block.storage.MalumItemHolderItemDisplayData;
 import net.minecraft.world.phys.Vec3;
 import team.lodestar.lodestone.modules.toolkit.blockentity.LodestoneBlockEntity;
 import team.lodestar.lodestone.modules.toolkit.inventory.LodestoneItemStackBlockHandler;
 
-public class ItemStandDisplayData extends ItemHolderItemDisplayData {
+public class ItemStandDisplayData extends MalumItemHolderItemDisplayData {
 
     public ItemStandDisplayData(LodestoneItemStackBlockHandler parent) {
         super(parent);

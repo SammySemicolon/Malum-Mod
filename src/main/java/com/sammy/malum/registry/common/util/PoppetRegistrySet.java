@@ -15,7 +15,7 @@ public class PoppetRegistrySet extends MalumRegistrySet {
     public PoppetRegistrySet(String id) {
         super(id);
         var pillowProperties = MalumBlockProperties.POPPETRY_IMPLEMENT();
-        pillow = new DyedVariantBundle<>(name("%s_poppet_pillow"), (s, c) -> MalumContent.registerBlock(s, () -> new PoppetPillowBlock<>(pillowProperties, this, c)));
+        pillow = new DyedVariantBundle<>(name("%c_%s_poppet_pillow"), (s, c) -> MalumContent.registerBlock(s, () -> new PoppetPillowBlock<>(pillowProperties, this, c)));
     }
 
     public DyedVariantBundle<BlockBlockItemHolder<Block, BlockItem>> getPillow() {

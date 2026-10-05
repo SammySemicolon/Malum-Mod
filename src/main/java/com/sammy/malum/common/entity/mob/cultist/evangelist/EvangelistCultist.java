@@ -174,7 +174,7 @@ public class EvangelistCultist extends CultistMonster implements IAltarBlessingR
     @Nullable
     @Override
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType spawnType, @Nullable SpawnGroupData spawnGroupData) {
-        setItemSlot(EquipmentSlot.MAINHAND, MalumContent.DungeonGear.SHAPED_SLAB.get().getDefaultInstance());
+        setItemSlot(EquipmentSlot.MAINHAND, MalumContent.Enscription.SHAPED_SLAB.get().getDefaultInstance());
         enchantSpawnedWeapon(level, random, difficulty);
         return super.finalizeSpawn(level, difficulty, spawnType, spawnGroupData);
     }

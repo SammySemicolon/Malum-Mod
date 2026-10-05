@@ -3,7 +3,7 @@ package com.sammy.malum.datagen.magic.rite;
 import com.google.common.collect.*;
 import com.google.gson.*;
 import com.mojang.serialization.*;
-import com.sammy.malum.common.data.custom.rite.*;
+import com.sammy.malum.common.data.listener.rite.*;
 import com.sammy.malum.core.systems.rite.*;
 import com.sammy.malum.core.systems.rite.effect.*;
 import com.sammy.malum.core.systems.spirit.*;

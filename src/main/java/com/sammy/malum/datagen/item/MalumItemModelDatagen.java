@@ -52,11 +52,11 @@ public class MalumItemModelDatagen extends LodestoneItemModelSystem {
         setTexturePath("");
         MalumItemModelSmithTypes.BUILTIN_ENTITY_ITEM.act(data, MalumContent.GEAS);
         MalumItemModelSmithTypes.HANDHELD_OVERLAY_ITEM.act(data, MalumContent.Gear.UNWINDING_CHAOS, MalumContent.Gear.SUNDERING_ANCHOR).forEach(result -> result.addModelLayerData().emissive(15, 15, 1));
-        WeaponItemModelSmithTypes.LARGE_HANDHELD_ITEM.act(data, MalumContent.Gear.CRUDE_SCYTHE, MalumContent.Gear.SOUL_STAINED_STEEL_SCYTHE, MalumContent.Gear.RAVENOUS_SCYTHE, MalumContent.Gear.EDGE_OF_DELIVERANCE, MalumContent.Gear.WEIGHT_OF_WORLDS, MalumContent.DungeonGear.SHAPED_SLAB);
+        WeaponItemModelSmithTypes.LARGE_HANDHELD_ITEM.act(data, MalumContent.Gear.CRUDE_SCYTHE, MalumContent.Gear.SOUL_STAINED_STEEL_SCYTHE, MalumContent.Gear.RAVENOUS_SCYTHE, MalumContent.Gear.EDGE_OF_DELIVERANCE, MalumContent.Gear.WEIGHT_OF_WORLDS, MalumContent.Enscription.SHAPED_SLAB);
         MalumItemModelSmithTypes.HANDHELD_ITEM.act(data, MalumContent.Gear.SOUL_STAINED_STEEL_KNIFE, MalumContent.Gear.GLUTTONOUS_BLUDGEON, MalumContent.Focusing.TUNING_FORK, MalumContent.Artifice.ARTIFICERS_CLAW, MalumContent.Totemancy.TOTEMIC_STAFF);
         MalumItemModelSmithTypes.HANDHELD_ITEM.act(data, MalumContent.Gear.MNEMONIC_HEX_STAFF, MalumContent.Gear.EROSION_SCEPTER);
         MalumItemModelSmithTypes.SPELLWEAVING_TOOL.act(data, MalumContent.Gear.SPELLWEAVING_PICKAXE, MalumContent.Gear.SPELLWEAVING_AXE);
-        WeaponItemModelSmithTypes.VINDICATIVE_BRAND.act(data, MalumContent.Gear.VINDICATIVE_BRAND);
+        WeaponItemModelSmithTypes.VINDICTIVE_BRAND.act(data, MalumContent.Gear.VINDICTIVE_BRAND);
         MalumItemModelSmithTypes.CATALYST_LOBBER.act(data, MalumContent.Gear.CATALYST_LOBBER);
         MalumItemModelSmithTypes.POUCH.act(data, MalumContent.Gear.SOULWOVEN_POUCH, MalumContent.Gear.RAVENOUS_POUCH);
 
@@ -68,7 +68,7 @@ public class MalumItemModelDatagen extends LodestoneItemModelSystem {
                 MalumContent.Gear.SOUL_STAINED_STEEL_HELMET, MalumContent.Gear.SOUL_STAINED_STEEL_CHESTPLATE, MalumContent.Gear.SOUL_STAINED_STEEL_LEGGINGS, MalumContent.Gear.SOUL_STAINED_STEEL_BOOTS,
                 MalumContent.Gear.MALIGNANT_STRONGHOLD_HELMET, MalumContent.Gear.MALIGNANT_STRONGHOLD_CHESTPLATE, MalumContent.Gear.MALIGNANT_STRONGHOLD_LEGGINGS, MalumContent.Gear.MALIGNANT_STRONGHOLD_BOOTS);
 
-        WeaponItemModelSmithTypes.LARGE_GENERATED_ITEM.act(data, MalumContent.DungeonGear.IRON_CROWN);
+        WeaponItemModelSmithTypes.LARGE_GENERATED_ITEM.act(data, MalumContent.Enscription.IRON_CROWN);
 
         MalumItemModelSmithTypes.GENERATED_ITEM.act(data, data.allRemaining());
     }

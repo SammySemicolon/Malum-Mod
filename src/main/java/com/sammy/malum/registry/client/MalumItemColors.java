@@ -2,7 +2,7 @@ package com.sammy.malum.registry.client;
 
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.common.data.component.ItemSkinComponent;
-import com.sammy.malum.common.block.curiosities.decor.banner.SoulwovenBannerBlockItem;
+import com.sammy.malum.common.block.building.banner.soulwoven.SoulwovenBannerBlockItem;
 import com.sammy.malum.common.item.curiosities.pouch.RavenousPouchItem;
 import com.sammy.malum.common.item.curiosities.pouch.SoulwovenPouchItem;
 import com.sammy.malum.common.item.curiosities.tools.CatalystLobberItem;
@@ -46,8 +46,8 @@ public class MalumItemColors {
                     (stack, level, holder, holderID) -> SpellweavingPickaxeItem.getStateDisplay(stack));
 
             ItemProperties.register(
-                    MalumContent.Gear.VINDICATIVE_BRAND.get(), MalumMod.malumPath("unsealed"),
-                    (stack, level, holder, holderID) -> VindicativeBrandSwordItem.getUnsealedState(stack));
+                    MalumContent.Gear.VINDICTIVE_BRAND.get(), MalumMod.malumPath("unsealed"),
+                    (stack, level, holder, holderID) -> VindictiveBrandSwordItem.getUnsealedState(stack));
         });
     }
 

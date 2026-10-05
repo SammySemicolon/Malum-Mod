@@ -2,9 +2,9 @@ package com.sammy.malum.core.handlers;
 
 import com.sammy.malum.*;
 import com.sammy.malum.common.data.attachment.*;
-import com.sammy.malum.common.data.custom.malignant_conversion.MalignantConversionAttributePayout;
-import com.sammy.malum.common.data.custom.malignant_conversion.MalignantConversionData;
-import com.sammy.malum.common.data.custom.malignant_conversion.MalignantConversionReloadListener;
+import com.sammy.malum.common.data.listener.malignant_conversion.MalignantConversionAttributePayout;
+import com.sammy.malum.common.data.listener.malignant_conversion.MalignantConversionData;
+import com.sammy.malum.common.data.listener.malignant_conversion.MalignantConversionReloadListener;
 import com.sammy.malum.registry.common.*;
 import com.sammy.malum.registry.common.sound.*;
 import net.minecraft.*;
@@ -17,7 +17,6 @@ import net.minecraft.world.entity.ai.attributes.*;
 import net.minecraft.world.entity.player.*;
 import net.neoforged.neoforge.event.entity.living.*;
 import net.neoforged.neoforge.event.tick.*;
-import team.lodestar.lodestone.helpers.*;
 import team.lodestar.lodestone.modules.toolkit.sound.SoundPlayer;
 
 import java.util.function.*;

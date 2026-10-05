@@ -29,7 +29,7 @@ public class VoidFavorRecipeCategory implements IRecipeCategory<VoidFavorRecipe>
 
     public VoidFavorRecipeCategory(IGuiHelper guiHelper) {
         overlay = guiHelper.createDrawable(malumPath("textures/gui/weeping_well_jei.png"), 0, 0, 142, 185);
-        icon = guiHelper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(MalumContent.WeepingWell.WEEPING_WELL.get()));
+        icon = guiHelper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(MalumContent.Enscription.WEEPING_WELL.get()));
     }
 
     @Override
@@ -71,6 +71,6 @@ public class VoidFavorRecipeCategory implements IRecipeCategory<VoidFavorRecipe>
         builder.addSlot(RecipeIngredientRole.OUTPUT, 63, 124)
             .addItemStack(recipe.result);
         builder.addInvisibleIngredients(RecipeIngredientRole.CATALYST)
-            .addItemStack(new ItemStack(MalumContent.WeepingWell.WEEPING_WELL.get()));
+            .addItemStack(new ItemStack(MalumContent.Enscription.WEEPING_WELL.get()));
     }
 }

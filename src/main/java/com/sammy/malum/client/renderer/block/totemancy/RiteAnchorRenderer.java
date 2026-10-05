@@ -93,7 +93,7 @@ public class RiteAnchorRenderer implements BlockEntityRenderer<RiteAnchorBlockEn
         float wobbleStrength = 0.1f - ease * 0.075f;
         int time = 160;
         float timer = ((gameTime % time) / time);
-        var renderType = LodestoneRenderTypes.ADDITIVE_TEXTURE.apply(token).withModifier(r -> r.setCullState(RenderStateShard.NO_CULL));
+        var renderType = LodestoneRenderTypes.ADDITIVE_TEXTURE.apply(token).addModifier(r -> r.setCullState(RenderStateShard.NO_CULL));
         for (int j = 0; j < 4; j++) {
             var color = j <= 1 ? spiritType.getPrimaryColor() : spiritType.getSecondaryColor();
             double offset = 0;

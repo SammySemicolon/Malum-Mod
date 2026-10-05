@@ -3,12 +3,12 @@ package com.sammy.malum.client.events;
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.client.renderer.*;
 import com.sammy.malum.client.renderer.renderpass.ParallelWorldRenderer;
+import com.sammy.malum.client.screen.overlay.ScryglassGuiOverlay;
 import com.sammy.malum.client.screen.tooltip.ClientMalumPouchTooltip;
 import com.sammy.malum.common.data.component.pouch.*;
 import com.sammy.malum.core.handlers.client.*;
 import com.sammy.malum.registry.client.*;
 import com.sammy.malum.registry.common.MalumContainers;
-import com.sammy.malum.registry.common.MalumContent;
 import com.sammy.malum.registry.common.MalumParticles;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.EventPriority;
@@ -20,7 +20,6 @@ import net.neoforged.neoforge.client.extensions.common.RegisterClientExtensionsE
 import net.neoforged.neoforge.client.gui.VanillaGuiLayers;
 import team.lodestar.lodestone.systems.rendering.LodestoneRenderSystem;
 import team.lodestar.lodestone.systems.rendering.renderpass.RenderPassHandler;
-import top.theillusivec4.curios.api.client.CuriosRendererRegistry;
 
 @EventBusSubscriber(value = Dist.CLIENT, modid = MalumMod.MALUM)
 public class ClientSetupHandler {
@@ -88,8 +87,12 @@ public class ClientSetupHandler {
         event.registerAbove(VanillaGuiLayers.EXPERIENCE_LEVEL, MalumMod.malumPath("hidden_blade_cooldown"),
                 HiddenBladeRenderHandler::renderHiddenBladeCooldown);
 
+        event.registerAbove(VanillaGuiLayers.CAMERA_OVERLAYS, MalumMod.malumPath("scryglass"), new ScryglassGuiOverlay());
+
+
         event.registerAboveAll(MalumMod.malumPath("touch_of_darkness"),
                 TouchOfDarknessRenderHandler::renderDarknessVignette);
+
     }
 
     @SubscribeEvent

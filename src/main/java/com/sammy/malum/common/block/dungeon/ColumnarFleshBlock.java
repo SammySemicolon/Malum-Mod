@@ -1,6 +1,6 @@
 package com.sammy.malum.common.block.dungeon;
 
-import com.sammy.malum.common.block.curiosities.decor.ColumnBlock;
+import com.sammy.malum.common.block.building.ColumnBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;

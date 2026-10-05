@@ -1,0 +1,24 @@
+{
+	"format_version": "1.9.0",
+	"credit": "Made with Blockbench",
+	"parent": "block/block",
+	"texture_size": [64, 64],
+	"textures": {
+		"1": "malum:block/enscription/myriad_gateway"
+	},
+	"elements": [
+		{
+			"from": [-3, 0, -3],
+			"to": [19, 7, 19],
+			"rotation": {"angle": 0, "axis": "y", "origin": [0, 1, 0]},
+			"faces": {
+				"north": {"uv": [0, 5.5, 5.5, 7.25], "texture": "#1"},
+				"east": {"uv": [0, 5.5, 5.5, 7.25], "texture": "#1"},
+				"south": {"uv": [0, 5.5, 5.5, 7.25], "texture": "#1"},
+				"west": {"uv": [0, 5.5, 5.5, 7.25], "texture": "#1"},
+				"up": {"uv": [0, 0, 5.5, 5.5], "texture": "#1"},
+				"down": {"uv": [0, 7.25, 5.5, 12.75], "texture": "#1"}
+			}
+		}
+	]
+}

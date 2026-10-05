@@ -5,8 +5,8 @@ import com.sammy.malum.visual_effects.networked.arcana_pylon.*;
 import com.sammy.malum.visual_effects.networked.attack.*;
 import com.sammy.malum.visual_effects.networked.attack.scythe.*;
 import com.sammy.malum.visual_effects.networked.attack.sundering_anchor.*;
-import com.sammy.malum.visual_effects.networked.attack.vindicative_brand.*;
-import com.sammy.malum.visual_effects.networked.attack.vindicative_brand.unleashed.*;
+import com.sammy.malum.visual_effects.networked.attack.vindictive_brand.*;
+import com.sammy.malum.visual_effects.networked.attack.vindictive_brand.unleashed.*;
 import com.sammy.malum.visual_effects.networked.avarice.AvariceFortuneParticleEffect;
 import com.sammy.malum.visual_effects.networked.banner.*;
 import com.sammy.malum.visual_effects.networked.blight.*;
@@ -108,14 +108,14 @@ public class MalumParticleEffectTypes {
     public static final SunderingAnchorSlashParticleEffect SUNDERING_ANCHOR_SLASH = new SunderingAnchorSlashParticleEffect("sundering_anchor_slash");
     public static final SunderingAnchorSweepParticleEffect SUNDERING_ANCHOR_SWEEP = new SunderingAnchorSweepParticleEffect("sundering_anchor_sweep");
 
-    public static final VindicativeBrandSlashParticleEffect VINDICATIVE_BRAND_SLASH = new VindicativeBrandSlashParticleEffect("vindicative_brand_slash");
-    public static final VindicativeBrandUnleashedSlashParticleEffect VINDICATIVE_BRAND_UNLEASHED_SLASH = new VindicativeBrandUnleashedSlashParticleEffect("vindicative_brand_unleashed_slash");
+    public static final VindictiveBrandSlashParticleEffect VINDICTIVE_BRAND_SLASH = new VindictiveBrandSlashParticleEffect("vindictive_brand_slash");
+    public static final VindictiveBrandUnleashedSlashParticleEffect VINDICTIVE_BRAND_UNLEASHED_SLASH = new VindictiveBrandUnleashedSlashParticleEffect("vindictive_brand_unleashed_slash");
 
-    public static final VindicativeBrandDashCleaveParticleEffect VINDICATIVE_BRAND_DASH_CLEAVE = new VindicativeBrandDashCleaveParticleEffect("vindicative_brand_dash_cleave");
-    public static final VindicativeBrandUnleashedDashCleaveParticleEffect VINDICATIVE_BRAND_UNLEASHED_DASH_CLEAVE = new VindicativeBrandUnleashedDashCleaveParticleEffect("vindicative_brand_unleashed_dash_cleave");
+    public static final VindictiveBrandDashCleaveParticleEffect VINDICTIVE_BRAND_DASH_CLEAVE = new VindictiveBrandDashCleaveParticleEffect("vindictive_brand_dash_cleave");
+    public static final VindictiveBrandUnleashedDashCleaveParticleEffect VINDICTIVE_BRAND_UNLEASHED_DASH_CLEAVE = new VindictiveBrandUnleashedDashCleaveParticleEffect("vindictive_brand_unleashed_dash_cleave");
 
 
-    public static final VindicativeBrandExtraSlashParticleEffect VINDICATIVE_BRAND_EXTRA_SLASH = new VindicativeBrandExtraSlashParticleEffect("vindicative_brand_extra_slash");
+    public static final VindictiveBrandExtraSlashParticleEffect VINDICTIVE_BRAND_EXTRA_SLASH = new VindictiveBrandExtraSlashParticleEffect("vindictive_brand_extra_slash");
 
 
     public static final HiddenBladeCounterParticleEffect HIDDEN_BLADE_COUNTER_FLURRY = new HiddenBladeCounterParticleEffect("hidden_blade_counter_flurry");

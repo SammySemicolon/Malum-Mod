@@ -19,7 +19,7 @@ public class AttributeUtilMixin {
         if (id != null) {
             return id;
         }
-        id = VindicativeBrandSwordItem.getBaseId(instance);
+        id = VindictiveBrandSwordItem.getBaseId(instance);
         if (id != null) {
             return id;
         }

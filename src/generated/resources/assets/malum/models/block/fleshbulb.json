@@ -1,8 +1,8 @@
 {
   "parent": "minecraft:block/cube_bottom_top",
   "textures": {
-    "bottom": "malum:block/dungeon/flesh/fleshbulb_bottom",
-    "side": "malum:block/dungeon/flesh/fleshbulb_side",
-    "top": "malum:block/dungeon/flesh/fleshbulb_top"
+    "bottom": "malum:block/enscription/flesh/fleshbulb_bottom",
+    "side": "malum:block/enscription/flesh/fleshbulb_side",
+    "top": "malum:block/enscription/flesh/fleshbulb_top"
   }
 }

@@ -77,8 +77,8 @@ public class MalumLangDatagen extends LanguageProvider {
         var soulwovenBanners = SoulwovenBannerPatternDataComponent.REGISTERED_PATTERNS;
         var crucibleAttributes = ArtificeAttributeType.CRUCIBLE_ATTRIBUTES;
 
-        add(DataHelper.take(blocks, MalumContent.WeepingWell.WEEPING_WELL.block()).get(), "The Weeping Well");
-        add(DataHelper.take(blocks, MalumContent.WeepingWell.WEEPING_WELL_CENTERPIECE.block()).get(), "The Weeping Well");
+        add(DataHelper.take(blocks, MalumContent.Enscription.WEEPING_WELL.block()).get(), "The Weeping Well");
+        add(DataHelper.take(blocks, MalumContent.Enscription.WEEPING_WELL_CENTERPIECE.block()).get(), "The Weeping Well");
 
         if (CreateCompat.LOADED) { //If Create is loaded, the copper nugget won't exist.
             add("item.malum.copper_nugget", "Copper Nugget");
@@ -292,9 +292,9 @@ public class MalumLangDatagen extends LanguageProvider {
         addDeathMessage(MalumDamageTypes.SUNDERING_ANCHOR_PHYSICAL_COMBO, "%1$s was struck down through torment by %2$s", "%1$s was struck down through torment by %2$s using %3$s");
         addDeathMessage(MalumDamageTypes.SUNDERING_ANCHOR_MAGIC_COMBO, "%1$s had their soul struck down through torment by %2$s", "%1$s had their soul struck down through torment by %2$s using %3$s");
 
-        addDeathMessage(MalumDamageTypes.VINDICATIVE_BRAND_MELEE, "%1$s was marked by %2$s", "%1$s was marked by %2$s using %3$s");
-        addDeathMessage(MalumDamageTypes.VINDICATIVE_BRAND_SWEEP, "%1$s was marked by %2$s", "%1$s was marked by %2$s using %3$s");
-        addDeathMessage(MalumDamageTypes.VINDICATIVE_BRAND_COMBO, "%1$s was carved by %2$s", "%1$s was carved by %2$s using %3$s");
+        addDeathMessage(MalumDamageTypes.VINDICTIVE_BRAND_MELEE, "%1$s was marked by %2$s", "%1$s was marked by %2$s using %3$s");
+        addDeathMessage(MalumDamageTypes.VINDICTIVE_BRAND_SWEEP, "%1$s was marked by %2$s", "%1$s was marked by %2$s using %3$s");
+        addDeathMessage(MalumDamageTypes.VINDICTIVE_BRAND_COMBO, "%1$s was carved by %2$s", "%1$s was carved by %2$s using %3$s");
 
         addDeathMessage(MalumDamageTypes.WARLOCK_SPIRIT_IMPACT, "%1$s had their soul shattered by %2$s", "%1$s had their soul shattered by %2$s using %3$s");
         addDeathMessage(MalumDamageTypes.BERSERKER_SPIRIT_IMPACT, "%1$s had their soul shattered by %2$s", "%1$s had their soul shattered by %2$s using %3$s");

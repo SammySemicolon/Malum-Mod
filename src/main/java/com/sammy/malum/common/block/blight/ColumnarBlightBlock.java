@@ -1,6 +1,6 @@
 package com.sammy.malum.common.block.blight;
 
-import com.sammy.malum.common.block.curiosities.decor.ColumnBlock;
+import com.sammy.malum.common.block.building.ColumnBlock;
 import com.sammy.malum.common.item.spirit.SpiritShardItem;
 import com.sammy.malum.common.worldgen.blight.BlightFeature;
 import net.minecraft.core.BlockPos;

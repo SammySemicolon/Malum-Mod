@@ -61,7 +61,7 @@ public class CodexRenderHelper {
 //        setIntensity.accept(intensity * 0.8f + 0.5f);
 //        builder.blit(stack);
 //
-//        shaderInstance.setUniformDefaults();
+//        shaderInstance.applyUniformDefaults();
 //        RenderSystem.disableDepthTest();
 //        RenderSystem.disableBlend();
 //    }
@@ -121,7 +121,7 @@ public class CodexRenderHelper {
 
         RenderSystem.defaultBlendFunc();
         RenderSystem.depthMask(true);
-        shaderInstance.setUniformDefaults();
+        shaderInstance.applyUniformDefaults();
     }
 
     public static void renderWavyIcon(ResourceLocation location, PoseStack stack, float x, float y, int textureWidth, int textureHeight) {
@@ -149,7 +149,7 @@ public class CodexRenderHelper {
         renderTexture(location, stack, builder, x + 1, y, 2, 0, 0, textureWidth, textureHeight);
         renderTexture(location, stack, builder, x, y - 1, 3, 0, 0, textureWidth, textureHeight);
         renderTexture(location, stack, builder, x, y + 1, 4, 0, 0, textureWidth, textureHeight);
-        shaderInstance.setUniformDefaults();
+        shaderInstance.applyUniformDefaults();
         RenderSystem.defaultBlendFunc();
     }
 
@@ -201,7 +201,7 @@ public class CodexRenderHelper {
 
         RenderSystem.defaultBlendFunc();
         RenderSystem.depthMask(true);
-        shaderInstance.setUniformDefaults();
+        shaderInstance.applyUniformDefaults();
     }
 
     public static void renderTexture(ResourceLocation texture, PoseStack poseStack, float x, float y, float u, float v, int width, int height) {

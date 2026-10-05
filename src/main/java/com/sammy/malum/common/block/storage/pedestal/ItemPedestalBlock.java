@@ -16,6 +16,7 @@ import team.lodestar.lodestone.modules.toolkit.block.WaterLoggedEntityBlock;
 import java.util.stream.Stream;
 
 public class ItemPedestalBlock<T extends ItemPedestalBlockEntity> extends WaterLoggedEntityBlock<T> {
+
     public static final VoxelShape SHAPE = Stream.of(
             Block.box(4, 0, 4, 12, 4, 12),
             Block.box(5, 4, 5, 11, 10, 11),

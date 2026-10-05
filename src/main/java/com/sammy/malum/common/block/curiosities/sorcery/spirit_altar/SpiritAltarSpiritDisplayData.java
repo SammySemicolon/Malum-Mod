@@ -29,7 +29,6 @@ public class SpiritAltarSpiritDisplayData extends ItemStackHandlerItemDisplayDat
 
     @Override
     public ItemDisplayDataEntry addNewItem(int index, ItemStack stack) {
-        RandomSource random = Objects.requireNonNull(handler.getParent().getLevel()).random;
         var entry = super.addNewItem(index, stack);
         float neededAngle = getAngleForItem(entry, index-1, handler.getNonEmptyStacks().size());
         return entry.setAngle(neededAngle);

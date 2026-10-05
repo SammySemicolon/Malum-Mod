@@ -1,6 +1,6 @@
 package com.sammy.malum.common.item.curiosities.weapons;
 
-import com.sammy.malum.common.data.custom.spirit.EntitySpiritDropData;
+import com.sammy.malum.common.data.listener.spirit.EntitySpiritDropData;
 import com.sammy.malum.common.item.*;
 import com.sammy.malum.common.item.spirit.*;
 import com.sammy.malum.common.worldevent.*;

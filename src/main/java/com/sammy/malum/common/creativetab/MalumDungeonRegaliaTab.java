@@ -1,9 +1,7 @@
 package com.sammy.malum.common.creativetab;
 
+import com.sammy.malum.registry.common.MalumContent;
 import team.lodestar.lodestone.modules.toolkit.creative_tab.CategorizedBuilder;
-
-import static com.sammy.malum.registry.common.MalumContent.DungeonBlockSets.*;
-import static com.sammy.malum.registry.common.MalumContent.DungeonGear.*;
 
 public class MalumDungeonRegaliaTab extends AbstractMalumCreativeTab {
 
@@ -18,15 +16,15 @@ public class MalumDungeonRegaliaTab extends AbstractMalumCreativeTab {
 
                 createCategory(DUNGEON_REGALIA)
                         .addItems(
-                                SHAPED_SLAB
+                                MalumContent.Enscription.SHAPED_SLAB
                         ).nextLine()
                         .addItems(
-                                IRON_CROWN, MEDITATING_EFFIGY
+                                MalumContent.Enscription.IRON_CROWN, MalumContent.Enscription.MEDITATING_EFFIGY
                         )
                         .bake();
                 createCategory(DUNGEON_ODDITIES)
                         .addItems(
-                                WRITHING_FLESH, COLUMNAR_FLESH, FLESHBULB
+                                MalumContent.Enscription.WRITHING_FLESH, MalumContent.Enscription.COLUMNAR_FLESH, MalumContent.Enscription.FLESHBULB
                         )
                         .bake();
         }

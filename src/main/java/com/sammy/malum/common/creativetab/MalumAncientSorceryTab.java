@@ -1,6 +1,5 @@
 package com.sammy.malum.common.creativetab;
 
-import com.sammy.malum.common.block.curiosities.decor.banner.SoulwovenBannerBlockItem;
 import com.sammy.malum.common.creativetab.button.ItemChoiceEntry;
 import com.sammy.malum.registry.common.*;
 import team.lodestar.lodestone.modules.toolkit.creative_tab.CategorizedBuilder;

@@ -5,7 +5,7 @@ import com.sammy.malum.common.entity.*;
 import com.sammy.malum.common.entity.activator.*;
 import com.sammy.malum.common.entity.activator.gluttony.*;
 import com.sammy.malum.common.entity.activator.rite.*;
-import com.sammy.malum.common.entity.activator.vindicative_brand.*;
+import com.sammy.malum.common.entity.activator.vindictive_brand.*;
 import com.sammy.malum.common.entity.bolt.*;
 import com.sammy.malum.common.entity.hidden_blade.*;
 import com.sammy.malum.common.entity.nitrate.EthericNitrate;

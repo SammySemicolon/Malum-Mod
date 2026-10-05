@@ -1,11 +1,10 @@
 package com.sammy.malum.common.block.curiosities.totem;
 
 import com.sammy.malum.*;
-import com.sammy.malum.common.data.custom.rite.*;
+import com.sammy.malum.common.data.listener.rite.*;
 import com.sammy.malum.core.systems.rite.*;
 import com.sammy.malum.core.systems.spirit.SpiritArcanaType;
 import com.sammy.malum.registry.common.block.*;
-import com.sammy.malum.registry.common.magic.rite.MalumSpiritRiteTypes;
 import com.sammy.malum.registry.common.sound.*;
 import net.minecraft.core.*;
 import net.minecraft.nbt.*;
@@ -14,7 +13,6 @@ import net.minecraft.world.*;
 import net.minecraft.world.entity.player.*;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.*;
-import org.jetbrains.annotations.NotNull;
 import team.lodestar.lodestone.helpers.block.*;
 import team.lodestar.lodestone.modules.toolkit.blockentity.*;
 

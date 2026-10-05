@@ -41,7 +41,7 @@ public class MalumStoneBlockProperties {
         return new LodestoneBlockProperties()
                 .strength(1.25F, 9.0F)
                 .sound(soundType)
-                .mapColor(MapColor.COLOR_ORANGE)
+                .mapColor(MapColor.TERRACOTTA_GRAY)
                 .requiresCorrectToolForDrops()
                 .needsPickaxe();
     }

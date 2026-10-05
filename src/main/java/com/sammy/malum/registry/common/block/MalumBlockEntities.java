@@ -4,15 +4,22 @@ import com.sammy.malum.*;
 import com.sammy.malum.client.renderer.block.*;
 import com.sammy.malum.client.renderer.block.artifice.SpiritCatalyzerRenderer;
 import com.sammy.malum.client.renderer.block.artifice.SpiritCrucibleRenderer;
+import com.sammy.malum.client.renderer.block.banner.FancyBannerRenderer;
+import com.sammy.malum.client.renderer.block.banner.SoulwovenBannerRenderer;
+import com.sammy.malum.client.renderer.block.enscription.MyriadGatewayRenderer;
 import com.sammy.malum.client.renderer.block.redstone.WaveMakerRenderer;
 import com.sammy.malum.client.renderer.block.redstone.WaveChargerRenderer;
 import com.sammy.malum.client.renderer.block.redstone.WavebankerRenderer;
 import com.sammy.malum.client.renderer.block.redstone.WaveBreakerRenderer;
 import com.sammy.malum.client.renderer.block.totemancy.*;
+import com.sammy.malum.common.block.building.banner.fancy.FancyBannerBlock;
+import com.sammy.malum.common.block.building.banner.fancy.FancyBannerBlockEntity;
 import com.sammy.malum.common.block.curiosities.artifice.crystallarium.ConjunctureCrystallariumBlockEntity;
 import com.sammy.malum.common.block.curiosities.artifice.elemental_artifice.aerial.GustIgniterBlockEntity;
 import com.sammy.malum.common.block.curiosities.artifice.elemental_artifice.aerial.WindTunnelBlockEntity;
-import com.sammy.malum.common.block.curiosities.decor.banner.*;
+import com.sammy.malum.common.block.building.banner.soulwoven.SoulwovenBannerBlock;
+import com.sammy.malum.common.block.building.banner.soulwoven.SoulwovenBannerBlockEntity;
+import com.sammy.malum.common.block.curiosities.escription.MyriadGatewayBlockEntity;
 import com.sammy.malum.common.block.curiosities.obelisk.brilliant.*;
 import com.sammy.malum.common.block.curiosities.obelisk.rite_pylon.*;
 import com.sammy.malum.common.block.curiosities.obelisk.runewood.*;
@@ -81,6 +88,7 @@ public class MalumBlockEntities {
     public static final Supplier<LodestoneBlockEntityType<EtherBrazierBlockEntity>> ETHER_BRAZIER = BLOCK_ENTITY_TYPES.register("ether_brazier", () -> create(EtherBrazierBlockEntity::new, getBlocks(EtherBrazierBlock.class)).setTickerType(Type.CLIENT).build());
     public static final Supplier<LodestoneBlockEntityType<EtherCressetBlockEntity>> ETHER_CRESSET = BLOCK_ENTITY_TYPES.register("ether_cresset", () -> create(EtherCressetBlockEntity::new, getBlocks(EtherCressetBlock.class)).setTickerType(Type.CLIENT).build());
 
+    public static final Supplier<LodestoneBlockEntityType<FancyBannerBlockEntity>> FANCY_BANNER = BLOCK_ENTITY_TYPES.register("fancy_banner", () -> create(FancyBannerBlockEntity::new, getBlocks(FancyBannerBlock.class)).build());
     public static final Supplier<LodestoneBlockEntityType<SoulwovenBannerBlockEntity>> SOULWOVEN_BANNER = BLOCK_ENTITY_TYPES.register("soulwoven_banner", () -> create(SoulwovenBannerBlockEntity::new, getBlocks(SoulwovenBannerBlock.class)).build());
 
     public static final Supplier<LodestoneBlockEntityType<SpiritAltarBlockEntity>> SPIRIT_ALTAR = BLOCK_ENTITY_TYPES.register("spirit_altar", () -> create(SpiritAltarBlockEntity::new, MalumContent.Sorcery.SPIRIT_ALTAR).setTickerType(Type.BOTH).build());
@@ -120,7 +128,10 @@ public class MalumBlockEntities {
     public static final Supplier<LodestoneBlockEntityType<GustIgniterBlockEntity>> GUST_IGNITER = BLOCK_ENTITY_TYPES.register("gust_igniter", () -> create(GustIgniterBlockEntity::new, MalumContent.Artifice.GUST_IGNITER).setTickerType(Type.BOTH).build());
     public static final Supplier<LodestoneBlockEntityType<WindTunnelBlockEntity>> WIND_TUNNEL = BLOCK_ENTITY_TYPES.register("wind_tunnel", () -> create(WindTunnelBlockEntity::new, MalumContent.Artifice.WIND_TUNNEL).build());
 
-    public static final Supplier<LodestoneBlockEntityType<VoidConduitBlockEntity>> VOID_CONDUIT = BLOCK_ENTITY_TYPES.register("void_conduit", () -> create(VoidConduitBlockEntity::new, MalumContent.WeepingWell.WEEPING_WELL_CENTERPIECE).setTickerType(Type.BOTH).build());
+
+    public static final Supplier<LodestoneBlockEntityType<MyriadGatewayBlockEntity>> MYRIAD_GATEWAY = BLOCK_ENTITY_TYPES.register("myriad_gateway", () -> create(MyriadGatewayBlockEntity::new, MalumContent.Enscription.MYRIAD_GATEWAY).setTickerType(Type.BOTH).build());
+
+    public static final Supplier<LodestoneBlockEntityType<VoidConduitBlockEntity>> VOID_CONDUIT = BLOCK_ENTITY_TYPES.register("void_conduit", () -> create(VoidConduitBlockEntity::new, MalumContent.Enscription.WEEPING_WELL_CENTERPIECE).setTickerType(Type.BOTH).build());
 
 
     public static void bindBlockEntities(BlockEntityTypeAddBlocksEvent event) {
@@ -165,8 +176,6 @@ public class MalumBlockEntities {
     public static class ClientOnly {
         @SubscribeEvent
         public static void registerRenderer(EntityRenderersEvent.RegisterRenderers event) {
-            event.registerBlockEntityRenderer(VOID_CONDUIT.get(), VoidConduitRenderer::new);
-
             event.registerBlockEntityRenderer(SPIRIT_ALTAR.get(), SpiritAltarRenderer::new);
             event.registerBlockEntityRenderer(SPIRIT_JAR.get(), SpiritJarRenderer::new);
             event.registerBlockEntityRenderer(RUNIC_WORKBENCH.get(), MalumItemHolderRenderer::new);
@@ -192,7 +201,11 @@ public class MalumBlockEntities {
 
             event.registerBlockEntityRenderer(WIND_TUNNEL.get(), WindTunnelRenderer::new);
 
+            event.registerBlockEntityRenderer(FANCY_BANNER.get(), FancyBannerRenderer::new);
             event.registerBlockEntityRenderer(SOULWOVEN_BANNER.get(), SoulwovenBannerRenderer::new);
+
+            event.registerBlockEntityRenderer(MYRIAD_GATEWAY.get(), MyriadGatewayRenderer::new);
+
         }
     }
 }

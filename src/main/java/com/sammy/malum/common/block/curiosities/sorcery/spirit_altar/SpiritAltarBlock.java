@@ -13,6 +13,7 @@ import net.neoforged.neoforge.items.ItemHandlerHelper;
 import team.lodestar.lodestone.modules.toolkit.block.WaterLoggedEntityBlock;
 
 public class SpiritAltarBlock<T extends SpiritAltarBlockEntity> extends WaterLoggedEntityBlock<T> {
+
     public static final VoxelShape SHAPE = makeShape();
     public static final VoxelShape RENDER_SHAPE = makeRenderShape();
 

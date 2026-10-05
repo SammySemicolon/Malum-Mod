@@ -2,10 +2,10 @@
   "parent": "malum:block/templates/flesh/template_writhing_flesh",
   "render_type": "minecraft:cutout",
   "textures": {
-    "large_end": "malum:block/dungeon/flesh/writhing_flesh_large_end",
-    "large_start": "malum:block/dungeon/flesh/writhing_flesh_large_start",
-    "particle": "malum:block/dungeon/flesh/writhing_flesh_large_start",
-    "small_end": "malum:block/dungeon/flesh/writhing_flesh_small_end",
-    "small_start": "malum:block/dungeon/flesh/writhing_flesh_small_start"
+    "large_end": "malum:block/enscription/flesh/writhing_flesh_large_end",
+    "large_start": "malum:block/enscription/flesh/writhing_flesh_large_start",
+    "particle": "malum:block/enscription/flesh/writhing_flesh_large_start",
+    "small_end": "malum:block/enscription/flesh/writhing_flesh_small_end",
+    "small_start": "malum:block/enscription/flesh/writhing_flesh_small_start"
   }
 }

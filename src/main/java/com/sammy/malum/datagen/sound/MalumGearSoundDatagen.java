@@ -72,15 +72,15 @@ public class MalumGearSoundDatagen extends MalumSoundDatagenWrapper {
         add(SUNDERING_ANCHOR_THROW, s -> s.with(allSounds("curiosities/gear/weapons/scythe/throw")));
         add(SUNDERING_ANCHOR_CATCH, s -> s.with(allSounds("curiosities/gear/weapons/scythe/catch")));
 
-        //Vindicative Brand
-        add(VINDICATIVE_BRAND_SWING, s -> s.with(allSounds("curiosities/gear/weapons/vindicative_brand/swing")));
-        add(VINDICATIVE_BRAND_UNLEASHED_SWING, s -> s.with(allSounds("curiosities/gear/weapons/vindicative_brand/unleashed_swing")));
-        add(VINDICATIVE_BRAND_EXTRA_SWING, s -> s.with(allSounds("curiosities/gear/weapons/vindicative_brand/extra_swing")));
-        add(VINDICATIVE_BRAND_SPROUT_RESENTMENT, s -> s.with(allSounds("curiosities/gear/weapons/vindicative_brand/sprout")));
-        add(VINDICATIVE_BRAND_PROGRESS_RITUAL, s -> s.with(allSounds("curiosities/gear/weapons/vindicative_brand/ritual")));
-        add(VINDICATIVE_BRAND_DASH, s -> s.with(allSounds("curiosities/gear/weapons/vindicative_brand/dash")));
-        add(VINDICATIVE_BRAND_DASH_CLEAVE, s -> s.with(allSounds("curiosities/gear/weapons/vindicative_brand/dash_cleave")));
-        add(VINDICATIVE_BRAND_UNLEASHED_DASH_CLEAVE, s -> s.with(allSounds("curiosities/gear/weapons/vindicative_brand/unleashed_dash_cleave")));
+        //Vindictive Brand
+        add(VINDICTIVE_BRAND_SWING, s -> s.with(allSounds("curiosities/gear/weapons/vindictive_brand/swing")));
+        add(VINDICTIVE_BRAND_UNLEASHED_SWING, s -> s.with(allSounds("curiosities/gear/weapons/vindictive_brand/unleashed_swing")));
+        add(VINDICTIVE_BRAND_EXTRA_SWING, s -> s.with(allSounds("curiosities/gear/weapons/vindictive_brand/extra_swing")));
+        add(VINDICTIVE_BRAND_SPROUT_RESENTMENT, s -> s.with(allSounds("curiosities/gear/weapons/vindictive_brand/sprout")));
+        add(VINDICTIVE_BRAND_PROGRESS_RITUAL, s -> s.with(allSounds("curiosities/gear/weapons/vindictive_brand/ritual")));
+        add(VINDICTIVE_BRAND_DASH, s -> s.with(allSounds("curiosities/gear/weapons/vindictive_brand/dash")));
+        add(VINDICTIVE_BRAND_DASH_CLEAVE, s -> s.with(allSounds("curiosities/gear/weapons/vindictive_brand/dash_cleave")));
+        add(VINDICTIVE_BRAND_UNLEASHED_DASH_CLEAVE, s -> s.with(allSounds("curiosities/gear/weapons/vindictive_brand/unleashed_dash_cleave")));
 
 
 

@@ -53,9 +53,9 @@ public class MalumAttachmentTypes {
             "staff_abilities", () -> AttachmentType.builder(StaffAbilityData::new)
                     .serialize(StaffAbilityData.CODEC).sync(StaffAbilityData.STREAM_CODEC).build());
 
-    public static final Supplier<AttachmentType<VindicativeBrandDashData>> VINDICATIVE_BRAND_DASH_DATA = ATTACHMENT_TYPES.register(
-            "vindicative_brand_dash", () -> AttachmentType.builder(VindicativeBrandDashData::new)
-                    .serialize(VindicativeBrandDashData.CODEC).build());
+    public static final Supplier<AttachmentType<VindictiveBrandDashData>> VINDICTIVE_BRAND_DASH_DATA = ATTACHMENT_TYPES.register(
+            "vindictive_brand_dash", () -> AttachmentType.builder(VindictiveBrandDashData::new)
+                    .serialize(VindictiveBrandDashData.CODEC).build());
 
     public static final Supplier<AttachmentType<WeepingWellData>> WEEPING_WELL_INFO = ATTACHMENT_TYPES.register(
             "weeping_well_info", () -> AttachmentType.builder(WeepingWellData::new)

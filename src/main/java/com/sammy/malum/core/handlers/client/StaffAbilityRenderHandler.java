@@ -85,7 +85,7 @@ public class StaffAbilityRenderHandler {
                             RenderSystem.defaultBlendFunc();
                         }
                     }
-                    shaderInstance.setUniformDefaults();
+                    shaderInstance.applyUniformDefaults();
                     RenderSystem.disableBlend();
                     poseStack.popPose();
                 }

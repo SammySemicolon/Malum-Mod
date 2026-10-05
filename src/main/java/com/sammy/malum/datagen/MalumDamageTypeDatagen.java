@@ -36,9 +36,9 @@ public class MalumDamageTypeDatagen {
         register(context, MalumDamageTypes.SUNDERING_ANCHOR_PHYSICAL_COMBO);
         register(context, MalumDamageTypes.SUNDERING_ANCHOR_MAGIC_COMBO);
 
-        register(context, MalumDamageTypes.VINDICATIVE_BRAND_MELEE);
-        register(context, MalumDamageTypes.VINDICATIVE_BRAND_SWEEP);
-        register(context, MalumDamageTypes.VINDICATIVE_BRAND_COMBO);
+        register(context, MalumDamageTypes.VINDICTIVE_BRAND_MELEE);
+        register(context, MalumDamageTypes.VINDICTIVE_BRAND_SWEEP);
+        register(context, MalumDamageTypes.VINDICTIVE_BRAND_COMBO);
 
         register(context, MalumDamageTypes.WARLOCK_SPIRIT_IMPACT);
         register(context, MalumDamageTypes.BERSERKER_SPIRIT_IMPACT);

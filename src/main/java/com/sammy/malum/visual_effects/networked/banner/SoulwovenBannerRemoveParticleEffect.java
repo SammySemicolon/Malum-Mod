@@ -1,6 +1,6 @@
 package com.sammy.malum.visual_effects.networked.banner;
 
-import com.sammy.malum.common.block.curiosities.decor.banner.*;
+import com.sammy.malum.common.block.building.banner.soulwoven.SoulwovenBannerBlockEntity;
 import com.sammy.malum.visual_effects.block.SoulwovenBannerParticleEffects;
 import com.sammy.malum.visual_effects.networked.*;
 import net.minecraft.util.*;

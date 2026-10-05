@@ -9,7 +9,7 @@ import com.sammy.malum.common.effect.geas.*;
 import com.sammy.malum.common.effect.gluttony.*;
 import com.sammy.malum.common.effect.rite.*;
 import com.sammy.malum.common.effect.weapon.*;
-import com.sammy.malum.common.effect.weapon.vindicative_brand.*;
+import com.sammy.malum.common.effect.weapon.vindictive_brand.*;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.item.alchemy.PotionBrewing;

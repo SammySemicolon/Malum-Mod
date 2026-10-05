@@ -126,10 +126,10 @@ public class SoulWardRenderHandler {
                             builder.setTexture(SOUL_WARD).blit(poseStack);
                         }
                         builder.setTexture(GLOW).blit(poseStack);
-                        light.setUniformDefaults();
+                        light.applyUniformDefaults();
                     }
-                    distorted.setUniformDefaults();
-                    hud.setUniformDefaults();
+                    distorted.applyUniformDefaults();
+                    hud.applyUniformDefaults();
                     RenderSystem.defaultBlendFunc();
                     RenderSystem.disableBlend();
                     poseStack.popPose();

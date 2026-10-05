@@ -15,6 +15,7 @@ import team.lodestar.lodestone.modules.core.easing.Easing;
 import team.lodestar.lodestone.systems.rendering.builder.data.CubeVertexData;
 import team.lodestar.lodestone.systems.rendering.rendeertype.*;
 import team.lodestar.lodestone.systems.rendering.trail.*;
+import team.lodestar.lodestone.systems.rendering.uniform.UniformData;
 
 public class BlockRiteEffectWaveActivatorRenderer extends AbstractEffectActivatorEntityRenderer<BlockRiteEffectWaveActivator> {
 
@@ -53,8 +54,8 @@ public class BlockRiteEffectWaveActivatorRenderer extends AbstractEffectActivato
     @Override
     public void render(BlockRiteEffectWaveActivator entity, float entityYaw, float partialTicks, PoseStack poseStack, MultiBufferSource bufferIn, int packedLightIn) {
         var spirit = entity.getSpiritType();
-        var front = LodestoneRenderTypes.ADDITIVE_TEXTURE.apply(FRONT).withUniformHandler(ShaderUniformHandler::withLumiTransparency);
-        var side = LodestoneRenderTypes.ADDITIVE_TEXTURE.apply(SIDE).withUniformHandler(ShaderUniformHandler::withLumiTransparency);
+        var front = LodestoneRenderTypes.ADDITIVE_TEXTURE.apply(FRONT).addUniformData(UniformData.LUMITRANSPARENT);
+        var side = LodestoneRenderTypes.ADDITIVE_TEXTURE.apply(SIDE).addUniformData(UniformData.LUMITRANSPARENT);
         var builder = SpiritBasedWorldVFXBuilder.create(spirit);
         var primaryColor = spirit.getPrimaryColor();
 

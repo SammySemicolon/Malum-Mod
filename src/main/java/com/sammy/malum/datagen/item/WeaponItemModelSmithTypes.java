@@ -41,7 +41,7 @@ public class WeaponItemModelSmithTypes {
     public static ItemModelSmith LARGE_HANDHELD_ITEM = ItemModelSmith.parentedItem(HANDHELD, false).modifyResult(LARGE_ITEM.apply(create(LARGE_HANDHELD)));
     public static ItemModelSmith GREATSWORD_ITEM = ItemModelSmith.parentedItem(HANDHELD, false).modifyResult(LARGE_ITEM.apply(create(GREATSWORD)));
 
-    public static ItemModelSmith VINDICATIVE_BRAND = new ItemModelSmith((item, provider) -> {
+    public static ItemModelSmith VINDICTIVE_BRAND = new ItemModelSmith((item, provider) -> {
         var sealed = GREATSWORD_ITEM.act(provider, item);
         var affix = "_unsealed";
         var config = create(GREATSWORD).addModelPathAffix(affix).addTexturePathAffix(affix);

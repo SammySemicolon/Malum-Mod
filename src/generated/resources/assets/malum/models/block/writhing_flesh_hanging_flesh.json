@@ -2,9 +2,9 @@
   "parent": "malum:block/templates/flesh/template_hanging_flesh",
   "render_type": "minecraft:cutout",
   "textures": {
-    "large_end": "malum:block/dungeon/flesh/hanging_flesh_large_end",
-    "large_start": "malum:block/dungeon/flesh/hanging_flesh_large_start",
-    "particle": "malum:block/dungeon/flesh/hanging_flesh_large_start",
-    "small": "malum:block/dungeon/flesh/hanging_flesh_small"
+    "large_end": "malum:block/enscription/flesh/hanging_flesh_large_end",
+    "large_start": "malum:block/enscription/flesh/hanging_flesh_large_start",
+    "particle": "malum:block/enscription/flesh/hanging_flesh_large_start",
+    "small": "malum:block/enscription/flesh/hanging_flesh_small"
   }
 }

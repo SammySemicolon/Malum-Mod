@@ -1,7 +1,8 @@
 package com.sammy.malum.common.creativetab;
 
-import com.sammy.malum.common.block.curiosities.decor.banner.SoulwovenBannerBlockItem;
+import com.sammy.malum.common.block.building.banner.soulwoven.SoulwovenBannerBlockItem;
 import com.sammy.malum.registry.common.util.building.CommonStoneBuildingSet;
+import com.sammy.malum.registry.common.util.building.WoolRegistrySet;
 import team.lodestar.lodestone.modules.toolkit.creative_tab.CategorizedBuilder;
 
 import static com.sammy.malum.registry.common.MalumContent.*;
@@ -36,10 +37,13 @@ public class MalumLesserSoulstuffTab extends AbstractMalumCreativeTab {
                                 BuildingBlocks.INFERNAL_VARNISHED_TERRACOTTA,
                                 BuildingBlocks.NULL_VARNISHED_TERRACOTTA
                         ).nextLine()
-                        .addItems(SoulwovenBannerBlockItem::addBannerPatterns)
                         .bake();
                 createCategory("common_rock")
                         .addItems(CommonStoneBuildingSet::addCommonRock)
+                        .bake();
+                createCategory("textile_works")
+                        .addItems(WoolRegistrySet::addWools)
+                        .addItems(SoulwovenBannerBlockItem::addBannerPatterns)
                         .bake();
                 createCategory("ether")
                         .addItems(

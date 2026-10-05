@@ -40,11 +40,10 @@ public class DyedVariantBundle<T> extends MalumRegistrySet {
     protected final ImmutableMap<DyeColor, T> variants;
 
     public DyedVariantBundle(String id, BiFunction<String, DyeColor, T> registry) {
-        super(id);
+        super(id.replace("%c_", ""));
         var builder = ImmutableMap.<DyeColor, T>builder();
         for (DyeColor color : DyeColor.values()) {
-            var colorName = color.getName();
-            var entryId = name(colorName + "_%s");
+            String entryId = id.replace("%c", color.getName());
             T object = registry.apply(entryId, color);
             builder.put(color, object);
         }
@@ -63,5 +62,11 @@ public class DyedVariantBundle<T> extends MalumRegistrySet {
 
     public T getVariant(DyeColor color) {
         return variants.get(color);
+    }
+
+    public void forEachVariant(BiConsumer<DyeColor, T> consumer) {
+        for (DyeColor dyeColor : variants.keySet()) {
+            consumer.accept(dyeColor, variants.get(dyeColor));
+        }
     }
 }

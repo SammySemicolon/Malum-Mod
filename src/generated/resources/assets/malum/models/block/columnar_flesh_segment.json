@@ -1,7 +1,7 @@
 {
   "parent": "minecraft:block/cube_column",
   "textures": {
-    "end": "malum:block/dungeon/flesh/columnar_flesh_end",
-    "side": "malum:block/dungeon/flesh/columnar_flesh_segment"
+    "end": "malum:block/enscription/flesh/columnar_flesh_end",
+    "side": "malum:block/enscription/flesh/columnar_flesh_segment"
   }
 }

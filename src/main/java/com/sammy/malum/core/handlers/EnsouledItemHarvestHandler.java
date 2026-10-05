@@ -1,6 +1,6 @@
 package com.sammy.malum.core.handlers;
 
-import com.sammy.malum.common.data.custom.spirit.EntitySpiritDropData;
+import com.sammy.malum.common.data.listener.spirit.EntitySpiritDropData;
 import com.sammy.malum.registry.common.*;
 import net.minecraft.server.level.*;
 import net.minecraft.world.entity.*;

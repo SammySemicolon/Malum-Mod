@@ -9,6 +9,10 @@ public class MalumRegistrySet {
     }
 
     public String name(String name) {
-        return name.replace("%s", id);
+        return name(name, "%s");
+    }
+
+    public String name(String name, String regex) {
+        return name.replace(regex, id);
     }
 }

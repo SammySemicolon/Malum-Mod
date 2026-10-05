@@ -2,9 +2,9 @@ package com.sammy.malum.core.handlers;
 
 import com.mojang.serialization.*;
 import com.sammy.malum.common.data.attachment.*;
-import com.sammy.malum.common.data.custom.reaping.ReapingDropsData;
-import com.sammy.malum.common.data.custom.spirit.EntitySpiritDropData;
-import com.sammy.malum.common.data.custom.reaping.ReapingDataReloadListener;
+import com.sammy.malum.common.data.listener.reaping.ReapingDropsData;
+import com.sammy.malum.common.data.listener.spirit.EntitySpiritDropData;
+import com.sammy.malum.common.data.listener.reaping.ReapingDataReloadListener;
 import com.sammy.malum.common.entity.spirit.*;
 import com.sammy.malum.common.item.*;
 import com.sammy.malum.config.*;

@@ -1,0 +1,29 @@
+{
+  "parent": "minecraft:item/handheld",
+  "base": {
+    "parent": "malum:item/vindictive_brand_gui"
+  },
+  "loader": "neoforge:separate_transforms",
+  "overrides": [
+    {
+      "model": "malum:item/vindictive_brand_unsealed",
+      "predicate": {
+        "malum:unsealed": 1.0
+      }
+    }
+  ],
+  "perspectives": {
+    "firstperson_lefthand": {
+      "parent": "malum:item/vindictive_brand_huge"
+    },
+    "firstperson_righthand": {
+      "parent": "malum:item/vindictive_brand_huge"
+    },
+    "thirdperson_lefthand": {
+      "parent": "malum:item/vindictive_brand_huge"
+    },
+    "thirdperson_righthand": {
+      "parent": "malum:item/vindictive_brand_huge"
+    }
+  }
+}

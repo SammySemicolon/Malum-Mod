@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "malum:block/myriad_gateway",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "malum:block/myriad_gateway"
+    },
+    "facing=south": {
+      "model": "malum:block/myriad_gateway",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "malum:block/myriad_gateway",
+      "y": 270
+    }
+  }
+}

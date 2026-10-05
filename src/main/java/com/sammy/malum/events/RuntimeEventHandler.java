@@ -2,11 +2,12 @@ package com.sammy.malum.events;
 
 import com.sammy.malum.common.block.storage.jar.*;
 import com.sammy.malum.common.data.attachment.AvariceMarkData;
-import com.sammy.malum.common.data.custom.malignant_conversion.MalignantConversionReloadListener;
-import com.sammy.malum.common.data.custom.reaping.ReapingDataReloadListener;
-import com.sammy.malum.common.data.custom.rite.*;
-import com.sammy.malum.common.data.custom.spellweaving.SpellweavingEqualityReloadListener;
-import com.sammy.malum.common.data.custom.spirit.SpiritDataReloadListener;
+import com.sammy.malum.common.data.listener.banner.MalumBannerPatternReloadListener;
+import com.sammy.malum.common.data.listener.malignant_conversion.MalignantConversionReloadListener;
+import com.sammy.malum.common.data.listener.reaping.ReapingDataReloadListener;
+import com.sammy.malum.common.data.listener.rite.*;
+import com.sammy.malum.common.data.listener.spellweaving.SpellweavingEqualityReloadListener;
+import com.sammy.malum.common.data.listener.spirit.SpiritDataReloadListener;
 import com.sammy.malum.common.effect.ascension.*;
 import com.sammy.malum.common.effect.rite.aura.*;
 import com.sammy.malum.common.effect.rite.aura.soulwood.*;
@@ -134,7 +135,7 @@ public class RuntimeEventHandler {
         CurioWatcherNecklace.entityTick(event);
         TouchOfDarknessHandler.entityTick(event);
         CurioHiddenBladeNecklace.entityTick(event);
-        VindicativeBrandSwordItem.entityTick(event);
+        VindictiveBrandSwordItem.entityTick(event);
         MalignantConversionHandler.entityTick(event);
         WeepingWellRejectionHandler.entityTick(event);
     }
@@ -163,6 +164,8 @@ public class RuntimeEventHandler {
     public static void registerListeners(AddReloadListenerEvent event) {
         SpiritDataReloadListener.register(event);
         SpiritRiteTypeReloadListener.register(event);
+
+        MalumBannerPatternReloadListener.register(event);
 
         SpellweavingEqualityReloadListener.register(event);
         ReapingDataReloadListener.register(event);

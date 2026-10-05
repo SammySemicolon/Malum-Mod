@@ -1,11 +1,7 @@
 package com.sammy.malum.registry.common.magic.rite;
 
 import com.sammy.malum.*;
-import com.sammy.malum.common.block.curiosities.totem.*;
-import com.sammy.malum.common.data.custom.rite.*;
-import com.sammy.malum.core.systems.rite.*;
 import net.minecraft.resources.*;
-import net.minecraft.server.level.*;
 
 public class MalumSpiritRiteTypes {
 
