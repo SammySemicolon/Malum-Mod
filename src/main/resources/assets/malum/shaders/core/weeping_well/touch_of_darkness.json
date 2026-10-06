@@ -1,6 +1,6 @@
 {
-  "vertex": "malum:touch_of_darkness",
-  "fragment": "malum:touch_of_darkness",
+  "vertex": "malum:weeping_well/touch_of_darkness",
+  "fragment": "malum:weeping_well/touch_of_darkness",
   "samplers": [
   ],
   "uniforms": [

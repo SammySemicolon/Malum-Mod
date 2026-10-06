@@ -1,4 +1,4 @@
-package com.sammy.malum.events;
+package com.sammy.malum.common.events;
 
 import com.sammy.malum.common.block.building.banner.soulwoven.SoulwovenBannerBlockItem;
 import com.sammy.malum.core.handlers.*;

@@ -1,8 +1,8 @@
-package com.sammy.malum.client.renderer.texture.request.render;
+package com.sammy.malum.client.renderer.texture.dynamic.request;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.DefaultVertexFormat;
-import com.sammy.malum.client.renderer.texture.LodestoneDynamicTexture;
+import com.sammy.malum.client.renderer.texture.dynamic.LodestoneDynamicTexture;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.renderer.ShaderInstance;

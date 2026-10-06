@@ -1,4 +1,4 @@
-package com.sammy.malum.client.renderer.texture.request.load;
+package com.sammy.malum.client.renderer.texture.loaded;
 
 import com.google.common.collect.*;
 import com.mojang.blaze3d.platform.*;
@@ -9,17 +9,17 @@ import net.minecraft.world.item.*;
 import java.util.*;
 import java.util.List;
 
-public class DyePalettesLoadRequest extends NativeTextureLoadRequest {
+public class LoadedDyePalettes extends LoadedTexture {
 
     protected final HashMap<DyeColor, PaletteData> palettes = new HashMap<>();
     protected final int colorAmount;
 
-    public DyePalettesLoadRequest(String readLocation, int colorAmount) {
+    public LoadedDyePalettes(String readLocation, int colorAmount) {
         super(readLocation);
         this.colorAmount = colorAmount;
     }
 
-    public DyePalettesLoadRequest(ResourceLocation readLocation, int colorAmount) {
+    public LoadedDyePalettes(ResourceLocation readLocation, int colorAmount) {
         super(readLocation);
         this.colorAmount = colorAmount;
     }
@@ -40,7 +40,6 @@ public class DyePalettesLoadRequest extends NativeTextureLoadRequest {
                 palettes.put(dyes[i], readPalette(image, x, y));
             }
         }
-        float f = 0;
     }
 
     public PaletteData readPalette(NativeImage image, int x, int y) {

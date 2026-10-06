@@ -1,4 +1,4 @@
-package com.sammy.malum.client.renderer.texture.request.load;
+package com.sammy.malum.client.renderer.texture.loaded;
 
 import com.mojang.blaze3d.platform.NativeImage;
 import com.sammy.malum.*;
@@ -7,16 +7,16 @@ import net.minecraft.server.packs.resources.ResourceManager;
 
 import java.io.IOException;
 
-public class NativeTextureLoadRequest {
+public class LoadedTexture {
 
 	protected final ResourceLocation readLocation;
 	protected NativeImage image;
 
-	public NativeTextureLoadRequest(String readLocation) {
+	public LoadedTexture(String readLocation) {
 		this(MalumMod.malumPath(readLocation));
 	}
 
-	public NativeTextureLoadRequest(ResourceLocation readLocation) {
+	public LoadedTexture(ResourceLocation readLocation) {
 		this.readLocation = readLocation.withPath(p -> p.endsWith(".png") ? p : p + ".png");
 	}
 

@@ -1,8 +1,8 @@
-package com.sammy.malum.client.renderer.texture;
+package com.sammy.malum.client.renderer.texture.dynamic;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.sammy.malum.*;
-import com.sammy.malum.client.renderer.texture.request.render.DynamicTextureRenderRequest;
+import com.sammy.malum.client.renderer.texture.dynamic.request.DynamicTextureRenderRequest;
 import net.minecraft.resources.ResourceLocation;
 
 import java.util.concurrent.CompletableFuture;
