@@ -27,8 +27,14 @@ void main() {
 
         vec3 inputColor = vec3(InputPalette[r], InputPalette[g], InputPalette[b]);
         vec3 outputColor = vec3(OutputPalette[r], OutputPalette[g], OutputPalette[b]);
+
+        if (inputColor.r < 0 || inputColor.g < 0 || inputColor.b < 0) {
+            break;
+        }
+
         if (textureColor.rgb == inputColor) {
             textureColor.rgb = outputColor;
+            break;
         }
     }
 

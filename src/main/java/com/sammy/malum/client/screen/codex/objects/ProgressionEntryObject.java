@@ -82,6 +82,7 @@ public class ProgressionEntryObject extends SelectableEntryObject<AbstractProgre
         if (design != null) {
             CodexOutlineRenderer.create(design, left, top, 64, 64)
                     .setEffectStrength(oldOutlineVisibility, outlineVisibility, 20f)
+                    .setOffset(hashCode() % 800)
                     .renderOutline(poseStack);
             design.getFrameTexture().ifPresent(texture -> renderTexture(texture, poseStack, left, top, 0, 0, 64, 64));
             design.getFillingTexture().ifPresent(texture -> renderTexture(texture, poseStack, left, top, 0, 0, 64, 64));

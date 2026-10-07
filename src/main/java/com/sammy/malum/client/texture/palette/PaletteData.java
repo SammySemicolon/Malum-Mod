@@ -14,6 +14,7 @@ public class PaletteData {
 
     public float[] bakeUniform() {
         float[] array = new float[48];
+        Arrays.fill(array, -1);
         for (int i = 0; i < colors.size(); i++) {
             var index = i * 3;
             var color = colors.get(i);
