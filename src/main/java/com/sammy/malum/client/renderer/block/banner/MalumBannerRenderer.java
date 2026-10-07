@@ -59,7 +59,6 @@ public abstract class MalumBannerRenderer<T extends FancyBannerBlockEntity> impl
         var builder = VFXBuilders.createWorld().setLightLevel(pos);
 
         renderBanner(blockEntity, poseStack, builder, vertices);
-        builder.renderQuad(poseStack, vertices);
         poseStack.popPose();
     }
 

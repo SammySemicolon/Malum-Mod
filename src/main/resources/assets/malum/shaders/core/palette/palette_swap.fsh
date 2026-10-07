@@ -4,8 +4,8 @@
 
 uniform sampler2D Sampler0;
 
-
-uniform float GameTime;
+uniform float InputPalette[48];
+uniform float OutputPalette[48];
 
 in vec2 texCoord0;
 
@@ -18,10 +18,19 @@ void main() {
     if (textureColor.a == 0) {
         discard;
     }
-    vec4 cutoutColor = texture(Sampler1, uv);
-    vec4 targetColor = texture(Sampler2, uv);
-    float lumi = 0.21 * cutoutColor.r + 0.71 * cutoutColor.g + 0.07 * cutoutColor.b;
-    vec4 combinedColor = textureColor;
-    combinedColor += targetColor * lumi;
-    fragColor = combinedColor;
+
+    for(int i = 0; i <= 16; i++) {
+        int index = i * 3;
+        int r = index;
+        int g = index + 1;
+        int b = index + 2;
+
+        vec3 inputColor = vec3(InputPalette[r], InputPalette[g], InputPalette[b]);
+        vec3 outputColor = vec3(OutputPalette[r], OutputPalette[g], OutputPalette[b]);
+        if (textureColor.rgb == inputColor) {
+            textureColor.rgb = outputColor;
+        }
+    }
+
+    fragColor = textureColor;
 }

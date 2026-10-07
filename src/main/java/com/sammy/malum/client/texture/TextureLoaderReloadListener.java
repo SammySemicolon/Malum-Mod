@@ -1,5 +1,6 @@
-package com.sammy.malum.client.renderer.texture.loaded;
+package com.sammy.malum.client.texture;
 
+import com.sammy.malum.client.texture.palette.*;
 import net.minecraft.server.packs.resources.*;
 import net.neoforged.neoforge.client.event.*;
 
@@ -11,7 +12,7 @@ public final class TextureLoaderReloadListener implements ResourceManagerReloadL
 
 	private final ArrayList<LoadedTexture> textures = new ArrayList<>();
 
-	public final LoadedTexture woolColors = register(new LoadedDyePalettes("textures/palettes/wools", 8));
+	public final LoadedDyePalettes woolColors = register(new LoadedDyePalettes("textures/palettes/wools", 8));
 
 	public static void register(RegisterClientReloadListenersEvent event) {
 		event.registerReloadListener(DATA);
@@ -24,7 +25,7 @@ public final class TextureLoaderReloadListener implements ResourceManagerReloadL
 		}
 	}
 
-	public LoadedTexture register(LoadedTexture texture) {
+	public <T extends LoadedTexture> T register(T texture) {
 		textures.add(texture);
 		return texture;
 	}

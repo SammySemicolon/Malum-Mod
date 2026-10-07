@@ -1,6 +1,6 @@
 package com.sammy.malum.client.events;
 
-import com.sammy.malum.client.renderer.texture.loaded.*;
+import com.sammy.malum.client.texture.*;
 import com.sammy.malum.client.scarf.*;
 import com.sammy.malum.common.item.*;
 import com.sammy.malum.common.item.augment.*;

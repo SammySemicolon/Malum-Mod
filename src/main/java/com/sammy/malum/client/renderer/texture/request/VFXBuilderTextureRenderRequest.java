@@ -1,16 +1,20 @@
-package com.sammy.malum.client.renderer.texture.dynamic.request;
+package com.sammy.malum.client.renderer.texture.request;
 
+import com.mojang.blaze3d.shaders.*;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.DefaultVertexFormat;
-import com.sammy.malum.client.renderer.texture.dynamic.LodestoneDynamicTexture;
+import com.sammy.malum.client.renderer.texture.LodestoneDynamicTexture;
+import com.sammy.malum.client.texture.palette.*;
+import com.sammy.malum.registry.client.*;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.renderer.ShaderInstance;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.*;
 import team.lodestar.lodestone.systems.rendering.builder.VFXBuilders;
 import team.lodestar.lodestone.systems.rendering.shader.ExtendedShaderInstance;
 import team.lodestar.lodestone.systems.rendering.shader.ShaderHolder;
-import team.lodestar.lodestone.systems.rendering.uniform.UniformData;
+import team.lodestar.lodestone.systems.rendering.uniform.*;
 
 public class VFXBuilderTextureRenderRequest extends DynamicTextureRenderRequest {
 
@@ -20,6 +24,23 @@ public class VFXBuilderTextureRenderRequest extends DynamicTextureRenderRequest 
 
     public static VFXBuilderTextureRenderRequest create(ResourceLocation writeLocation) {
         return new VFXBuilderTextureRenderRequest(writeLocation);
+    }
+
+    public static VFXBuilderTextureRenderRequest paletteSwap(ResourceLocation writeLocation, LoadedDyePalettes dyePalettes, DyeColor outputColor) {
+        if (outputColor.equals(DyeColor.WHITE)) {
+            throw new IllegalArgumentException("Cannot swap dye palette from white to white!");
+        }
+        return paletteSwap(writeLocation, dyePalettes.get(DyeColor.WHITE), dyePalettes.get(outputColor));
+    }
+
+    public static VFXBuilderTextureRenderRequest paletteSwap(ResourceLocation writeLocation, PaletteData input, PaletteData output) {
+        var builder = new VFXBuilderTextureRenderRequest(writeLocation);
+        builder.setShader(MalumShaders.PALETTE_SWAP);
+        var data = UniformData.create();
+        data.setUniform("InputPalette", input.bakeUniform());
+        data.setUniform("OutputPalette", output.bakeUniform());
+        builder.setUniforms(data.build());
+        return builder;
     }
 
     protected VFXBuilderTextureRenderRequest(ResourceLocation writeLocation) {

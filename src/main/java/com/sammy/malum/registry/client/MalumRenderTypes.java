@@ -16,6 +16,12 @@ import static team.lodestar.lodestone.registry.client.LodestoneRenderTypes.creat
 public class MalumRenderTypes extends RenderStateShard {
 
 
+//    public static final RenderTypeProvider PALETTE_SWAP = new RenderTypeProvider((token) ->
+//            createGenericRenderType(token, "palette_swap", POSITION_COLOR_TEX_LIGHTMAP, QUADS,
+//                    b -> b.setStateShards(StateShards.NORMAL_TRANSPARENCY, MalumShaders.PALETTE_SWAP, NO_CULL)));
+
+
+
     public static final RenderTypeProvider WEEPING_SKYBOX = new RenderTypeProvider((token) ->
             createGenericRenderType(token, "weeping_skybox", POSITION_TEX_COLOR, QUADS,
                     b -> b.setStateShards(StateShards.NORMAL_TRANSPARENCY, MalumShaders.WEEPING_SKYBOX, ParallelWorldRenderer.getOutputState())));

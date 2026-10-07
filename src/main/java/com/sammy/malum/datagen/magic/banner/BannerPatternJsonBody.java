@@ -43,7 +43,7 @@ public class BannerPatternJsonBody extends ModularDatagenJsonBody<MalumBannerPat
     @Override
     public MalumBannerPatternType build(ModularDatagenProvider datagen, RegistryOps<JsonElement> dynamicOps, HolderLookup.Provider provider) {
         if (texture == null) {
-            texture = id.withPath(p -> "textures/block/building/wool/banner_patterns/" + p + ".png");
+            texture = id.withPath(p -> "textures/block/banners/" + p + ".png");
         }
         return new MalumBannerPatternType(id, texture);
     }

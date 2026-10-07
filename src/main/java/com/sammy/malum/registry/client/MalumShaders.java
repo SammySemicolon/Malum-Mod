@@ -13,6 +13,8 @@ public class MalumShaders {
 
     public static ShaderRegister SHADERS = new ShaderRegister(MalumMod.MALUM);
 
+    public static ShaderHolder PALETTE_SWAP = SHADERS.register("palette/palette_swap", DefaultVertexFormat.POSITION_COLOR_TEX_LIGHTMAP);
+
     //BOOK
     public static ShaderHolder PROGRESSION_SCREEN = SHADERS.register("book/progression_screen", DefaultVertexFormat.POSITION_TEX);
     public static ShaderHolder OUTLINED_HUD_ELEMENT = SHADERS.register("book/object_outline", DefaultVertexFormat.POSITION_TEX);

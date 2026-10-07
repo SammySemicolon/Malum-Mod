@@ -1,4 +1,4 @@
-package com.sammy.malum.client.renderer.texture.loaded;
+package com.sammy.malum.client.texture;
 
 import com.mojang.blaze3d.platform.NativeImage;
 import com.sammy.malum.*;

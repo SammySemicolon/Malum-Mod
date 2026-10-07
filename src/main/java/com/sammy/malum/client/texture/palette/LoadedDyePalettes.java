@@ -1,7 +1,7 @@
-package com.sammy.malum.client.renderer.texture.loaded;
+package com.sammy.malum.client.texture.palette;
 
-import com.google.common.collect.*;
 import com.mojang.blaze3d.platform.*;
+import com.sammy.malum.client.texture.*;
 import net.minecraft.resources.*;
 import net.minecraft.server.packs.resources.*;
 import net.minecraft.world.item.*;
@@ -22,6 +22,10 @@ public class LoadedDyePalettes extends LoadedTexture {
     public LoadedDyePalettes(ResourceLocation readLocation, int colorAmount) {
         super(readLocation);
         this.colorAmount = colorAmount;
+    }
+
+    public PaletteData get(DyeColor color) {
+        return palettes.get(color);
     }
 
     @Override
@@ -49,13 +53,5 @@ public class LoadedDyePalettes extends LoadedTexture {
             colors.add(rgba);
         }
         return new PaletteData(colors);
-    }
-
-    public static class PaletteData {
-        protected final List<Integer> colors;
-
-        public PaletteData(List<Integer> colors) {
-            this.colors = ImmutableList.copyOf(colors);
-        }
     }
 }

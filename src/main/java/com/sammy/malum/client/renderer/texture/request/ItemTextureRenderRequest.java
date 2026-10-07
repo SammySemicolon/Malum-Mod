@@ -1,7 +1,7 @@
-package com.sammy.malum.client.renderer.texture.dynamic.request;
+package com.sammy.malum.client.renderer.texture.request;
 
-import com.sammy.malum.client.renderer.texture.dynamic.DynamicTextureRenderer;
-import com.sammy.malum.client.renderer.texture.dynamic.LodestoneDynamicTexture;
+import com.sammy.malum.client.renderer.texture.DynamicTextureRenderer;
+import com.sammy.malum.client.renderer.texture.LodestoneDynamicTexture;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.BlockItem;
