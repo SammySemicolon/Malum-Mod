@@ -80,9 +80,10 @@ public class ProgressionEntryObject extends SelectableEntryObject<AbstractProgre
         int centerY = getCenterY();
         renderTexture(WIDGET_FADE_TEXTURE, poseStack, centerX - 29, centerY - 29, 0, 0, 58, 58);
         if (design != null) {
+            final var offset = hashCode() % 800;
             CodexOutlineRenderer.create(design, left, top, 64, 64)
                     .setEffectStrength(oldOutlineVisibility, outlineVisibility, 20f)
-                    .setOffset(hashCode() % 800)
+                    .setOffset(offset)
                     .renderOutline(poseStack);
             design.getFrameTexture().ifPresent(texture -> renderTexture(texture, poseStack, left, top, 0, 0, 64, 64));
             design.getFillingTexture().ifPresent(texture -> renderTexture(texture, poseStack, left, top, 0, 0, 64, 64));
