@@ -36,7 +36,7 @@ public class DisplayedItem extends DisplayedGizmo {
     }
 
     @Override
-    public void renderDecals(AbstractMalumCodexScreen screen, IGizmoHolder holder, GuiGraphics guiGraphics, int x, int y, int mouseX, int mouseY) {
+    public void renderDecals(AbstractMalumCodexScreen screen, IGizmoHolder holder, GuiGraphics guiGraphics, int x, int y, int mouseX, int mouseY, float partialTicks) {
         var request = ItemTextureRenderRequest.create(itemDisplay, r -> r.withSuffix("_gizmo"));
         var dynamicTexture = DynamicTextureRenderer.create(request).setTextureSize(16, 16).bakeTexture();
         if (dynamicTexture == null) {

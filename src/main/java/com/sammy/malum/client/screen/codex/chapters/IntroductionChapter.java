@@ -4,15 +4,14 @@ import com.sammy.malum.client.screen.codex.BookEntry;
 import com.sammy.malum.client.screen.codex.EntryAcceptor;
 import com.sammy.malum.client.screen.codex.EntryBookmark;
 import com.sammy.malum.client.screen.codex.display.CodexIconRenderer;
-import com.sammy.malum.client.screen.codex.display.gizmo.DisplayedTexture;
+import com.sammy.malum.client.screen.codex.display.gizmo.*;
 import com.sammy.malum.client.screen.codex.pages.CyclingPage;
 import com.sammy.malum.client.screen.codex.pages.PageSelectionPage;
 import com.sammy.malum.client.screen.codex.pages.display.SoulstoneGrowthStagePage;
 import com.sammy.malum.client.screen.codex.pages.recipe.vanilla.CraftingPage;
 import com.sammy.malum.client.screen.codex.pages.recipe.vanilla.CraftingPage.CraftingGridContents;
 import com.sammy.malum.client.screen.codex.pages.recipe.vanilla.SmeltingPage;
-import com.sammy.malum.client.screen.codex.pages.text.HeadlineTextPage;
-import com.sammy.malum.client.screen.codex.pages.text.TextPage;
+import com.sammy.malum.client.screen.codex.pages.text.*;
 import com.sammy.malum.core.systems.spirit.SpiritLike;
 import com.sammy.malum.registry.common.MalumContent.*;
 import com.sammy.malum.registry.common.magic.MalumSpiritTypes;
@@ -232,9 +231,10 @@ public class IntroductionChapter extends BookChapter {
 
     public static void addSpiritEntry(EntryAcceptor acceptor, SpiritLike spirit, int x, int y) {
         var translationKey = spirit.getRegistryName().getPath();
+        var symbol = DisplayedSpiritSymbol.spirit(spirit);
         acceptor.addEntry(translationKey, x, y)
                 .setIcon(item(spirit.getSpiritStack()))
-                .addPage(HeadlineTextPage.headlineText(translationKey))
+                .addPage(HeadlineSpiritPage.spirit(translationKey, symbol))
                 .addPage(TextPage.textPage(translationKey + ".2"));
     }
 }

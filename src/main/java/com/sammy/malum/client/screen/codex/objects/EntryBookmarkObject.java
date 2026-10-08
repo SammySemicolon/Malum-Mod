@@ -2,7 +2,6 @@ package com.sammy.malum.client.screen.codex.objects;
 
 import com.sammy.malum.*;
 import com.sammy.malum.client.screen.codex.EntryBookmark;
-import com.sammy.malum.client.screen.codex.display.IGizmoHolder;
 import com.sammy.malum.client.screen.codex.screens.*;
 import com.sammy.malum.registry.common.sound.MalumSoundEvents;
 import net.minecraft.client.gui.*;
@@ -63,6 +62,6 @@ public class EntryBookmarkObject extends SelectableEntryObject<CodexEntryScreen>
                 .setColor(color)
                 .blit(poseStack);
         icon.setColor(color);
-        icon.render(screen, this, guiGraphics, gizmoX, entryY+4, mouseX, mouseY);
+        icon.render(screen, this, guiGraphics, gizmoX, entryY+4, mouseX, mouseY, partialTicks);
     }
 }

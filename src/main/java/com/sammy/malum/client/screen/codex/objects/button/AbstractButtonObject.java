@@ -60,7 +60,7 @@ public abstract class AbstractButtonObject extends BookObject<CodexEntryScreen> 
         renderTexture(texture, poseStack, x, y, 0, 0, width, height);
         if (icon != null) {
             int offset = getGizmoOffset();
-            icon.render(screen, this, guiGraphics, x + offset, y + offset, mouseX, mouseY);
+            icon.render(screen, this, guiGraphics, x + offset, y + offset, mouseX, mouseY, partialTicks);
         }
     }
 

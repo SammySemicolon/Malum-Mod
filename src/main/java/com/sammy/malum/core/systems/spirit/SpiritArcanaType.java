@@ -18,15 +18,14 @@ import java.util.*;
 public class SpiritArcanaType implements SpiritLike {
 
     public static final Codec<Holder<SpiritArcanaType>> HOLDER_CODEC = MalumSpiritTypes.SPIRIT_TYPES_REGISTRY.holderByNameCodec();
-
     public static final Codec<SpiritArcanaType> CODEC = MalumSpiritTypes.SPIRIT_TYPES_REGISTRY.byNameCodec();
-
     public static StreamCodec<ByteBuf, SpiritArcanaType> STREAM_CODEC = ByteBufCodecs.fromCodec(SpiritArcanaType.CODEC);
 
     private final SpiritColorProperties colorProperties;
     private final DeferredHolder<Item, SpiritShardItem> spiritShard;
 
     protected SpiritTextData textData;
+    protected SpiritTextureData textureData;
 
     protected ResourceLocation glowTexture;
 
@@ -40,16 +39,18 @@ public class SpiritArcanaType implements SpiritLike {
         return this;
     }
 
-    @Override
     public SpiritTextData getTextData() {
         if (textData == null) {
-            textData = createTextData(getRegistryName());
+            textData = new SpiritTextData(getRegistryName(), getPrimaryColor());
         }
         return textData;
     }
 
-    public SpiritTextData createTextData(ResourceLocation id) {
-        return new SpiritTextData(id, getPrimaryColor());
+    public SpiritTextureData getTextureData() {
+        if (textureData == null) {
+            textureData = new SpiritTextureData(getRegistryName());
+        }
+        return textureData;
     }
 
     public SpiritShardItem getSpiritShard() {
@@ -68,6 +69,11 @@ public class SpiritArcanaType implements SpiritLike {
         }
         return glowTexture;
     }
+
+    public int getAnalogSignal() {
+        return Math.min(MalumSpiritTypes.SPIRIT_TYPES_REGISTRY.getId(this) + 1, 15);
+    }
+
 
     public final void save(CompoundTag tag) {
         save(tag, "spirit");

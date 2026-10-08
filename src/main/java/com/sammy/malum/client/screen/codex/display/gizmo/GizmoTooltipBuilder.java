@@ -8,8 +8,6 @@ import java.util.List;
 
 public record GizmoTooltipBuilder(ArrayList<Component> tooltip) {
 
-
-
     public void addDefaultTitle(String key) {
         addSubtext(DisplayedGizmo.title(key));
     }
@@ -30,7 +28,7 @@ public record GizmoTooltipBuilder(ArrayList<Component> tooltip) {
         tooltip.add(component);
     }
 
-    public void addAll(List<Component> tooltipFromItem) {
-        tooltip.addAll(tooltipFromItem);
+    public void addAll(List<Component> tooltip) {
+        this.tooltip.addAll(tooltip);
     }
 }

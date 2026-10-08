@@ -64,16 +64,8 @@ public class CodexTextRenderer {
         return this;
     }
 
-    public CodexTextRenderer renderHeadlineTextPageContents(GuiGraphics guiGraphics, Component text, float x, float y) {
-        return renderWrappingText(guiGraphics, text, x + 6, y + 32, 140);
-    }
-
-    public CodexTextRenderer renderHeadlineGizmoPageContents(GuiGraphics guiGraphics, Component text, float x, float y) {
-        return renderWrappingText(guiGraphics, text, x + 6, y + 91, 140);
-    }
-
-    public CodexTextRenderer renderPageContents(GuiGraphics guiGraphics, Component text, float x, float y) {
-        return renderWrappingText(guiGraphics, text, x + 6, y + 4, 140);
+    public CodexTextRenderer renderWrappingText(GuiGraphics guiGraphics, Component text, float x, float y) {
+        return renderWrappingText(guiGraphics, text, x, y, 140);
     }
 
     public CodexTextRenderer renderWrappingText(GuiGraphics guiGraphics, Component text, float x, float y, int width) {

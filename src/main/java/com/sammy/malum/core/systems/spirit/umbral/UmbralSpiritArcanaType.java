@@ -16,7 +16,10 @@ public class UmbralSpiritArcanaType extends SpiritArcanaType {
     }
 
     @Override
-    public SpiritTextData createTextData(ResourceLocation id) {
-        return new UmbralTextData(id, getPrimaryColor());
+    public SpiritTextData getTextData() {
+        if (textData == null) {
+            textData = new UmbralTextData(getRegistryName(), getPrimaryColor());
+        }
+        return textData;
     }
 }

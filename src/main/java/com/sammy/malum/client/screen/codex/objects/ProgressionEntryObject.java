@@ -88,7 +88,7 @@ public class ProgressionEntryObject extends SelectableEntryObject<AbstractProgre
             design.getFrameTexture().ifPresent(texture -> renderTexture(texture, poseStack, left, top, 0, 0, 64, 64));
             design.getFillingTexture().ifPresent(texture -> renderTexture(texture, poseStack, left, top, 0, 0, 64, 64));
         }
-        icon.render(screen, this, guiGraphics, centerX - 8, centerY - 8, mouseX, mouseY);
+        icon.render(screen, this, guiGraphics, centerX - 8, centerY - 8, mouseX, mouseY, partialTicks);
     }
 
     @Override

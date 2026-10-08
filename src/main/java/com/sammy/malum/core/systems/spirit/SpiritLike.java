@@ -15,10 +15,6 @@ public interface SpiritLike {
     @Nonnull
     SpiritArcanaType getSpirit();
 
-    default SpiritTextData getTextData() {
-        return getSpirit().getTextData();
-    }
-
     default boolean matches(SpiritLike other) {
         return getSpirit().equals(other.getSpirit());
     }
@@ -29,10 +25,6 @@ public interface SpiritLike {
 
     default ResourceLocation getRegistryName() {
         return MalumSpiritTypes.SPIRIT_TYPES_REGISTRY.getKey(getSpirit());
-    }
-
-    default int getAnalogSignal() {
-        return Math.min(MalumSpiritTypes.SPIRIT_TYPES_REGISTRY.getId(getSpirit()) + 1, 15);
     }
 
     default SpiritShardItem getSpiritShard() {

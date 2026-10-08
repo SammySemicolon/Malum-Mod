@@ -367,7 +367,7 @@ public class MalumLangDatagen extends LanguageProvider {
     }
 
     private void addSpiritLang(SpiritHolder<SpiritArcanaType> spirit, String flavor, String verboseFlavour, String info) {
-        spirit.getTextData().addLangDatagen(this, flavor, verboseFlavour, info);
+        spirit.get().getTextData().addLangDatagen(this, flavor, verboseFlavour, info);
     }
 
     @Override

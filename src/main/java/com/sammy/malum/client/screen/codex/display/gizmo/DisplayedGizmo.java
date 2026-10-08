@@ -2,13 +2,11 @@ package com.sammy.malum.client.screen.codex.display.gizmo;
 
 import com.sammy.malum.client.screen.codex.display.IGizmoHolder;
 import com.sammy.malum.client.screen.codex.screens.AbstractMalumCodexScreen;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 
 import java.awt.*;
 import java.util.*;
-import java.util.List;
 
 public abstract class DisplayedGizmo {
 
@@ -22,12 +20,13 @@ public abstract class DisplayedGizmo {
 
     protected boolean isHoveredOver;
     protected Color color = Color.WHITE;
+    protected int width = 16, height = 16;
 
-    public final void render(AbstractMalumCodexScreen screen, IGizmoHolder holder, GuiGraphics guiGraphics, int x, int y, int mouseX, int mouseY) {
+    public final void render(AbstractMalumCodexScreen screen, IGizmoHolder holder, GuiGraphics guiGraphics, int x, int y, int mouseX, int mouseY, float partialTicks) {
         if (!isHoveredOver) {
-            isHoveredOver = holder.shouldGizmoBeConsideredHoveredOver() || screen.isHovering(mouseX, mouseY, x, y, 16, 16);
+            isHoveredOver = holder.shouldGizmoBeConsideredHoveredOver() || screen.isHovering(mouseX, mouseY, x, y, width, height);
         }
-        renderDecals(screen, holder, guiGraphics, x, y, mouseX, mouseY);
+        renderDecals(screen, holder, guiGraphics, x, y, mouseX, mouseY, partialTicks);
         if (holder.shouldGizmoRenderTooltip() && isHoveredOver) {
             var tooltip = new ArrayList<Component>();
             var builder = new GizmoTooltipBuilder(tooltip);
@@ -54,6 +53,6 @@ public abstract class DisplayedGizmo {
         return this;
     }
 
-    public abstract void renderDecals(AbstractMalumCodexScreen screen, IGizmoHolder holder, GuiGraphics guiGraphics, int x, int y, int mouseX, int mouseY);
+    public abstract void renderDecals(AbstractMalumCodexScreen screen, IGizmoHolder holder, GuiGraphics guiGraphics, int x, int y, int mouseX, int mouseY, float partialTicks);
 
 }
