@@ -1,8 +1,8 @@
 package com.sammy.malum.client.screen.codex.display;
 
 import com.mojang.blaze3d.systems.*;
-import com.sammy.malum.client.screen.codex.helper.CodexTextHelper;
 import com.sammy.malum.client.screen.codex.screens.*;
+import com.sammy.malum.mixin.client.StringRenderOutputAccessor;
 import net.minecraft.*;
 import net.minecraft.client.*;
 import net.minecraft.client.gui.*;
@@ -11,10 +11,10 @@ import net.minecraft.client.renderer.*;
 import net.minecraft.network.chat.*;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.*;
+import org.jetbrains.annotations.NotNull;
 import org.joml.*;
 import team.lodestar.lodestone.modules.core.easing.*;
 import team.lodestar.lodestone.registry.client.*;
-import team.lodestar.lodestone.systems.rendering.*;
 import team.lodestar.lodestone.systems.rendering.wrapper.LodestoneBufferWrapper;
 
 import java.awt.*;
@@ -26,6 +26,53 @@ import static net.minecraft.client.gui.Font.DisplayMode.*;
 import static net.minecraft.util.FastColor.ARGB32.color;
 
 public class CodexTextRenderer {
+    private static final class WrappedCharSink implements FormattedCharSink {
+        private final FormattedCharSink wrapped;
+
+        public WrappedCharSink(FormattedCharSink wrapped) {
+            this.wrapped = wrapped;
+        }
+
+        @Override
+        public boolean accept(int positionInCurrentSequence, @NotNull Style style, int codePoint) {
+            if (wrapped instanceof Font.StringRenderOutput renderer) {
+                // Font font = ((StringRenderOutputAccessor)renderer).malum$getFont();
+
+                float x = renderer.x;
+                float y = renderer.y;
+
+                return wrapped.accept(positionInCurrentSequence, style, codePoint);
+            }
+            else {
+                return wrapped.accept(positionInCurrentSequence, style, codePoint);
+            }
+        }
+    }
+
+    private final class WrappedText implements FormattedCharSequence {
+        private final FormattedCharSequence wrapped;
+
+        public WrappedText(FormattedCharSequence wrapped) {
+            this.wrapped = wrapped;
+        }
+
+        @Override
+        public boolean accept(FormattedCharSink sink) {
+            return wrapped.accept(new WrappedCharSink(sink));
+        }
+    }
+
+    /*
+    private final class CodexFont extends Font {
+        public CodexFont(Function<ResourceLocation, FontSet> fonts, boolean filterFishyGlyphs) {
+            super(fonts, filterFishyGlyphs);
+        }
+
+        @Override
+        public boolean accept(int positionInCurrentSequence, Style style, int codePoint) {
+
+        }
+    }*/
 
     public static final Function<GuiGraphics, LodestoneBufferWrapper> WRAPPER_FUNCTION = Util.memoize(guiGraphics -> new LodestoneBufferWrapper(LodestoneRenderTypes.ADDITIVE_TEXT, guiGraphics.bufferSource));
     public static final TextColorData DEFAULT_TEXT_COLOR = new TextColorData(new Color(138, 79, 58), new Color(65, 41, 8), new Color(20, 44, 60), new Color(227, 39, 228));
@@ -79,7 +126,7 @@ public class CodexTextRenderer {
     public CodexTextRenderer renderWrappingText(GuiGraphics guiGraphics, Component text, float x, float y, int width) {
         text = applyScaleAndUpdate(text);
         var font = Minecraft.getInstance().font;
-        var wrapped = wrapComponent(text, (int) (width /scale));
+        var wrapped = wrapComponent(text, (int) (width / scale));
         for (int i = 0; i < wrapped.size(); i++) {
             var currentLine = wrapped.get(i);
             float offset = i * (font.lineHeight + 1) * scale;
@@ -97,11 +144,7 @@ public class CodexTextRenderer {
 
         float oldScale = scale;
         boolean oldCentered = isCentered;
-        return setScale(scale * scaling)
-                .setCentered(true)
-                .renderText(guiGraphics, headline.getVisualOrderText(), x+72, y+11)
-                .setCentered(oldCentered)
-                .setScale(oldScale);
+        return setScale(scale * scaling).setCentered(true).renderText(guiGraphics, headline.getVisualOrderText(), x + 72, y + 11).setCentered(oldCentered).setScale(oldScale);
     }
 
     public CodexTextRenderer renderText(GuiGraphics guiGraphics, Component text, float x, float y) {
@@ -132,13 +175,13 @@ public class CodexTextRenderer {
         }
         float relativeX = projection.x * guiScale / screenWidth;
         float relativeY = projection.y * guiScale / screenHeight;
-        float relativeXMax = (projection.x+width) * guiScale / screenWidth;
-        float relativeYMax = (projection.y+height) * guiScale / screenHeight;
+        float relativeXMax = (projection.x + width) * guiScale / screenWidth;
+        float relativeYMax = (projection.y + height) * guiScale / screenHeight;
         float mouseX = (float) (minecraft.mouseHandler.xpos() / screenWidth);
         float mouseY = (float) (minecraft.mouseHandler.ypos() / screenHeight);
 
-        float differenceX = Math.min(Math.abs(relativeX - mouseX), Mth.abs(relativeXMax-mouseX)) * 5;
-        float differenceY = Math.min(Math.abs(relativeY - mouseY), Mth.abs(relativeYMax-mouseY)) * 10;
+        float differenceX = Math.min(Math.abs(relativeX - mouseX), Mth.abs(relativeXMax - mouseX)) * 5;
+        float differenceY = Math.min(Math.abs(relativeY - mouseY), Mth.abs(relativeYMax - mouseY)) * 10;
         float horizontalDelta = Math.clamp(1 - differenceX, 0, 1);
         float verticalDelta = Math.clamp(1 - differenceY, 0, 1);
         float delta = Easing.QUINTIC_OUT.ease(horizontalDelta) * Easing.QUINTIC_OUT.ease(verticalDelta);
@@ -170,6 +213,8 @@ public class CodexTextRenderer {
                 int g = (int) Mth.lerp(color, start.getGreen(), end.getGreen());
                 int b = (int) Mth.lerp(color, start.getBlue(), end.getBlue());
                 buffer = WRAPPER_FUNCTION.apply(guiGraphics);
+
+
                 drawInBatch(buffer, pose, text, 0f, 0, color(alpha, r, g, b));
 
                 drawInBatch(buffer, pose, text, 1f, 0, color(alpha / 2, r, g, b));

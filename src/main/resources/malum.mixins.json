@@ -30,7 +30,8 @@
     "client.ItemInHandLayerMixin",
     "client.ItemInHandRendererMixin",
     "client.LocalPlayerMixin",
-    "client.MinecraftMixin"
+    "client.MinecraftMixin",
+    "client.StringRenderOutputAccessor"
   ],
   "injectors": {
     "defaultRequire": 1
