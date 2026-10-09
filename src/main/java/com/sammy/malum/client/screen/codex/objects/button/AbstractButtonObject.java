@@ -7,6 +7,7 @@ import com.sammy.malum.client.screen.codex.screens.CodexEntryScreen;
 import com.sammy.malum.registry.common.sound.MalumSoundEvents;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.*;
 import team.lodestar.lodestone.helpers.DataHelper;
 
 import static com.sammy.malum.client.screen.codex.helper.CodexRenderHelper.renderTexture;
@@ -50,8 +51,9 @@ public abstract class AbstractButtonObject extends BookObject<CodexEntryScreen> 
         int xOffset = (64 - width)/2;
         int yOffset = (64 - height)/2;
 
+        float effectStrength = Mth.lerp(partialTicks, oldOutlineVisibility, outlineVisibility);
         CodexOutlineRenderer.create(texture, x-xOffset, y-yOffset, width, height)
-                .setEffectStrength(oldOutlineVisibility, outlineVisibility, 1f)
+                .setEffectStrength(effectStrength)
                 .setDistortion(50f)
                 .setOffset(buttonIndex * 600)
                 .setOutlineWidth(4)

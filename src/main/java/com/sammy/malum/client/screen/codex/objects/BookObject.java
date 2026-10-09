@@ -94,18 +94,11 @@ public class BookObject<T extends AbstractMalumCodexScreen> {
         return true;
     }
 
-    public int getAccurateX() {
-        return x;
-    }
-    public int getAccurateY() {
-        return y;
-    }
-
     public int getOffsetX() {
-        return (int) (getAccurateX() + xOffset);
+        return (int) (x + xOffset);
     }
 
     public int getOffsetY() {
-        return (int) (getAccurateY() + yOffset);
+        return (int) (y + yOffset);
     }
 }

@@ -158,7 +158,7 @@ public class IntroductionChapter extends BookChapter {
                 .requires(scythes);
 
         var commonReagents = addEntry("common_reagents", 2, 9)
-                .setIcon(item(Materials.ALCHEMICAL_CALX))
+                .setIcon(item(Materials.HEX_ASH))
                 .addPage(headlineText("common_reagents"))
                 .addPage(textPage("common_reagents.2"))
                 .addRightBookmark(new EntryBookmark(item(Materials.HEX_ASH),
@@ -177,7 +177,7 @@ public class IntroductionChapter extends BookChapter {
 
 
         var esotericReaping = addEntry("esoteric_reaping", -2, 9)
-                .setIcon(item(Materials.EERIE_WEAVE))
+                .setIcon(item(Materials.WARP_FLUX))
                 .addPage(headlineText("esoteric_reaping"))
                 .addPage(textPage("esoteric_reaping.2"))
                 .addRightBookmark(new EntryBookmark(item(Materials.GRIM_TALC),

@@ -43,14 +43,14 @@ public class DisplayedSpiritSymbol extends DisplayedGizmo {
         RenderSystem.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE);
         for (int i = 0; i <= 6; i++) {
             float delta = i / 6f;
-            float alpha = Easing.SINE_IN_OUT.lerp(delta, 0.5f, 0.1f);
-            float distance = Easing.SINE_IN_OUT.lerp(delta, 0.25f, 2f);
-            float rate = Easing.EXPO_IN_OUT.lerp(delta, 0.25f, 0.5f);
+            float alpha = Easing.SINE_IN_OUT.lerp(delta, 0.75f, 0.1f);
+            float distance = Easing.SINE_IN_OUT.lerp(delta, 2.5f, 0.25f);
+            float rate = Easing.EXPO_IN_OUT.lerp(delta, 0.75f, 0.25f);
             float xFrequency = Easing.CUBIC_IN_OUT.lerp(delta, 24f, 4f);
             float yFrequency = Easing.SINE_IN_OUT.lerp(delta, 8f, 64f);
             float distortionIntensity = Easing.EXPO_IN_OUT.lerp(delta, 60f, 15f);
             float distortionRate = rate * 1000f;
-            float angle = ((time * rate) % 100) / 50 * Mth.PI;
+            float angle = ((time * rate) % 80) / 40 * Mth.PI;
             float xOffset = Mth.sin(angle) * distance;
             float yOffset = Mth.cos(angle) * distance;
             var color = ColorHelper.colorLerp(Easing.SINE_IN_OUT, delta, spirit.getPrimaryColor(), spirit.getSecondaryColor());

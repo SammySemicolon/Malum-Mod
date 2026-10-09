@@ -2,9 +2,9 @@ package com.sammy.malum.client.screen.codex.display;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.sammy.malum.client.screen.codex.WidgetDesign;
 import com.sammy.malum.client.renderer.texture.DynamicTextureRenderer;
 import com.sammy.malum.client.renderer.texture.request.VFXBuilderTextureRenderRequest;
+import com.sammy.malum.client.screen.codex.*;
 import com.sammy.malum.core.systems.spirit.SpiritArcanaType;
 import com.sammy.malum.registry.client.MalumShaders;
 import com.sammy.malum.registry.common.magic.MalumSpiritTypes;
@@ -38,8 +38,8 @@ public class CodexOutlineRenderer {
     protected float effectStrength;
 
 
-    public static CodexOutlineRenderer create(WidgetDesign design, int left, int top, int sourceWidth, int sourceHeight) {
-        return new CodexOutlineRenderer(design.getFrameTexture().orElseThrow(), left, top, sourceWidth, sourceHeight, 64, 64);
+    public static CodexOutlineRenderer create(EntryWidgetDesign design, int left, int top, int sourceWidth, int sourceHeight) {
+        return new CodexOutlineRenderer(design.getTexture(), left, top, sourceWidth, sourceHeight, 64, 64);
     }
 
     public static CodexOutlineRenderer create(ResourceLocation sourceTexture, int left, int top, int sourceWidth, int sourceHeight) {
@@ -61,13 +61,6 @@ public class CodexOutlineRenderer {
         this.sourceWidth = sourceWidth;
         this.height = height;
         this.sourceHeight = sourceHeight;
-    }
-
-    public CodexOutlineRenderer setEffectStrength(float oldStrength, float effectStrength, float total) {
-        var minecraft = Minecraft.getInstance();
-        float delta = minecraft.getTimer().getGameTimeDeltaPartialTick(true);
-        this.effectStrength = Mth.lerp(delta, oldStrength, effectStrength) / total;
-        return this;
     }
 
     public CodexOutlineRenderer setEffectStrength(float effectStrength) {
