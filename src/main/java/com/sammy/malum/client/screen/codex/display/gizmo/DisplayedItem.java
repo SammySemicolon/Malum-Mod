@@ -39,7 +39,10 @@ public class DisplayedItem extends DisplayedGizmo {
     public void renderDecals(AbstractMalumCodexScreen screen, IGizmoHolder holder, GuiGraphics guiGraphics, int x, int y, int mouseX, int mouseY, float partialTicks) {
         var request = ItemTextureRenderRequest.create(itemDisplay, r -> r.withSuffix("_gizmo"));
         var dynamicTexture = DynamicTextureRenderer.create(request).setTextureSize(16, 16).bakeTexture();
+        var minecraft = Minecraft.getInstance();
         if (dynamicTexture == null) {
+            guiGraphics.renderItem(itemDisplay, x, y);
+            guiGraphics.renderItemDecorations(minecraft.font, itemDisplay, x, y, null);
             return;
         }
         dynamicTexture.bind(0);
@@ -60,7 +63,7 @@ public class DisplayedItem extends DisplayedGizmo {
             RenderSystem.defaultBlendFunc();
         }
 
-        guiGraphics.renderItemDecorations(Minecraft.getInstance().font, itemDisplay, x, y, null);
+        guiGraphics.renderItemDecorations(minecraft.font, itemDisplay, x, y, null);
         stack.popPose();
     }
 

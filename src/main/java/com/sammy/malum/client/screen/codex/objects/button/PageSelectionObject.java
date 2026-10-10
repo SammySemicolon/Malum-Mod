@@ -31,9 +31,14 @@ public class PageSelectionObject extends ButtonObject {
 
     @Override
     public void addGizmoTooltip(GizmoTooltipBuilder builder) {
-        var page = this.page.pages.get(buttonIndex);
-        if (page instanceof IGizmoHolder holder) {
+        var associatedPage = page.pages.get(buttonIndex);
+        if (associatedPage instanceof IGizmoHolder holder) {
             holder.addGizmoTooltip(builder);
+        }
+        if (builder.isEmpty()) {
+            var id = page.getId() + "." + buttonIndex;
+            builder.addDefaultTitle(id);
+            builder.addDefaultSubtext(id);
         }
     }
 }

@@ -3,7 +3,7 @@ package com.sammy.malum.core.systems.rite;
 import com.google.common.collect.ImmutableList;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.*;
-import com.sammy.malum.client.screen.codex.pages.BookPage;
+import com.sammy.malum.client.screen.codex.pages.*;
 import com.sammy.malum.common.block.curiosities.totem.TotemBaseBlock;
 import com.sammy.malum.common.block.curiosities.totem.TotemBaseBlockEntity;
 import com.sammy.malum.common.data.listener.rite.*;
@@ -158,7 +158,7 @@ public class SpiritRiteType {
     }
 
     public String getCodexEntryLangKey() {
-        return BookPage.textKey(getName());
+        return PageLangKeyCommons.textKey(getName());
     }
 
     public String getName() {

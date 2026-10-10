@@ -293,10 +293,10 @@ public class CodexEntryScreen extends AbstractMalumCodexScreen {
         int pageTop = getPageTop();
 
         if (left != null) {
-            leftPageObjects = left.addObjects(this, getLeftPageLeft(), pageTop);
+            leftPageObjects = left.createBookObjects(this, getLeftPageLeft(), pageTop);
         }
         if (right != null) {
-            rightPageObjects = right.addObjects(this, getRightPageLeft(), pageTop);
+            rightPageObjects = right.createBookObjects(this, getRightPageLeft(), pageTop);
         }
     }
 

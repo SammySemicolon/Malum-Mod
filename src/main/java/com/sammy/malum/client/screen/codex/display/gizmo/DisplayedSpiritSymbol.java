@@ -67,6 +67,7 @@ public class DisplayedSpiritSymbol extends DisplayedGizmo {
                     .setPositionWithWidth(x+xOffset, y+yOffset, width, height)
                     .blit(guiGraphics);
         }
+        distorted.applyUniformDefaults();
 
 //        if (isHoveredOver) {
 //            float alphaScale = color.getRed() / 255f;

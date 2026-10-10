@@ -85,6 +85,9 @@ public class CodexIconRenderer {
         shader.safeGetUniform("Speed").set(1500f);
         shader.safeGetUniform("Intensity").set(distortion);
         shader.safeGetUniform("UVCoordinates").set(new Vector4f(0f, 1f, 0f, 1f));
+        shader.safeGetUniform("Intensity").set(distortion);
+        shader.safeGetUniform("Width").set(32f);
+        shader.safeGetUniform("Height").set(32f);
         ScreenVFXBuilder builder = VFXBuilders.createScreen()
                 .setTexture(texture)
                 .setShader(shader)

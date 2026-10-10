@@ -26,6 +26,8 @@ import static com.sammy.malum.client.screen.codex.pages.text.TextPage.textPage;
 import static com.sammy.malum.registry.common.MalumContent.BuildingBlocks.*;
 import static com.sammy.malum.registry.common.MalumContent.CompactBlocks.*;
 import static com.sammy.malum.registry.common.MalumContent.ENCYCLOPEDIA_ARCANA;
+import static com.sammy.malum.registry.common.MalumContent.Materials.*;
+import static com.sammy.malum.registry.common.MalumContent.Sorcery.*;
 import static net.minecraft.world.item.Items.GRASS_BLOCK;
 import static net.minecraft.world.item.Items.WHEAT;
 
@@ -58,28 +60,26 @@ public class IntroductionChapter extends BookChapter {
         var runewood = addEntry("runewood", 0, 2)
                 .setIcon(item(RUNEWOOD_SAPLING))
                 .addPage(headlineTextGizmoPage("runewood", item(RUNEWOOD_SAPLING)))
-                .addPage(PageSelectionPage.create(s -> s
-                                .add(item(GRASS_BLOCK), headlineText("runewood.placement"))
-                                .add(item(RUNEWOOD_SAPLING), headlineText("runewood.genesis"))
-                                .add(item(AZURE_RUNEWOOD_SAPLING), headlineText("runewood.azure"))
+                .addPage(PageSelectionPage.create("runewood", s -> s
+                                .addHeadline(item(GRASS_BLOCK), "runewood.placement")
+                                .addHeadline(item(RUNEWOOD_SAPLING), "runewood.genesis")
+                                .addHeadline(item(AZURE_RUNEWOOD_SAPLING), "runewood.azure")
                         )
                 )
-                .addPage(headlineTextGizmoPage("runewood.arcane_charcoal", item(Materials.ARCANE_CHARCOAL)))
-                .addPage(PageSelectionPage.create(s -> s
-                                .add(item(Materials.ARCANE_CHARCOAL),
-                                        new SmeltingPage(item(RUNEWOOD_SET.log), item(Materials.ARCANE_CHARCOAL)))
-                                .add(item(BLOCK_OF_ARCANE_CHARCOAL),
-                                        compacting(item(BLOCK_OF_ARCANE_CHARCOAL), item(Materials.ARCANE_CHARCOAL)))
+                .addPage(headlineTextGizmoPage("runewood.arcane_charcoal", item(ARCANE_CHARCOAL)))
+                .addPage(PageSelectionPage.create("runewood.arcane_charcoal", s -> s
+                                .addSmelting(item(RUNEWOOD_SET.log), item(ARCANE_CHARCOAL))
+                                .addCompacting(item(ARCANE_CHARCOAL), item(BLOCK_OF_ARCANE_CHARCOAL))
                         )
                 )
-                .addPage(headlineTextGizmoPage("runewood.runic_sap", item(Materials.RUNIC_SAP_BOTTLE)))
-                .addPage(PageSelectionPage.create(s -> s
+                .addPage(headlineTextGizmoPage("runewood.runic_sap", item(RUNIC_SAP_BOTTLE)))
+                .addPage(PageSelectionPage.create("runewood.runic_sap", s -> s
                                 .add(item(RUNEWOOD_SET.strippedSappyLog),
                                         stripping(item(RUNEWOOD_SET.sappyLog), item(RUNEWOOD_SET.strippedSappyLog)))
-                                .add(item(Materials.RUNIC_SAP_BOTTLE),
-                                        bottling(item(RUNEWOOD_SET.strippedSappyLog), item(Materials.RUNIC_SAP_BOTTLE)))
-                                .add(item(Materials.RUNIC_SAPBALL),
-                                        crafting(item(Materials.RUNIC_SAPBALL), c -> c.top(item(WHEAT)).middle(item(Materials.RUNIC_SAP_BOTTLE))))
+                                .add(item(RUNIC_SAP_BOTTLE),
+                                        bottling(item(RUNEWOOD_SET.strippedSappyLog), item(RUNIC_SAP_BOTTLE)))
+                                .add(item(RUNIC_SAPBALL),
+                                        crafting(item(RUNIC_SAPBALL), c -> c.top(item(WHEAT)).middle(item(RUNIC_SAP_BOTTLE))))
                         )
                 )
                 .requires(spiritCrystals);
@@ -94,33 +94,27 @@ public class IntroductionChapter extends BookChapter {
                 .requires(runewood);
 
         var soulstone = addEntry("soulstone", 0, 4)
-                .setIcon(item(Materials.RAW_SOULSTONE))
-                .addPage(headlineTextGizmoPage("soulstone", item(Materials.RAW_SOULSTONE)))
-                .addPage(PageSelectionPage.create(s -> s
-                                .addHeadline(item(Materials.SOULSTONE_ORE), "soulstone.synopsis")
-                                .addHeadline(item(Materials.RAW_SOULSTONE), "soulstone.ore_deposits")
-                                .addHeadline(item(Materials.SOULSTONE_BUD), "soulstone.buds")
+                .setIcon(item(RAW_SOULSTONE))
+                .addPage(headlineTextGizmoPage("soulstone", item(RAW_SOULSTONE)))
+                .addPage(PageSelectionPage.create("soulstone", s -> s
+                                .addHeadline(item(SOULSTONE_ORE), "soulstone.synopsis")
+                                .addHeadline(item(RAW_SOULSTONE), "soulstone.ore_deposits")
+                                .addHeadline(item(SOULSTONE_BUD), "soulstone.buds")
                         )
                 )
-                .addPage(headlineTextGizmoPage("soulstone.refinement", item(Materials.REFINED_SOULSTONE)))
-                .addPage(PageSelectionPage.create(s -> s
-                                .add(item(Materials.REFINED_SOULSTONE), new CyclingPage(
-                                                new SmeltingPage(item(Materials.RAW_SOULSTONE), item(Materials.REFINED_SOULSTONE, 2)),
-                                                new SmeltingPage(item(Materials.SOULSTONE_BUD), item(Materials.REFINED_SOULSTONE, 2))
-                                        )
-                                )
-                                .add(item(BLOCK_OF_REFINED_SOULSTONE),
-                                        compacting(item(BLOCK_OF_REFINED_SOULSTONE), item(Materials.REFINED_SOULSTONE)))
-                                .add(item(BLOCK_OF_RAW_SOULSTONE),
-                                        compacting(item(BLOCK_OF_RAW_SOULSTONE), item(Materials.RAW_SOULSTONE)))
+                .addPage(headlineTextGizmoPage("soulstone.refinement", item(REFINED_SOULSTONE)))
+                .addPage(PageSelectionPage.create("soulstone.refinement", s -> s
+                                .addSmelting(item(RAW_SOULSTONE), item(REFINED_SOULSTONE, 2))
+                                .addCompacting(item(REFINED_SOULSTONE), item(BLOCK_OF_REFINED_SOULSTONE))
+                                .addCompacting(item(RAW_SOULSTONE), item(BLOCK_OF_RAW_SOULSTONE))
                         )
                 ).requires(arcaneWonders);
 
         var soulstoneBuds = addEntry("soulstone_buds", 2, 4)
-                .setIcon(item(Materials.SOULSTONE_BUD))
-                .addPage(headlineTextGizmoPage("soulstone_buds", item(Materials.SOULSTONE_BUD)))
+                .setIcon(item(SOULSTONE_BUD))
+                .addPage(headlineTextGizmoPage("soulstone_buds", item(SOULSTONE_BUD)))
                 .addPage(textPage("soulstone_buds.2"))
-                .addPage(headlineTextGizmoPage("realizing_soulstone_buds", item(Materials.REALIZED_SOULSTONE_BUD)))
+                .addPage(headlineTextGizmoPage("realizing_soulstone_buds", item(REALIZED_SOULSTONE_BUD)))
                 .addPage(new SoulstoneGrowthStagePage())
                 .requires(soulstone);
 
@@ -136,19 +130,19 @@ public class IntroductionChapter extends BookChapter {
                 .addPage(crafting(item(Gear.CRUDE_SCYTHE), c -> c
                         .fill(item(Items.IRON_INGOT), CraftingGridContents::topLeft, CraftingGridContents::top, CraftingGridContents::right)
                         .fill(item(Items.STICK), CraftingGridContents::middle, CraftingGridContents::bottomLeft)
-                        .fill(item(Materials.REFINED_SOULSTONE), CraftingGridContents::topRight)
+                        .fill(item(REFINED_SOULSTONE), CraftingGridContents::topRight)
                 ))
                 .requires(soulstone);
 
         var spiritInfusion = addEntry("spirit_infusion", 0, 8)
-                .setIcon(item(Sorcery.SPIRIT_ALTAR))
+                .setIcon(item(SPIRIT_ALTAR))
                 .setDesign(EntryWidgetDesign.LARGE)
-                .addPage(headlineTextGizmoPage("spirit_infusion", item(Sorcery.SPIRIT_ALTAR)))
+                .addPage(headlineTextGizmoPage("spirit_infusion", item(SPIRIT_ALTAR)))
                 .addPage(textPage("spirit_infusion.2"))
                 .addPage(textPage("spirit_infusion.3"))
-                .addPage(PageSelectionPage.create(s -> s
-                                .add(item(Sorcery.SPIRIT_ALTAR), crafting(item(Sorcery.SPIRIT_ALTAR), c -> c
-                                        .fill(item(Materials.REFINED_SOULSTONE), CraftingGridContents::top)
+                .addPage(PageSelectionPage.create("spirit_infusion", s -> s
+                                .add(item(SPIRIT_ALTAR), crafting(item(SPIRIT_ALTAR), c -> c
+                                        .fill(item(REFINED_SOULSTONE), CraftingGridContents::top)
                                         .fill(item(Items.GOLD_INGOT), CraftingGridContents::left, CraftingGridContents::right)
                                         .fill(item(RUNEWOOD_SET.planks.block), CraftingGridContents::middle, CraftingGridContents::bottomLayer)
                                 ))
@@ -160,58 +154,58 @@ public class IntroductionChapter extends BookChapter {
                 .requires(scythes);
 
         var commonReagents = addEntry("common_reagents", 2, 9)
-                .setIcon(item(Materials.HEX_ASH))
+                .setIcon(item(HEX_ASH))
                 .addPage(headlineText("common_reagents"))
                 .addPage(textPage("common_reagents.2"))
-                .addRightBookmark(new EntryBookmark(item(Materials.HEX_ASH),
+                .addRightBookmark(new EntryBookmark(item(HEX_ASH),
                         BookEntry.create("common_reagents.hex_ash")
-                                .addPage(headlineTextGizmoPage("common_reagents.hex_ash", item(Materials.HEX_ASH)))
+                                .addPage(headlineTextGizmoPage("common_reagents.hex_ash", item(HEX_ASH)))
                 ))
-                .addRightBookmark(new EntryBookmark(item(Materials.LIVING_FLESH),
+                .addRightBookmark(new EntryBookmark(item(LIVING_FLESH),
                         BookEntry.create("common_reagents.living_flesh")
-                                .addPage(headlineTextGizmoPage("common_reagents.living_flesh", item(Materials.LIVING_FLESH)))
+                                .addPage(headlineTextGizmoPage("common_reagents.living_flesh", item(LIVING_FLESH)))
                 ))
-                .addRightBookmark(new EntryBookmark(item(Materials.ALCHEMICAL_CALX),
+                .addRightBookmark(new EntryBookmark(item(ALCHEMICAL_CALX),
                         BookEntry.create("common_reagents.alchemical_calx")
-                                .addPage(headlineTextGizmoPage("common_reagents.alchemical_calx", item(Materials.ALCHEMICAL_CALX)))
+                                .addPage(headlineTextGizmoPage("common_reagents.alchemical_calx", item(ALCHEMICAL_CALX)))
                 ))
                 .requires(spiritInfusion);
 
 
         var esotericReaping = addEntry("esoteric_reaping", -2, 9)
-                .setIcon(item(Materials.WARP_FLUX))
+                .setIcon(item(WARP_FLUX))
                 .addPage(headlineText("esoteric_reaping"))
                 .addPage(textPage("esoteric_reaping.2"))
-                .addRightBookmark(new EntryBookmark(item(Materials.GRIM_TALC),
+                .addRightBookmark(new EntryBookmark(item(GRIM_TALC),
                         BookEntry.create("esoteric_reaping.grim_talc")
-                                .addPage(headlineTextGizmoPage("esoteric_reaping.grim_talc", item(Materials.GRIM_TALC)))
+                                .addPage(headlineTextGizmoPage("esoteric_reaping.grim_talc", item(GRIM_TALC)))
                 ))
-                .addRightBookmark(new EntryBookmark(item(Materials.ROTTING_ESSENCE),
+                .addRightBookmark(new EntryBookmark(item(ROTTING_ESSENCE),
                         BookEntry.create("esoteric_reaping.rotting_essence")
-                                .addPage(headlineTextGizmoPage("esoteric_reaping.rotting_essence", item(Materials.ROTTING_ESSENCE)))
+                                .addPage(headlineTextGizmoPage("esoteric_reaping.rotting_essence", item(ROTTING_ESSENCE)))
                 ))
-                .addRightBookmark(new EntryBookmark(item(Materials.EERIE_WEAVE),
+                .addRightBookmark(new EntryBookmark(item(EERIE_WEAVE),
                         BookEntry.create("esoteric_reaping.eerie_weave")
-                                .addPage(headlineTextGizmoPage("esoteric_reaping.eerie_weave", item(Materials.EERIE_WEAVE)))
+                                .addPage(headlineTextGizmoPage("esoteric_reaping.eerie_weave", item(EERIE_WEAVE)))
                 ))
-                .addRightBookmark(new EntryBookmark(item(Materials.WARP_FLUX),
+                .addRightBookmark(new EntryBookmark(item(WARP_FLUX),
                         BookEntry.create("esoteric_reaping.warp_flux")
-                                .addPage(headlineTextGizmoPage("esoteric_reaping.warp_flux", item(Materials.WARP_FLUX)))
+                                .addPage(headlineTextGizmoPage("esoteric_reaping.warp_flux", item(WARP_FLUX)))
                 ))
 
                 .addLeftBookmark(new EntryBookmark(creatureCores,
-                        BookEntry.create("common_reagents.core_keeping")
-                                .addPage(headlineTextGizmoPage("common_reagents.core_keeping", creatureCores))
-                                .addPage(textPage("common_reagents.core_keeping.2"))
-                                .addPage(textPage("common_reagents.core_keeping.3"))
-                                .addPage(textPage("common_reagents.core_keeping.4"))
-                                .addRightBookmark(new EntryBookmark(item(Materials.WIND_NUCLEUS),
-                                        BookEntry.create("common_reagents.core_keeping.wind_nucleus")
-                                                .addPage(headlineTextGizmoPage("common_reagents.core_keeping.wind_nucleus", item(Materials.WIND_NUCLEUS)))
+                        BookEntry.create("common_reagents.construct_cores")
+                                .addPage(headlineTextGizmoPage("common_reagents.construct_cores", creatureCores))
+                                .addPage(textPage("common_reagents.construct_cores.2"))
+                                .addPage(textPage("common_reagents.construct_cores.3"))
+                                .addPage(textPage("common_reagents.construct_cores.4"))
+                                .addRightBookmark(new EntryBookmark(item(WIND_NUCLEUS),
+                                        BookEntry.create("common_reagents.construct_cores.wind_nucleus")
+                                                .addPage(headlineTextGizmoPage("common_reagents.construct_cores.wind_nucleus", item(WIND_NUCLEUS)))
                                 ))
-                                .addRightBookmark(new EntryBookmark(item(Materials.PYRE_NUCLEUS),
-                                        BookEntry.create("common_reagents.core_keeping.pyre_nucleus")
-                                                .addPage(headlineTextGizmoPage("common_reagents.core_keeping.pyre_nucleus", item(Materials.PYRE_NUCLEUS)))
+                                .addRightBookmark(new EntryBookmark(item(PYRE_NUCLEUS),
+                                        BookEntry.create("common_reagents.construct_cores.pyre_nucleus")
+                                                .addPage(headlineTextGizmoPage("common_reagents.construct_cores.pyre_nucleus", item(PYRE_NUCLEUS)))
                                 ))
                 ))
                 .requires(spiritInfusion);

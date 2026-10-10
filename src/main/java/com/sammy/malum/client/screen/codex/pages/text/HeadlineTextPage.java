@@ -2,7 +2,6 @@ package com.sammy.malum.client.screen.codex.pages.text;
 
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.client.screen.codex.display.*;
-import com.sammy.malum.client.screen.codex.display.gizmo.DisplayedGizmo;
 import com.sammy.malum.client.screen.codex.display.gizmo.GizmoTooltipBuilder;
 import com.sammy.malum.client.screen.codex.pages.*;
 import com.sammy.malum.client.screen.codex.screens.*;
@@ -26,9 +25,9 @@ public class HeadlineTextPage extends BookPage implements IGizmoHolder {
     }
 
     protected HeadlineTextPage(String headline, String text) {
-        this.headline = Component.translatable(headlineKey(headline));
+        this.headline = Component.translatable(PageLangKeyCommons.headlineKey(headline));
 
-        this.text = Component.translatable(textKey(text));
+        this.text = Component.translatable(PageLangKeyCommons.textKey(text));
         this.id = headline;
     }
 
@@ -46,7 +45,7 @@ public class HeadlineTextPage extends BookPage implements IGizmoHolder {
 
     @Override
     public void addGizmoTooltip(GizmoTooltipBuilder builder) {
-        builder.addTitle(BookPage.headlineKey(id));
+        builder.addTitle(PageLangKeyCommons.headlineKey(id));
         builder.addDefaultSubtext(id);
     }
 }

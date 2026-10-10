@@ -21,29 +21,36 @@ public class CyclingPage extends BookPage {
 
     @Override
     public ResourceLocation getBackground() {
-        if (pages.isEmpty()) {
-            return null;
+        var page = getCurrentPage();
+        if (page != null) {
+            return page.getBackground();
         }
-        int index = getIndex();
-        return pages.get(index).getBackground();
+        return null;
     }
+
 
     @Override
     public void tick(CodexEntryScreen screen, int left, int top, boolean isRepeat) {
-        if (pages.isEmpty()) {
-            return;
+        var page = getCurrentPage();
+        if (page != null) {
+            page.tick(screen, left, top, isRepeat);
         }
-        int index = getIndex();
-        pages.get(index).tick(screen, left, top, isRepeat);
     }
 
     @Override
     public void render(CodexEntryScreen screen, GuiGraphics guiGraphics, int left, int top, int mouseX, int mouseY, float partialTicks, boolean isRepeat) {
+        var page = getCurrentPage();
+        if (page != null) {
+            page.render(screen, guiGraphics, left, top, mouseX, mouseY, partialTicks, isRepeat);
+        }
+    }
+
+    public BookPage getCurrentPage() {
         if (pages.isEmpty()) {
-            return;
+            return null;
         }
         int index = getIndex();
-        pages.get(index).render(screen, guiGraphics, left, top, mouseX, mouseY, partialTicks, isRepeat);
+        return pages.get(index);
     }
 
     public int getIndex() {

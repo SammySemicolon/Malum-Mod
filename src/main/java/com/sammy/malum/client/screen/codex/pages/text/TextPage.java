@@ -15,7 +15,7 @@ public class TextPage extends BookPage {
     }
 
     protected TextPage(String text) {
-        this.text = Component.translatable(textKey(text));
+        this.text = Component.translatable(PageLangKeyCommons.textKey(text));
     }
 
     @Override

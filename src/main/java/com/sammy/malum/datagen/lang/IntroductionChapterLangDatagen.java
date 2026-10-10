@@ -35,15 +35,15 @@ public class IntroductionChapterLangDatagen extends CodexLangDatagen {
         addHeadline("runewood.arcane_charcoal", "Arcane Charcoal", "Burns with a bright blue hue");
         addPages("runewood.arcane_charcoal",
                 "Runewood's charcoal, as magic-infused as it is, burns with an arcane fervor for longer than regular charcoal. When fed to a furnace it is capable of supporting its flame for exactly twice as long. This makes it rather useful for fueling any smelting I need to do.");
-        addStandaloneGizmo("runewood.arcane_charcoal.smelting", "Runewood's Pyrolysis", "When broken down in a furnace, the leftover arcana of Runewood remains imbued in the resulting charcoal.");
-        addStandaloneGizmo("runewood.arcane_charcoal.compacting", "Compacting Arcane Charcoal", "Arcane Charcoal can be compacted into a block form.");
+        addStandaloneGizmo("runewood.arcane_charcoal.0", "Runewood's Pyrolysis", "When broken down under extreme heat, the leftover arcana of Runewood remains imbued in the resulting charcoal.");
+        addStandaloneGizmo("runewood.arcane_charcoal.1", "Compacting Arcane Charcoal", "Arcane Charcoal can be compacted into a block form.");
 
         addHeadline("runewood.runic_sap", "Runic Sap", "Tasty");
         addPages("runewood.runic_sap",
                 "Runewood trees tend to have a buildup of sticky sap on the sides of their lower logs. When this happens, if you strip off the bark, you'll be able to bottle the sap. In terms of taste, it is a bit like honey, sweet but with a more earthly flavor, but where it shines most is it's rejuvenating aftertaste.");
-        addStandaloneGizmo("runewood.runic_sap.stripping", "Stripping Sappy Runewood", "When stripped using an axe, Sappy Runewood exposes it's stored sap for collection.");
-        addStandaloneGizmo("runewood.runic_sap.bottling", "Harvesting Runic Sap", "Sap can be collected and stored within a bottle.");
-        addStandaloneGizmo("runewood.runic_sap.mixing", "Mixing Runic Sapballs", "Mixing Runic Sap together with dough thickens it's composition and yields Sapballs");
+        addStandaloneGizmo("runewood.runic_sap.0", "Stripping Sappy Runewood", "When stripped of it's bark, Sappy Runewood exposes it's stored sap for collection.");
+        addStandaloneGizmo("runewood.runic_sap.1", "Harvesting Runic Sap", "The sap inside can be collected and stored within a bottle.");
+        addStandaloneGizmo("runewood.runic_sap.2", "Mixing Runic Sapballs", "Mixing Runic Sap together with an added dough thickens it's composition.");
 
         addEntryLang("arcane_wonders", "Arcane Wonders", "The world around us", "Where we all gather");
         addPages("arcane_wonders",
@@ -68,9 +68,9 @@ public class IntroductionChapterLangDatagen extends CodexLangDatagen {
         addHeadline("soulstone.refinement", "Refinement of Soulstone", "To purify the ethereal");
         addPages("soulstone.refinement",
                 "Soulstone is a naturally excellent source of magic, but in that excellence there is still impurity. Like any other mineral, it must first be refined before being given a proper use. Both Raw Soulstone and Soulstone Buds can be processed into Refined Soulstone.");
-        addStandaloneGizmo("soulstone.refinement.smelting", "Refinement of Soulstone", "When processed in a furnace or blast furnace, soulstone sheds it's impurities and takes on a bright purple shine.");
-        addStandaloneGizmo("soulstone.refinement.raw_compacting", "Compacting Raw Soulstone", "Raw Soulstone can be compacted into a block form.");
-        addStandaloneGizmo("soulstone.refinement.refined_compacting", "Compacting Refined Soulstone", "Refined Soulstone can be compacted into a block form.");
+        addStandaloneGizmo("soulstone.refinement.0", "Refinement of Soulstone", "When processed in a furnace or blast furnace, soulstone sheds it's impurities and takes on a bright purple shine.");
+        addStandaloneGizmo("soulstone.refinement.1", "Compacting Raw Soulstone", "Raw Soulstone can be compacted into a block form.");
+        addStandaloneGizmo("soulstone.refinement.2", "Compacting Refined Soulstone", "Refined Soulstone can be compacted into a block form.");
 
 
         addEntryLang("scythes", "Scythes", "Harvest", "Reap");
