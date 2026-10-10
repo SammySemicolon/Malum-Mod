@@ -1,7 +1,6 @@
-package com.sammy.malum.common.block.curiosities.artifice.crystallarium;
+package com.sammy.malum.common.block.curiosities.artifice.furnace;
 
 import net.minecraft.world.item.ItemStack;
-import net.neoforged.neoforge.items.IItemHandler;
 import team.lodestar.lodestone.modules.toolkit.blockentity.LodestoneBlockEntity;
 import team.lodestar.lodestone.modules.toolkit.inventory.LodestoneItemStackBlockHandler;
 import team.lodestar.lodestone.modules.toolkit.inventory.LodestoneItemStackHandler;

@@ -1,4 +1,4 @@
-package com.sammy.malum.common.block.curiosities.artifice.crystallarium;
+package com.sammy.malum.common.block.curiosities.artifice.furnace.crystallarium;
 
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.context.BlockPlaceContext;

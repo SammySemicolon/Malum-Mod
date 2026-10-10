@@ -1,5 +1,6 @@
-package com.sammy.malum.common.block.curiosities.artifice.crystallarium;
+package com.sammy.malum.common.block.curiosities.artifice.furnace.crystallarium;
 
+import com.sammy.malum.common.block.curiosities.artifice.furnace.MalumFurnaceBlockItemStackHandler;
 import com.sammy.malum.registry.common.MalumContainers;
 import com.sammy.malum.registry.common.MalumDataMaps;
 import net.minecraft.network.RegistryFriendlyByteBuf;

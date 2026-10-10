@@ -1,23 +1,17 @@
 package com.sammy.malum.datagen.recipe.builder;
 
-import com.google.common.collect.Lists;
-import com.mojang.datafixers.util.Either;
 import com.sammy.malum.common.data.component.soulstone.StoredInSoulstoneMetal;
-import com.sammy.malum.common.recipe.derealization.ConjunctureCrystallariumRecipe;
-import com.sammy.malum.common.recipe.derealization.CrystalPropertyModifier;
-import com.sammy.malum.common.recipe.derealization.MalumSizedChanceResult;
+import com.sammy.malum.common.recipe.furnace.crystallarium.ConjunctureCrystallariumRecipe;
+import com.sammy.malum.common.recipe.CrystalPropertyModifier;
+import com.sammy.malum.common.recipe.furnace.crystallarium.MalumSizedChanceResult;
 import net.minecraft.core.NonNullList;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.levelgen.structure.templatesystem.RuleTest;
 import team.lodestar.lodestone.modules.toolkit.recipe.LodestoneRecipeBuilder;
 
-import java.util.List;
 import java.util.Optional;
 
 public class ConjunctureCrystallariumRecipeBuilder implements LodestoneRecipeBuilder<ConjunctureCrystallariumRecipe> {

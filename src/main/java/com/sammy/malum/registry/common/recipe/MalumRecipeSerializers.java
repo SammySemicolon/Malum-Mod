@@ -2,7 +2,7 @@ package com.sammy.malum.registry.common.recipe;
 
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.common.recipe.*;
-import com.sammy.malum.common.recipe.derealization.ConjunctureCrystallariumRecipe;
+import com.sammy.malum.common.recipe.furnace.crystallarium.ConjunctureCrystallariumRecipe;
 import com.sammy.malum.common.recipe.derealization.OreDerealizationRecipe;
 import com.sammy.malum.common.recipe.node_cooking.IngredientBasedBlastingRecipe;
 import com.sammy.malum.common.recipe.node_cooking.IngredientBasedSmeltingRecipe;

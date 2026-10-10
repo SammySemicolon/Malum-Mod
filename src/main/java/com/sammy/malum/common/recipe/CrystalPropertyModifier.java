@@ -1,4 +1,4 @@
-package com.sammy.malum.common.recipe.derealization;
+package com.sammy.malum.common.recipe;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;

@@ -1,4 +1,4 @@
-package com.sammy.malum.common.block.curiosities.artifice.crystallarium;
+package com.sammy.malum.common.block.curiosities.artifice.furnace;
 
 import team.lodestar.lodestone.modules.toolkit.blockentity.LodestoneBlockEntity;
 import team.lodestar.lodestone.modules.toolkit.inventory.LodestoneItemStackBlockHandlerBuilder;

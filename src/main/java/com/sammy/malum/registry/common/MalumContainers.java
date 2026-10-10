@@ -1,8 +1,9 @@
 package com.sammy.malum.registry.common;
 
 import com.sammy.malum.client.screen.container.*;
+import com.sammy.malum.client.screen.container.furnace.ConjunctureCrystallariumScreen;
 import com.sammy.malum.client.screen.container.tinkerer.WandTinkererScreen;
-import com.sammy.malum.common.block.curiosities.artifice.crystallarium.*;
+import com.sammy.malum.common.block.curiosities.artifice.furnace.crystallarium.*;
 import com.sammy.malum.common.block.curiosities.sorcery.wand_tinkerer.WandTinkererContainer;
 import com.sammy.malum.common.container.WeaversWorkbenchContainer;
 import net.minecraft.core.registries.BuiltInRegistries;

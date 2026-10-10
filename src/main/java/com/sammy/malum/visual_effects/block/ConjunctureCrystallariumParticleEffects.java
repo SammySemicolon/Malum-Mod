@@ -1,13 +1,6 @@
 package com.sammy.malum.visual_effects.block;
 
-import com.sammy.malum.common.block.curiosities.artifice.crystallarium.ConjunctureCrystallariumBlockEntity;
-import net.minecraft.core.Direction;
-import team.lodestar.lodestone.modules.core.easing.Easing;
-import team.lodestar.lodestone.modules.rendering.handlers.ParticleHandler;
-import team.lodestar.lodestone.registry.client.LodestoneParticleVisuals;
-import team.lodestar.lodestone.registry.client.LodestoneRenderTypes;
-
-import java.awt.*;
+import com.sammy.malum.common.block.curiosities.artifice.furnace.crystallarium.ConjunctureCrystallariumBlockEntity;
 
 import static com.sammy.malum.visual_effects.SpiritLightSpecs.spiritLightSpecs;
 

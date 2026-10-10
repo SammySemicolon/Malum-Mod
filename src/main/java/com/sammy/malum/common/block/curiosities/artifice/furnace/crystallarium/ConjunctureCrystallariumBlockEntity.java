@@ -1,8 +1,10 @@
-package com.sammy.malum.common.block.curiosities.artifice.crystallarium;
+package com.sammy.malum.common.block.curiosities.artifice.furnace.crystallarium;
 
+import com.sammy.malum.common.block.curiosities.artifice.furnace.MalumAbstractFurnaceBlockEntity;
+import com.sammy.malum.common.block.curiosities.artifice.furnace.MalumFurnaceBlockItemStackHandler;
 import com.sammy.malum.common.block.soulstone.SoulstoneBudBlockEntity;
-import com.sammy.malum.common.recipe.derealization.ConjunctureCrystallariumRecipe;
-import com.sammy.malum.common.recipe.derealization.CrystalPropertyModifier;
+import com.sammy.malum.common.recipe.furnace.crystallarium.ConjunctureCrystallariumRecipe;
+import com.sammy.malum.common.recipe.CrystalPropertyModifier;
 import com.sammy.malum.registry.common.MalumDataMaps;
 import com.sammy.malum.registry.common.block.MalumBlockEntities;
 import com.sammy.malum.registry.common.recipe.MalumRecipeTypes;
@@ -22,7 +24,7 @@ import team.lodestar.lodestone.modules.toolkit.blockentity.*;
 
 import java.util.Collections;
 
-import static com.sammy.malum.common.block.curiosities.artifice.crystallarium.ConjunctureCrystallariumContainer.*;
+import static com.sammy.malum.common.block.curiosities.artifice.furnace.crystallarium.ConjunctureCrystallariumContainer.*;
 
 public class ConjunctureCrystallariumBlockEntity extends MalumAbstractFurnaceBlockEntity<SingleRecipeInput, ConjunctureCrystallariumRecipe> {
 

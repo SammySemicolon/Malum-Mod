@@ -1,9 +1,8 @@
-package com.sammy.malum.common.block.curiosities.artifice.crystallarium;
+package com.sammy.malum.common.block.curiosities.artifice.furnace;
 
 import com.sammy.malum.MalumMod;
-import com.sammy.malum.common.recipe.derealization.ConjunctureCrystallariumRecipe;
-import com.sammy.malum.common.recipe.derealization.MalumAbstractFurnaceRecipe;
-import com.sammy.malum.common.recipe.derealization.MalumSizedChanceResult;
+import com.sammy.malum.common.recipe.furnace.MalumAbstractFurnaceRecipe;
+import com.sammy.malum.common.recipe.furnace.crystallarium.MalumSizedChanceResult;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
@@ -12,9 +11,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.MenuProvider;
 import net.minecraft.world.inventory.ContainerData;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
@@ -110,7 +107,7 @@ public abstract class MalumAbstractFurnaceBlockEntity<I extends RecipeInput, R e
         }
 
         if (outputList.isEmpty() && fallback.isPresent()) {
-            outputList.add(fallback.get().copy()); //TODO roll here too if sammy wants that
+            outputList.add(fallback.get().copy());
         }
 
         return outputList;

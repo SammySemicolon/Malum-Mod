@@ -1,23 +1,17 @@
 package com.sammy.malum.datagen.recipe;
 
-import com.sammy.malum.common.block.soulstone.SoulstoneBudBlock;
 import com.sammy.malum.common.data.component.soulstone.StoredInSoulstoneMetal;
-import com.sammy.malum.common.recipe.derealization.ConjunctureCrystallariumRecipe;
-import com.sammy.malum.common.recipe.derealization.CrystalPropertyModifier;
-import com.sammy.malum.common.recipe.derealization.MalumSizedChanceResult;
+import com.sammy.malum.common.recipe.CrystalPropertyModifier;
+import com.sammy.malum.common.recipe.furnace.crystallarium.MalumSizedChanceResult;
 import com.sammy.malum.datagen.recipe.builder.ConjunctureCrystallariumRecipeBuilder;
 import com.sammy.malum.datagen.recipe.builder.OreDerealizationRecipeBuilder;
 import com.sammy.malum.registry.common.MalumContent;
-import dev.latvian.mods.kubejs.level.ruletest.AllMatchRuleTest;
 import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.levelgen.structure.templatesystem.TagMatchTest;
 import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.common.conditions.IConditionBuilder;
-import vectorwing.farmersdelight.common.registry.ModBlocks;
-
-import java.util.List;
 
 public class MalumConjunctureCrystallariumRecipes implements IConditionBuilder {
 
