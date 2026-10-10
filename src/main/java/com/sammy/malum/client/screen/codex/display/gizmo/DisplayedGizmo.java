@@ -24,7 +24,11 @@ public abstract class DisplayedGizmo {
 
     public final void render(AbstractMalumCodexScreen screen, IGizmoHolder holder, GuiGraphics guiGraphics, int x, int y, int mouseX, int mouseY, float partialTicks) {
         if (!isHoveredOver) {
-            isHoveredOver = holder.shouldGizmoBeConsideredHoveredOver() || screen.isHovering(mouseX, mouseY, x, y, width, height);
+            isHoveredOver = switch (holder.updateHoverCondition(this)) {
+                case DEFAULT -> screen.isHovering(mouseX, mouseY, x, y, width, height);
+                case ALLOW -> true;
+                case DENY -> false;
+            };
         }
         renderDecals(screen, holder, guiGraphics, x, y, mouseX, mouseY, partialTicks);
         if (holder.shouldGizmoRenderTooltip() && isHoveredOver) {

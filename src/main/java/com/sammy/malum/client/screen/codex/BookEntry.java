@@ -2,8 +2,12 @@ package com.sammy.malum.client.screen.codex;
 
 import com.google.common.collect.ImmutableList;
 import com.sammy.malum.client.screen.codex.pages.BookPage;
+import net.minecraft.network.chat.*;
 
+import java.awt.*;
 import java.util.*;
+import java.util.List;
+import java.util.function.*;
 
 public class BookEntry {
 
@@ -39,5 +43,19 @@ public class BookEntry {
 
     public static BookEntryBuilder create(String identifier) {
         return new BookEntryBuilder(identifier);
+    }
+
+    public void addBookmarks(Consumer<MutableComponent> acceptor) {
+        addBookmarks(leftBookmarks, acceptor);
+        addBookmarks(rightBookmarks, acceptor);
+    }
+
+    private void addBookmarks(List<EntryBookmark> bookmarks, Consumer<MutableComponent> acceptor) {
+        for (int i = bookmarks.size()-1; i >=0; i--) {
+            var bookmark = bookmarks.get(i);
+            if (bookmark.entry.shouldShow()) {
+                acceptor.accept(bookmark.getComponent());
+            }
+        }
     }
 }

@@ -1,8 +1,6 @@
 package com.sammy.malum.client.screen.codex.chapters;
 
-import com.sammy.malum.client.screen.codex.BookEntry;
-import com.sammy.malum.client.screen.codex.EntryAcceptor;
-import com.sammy.malum.client.screen.codex.EntryBookmark;
+import com.sammy.malum.client.screen.codex.*;
 import com.sammy.malum.client.screen.codex.display.CodexIconRenderer;
 import com.sammy.malum.client.screen.codex.display.gizmo.*;
 import com.sammy.malum.client.screen.codex.pages.CyclingPage;
@@ -41,6 +39,7 @@ public class IntroductionChapter extends BookChapter {
 
         var introduction = addEntry("introduction", 0, 0)
                 .setIcon(item(ENCYCLOPEDIA_ARCANA))
+                .setDesign(EntryWidgetDesign.LARGE)
                 .addPage(headlineTextGizmoPage("introduction", item(ENCYCLOPEDIA_ARCANA)))
                 .addPage(textPage("introduction.2"))
                 .addPage(textPage("introduction.3"))
@@ -49,6 +48,7 @@ public class IntroductionChapter extends BookChapter {
 
         var spiritCrystals = addEntry("spirit_crystals", 1, 1)
                 .setIcon(soulShard)
+                .setDesign(EntryWidgetDesign.SMALL)
                 .addPage(headlineTextGizmoPage("spirit_crystals", soulShard))
                 .addPage(textPage("spirit_crystals.2"))
                 .addPage(textPage("spirit_crystals.3"))
@@ -86,6 +86,7 @@ public class IntroductionChapter extends BookChapter {
 
         var arcaneWonders = addEntry("arcane_wonders", -1, 3)
                 .setIcon(overworld)
+                .setDesign(EntryWidgetDesign.SMALL)
                 .addPage(headlineTextGizmoPage("arcane_wonders", overworld))
                 .addPage(textPage("arcane_wonders.2"))
                 .addPage(textPage("arcane_wonders.3"))
@@ -141,6 +142,7 @@ public class IntroductionChapter extends BookChapter {
 
         var spiritInfusion = addEntry("spirit_infusion", 0, 8)
                 .setIcon(item(Sorcery.SPIRIT_ALTAR))
+                .setDesign(EntryWidgetDesign.LARGE)
                 .addPage(headlineTextGizmoPage("spirit_infusion", item(Sorcery.SPIRIT_ALTAR)))
                 .addPage(textPage("spirit_infusion.2"))
                 .addPage(textPage("spirit_infusion.3"))
@@ -234,6 +236,7 @@ public class IntroductionChapter extends BookChapter {
         var symbol = DisplayedSpiritSymbol.spirit(spirit);
         acceptor.addEntry(translationKey, x, y)
                 .setIcon(item(spirit.getSpiritStack()))
+                .setDesign(EntryWidgetDesign.SMALL)
                 .addPage(HeadlineSpiritPage.spirit(translationKey, symbol))
                 .addPage(TextPage.textPage(translationKey + ".2"));
     }

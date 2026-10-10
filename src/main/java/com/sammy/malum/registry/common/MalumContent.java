@@ -374,8 +374,12 @@ public class MalumContent {
         public static final DeferredItem<Item> MALIGNANT_PEWTER_PLATING = register("malignant_pewter_plating", MalumItemProperties::DEFAULT, Item::new);
         public static final DeferredItem<Item> MALIGNANT_PEWTER_NUGGET = register("malignant_pewter_nugget", MalumItemProperties::DEFAULT, Item::new);
 
+        public static final DeferredItem<Item> ALCHEMIZED_TEXTILE = register("alchemized_textile", MalumItemProperties::DEFAULT, Item::new);
         public static final DeferredItem<Item> SOULWOVEN_SILK = register("soulwoven_silk", MalumItemProperties::DEFAULT, Item::new);
         public static final DeferredItem<Item> PARACAUSAL_FLAME = register("paracausal_flame", MalumItemProperties::DEFAULT, Item::new);
+
+        public static final DeferredItem<Item> ARCANE_GEARWORKS = register("arcane_gearworks", MalumItemProperties::DEFAULT, Item::new);
+        public static final DeferredItem<Item> GUST_SERVO = register("gust_servo", MalumItemProperties::DEFAULT, Item::new);
         public static final DeferredItem<Item> CONVOLUTED_LENS = register("convoluted_lens", MalumItemProperties::DEFAULT, Item::new);
         public static final DeferredItem<Item> MIMICRY_RELAY = register("mimicry_relay", MalumItemProperties::DEFAULT, Item::new);
         public static final DeferredItem<Item> IMITATION_FLESH = register("imitation_flesh", MalumItemProperties::DEFAULT, Item::new);

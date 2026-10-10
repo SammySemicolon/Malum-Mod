@@ -42,7 +42,10 @@ public abstract class SelectableEntryObject<T extends AbstractMalumCodexScreen> 
     }
 
     @Override
-    public boolean shouldGizmoBeConsideredHoveredOver() {
-        return isHoveredOver;
+    public HoverCondition updateHoverCondition(DisplayedGizmo gizmo) {
+        if (isHoveredOver) {
+            return HoverCondition.ALLOW;
+        }
+        return HoverCondition.DENY;
     }
 }

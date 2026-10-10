@@ -17,13 +17,14 @@ public class ProgressionEntryObject extends SelectableEntryObject<AbstractProgre
 
     public static final int OBJECT_SPACING = 32;
 
-    public EntryWidgetDesign design = EntryWidgetDesign.MEDIUM;
+    public final EntryWidgetDesign design;
 
     protected int oldOutlineVisibility;
     protected int outlineVisibility;
 
     public ProgressionEntryObject(PlacedBookEntry entry) {
         super(entry, 32, 32);
+        design = entry.getDesign();
     }
 
     @Override
@@ -83,16 +84,7 @@ public class ProgressionEntryObject extends SelectableEntryObject<AbstractProgre
     @Override
     public void addGizmoTooltip(GizmoTooltipBuilder builder) {
         super.addGizmoTooltip(builder);
-        var bookmarks = entry.rightBookmarks;
-        for (int i = bookmarks.size()-1; i >=0; i--) {
-            EntryBookmark bookmark = bookmarks.get(i);
-            if (bookmark.entry.shouldShow()) {
-                var slash = Component.literal("┇ ");
-                var text = Component.translatable(bookmark.entry.translationKey());
-                var component = slash.append(text).withStyle(ChatFormatting.DARK_GRAY);
-                builder.add(component);
-            }
-        }
+        entry.addBookmarks(builder::add);
     }
 
     @Override
