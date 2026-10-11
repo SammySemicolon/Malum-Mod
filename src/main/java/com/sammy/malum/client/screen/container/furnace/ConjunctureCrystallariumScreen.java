@@ -1,7 +1,8 @@
-package com.sammy.malum.client.screen.container;
+package com.sammy.malum.client.screen.container.furnace;
 
 import com.sammy.malum.MalumMod;
-import com.sammy.malum.common.block.curiosities.artifice.crystallarium.ConjunctureCrystallariumContainer;
+import com.sammy.malum.client.screen.container.AbstractMalumContainerScreen;
+import com.sammy.malum.common.block.curiosities.artifice.furnace.crystallarium.ConjunctureCrystallariumContainer;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;

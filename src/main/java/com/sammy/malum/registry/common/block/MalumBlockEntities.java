@@ -14,7 +14,7 @@ import com.sammy.malum.client.renderer.block.redstone.WaveBreakerRenderer;
 import com.sammy.malum.client.renderer.block.totemancy.*;
 import com.sammy.malum.common.block.building.banner.fancy.FancyBannerBlock;
 import com.sammy.malum.common.block.building.banner.fancy.FancyBannerBlockEntity;
-import com.sammy.malum.common.block.curiosities.artifice.crystallarium.ConjunctureCrystallariumBlockEntity;
+import com.sammy.malum.common.block.curiosities.artifice.furnace.crystallarium.ConjunctureCrystallariumBlockEntity;
 import com.sammy.malum.common.block.curiosities.artifice.elemental_artifice.aerial.GustIgniterBlockEntity;
 import com.sammy.malum.common.block.curiosities.artifice.elemental_artifice.aerial.WindTunnelBlockEntity;
 import com.sammy.malum.common.block.building.banner.soulwoven.SoulwovenBannerBlock;

@@ -1,7 +1,7 @@
 package com.sammy.malum.datagen.recipe.builder;
 
 import com.sammy.malum.common.data.component.soulstone.StoredInSoulstoneMetal;
-import com.sammy.malum.common.recipe.derealization.CrystalPropertyModifier;
+import com.sammy.malum.common.recipe.CrystalPropertyModifier;
 import com.sammy.malum.common.recipe.derealization.OreDerealizationRecipe;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.recipes.RecipeOutput;

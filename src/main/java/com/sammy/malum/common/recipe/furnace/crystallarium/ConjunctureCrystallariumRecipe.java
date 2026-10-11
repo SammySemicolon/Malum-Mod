@@ -1,10 +1,12 @@
-package com.sammy.malum.common.recipe.derealization;
+package com.sammy.malum.common.recipe.furnace.crystallarium;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.DataResult;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.sammy.malum.common.data.component.soulstone.StoredInSoulstoneMetal;
+import com.sammy.malum.common.recipe.CrystalPropertyModifier;
+import com.sammy.malum.common.recipe.furnace.MalumAbstractFurnaceRecipe;
 import com.sammy.malum.registry.common.recipe.MalumRecipeSerializers;
 import com.sammy.malum.registry.common.recipe.MalumRecipeTypes;
 import net.minecraft.core.HolderLookup;

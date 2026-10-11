@@ -5,7 +5,7 @@ import com.sammy.malum.common.block.blight.scarstone.LargeStrangeCrystalBlock;
 import com.sammy.malum.common.block.blight.scarstone.ScarstoneBlock;
 import com.sammy.malum.common.block.blight.scarstone.StrangeCrystalBlock;
 import com.sammy.malum.common.block.blight.scarstone.StrangeRootBlock;
-import com.sammy.malum.common.block.curiosities.artifice.crystallarium.*;
+import com.sammy.malum.common.block.curiosities.artifice.furnace.crystallarium.*;
 import com.sammy.malum.common.block.curiosities.artifice.elemental_artifice.aerial.GustIgniterBlock;
 import com.sammy.malum.common.block.curiosities.artifice.elemental_artifice.aerial.WindTunnelBlock;
 import com.sammy.malum.common.block.curiosities.artifice.soul_link.SoulLinkBlock;

@@ -1,5 +1,6 @@
-package com.sammy.malum.common.recipe.derealization;
+package com.sammy.malum.common.recipe.furnace;
 
+import com.sammy.malum.common.recipe.furnace.crystallarium.MalumSizedChanceResult;
 import net.minecraft.core.NonNullList;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Recipe;
