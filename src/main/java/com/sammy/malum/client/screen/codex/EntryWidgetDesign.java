@@ -9,14 +9,10 @@ import static com.sammy.malum.client.screen.codex.helper.CodexRenderHelper.rende
 
 public final class EntryWidgetDesign {
 
-    public static final EntryWidgetDesign LARGE =
-            new EntryWidgetDesign("large");
-
-    public static final EntryWidgetDesign MEDIUM =
-            new EntryWidgetDesign("medium");
-
-    public static final EntryWidgetDesign SMALL =
-            new EntryWidgetDesign("small");
+    public static final EntryWidgetDesign LARGE = new EntryWidgetDesign("large");
+    public static final EntryWidgetDesign MEDIUM = new EntryWidgetDesign("medium");
+    public static final EntryWidgetDesign SMALL = new EntryWidgetDesign("small");
+    public static final EntryWidgetDesign TINY = new EntryWidgetDesign("tiny");
 
     private final String id;
     private ResourceLocation texture;

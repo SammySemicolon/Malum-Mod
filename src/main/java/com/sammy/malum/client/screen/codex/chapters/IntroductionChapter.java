@@ -74,12 +74,9 @@ public class IntroductionChapter extends BookChapter {
                 )
                 .addPage(headlineTextGizmoPage("runewood.runic_sap", item(RUNIC_SAP_BOTTLE)))
                 .addPage(PageSelectionPage.create("runewood.runic_sap", s -> s
-                                .add(item(RUNEWOOD_SET.strippedSappyLog),
-                                        stripping(item(RUNEWOOD_SET.sappyLog), item(RUNEWOOD_SET.strippedSappyLog)))
-                                .add(item(RUNIC_SAP_BOTTLE),
-                                        bottling(item(RUNEWOOD_SET.strippedSappyLog), item(RUNIC_SAP_BOTTLE)))
-                                .add(item(RUNIC_SAPBALL),
-                                        crafting(item(RUNIC_SAPBALL), c -> c.top(item(WHEAT)).middle(item(RUNIC_SAP_BOTTLE))))
+                                .add(item(RUNEWOOD_SET.strippedSappyLog), stripping(item(RUNEWOOD_SET.sappyLog), item(RUNEWOOD_SET.strippedSappyLog)))
+                                .add(item(RUNIC_SAP_BOTTLE), bottling(item(RUNEWOOD_SET.strippedSappyLog), item(RUNIC_SAP_BOTTLE)))
+                                .add(item(RUNIC_SAPBALL), crafting(item(RUNIC_SAPBALL), c -> c.top(item(WHEAT)).middle(item(RUNIC_SAP_BOTTLE))))
                         )
                 )
                 .requires(spiritCrystals);
