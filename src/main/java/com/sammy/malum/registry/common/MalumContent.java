@@ -59,6 +59,7 @@ import com.sammy.malum.common.block.flora.wood.soulwood.SoulwoodLeavesBlock;
 import com.sammy.malum.common.block.flora.wood.soulwood.SoulwoodSaplingBlock;
 import com.sammy.malum.common.block.flora.wood.MalumSaplingBlock;
 import com.sammy.malum.common.block.soulstone.*;
+import com.sammy.malum.common.block.storage.coffer.CofferBlock;
 import com.sammy.malum.common.block.storage.jar.SpiritJarBlock;
 import com.sammy.malum.common.block.the_device.TheDevice;
 import com.sammy.malum.common.block.the_device.TheVessel;
@@ -520,6 +521,8 @@ public class MalumContent {
 
         public static final BlockBlockItemHolder<Block, BlockItem> SPIRIT_ALTAR = registerBlock("spirit_altar", () -> new SpiritAltarBlock<>(RUNEWOOD_IMPLEMENT()));
         public static final BlockBlockItemHolder<Block, BlockItem> SPIRIT_JAR = registerBlock("spirit_jar", () -> new SpiritJarBlock<>(SPIRIT_JAR()), SpiritJarItem::new);
+
+        public static final BlockBlockItemHolder<Block, BlockItem> COFFER = registerBlock("coffer", () -> new CofferBlock(MalumWoodBlockProperties.RUNEWOOD()));
 
         public static final BlockBlockItemHolder<Block, BlockItem> WAND_TINKERER = registerBlock("wand_tinkerer", () -> new WandTinkererBlock<>(RUNEWOOD_IMPLEMENT()));
         public static final BlockBlockItemHolder<Block, BlockItem> RUNIC_WORKBENCH = registerBlock("runic_workbench", () -> new RunicWorkbenchBlock<>(RUNEWOOD_IMPLEMENT()));

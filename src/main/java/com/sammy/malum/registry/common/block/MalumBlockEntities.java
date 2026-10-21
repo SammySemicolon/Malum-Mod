@@ -50,6 +50,7 @@ import com.sammy.malum.common.block.curiosities.weavers_workbench.*;
 import com.sammy.malum.common.block.curiosities.weeping_well.*;
 import com.sammy.malum.common.block.ether.*;
 import com.sammy.malum.common.block.soulstone.*;
+import com.sammy.malum.common.block.storage.coffer.CofferBlockEntity;
 import com.sammy.malum.common.block.storage.jar.*;
 import com.sammy.malum.common.block.storage.pedestal.*;
 import com.sammy.malum.common.block.storage.stand.*;
@@ -97,6 +98,8 @@ public class MalumBlockEntities {
     public static final Supplier<LodestoneBlockEntityType<RunewoodObeliskBlockEntity>> RUNEWOOD_OBELISK = BLOCK_ENTITY_TYPES.register("runewood_obelisk", () -> create(RunewoodObeliskBlockEntity::new, MalumContent.Sorcery.RUNEWOOD_OBELISK).build());
     public static final Supplier<LodestoneBlockEntityType<BrilliantObeliskBlockEntity>> BRILLIANT_OBELISK = BLOCK_ENTITY_TYPES.register("brilliant_obelisk", () -> create(BrilliantObeliskBlockEntity::new, MalumContent.Sorcery.BRILLIANT_OBELISK).build());
     public static final Supplier<LodestoneBlockEntityType<ArcanaPylonBlockEntity>> ARCANA_PYLON = BLOCK_ENTITY_TYPES.register("arcana_pylon", () -> create(ArcanaPylonBlockEntity::new, MalumContent.Sorcery.ARCANA_PYLON).setTickerType(Type.BOTH).build());
+
+    public static final Supplier<LodestoneBlockEntityType<CofferBlockEntity>> COFFER = BLOCK_ENTITY_TYPES.register("coffer", () -> create(CofferBlockEntity::new, MalumContent.Sorcery.COFFER).build());
 
     public static final Supplier<LodestoneBlockEntityType<WandTinkererBlockEntity>> WAND_TINKERER = BLOCK_ENTITY_TYPES.register("wand_tinkerer", () -> create(WandTinkererBlockEntity::new, MalumContent.Sorcery.WAND_TINKERER).setTickerType(Type.BOTH).build());
     public static final Supplier<LodestoneBlockEntityType<RunicWorkbenchBlockEntity>> RUNIC_WORKBENCH = BLOCK_ENTITY_TYPES.register("runic_workbench", () -> create(RunicWorkbenchBlockEntity::new, MalumContent.Sorcery.RUNIC_WORKBENCH).setTickerType(Type.SERVER).build());
