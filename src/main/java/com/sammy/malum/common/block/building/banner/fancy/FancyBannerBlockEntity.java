@@ -34,9 +34,11 @@ import javax.annotation.Nullable;
 public class FancyBannerBlockEntity extends MalumBannerBlockEntity {
 
     public FancyBannerDataComponent patternData;
+    public final DyeColor color;
 
     public FancyBannerBlockEntity(BlockPos pos, BlockState state) {
         super(MalumBlockEntities.FANCY_BANNER.get(), pos, state);
+        color = ((FancyBannerBlock)state.getBlock()).getColor();
     }
 
     @Override

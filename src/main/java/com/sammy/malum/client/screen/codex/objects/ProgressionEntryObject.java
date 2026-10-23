@@ -2,7 +2,6 @@ package com.sammy.malum.client.screen.codex.objects;
 
 import com.mojang.blaze3d.vertex.*;
 import com.sammy.malum.client.screen.codex.*;
-import com.sammy.malum.client.screen.codex.display.CodexOutlineRenderer;
 import com.sammy.malum.client.screen.codex.display.gizmo.GizmoTooltipBuilder;
 import com.sammy.malum.client.screen.codex.screens.progression.*;
 import com.sammy.malum.registry.common.sound.*;
@@ -12,38 +11,34 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.util.*;
 import team.lodestar.lodestone.modules.core.easing.Easing;
 
-import static com.sammy.malum.client.screen.codex.WidgetDesignType.FillingType.PAPER;
-import static com.sammy.malum.client.screen.codex.WidgetDesignType.FrameType.RUNEWOOD;
 import static com.sammy.malum.client.screen.codex.helper.CodexRenderHelper.renderTexture;
 
 public class ProgressionEntryObject extends SelectableEntryObject<AbstractProgressionCodexScreen> {
 
-    public static final int OBJECT_SPACING = 40;
+    public static final int OBJECT_SPACING = 32;
 
-    public WidgetDesign design = WidgetDesignType.DEFAULT.createDesign(RUNEWOOD, PAPER);
+    public final EntryWidgetDesign design;
 
     protected int oldOutlineVisibility;
     protected int outlineVisibility;
 
     public ProgressionEntryObject(PlacedBookEntry entry) {
-        super(entry.getEntry(), entry.getIcon(), entry.getX(), entry.getY(), 32, 32);
+        super(entry, 32, 32);
+        design = entry.getDesign();
     }
 
     @Override
     public boolean isInView(AbstractProgressionCodexScreen screen) {
         int posX = getOffsetX() - 16;
         int posY = getOffsetY() - 16;
-        return posX + 64 >= 0
-                && posY + 64 >= 0
+        return posX + 32 >= 0
+                && posY + 32 >= 0
                 && posX <= AbstractProgressionCodexScreen.BOOK_WIDTH
                 && posY <= AbstractProgressionCodexScreen.BOOK_HEIGHT;
     }
 
     @Override
     public void tick(AbstractProgressionCodexScreen screen, double mouseX, double mouseY) {
-        if (design.getDesignType().equals(WidgetDesignType.EMPTY)) {
-            return;
-        }
         oldOutlineVisibility = outlineVisibility;
         if (isHoveredOver) {
             if (outlineVisibility == 6) {
@@ -74,44 +69,32 @@ public class ProgressionEntryObject extends SelectableEntryObject<AbstractProgre
     @Override
     public void render(AbstractProgressionCodexScreen screen, GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTicks) {
         var poseStack = guiGraphics.pose();
-        int left = getOffsetX() - 16;
-        int top = getOffsetY() - 16;
+        int left = getOffsetX();
+        int top = getOffsetY();
         int centerX = getCenterX();
         int centerY = getCenterY();
         renderTexture(WIDGET_FADE_TEXTURE, poseStack, centerX - 29, centerY - 29, 0, 0, 58, 58);
         if (design != null) {
-            CodexOutlineRenderer.create(design, left, top, 64, 64)
-                    .setEffectStrength(oldOutlineVisibility, outlineVisibility, 20f)
-                    .renderOutline(poseStack);
-            design.getFrameTexture().ifPresent(texture -> renderTexture(texture, poseStack, left, top, 0, 0, 64, 64));
-            design.getFillingTexture().ifPresent(texture -> renderTexture(texture, poseStack, left, top, 0, 0, 64, 64));
+            float effectStrength = Mth.lerp(partialTicks, oldOutlineVisibility, outlineVisibility) / 20f;
+            design.render(poseStack, left, top, effectStrength);
         }
-        icon.render(screen, this, guiGraphics, centerX - 8, centerY - 8, mouseX, mouseY);
+        icon.render(screen, this, guiGraphics, centerX - 8, centerY - 8, mouseX, mouseY, partialTicks);
     }
 
     @Override
     public void addGizmoTooltip(GizmoTooltipBuilder builder) {
         super.addGizmoTooltip(builder);
-        var bookmarks = entry.rightBookmarks;
-        for (int i = bookmarks.size()-1; i >=0; i--) {
-            EntryBookmark bookmark = bookmarks.get(i);
-            if (bookmark.entry.shouldShow()) {
-                var slash = Component.literal("┇ ");
-                var text = Component.translatable(bookmark.entry.translationKey());
-                var component = slash.append(text).withStyle(ChatFormatting.DARK_GRAY);
-                builder.add(component);
-            }
-        }
+        entry.addBookmarks(builder::add);
     }
 
     @Override
-    public int getAccurateX() {
-        return x * OBJECT_SPACING;
+    public int getOffsetX() {
+        return (int) (x * OBJECT_SPACING + xOffset);
     }
 
     @Override
-    public int getAccurateY() {
-        return y * OBJECT_SPACING;
+    public int getOffsetY() {
+        return (int) (y * OBJECT_SPACING + yOffset);
     }
 
     public int getCenterX() {

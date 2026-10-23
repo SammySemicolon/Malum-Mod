@@ -12,6 +12,10 @@ public abstract class SelectableEntryObject<T extends AbstractMalumCodexScreen> 
     public final BookEntry entry;
     public final DisplayedGizmo icon;
 
+    public SelectableEntryObject(PlacedBookEntry entry, int width, int height) {
+        this(entry.getEntry(), entry.getIcon(), entry.getX(), entry.getY(), width, height);
+    }
+
     public SelectableEntryObject(BookEntry entry, DisplayedGizmo icon, int x, int y, int width, int height) {
         super(x, y, width, height);
         this.entry = entry;
@@ -38,7 +42,10 @@ public abstract class SelectableEntryObject<T extends AbstractMalumCodexScreen> 
     }
 
     @Override
-    public boolean shouldGizmoBeConsideredHoveredOver() {
-        return isHoveredOver;
+    public HoverCondition updateHoverCondition(DisplayedGizmo gizmo) {
+        if (isHoveredOver) {
+            return HoverCondition.ALLOW;
+        }
+        return HoverCondition.DENY;
     }
 }

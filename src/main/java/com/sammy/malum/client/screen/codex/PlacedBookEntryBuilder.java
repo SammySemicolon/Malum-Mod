@@ -7,6 +7,7 @@ public class PlacedBookEntryBuilder extends BookEntryBuilder {
 
     protected final int x, y;
     protected DisplayedGizmo icon;
+    protected EntryWidgetDesign design = EntryWidgetDesign.MEDIUM;
 
     protected PlacedBookEntry.BookObjectSupplier objectBuilder = ProgressionEntryObject::new;
 
@@ -21,12 +22,17 @@ public class PlacedBookEntryBuilder extends BookEntryBuilder {
         return this;
     }
 
+    public PlacedBookEntryBuilder setDesign(EntryWidgetDesign design) {
+        this.design = design;
+        return this;
+    }
+
     public PlacedBookEntryBuilder setObjectBuilder(PlacedBookEntry.BookObjectSupplier objectBuilder) {
         this.objectBuilder = objectBuilder;
         return this;
     }
 
     public PlacedBookEntry place() {
-        return new PlacedBookEntry(build(), icon, objectBuilder, x, y);
+        return new PlacedBookEntry(build(), icon, design, objectBuilder, x, y);
     }
 }

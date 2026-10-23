@@ -1,8 +1,7 @@
 {
-	"credit": "Made with Blockbench",
 	"parent": "block/block",
 	"textures": {
-		"well": "malum:block/weeping_well/weeping_well",
+		"well": "malum:block/enscription/weeping_well",
 		"particle": "#well"
 	},
 	"elements": [

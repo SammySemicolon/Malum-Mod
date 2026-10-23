@@ -27,7 +27,7 @@ public class SoulstoneGrowthStagePage extends BookPage {
     }
 
     @Override
-    public BookObjectHandler<CodexEntryScreen> addObjects(CodexEntryScreen screen, int left, int top) {
+    public BookObjectHandler<CodexEntryScreen> createBookObjects(CodexEntryScreen screen, int left, int top) {
         BookObjectHandler<CodexEntryScreen> handler = new BookObjectHandler<>();
 
         int step = 22;

@@ -113,12 +113,12 @@ public class CraftingPage extends BookPage implements IGizmoHolder {
         return new CraftingPage(pedestal, c -> c.middleLayer(slab).bottomLayer(block));
     }
 
-    public static CraftingPage compacting(DisplayedGizmo block, DisplayedGizmo input) {
-        return new CraftingPage(block, c -> c.fill(input));
+    public static CraftingPage compacting(DisplayedGizmo input, DisplayedGizmo output) {
+        return new CraftingPage(output, c -> c.fill(input));
     }
 
-    public static CraftingPage crafting(DisplayedGizmo block, Consumer<CraftingGridContents> builder) {
-        return new CraftingPage(block, builder);
+    public static CraftingPage crafting(DisplayedGizmo output, Consumer<CraftingGridContents> builder) {
+        return new CraftingPage(output, builder);
     }
 
     protected CraftingPage(DisplayedGizmo output, Consumer<CraftingGridContents> builder) {
@@ -151,10 +151,10 @@ public class CraftingPage extends BookPage implements IGizmoHolder {
                         .setUVWithWidth(x*20, y*20, 18, 18, 58, 58)
                         .blit(guiGraphics.pose());
 
-                display.render(screen, this, guiGraphics, itemPosX, itemPosY, mouseX, mouseY);
+                display.render(screen, this, guiGraphics, itemPosX, itemPosY, mouseX, mouseY, partialTicks);
             }
         }
 
-        output.render(screen, this, guiGraphics, left + 63, top + 162, mouseX, mouseY);
+        output.render(screen, this, guiGraphics, left + 63, top + 162, mouseX, mouseY, partialTicks);
     }
 }

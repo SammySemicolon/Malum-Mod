@@ -27,7 +27,7 @@ public class SmeltingPage extends BookPage implements IGizmoHolder {
 
     @Override
     public void render(CodexEntryScreen screen, GuiGraphics guiGraphics, int left, int top, int mouseX, int mouseY, float partialTicks, boolean isRepeat) {
-        input.render(screen, this, guiGraphics, left + 63, top + 70, mouseX, mouseY);
-        output.render(screen, this, guiGraphics, left + 63, top + 162, mouseX, mouseY);
+        input.render(screen, this, guiGraphics, left + 63, top + 70, mouseX, mouseY, partialTicks);
+        output.render(screen, this, guiGraphics, left + 63, top + 162, mouseX, mouseY, partialTicks);
     }
 }

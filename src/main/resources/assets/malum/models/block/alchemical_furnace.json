@@ -1,0 +1,27 @@
+{
+	"format_version": "1.9.0",
+	"credit": "Made with Blockbench",
+	"parent": "block/block",
+	"textures": {
+		"0": "malum:block/artifice/alchemical_furnace/alchemical_furnace_back",
+		"1": "malum:block/artifice/alchemical_furnace/alchemical_furnace_bottom",
+		"2": "malum:block/artifice/alchemical_furnace/alchemical_furnace_front",
+		"3": "malum:block/artifice/alchemical_furnace/alchemical_furnace_side",
+		"4": "malum:block/artifice/alchemical_furnace/alchemical_furnace_top",
+		"particle": "malum:block/artifice/alchemical_furnace/alchemical_furnace_front"
+	},
+	"elements": [
+		{
+			"from": [0, 0, 0],
+			"to": [16, 16, 16],
+			"faces": {
+				"north": {"uv": [0, 0, 16, 16], "texture": "#2"},
+				"east": {"uv": [16, 0, 0, 16], "texture": "#3"},
+				"south": {"uv": [0, 0, 16, 16], "texture": "#0"},
+				"west": {"uv": [0, 0, 16, 16], "texture": "#3"},
+				"up": {"uv": [16, 16, 0, 0], "texture": "#4"},
+				"down": {"uv": [0, 16, 16, 0], "texture": "#1"}
+			}
+		}
+	]
+}

@@ -1,11 +1,9 @@
 package com.sammy.malum.client.screen.codex.display.gizmo;
 
-import com.sammy.malum.MalumMod;
 import com.sammy.malum.client.screen.codex.display.CodexIconRenderer;
 import com.sammy.malum.client.screen.codex.display.IGizmoHolder;
 import com.sammy.malum.client.screen.codex.screens.AbstractMalumCodexScreen;
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.resources.ResourceLocation;
 
 public class DisplayedTexture extends DisplayedGizmo {
 
@@ -20,7 +18,7 @@ public class DisplayedTexture extends DisplayedGizmo {
     }
 
     @Override
-    public void renderDecals(AbstractMalumCodexScreen screen, IGizmoHolder holder, GuiGraphics guiGraphics, int x, int y, int mouseX, int mouseY) {
+    public void renderDecals(AbstractMalumCodexScreen screen, IGizmoHolder holder, GuiGraphics guiGraphics, int x, int y, int mouseX, int mouseY, float partialTicks) {
         renderer.renderIcon(guiGraphics.pose(), x, y);
     }
 }

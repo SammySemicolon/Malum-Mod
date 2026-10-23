@@ -26,14 +26,14 @@ public class HeadlineTextGizmoPage extends HeadlineTextPage {
 
     @Override
     public ResourceLocation getBackground() {
-        return MalumMod.malumPath("textures/gui/book/pages/headline_item_page.png");
+        return MalumMod.malumPath("textures/gui/book/pages/headline_gizmo_page.png");
     }
 
     @Override
     public void render(CodexEntryScreen screen, GuiGraphics guiGraphics, int left, int top, int mouseX, int mouseY, float partialTicks, boolean isRepeat) {
         CodexTextRenderer.create()
                 .renderHeadline(guiGraphics, headline, left, top)
-                .renderHeadlineGizmoPageContents(guiGraphics, text, left, top);
-        icon.render(screen, this, guiGraphics, left + 63, top + 47, mouseX, mouseY);
+                .renderWrappingText(guiGraphics, text, left + 6, top + 91);
+        icon.render(screen, this, guiGraphics, left + 63, top + 47, mouseX, mouseY, partialTicks);
     }
 }

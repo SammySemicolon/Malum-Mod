@@ -223,8 +223,11 @@ public class MalumAncientSorceryTab extends AbstractMalumCreativeTab {
                                 Materials.MALIGNANT_PEWTER_NUGGET
                         ).nextLine()
                         .addItems(
+                                Materials.ALCHEMIZED_TEXTILE,
                                 Materials.SOULWOVEN_SILK,
                                 Materials.PARACAUSAL_FLAME,
+                                Materials.ARCANE_GEARWORKS,
+                                Materials.GUST_SERVO,
                                 Materials.CONVOLUTED_LENS,
                                 Materials.MIMICRY_RELAY,
                                 Materials.POPPET,

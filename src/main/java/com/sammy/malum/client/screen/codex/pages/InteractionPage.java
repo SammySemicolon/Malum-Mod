@@ -47,8 +47,8 @@ public class InteractionPage extends BookPage implements IGizmoHolder {
 
     @Override
     public void render(CodexEntryScreen screen, GuiGraphics guiGraphics, int left, int top, int mouseX, int mouseY, float partialTicks, boolean isRepeat) {
-        upperDisplay.render(screen, this, guiGraphics, left + 63, top + 70, mouseX, mouseY);
-        lowerDisplay.render(screen, this, guiGraphics, left + 63, top + 162, mouseX, mouseY);
+        upperDisplay.render(screen, this, guiGraphics, left + 63, top + 70, mouseX, mouseY, partialTicks);
+        lowerDisplay.render(screen, this, guiGraphics, left + 63, top + 162, mouseX, mouseY, partialTicks);
 
         var interactionIconTexture = MalumMod.malumPath("textures/gui/book/entry_elements/interaction_" + interactionType.name + ".png");
 

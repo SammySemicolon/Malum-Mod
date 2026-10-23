@@ -2,12 +2,10 @@ package com.sammy.malum.datagen.lang;
 
 import com.sammy.malum.client.screen.codex.display.gizmo.DisplayedGizmo;
 import com.sammy.malum.client.screen.codex.pages.*;
-import com.sammy.malum.client.screen.codex.pages.text.*;
 import com.sammy.malum.core.systems.geas.*;
 import com.sammy.malum.core.systems.registry.rite.RiteHolder;
 import com.sammy.malum.core.systems.rite.*;
 import com.sammy.malum.registry.common.magic.*;
-import com.sammy.malum.registry.common.magic.rite.*;
 import net.minecraft.core.*;
 import team.lodestar.lodestone.helpers.DataHelper;
 
@@ -73,16 +71,16 @@ public class CodexLangDatagen {
     }
 
     protected static void addHeadline(String identifier, String headline, String gizmoSubtext) {
-        add(HeadlineTextPage.headlineKey(identifier), headline);
+        add(PageLangKeyCommons.headlineKey(identifier), headline);
         addGizmoSubtext(identifier, gizmoSubtext);
     }
 
     protected static void addHeadline(String identifier, String headline) {
-        add(HeadlineTextPage.headlineKey(identifier), headline);
+        add(PageLangKeyCommons.headlineKey(identifier), headline);
     }
 
     protected static void addPage(String identifier, String page) {
-        add(BookPage.textKey(identifier), page);
+        add(PageLangKeyCommons.textKey(identifier), page);
     }
 
     protected static void addPages(String identifier, String... pages) {
@@ -102,8 +100,8 @@ public class CodexLangDatagen {
     }
 
     protected static void addRecipeInfo(String identifier, String recipeName, String recipeDescriptor) {
-        add(BookPage.getRecipeInfoHeadlineKey(identifier), recipeName);
-        add(BookPage.getRecipeInfoKey(identifier), recipeDescriptor);
+        add(PageLangKeyCommons.getRecipeInfoHeadlineKey(identifier), recipeName);
+        add(PageLangKeyCommons.getRecipeInfoKey(identifier), recipeDescriptor);
     }
 
     protected static void add(String key, String value) {

@@ -14,8 +14,6 @@
     }
   ],
   "validItems": [
-    "create:copper_diving_helmet",
-    "create:copper_diving_boots",
     "malum:copper_impetus"
   ]
 }

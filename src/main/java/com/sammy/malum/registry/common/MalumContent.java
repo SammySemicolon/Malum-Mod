@@ -5,7 +5,7 @@ import com.sammy.malum.common.block.blight.scarstone.LargeStrangeCrystalBlock;
 import com.sammy.malum.common.block.blight.scarstone.ScarstoneBlock;
 import com.sammy.malum.common.block.blight.scarstone.StrangeCrystalBlock;
 import com.sammy.malum.common.block.blight.scarstone.StrangeRootBlock;
-import com.sammy.malum.common.block.curiosities.artifice.crystallarium.*;
+import com.sammy.malum.common.block.curiosities.artifice.furnace.crystallarium.*;
 import com.sammy.malum.common.block.curiosities.artifice.elemental_artifice.aerial.GustIgniterBlock;
 import com.sammy.malum.common.block.curiosities.artifice.elemental_artifice.aerial.WindTunnelBlock;
 import com.sammy.malum.common.block.curiosities.artifice.soul_link.SoulLinkBlock;
@@ -59,6 +59,7 @@ import com.sammy.malum.common.block.flora.wood.soulwood.SoulwoodLeavesBlock;
 import com.sammy.malum.common.block.flora.wood.soulwood.SoulwoodSaplingBlock;
 import com.sammy.malum.common.block.flora.wood.MalumSaplingBlock;
 import com.sammy.malum.common.block.soulstone.*;
+import com.sammy.malum.common.block.storage.coffer.CofferBlock;
 import com.sammy.malum.common.block.storage.jar.SpiritJarBlock;
 import com.sammy.malum.common.block.the_device.TheDevice;
 import com.sammy.malum.common.block.the_device.TheVessel;
@@ -374,8 +375,12 @@ public class MalumContent {
         public static final DeferredItem<Item> MALIGNANT_PEWTER_PLATING = register("malignant_pewter_plating", MalumItemProperties::DEFAULT, Item::new);
         public static final DeferredItem<Item> MALIGNANT_PEWTER_NUGGET = register("malignant_pewter_nugget", MalumItemProperties::DEFAULT, Item::new);
 
+        public static final DeferredItem<Item> ALCHEMIZED_TEXTILE = register("alchemized_textile", MalumItemProperties::DEFAULT, Item::new);
         public static final DeferredItem<Item> SOULWOVEN_SILK = register("soulwoven_silk", MalumItemProperties::DEFAULT, Item::new);
         public static final DeferredItem<Item> PARACAUSAL_FLAME = register("paracausal_flame", MalumItemProperties::DEFAULT, Item::new);
+
+        public static final DeferredItem<Item> ARCANE_GEARWORKS = register("arcane_gearworks", MalumItemProperties::DEFAULT, Item::new);
+        public static final DeferredItem<Item> GUST_SERVO = register("gust_servo", MalumItemProperties::DEFAULT, Item::new);
         public static final DeferredItem<Item> CONVOLUTED_LENS = register("convoluted_lens", MalumItemProperties::DEFAULT, Item::new);
         public static final DeferredItem<Item> MIMICRY_RELAY = register("mimicry_relay", MalumItemProperties::DEFAULT, Item::new);
         public static final DeferredItem<Item> IMITATION_FLESH = register("imitation_flesh", MalumItemProperties::DEFAULT, Item::new);
@@ -516,6 +521,8 @@ public class MalumContent {
 
         public static final BlockBlockItemHolder<Block, BlockItem> SPIRIT_ALTAR = registerBlock("spirit_altar", () -> new SpiritAltarBlock<>(RUNEWOOD_IMPLEMENT()));
         public static final BlockBlockItemHolder<Block, BlockItem> SPIRIT_JAR = registerBlock("spirit_jar", () -> new SpiritJarBlock<>(SPIRIT_JAR()), SpiritJarItem::new);
+
+        public static final BlockBlockItemHolder<Block, BlockItem> COFFER = registerBlock("coffer", () -> new CofferBlock(MalumWoodBlockProperties.RUNEWOOD()));
 
         public static final BlockBlockItemHolder<Block, BlockItem> WAND_TINKERER = registerBlock("wand_tinkerer", () -> new WandTinkererBlock<>(RUNEWOOD_IMPLEMENT()));
         public static final BlockBlockItemHolder<Block, BlockItem> RUNIC_WORKBENCH = registerBlock("runic_workbench", () -> new RunicWorkbenchBlock<>(RUNEWOOD_IMPLEMENT()));

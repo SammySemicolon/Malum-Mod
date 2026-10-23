@@ -158,8 +158,8 @@ dependencies {
 
     modRuntime("curse.maven:farmers-delight-398521:5878217")
     
-    modRuntime("dev.eriksonn.aeronautics:aeronautics-neoforge-1.21.1:1.3.0")
-    modRuntime("dev.simulated_team.simulated:simulated-neoforge-1.21.1:1.3.0")
+//    modRuntime("dev.eriksonn.aeronautics:aeronautics-neoforge-1.21.1:1.3.0")
+//    modRuntime("dev.simulated_team.simulated:simulated-neoforge-1.21.1:1.3.0")
 
 //    modRuntime("curse.maven:imguimc-1524200:8617391")
 
