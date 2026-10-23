@@ -1,16 +1,13 @@
 package com.sammy.malum.registry.common.util.building;
 
-import com.google.common.collect.ImmutableMap;
-import com.sammy.malum.common.block.building.banner.fancy.FancyBannerBlock;
+import com.sammy.malum.common.block.building.banner.alchemized.AlchemizedBannerBlock;
 import com.sammy.malum.datagen.block.MalumBlockStateDatagen;
 import com.sammy.malum.datagen.block.MalumBlockStateSmithTypes;
 import com.sammy.malum.registry.common.MalumContent;
 import com.sammy.malum.registry.common.block.properties.MalumBlockProperties;
 import com.sammy.malum.registry.common.util.DyedVariantBundle;
 import com.sammy.malum.registry.common.util.MalumRegistrySet;
-import com.sammy.malum.registry.common.util.PoppetRegistrySet;
 import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.WoolCarpetBlock;
 import team.lodestar.lodestone.modules.datagen.BlockStateSmithTypes;
@@ -38,7 +35,7 @@ public class WoolRegistrySet extends MalumRegistrySet {
         fancyWool = new DyedVariantBundle<>(name("%s_%c_wool"), (s, c) -> MalumContent.registerBlock(s, () -> new Block(woolProperties)));
         fancyWoolCarpet = new DyedVariantBundle<>(name("%s_%c_wool_carpet"), (s, c) -> MalumContent.registerBlock(s, () -> new WoolCarpetBlock(c, woolProperties)));
 
-        fancyBanner = new DyedVariantBundle<>(name("%s_%c_banner"), (s, c) -> MalumContent.registerBlock(s, () -> new FancyBannerBlock(c, woolProperties)));
+        fancyBanner = new DyedVariantBundle<>(name("%s_%c_banner"), (s, c) -> MalumContent.registerBlock(s, () -> new AlchemizedBannerBlock(c, woolProperties)));
     }
 
     public DyedVariantBundle<BlockBlockItemHolder<Block, BlockItem>> getFancyWool() {

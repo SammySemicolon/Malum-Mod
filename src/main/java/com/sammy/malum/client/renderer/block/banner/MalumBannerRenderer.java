@@ -2,10 +2,9 @@ package com.sammy.malum.client.renderer.block.banner;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
-import com.sammy.malum.common.block.building.banner.fancy.FancyBannerBlockEntity;
+import com.sammy.malum.common.block.building.banner.alchemized.AlchemizedBannerBlockEntity;
 import com.sammy.malum.common.block.building.banner.soulwoven.SoulwovenBannerBlock;
 import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.RenderStateShard;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.core.Direction;
@@ -13,13 +12,11 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.phys.AABB;
 import org.joml.Vector3f;
-import team.lodestar.lodestone.registry.client.LodestoneRenderTypes;
 import team.lodestar.lodestone.systems.rendering.builder.VFXBuilders;
 import team.lodestar.lodestone.systems.rendering.builder.WorldVFXBuilder;
-import team.lodestar.lodestone.systems.rendering.rendeertype.RenderTypeToken;
 
 
-public abstract class MalumBannerRenderer<T extends FancyBannerBlockEntity> implements BlockEntityRenderer<T> {
+public abstract class MalumBannerRenderer<T extends AlchemizedBannerBlockEntity> implements BlockEntityRenderer<T> {
 
     public MalumBannerRenderer(BlockEntityRendererProvider.Context context) {
     }
@@ -67,7 +64,7 @@ public abstract class MalumBannerRenderer<T extends FancyBannerBlockEntity> impl
     }
 
     @Override
-    public AABB getRenderBoundingBox(FancyBannerBlockEntity altar) {
+    public AABB getRenderBoundingBox(AlchemizedBannerBlockEntity altar) {
         var pos = altar.getBlockPos();
         return new AABB(pos.getX(), pos.getY() - 1, pos.getZ(), pos.getX() + 1, pos.getY() + 1, pos.getZ() + 1);
     }
