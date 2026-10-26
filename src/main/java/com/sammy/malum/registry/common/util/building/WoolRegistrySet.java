@@ -71,6 +71,5 @@ public class WoolRegistrySet extends MalumRegistrySet {
         fancyWoolCarpet.forEachVariant((c, b) -> BlockStateSmithTypes.CARPET_BLOCK.act(data, b));
         fancyBanner.forEachVariant((c, b) -> MalumBlockStateSmithTypes.BANNER.act(data, b));
         DatagenSystemCommons.BLOCK_TEXTURE.clearFolder();
-
     }
 }
