@@ -515,7 +515,7 @@ public class MalumContent {
     public static class Sorcery {
 
         public static void init() {
-            
+
         }
 
 
