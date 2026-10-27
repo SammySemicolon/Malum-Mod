@@ -518,7 +518,6 @@ public class MalumContent {
 
         }
 
-
         public static final BlockBlockItemHolder<Block, BlockItem> SPIRIT_ALTAR = registerBlock("spirit_altar", () -> new SpiritAltarBlock<>(RUNEWOOD_IMPLEMENT()));
         public static final BlockBlockItemHolder<Block, BlockItem> SPIRIT_JAR = registerBlock("spirit_jar", () -> new SpiritJarBlock<>(SPIRIT_JAR()), SpiritJarItem::new);
 

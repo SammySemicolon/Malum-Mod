@@ -1,4 +1,4 @@
-package com.sammy.malum.common.entity.spirit;
+package com.sammy.malum.common.entity.reaping;
 
 import com.sammy.malum.common.entity.*;
 import com.sammy.malum.common.item.spirit.*;
@@ -23,7 +23,6 @@ public class SpiritItemEntity extends FloatingItemEntity {
 
     public SpiritItemEntity(Level level) {
         super(MalumEntityTypes.NATURAL_SPIRIT.get(), level);
-        maxAge = 4000;
     }
 
     public SpiritItemEntity(Level level, @Nullable LivingEntity owner, ItemStack stack, Vec3 position, Vec3 velocity) {
@@ -34,7 +33,6 @@ public class SpiritItemEntity extends FloatingItemEntity {
         setItem(stack);
         setPos(position);
         setDeltaMovement(velocity);
-        maxAge = 800;
         if (stack.getItem() instanceof SpiritShardItem spiritShardItem) {
             setSpirit(spiritShardItem.getSpirit());
         }
