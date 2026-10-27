@@ -46,10 +46,10 @@ public class CofferRegistrySet extends MalumRegistrySet {
     }
 
     public void addBlockStates(MalumBlockStateDatagen datagen, BlockStateSystemData<MalumBlockStateDatagen> data) {
-//        datagen.setTexturePath("coffer");
-//        MalumBlockStateSmithTypes.COFFER.act(data, coffer);
-//        datagen.setTexturePath("coffer/dyed");
-//        dyedCoffers.forEachVariant((c, b) -> MalumBlockStateSmithTypes.COFFER.act(data, b));
-//        DatagenSystemCommons.BLOCK_TEXTURE.clearFolder();
+        datagen.setTexturePath("coffer");
+        MalumBlockStateSmithTypes.COFFER.act(data, coffer);
+        datagen.setTexturePath("coffer/dyed");
+        dyedCoffers.forEachVariant((c, b) -> MalumBlockStateSmithTypes.COFFER.act(data, b));
+        DatagenSystemCommons.BLOCK_TEXTURE.clearFolder();
     }
 }

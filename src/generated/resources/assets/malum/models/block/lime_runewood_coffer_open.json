@@ -1,0 +1,9 @@
+{
+  "parent": "minecraft:block/cube_bottom_top",
+  "render_type": "minecraft:cutout",
+  "textures": {
+    "bottom": "malum:block/coffer/runewood_coffer_bottom",
+    "side": "malum:block/coffer/dyed/lime_runewood_coffer_side",
+    "top": "malum:block/coffer/dyed/lime_runewood_coffer_top_open"
+  }
+}

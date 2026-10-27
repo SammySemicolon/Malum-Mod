@@ -11,6 +11,10 @@ import team.lodestar.lodestone.modules.toolkit.inventory.LodestoneItemStackBlock
 import java.util.stream.Stream;
 
 public class CofferItemStackHandler extends LodestoneItemStackBlockHandler {
+
+    protected final ContainerData data;
+    private boolean[] pins = new boolean[5];
+
     public CofferItemStackHandler(CofferBlockEntity parent) {
         super(parent, 54, 64, (h, s) -> true, null);
         data = new ContainerData() {
@@ -31,10 +35,6 @@ public class CofferItemStackHandler extends LodestoneItemStackBlockHandler {
         };
     }
 
-    protected final ContainerData data;
-
-    private boolean[] pins = new boolean[5];
-
     public Stream<Item> getValidItemsForRow(int row) {
         Stream.Builder<Item> stream = Stream.builder();
         //If we are not on the first row and there is no pin before this row, we should start at the first row of the section
@@ -44,13 +44,13 @@ public class CofferItemStackHandler extends LodestoneItemStackBlockHandler {
         for (int i = row; i < 6 && (i == row || data.get(i - 1) != 1); i++) {
             //Add each item in that row to the stream
             for (int j = 0; j < 9; j++) {
-                if (!getStackInSlot(i * 9 + j).isEmpty())
-                    stream.add(getStackInSlot(i * 9 + j).getItem());
+                var stack = getStackInSlot(i * 9 + j);
+                if (!stack.isEmpty())
+                    stream.add(stack.getItem());
             }
         }
         return stream.build().distinct();
     }
-
 
     public boolean checkPin(int i) {
         return data.get(i) == 1;
@@ -62,7 +62,7 @@ public class CofferItemStackHandler extends LodestoneItemStackBlockHandler {
 
     @Override
     public boolean isItemValid(int slot, @NotNull ItemStack stack) {
-        return super.isItemValid(slot, stack) && getValidItemsForRow(slot/9).anyMatch((i) -> stack.getItem().equals(i));
+        return super.isItemValid(slot, stack) && getValidItemsForRow(slot / 9).anyMatch((i) -> stack.getItem().equals(i));
     }
 
     @Override

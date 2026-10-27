@@ -24,12 +24,14 @@ import com.sammy.malum.common.block.geode.GeodeCrystalClusterBlock;
 import com.sammy.malum.common.block.soulstone.ArchaicSoulstoneBudBlock;
 import com.sammy.malum.common.block.soulstone.SoulstoneBudBlock;
 import com.sammy.malum.common.block.storage.coffer.CofferBlock;
+import com.sammy.malum.common.block.storage.coffer.DyedCofferBlock;
 import com.sammy.malum.datagen.item.MalumItemModelSmithTypes;
 import net.minecraft.core.*;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.properties.*;
 import net.neoforged.neoforge.client.model.generators.*;
+import team.lodestar.lodestone.modules.datagen.DatagenSystemCommons;
 import team.lodestar.lodestone.modules.datagen.ItemModelSmithTypes;
 import team.lodestar.lodestone.modules.datagen.providers.block.LodestoneBlockModelProvider;
 import team.lodestar.lodestone.modules.datagen.providers.block.LodestoneBlockStateSystem;
@@ -207,6 +209,11 @@ public class MalumBlockStateSmithTypes {
         var topOpen = provider.getBlockTexture(name + "_top_open");
         var side = provider.getBlockTexture(name + "_side");
         var bottom = provider.getBlockTexture(name + "_bottom");
+        if (block instanceof DyedCofferBlock dyedCofferBlock) {
+            var erased = dyedCofferBlock.dyeColor.getName() + "_";
+            bottom = bottom.withPath(p -> p.replace(erased, "coffer/"));
+            DatagenSystemCommons.escapeTextureFolderHierarchy(bottom);
+        }
 
         var models = provider.models();
         var model = models.cubeBottomTop(name, side, bottom, top);

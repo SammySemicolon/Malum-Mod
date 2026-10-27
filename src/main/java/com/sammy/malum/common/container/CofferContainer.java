@@ -12,7 +12,7 @@ import team.lodestar.lodestone.modules.toolkit.inventory.LodestoneBlockEntityCon
 import team.lodestar.lodestone.modules.toolkit.inventory.LodestoneItemStackBlockHandler;
 
 public class CofferContainer extends LodestoneBlockEntityContainer<CofferBlockEntity> {
-    public CofferContainer(int containerId, Inventory playerInventory, RegistryFriendlyByteBuf data ) {
+    public CofferContainer(int containerId, Inventory playerInventory, RegistryFriendlyByteBuf data) {
         this(containerId, playerInventory, ContainerLevelAccess.create(playerInventory.player.level(), data.readBlockPos()));
     }
 
@@ -22,9 +22,10 @@ public class CofferContainer extends LodestoneBlockEntityContainer<CofferBlockEn
 
     public CofferContainer(int containerId, Inventory playerInventory, ContainerLevelAccess access) {
         super(MalumContainers.COFFER.get(), containerId, playerInventory, access);
-        for (int i = 0; i < 6; ++i)
-            for (int j = 0; j < 9; ++j)
-                this.addSlot(new SlotItemHandler(blockEntity.getItemHandler(), j + i * 9, 8 + j * 18, 18 + i * 18));
+        var handler = getItemStackHandler();
+        for (int y = 0; y < 6; ++y)
+            for (int x = 0; x < 9; ++x)
+                this.addSlot(new SlotItemHandler(handler, x + y * 9, 8 + x * 18, 18 + y * 18));
     }
 
     @Override
@@ -38,7 +39,7 @@ public class CofferContainer extends LodestoneBlockEntityContainer<CofferBlockEn
     }
 
     @Override
-    public LodestoneItemStackBlockHandler getItemStackHandler() {
+    public CofferItemStackHandler getItemStackHandler() {
         return blockEntity.getItemHandler();
     }
 
@@ -47,11 +48,11 @@ public class CofferContainer extends LodestoneBlockEntityContainer<CofferBlockEn
         return blockEntity.stillValid(player);
     }
 
-    public boolean checkPin(int index) {
-        return ((CofferItemStackHandler)getItemStackHandler()).checkPin(index);
+    public void togglePin(int index) {
+        getItemStackHandler().togglePin(index);
     }
 
-    public void togglePin(int index) {
-        ((CofferItemStackHandler)getItemStackHandler()).togglePin(index);
+    public boolean checkPin(int index) {
+        return getItemStackHandler().checkPin(index);
     }
 }

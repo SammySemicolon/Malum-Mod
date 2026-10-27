@@ -20,7 +20,8 @@ import team.lodestar.lodestone.modules.toolkit.blockentity.LodestoneBlockEntityT
 import team.lodestar.lodestone.modules.toolkit.inventory.LodestoneItemStackBlockHandler;
 
 public class CofferBlockEntity extends LodestoneBlockEntity implements MenuProvider, WorldlyContainer {
-    private final LodestoneItemStackBlockHandler handler = new CofferItemStackHandler(this);
+
+    private final CofferItemStackHandler handler = new CofferItemStackHandler(this);
 
     public CofferBlockEntity(LodestoneBlockEntityType<?> type, BlockPos pos, BlockState state) {
         super(type, pos, state);
@@ -30,10 +31,9 @@ public class CofferBlockEntity extends LodestoneBlockEntity implements MenuProvi
         super(MalumBlockEntities.COFFER.get(), pos, state);
     }
 
-    public LodestoneItemStackBlockHandler getItemHandler() {
+    public CofferItemStackHandler getItemHandler() {
         return handler;
     }
-
 
     @Override
     public Component getDisplayName() {
