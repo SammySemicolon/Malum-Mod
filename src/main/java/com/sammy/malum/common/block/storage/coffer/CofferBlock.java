@@ -12,6 +12,7 @@ import org.jetbrains.annotations.Nullable;
 import team.lodestar.lodestone.modules.toolkit.block.LodestoneEntityBlock;
 
 public class CofferBlock extends LodestoneEntityBlock<CofferBlockEntity> {
+
     public static final DirectionProperty FACING = BlockStateProperties.FACING;
     public static final BooleanProperty OPEN = BlockStateProperties.OPEN;
 

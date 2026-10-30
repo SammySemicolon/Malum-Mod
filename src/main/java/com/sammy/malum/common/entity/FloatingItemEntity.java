@@ -19,6 +19,7 @@ public abstract class FloatingItemEntity extends FloatingEntity {
 
     public FloatingItemEntity(EntityType<? extends FloatingItemEntity> type, Level level) {
         super(type, level);
+        maxAge = 4000;
     }
 
     @Override

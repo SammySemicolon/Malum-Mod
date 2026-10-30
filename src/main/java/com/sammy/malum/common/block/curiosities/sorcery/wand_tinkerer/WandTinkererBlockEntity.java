@@ -1,7 +1,7 @@
 package com.sammy.malum.common.block.curiosities.sorcery.wand_tinkerer;
 
 import com.sammy.malum.common.block.MalumBlockItemStackHandler;
-import com.sammy.malum.common.item.curiosities.weapons.wand.WandItem;
+import com.sammy.malum.common.item.curiosities.weapons.wand.AbstractWandItem;
 import com.sammy.malum.registry.common.block.MalumBlockEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -44,7 +44,7 @@ public class WandTinkererBlockEntity extends LodestoneBlockEntity implements IIn
         if (presentStacks.isEmpty()) {
             return true;
         }
-        return stack.getItem() instanceof WandItem;
+        return stack.getItem() instanceof AbstractWandItem;
     }
 
     @Override

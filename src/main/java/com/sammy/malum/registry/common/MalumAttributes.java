@@ -25,9 +25,7 @@ public class MalumAttributes {
     public static final DeferredHolder<Attribute, Attribute> SCYTHE_PROFICIENCY = registerAttribute(create(MalumMod.malumPath("scythe_proficiency"), 1.0D, 0.0D, 2048.0D).forcePercentageDisplay().setSyncable(true));
     public static final DeferredHolder<Attribute, Attribute> SPIRIT_SPOILS = registerAttribute(create(MalumMod.malumPath("spirit_spoils"), 0.0D, 0.0D, 2048.0D).setSyncable(true));
     public static final DeferredHolder<Attribute, Attribute> ARCANE_RESONANCE = registerAttribute(create(MalumMod.malumPath("arcane_resonance"), 1.0D, 0.0D, 2048.0D).forcePercentageDisplay().setSyncable(true));
-
-    public static final DeferredHolder<Attribute, Attribute> HEALING_MULTIPLIER = registerAttribute(create(MalumMod.malumPath("healing_received"), 1.0D, 0.0D, 2048.0D).forcePercentageDisplay().setSyncable(true));
-
+    
     public static final DeferredHolder<Attribute, Attribute> SOUL_WARD_INTEGRITY = registerAttribute(create(MalumMod.malumPath("soul_ward_integrity"), 1.0D, 0.0D, 2048.0D).setSyncable(true));
     public static final DeferredHolder<Attribute, Attribute> SOUL_WARD_RECOVERY_RATE = registerAttribute(create(MalumMod.malumPath("soul_ward_recovery_rate"), 1.0D, 0.0D, 2048.0D).setSyncable(true));
     public static final DeferredHolder<Attribute, Attribute> SOUL_WARD_RECOVERY_GAIN = registerAttribute(create(MalumMod.malumPath("soul_ward_recovery_gain"), 1.0D, 0.0D, 2048.0D).setSyncable(true));

@@ -5,8 +5,7 @@ import com.sammy.malum.*;
 import com.sammy.malum.client.renderer.texture.*;
 import com.sammy.malum.client.renderer.texture.request.*;
 import com.sammy.malum.client.texture.*;
-import com.sammy.malum.common.block.building.banner.fancy.FancyBannerBlockEntity;
-import com.sammy.malum.registry.client.*;
+import com.sammy.malum.common.block.building.banner.alchemized.AlchemizedBannerBlockEntity;
 import net.minecraft.client.renderer.RenderStateShard;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.world.item.*;
@@ -15,13 +14,13 @@ import team.lodestar.lodestone.registry.client.*;
 import team.lodestar.lodestone.systems.rendering.builder.WorldVFXBuilder;
 import team.lodestar.lodestone.systems.rendering.rendeertype.RenderTypeToken;
 
-public class FancyBannerRenderer extends MalumBannerRenderer<FancyBannerBlockEntity> {
+public class FancyBannerRenderer extends MalumBannerRenderer<AlchemizedBannerBlockEntity> {
     public FancyBannerRenderer(BlockEntityRendererProvider.Context context) {
         super(context);
     }
 
     @Override
-    public void renderBanner(FancyBannerBlockEntity blockEntity, PoseStack poseStack, WorldVFXBuilder builder, Vector3f[] vertices) {
+    public void renderBanner(AlchemizedBannerBlockEntity blockEntity, PoseStack poseStack, WorldVFXBuilder builder, Vector3f[] vertices) {
         var color = blockEntity.color;
         var texture = MalumMod.malumPath("textures/block/banners/alchemized_banner.png");
         if (color != DyeColor.WHITE) {

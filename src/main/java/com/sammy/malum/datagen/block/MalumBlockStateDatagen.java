@@ -6,6 +6,7 @@ import com.sammy.malum.datagen.item.*;
 import com.sammy.malum.datagen.set.MalumPoppetrySetDatagen;
 import com.sammy.malum.registry.common.MalumContent;
 import com.sammy.malum.registry.common.MalumContent.*;
+import com.sammy.malum.registry.common.util.CofferRegistrySet;
 import com.sammy.malum.registry.common.util.building.CommonStoneBuildingSet;
 import com.sammy.malum.registry.common.util.building.RockBlockSet;
 import com.sammy.malum.registry.common.util.building.WoolRegistrySet;
@@ -76,6 +77,10 @@ public class MalumBlockStateDatagen extends LodestoneBlockStateSystem {
         }
 
         for (WoolRegistrySet malumSet : WoolRegistrySet.getMalumSets()) {
+            malumSet.addBlockStates(this, data);
+        }
+
+        for (CofferRegistrySet malumSet : CofferRegistrySet.getMalumSets()) {
             malumSet.addBlockStates(this, data);
         }
 

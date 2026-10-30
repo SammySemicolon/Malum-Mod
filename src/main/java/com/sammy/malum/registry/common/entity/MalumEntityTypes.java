@@ -12,7 +12,7 @@ import com.sammy.malum.common.entity.nitrate.EthericNitrate;
 import com.sammy.malum.common.entity.nitrate.VividNitrate;
 import com.sammy.malum.common.entity.scythe.*;
 import com.sammy.malum.common.entity.soulTag.SoulTagEntity;
-import com.sammy.malum.common.entity.spirit.SpiritItemEntity;
+import com.sammy.malum.common.entity.reaping.SpiritItemEntity;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;

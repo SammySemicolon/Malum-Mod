@@ -1,6 +1,7 @@
 package com.sammy.malum.registry.common;
 
 import com.sammy.malum.client.screen.container.*;
+import com.sammy.malum.client.screen.container.coffer.CofferContainerScreen;
 import com.sammy.malum.client.screen.container.furnace.ConjunctureCrystallariumScreen;
 import com.sammy.malum.client.screen.container.tinkerer.WandTinkererScreen;
 import com.sammy.malum.common.block.curiosities.artifice.furnace.crystallarium.*;

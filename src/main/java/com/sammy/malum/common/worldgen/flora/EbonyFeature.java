@@ -1,17 +1,30 @@
 package com.sammy.malum.common.worldgen.flora;
 
+import com.google.common.collect.ImmutableList;
+import com.sammy.malum.common.worldgen.WorldgenHelper;
 import com.sammy.malum.registry.common.MalumContent;
 import com.sammy.malum.registry.common.MalumTags;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.levelgen.LegacyRandomSource;
+import net.minecraft.world.level.levelgen.WorldgenRandom;
+import net.minecraft.world.level.levelgen.XoroshiroRandomSource;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
+import net.minecraft.world.level.levelgen.synth.ImprovedNoise;
+import net.minecraft.world.level.levelgen.synth.PerlinSimplexNoise;
+import team.lodestar.lodestone.modules.core.easing.Easing;
 
 public class EbonyFeature extends Feature<NoneFeatureConfiguration> {
+
+    private static final PerlinSimplexNoise EBONY_NOISE = new PerlinSimplexNoise(new WorldgenRandom(new LegacyRandomSource(1234L)), ImmutableList.of(0));
+
     public EbonyFeature() {
         super(NoneFeatureConfiguration.CODEC);
     }
@@ -19,36 +32,75 @@ public class EbonyFeature extends Feature<NoneFeatureConfiguration> {
 
     @Override
     public boolean place(FeaturePlaceContext<NoneFeatureConfiguration> context) {
-        WorldGenLevel level = context.level();
-        BlockPos origin = context.origin();
-        RandomSource random = context.random();
+        var level = context.level();
+        var origin = context.origin();
+        var random = context.random();
 
-        int radius = random.nextIntBetweenInclusive(3, 6);
-        int count = random.nextIntBetweenInclusive(3, 8);
+        var mutable = origin.mutable();
+        int radius = random.nextIntBetweenInclusive(6, 12);
+        int height = random.nextIntBetweenInclusive(2, 8);
+        var noiseSampler = new ImprovedNoise(new XoroshiroRandomSource(level.getSeed()));
 
-        boolean placed = false;
+        boolean placed = true;
 
-        for (int i = 0; i < count; i++) {
-            int x = origin.getX() + random.nextInt(radius * 2 + 1) - radius;
-            int y = origin.getY() + random.nextInt(5) - 2;
-            int z = origin.getZ() + random.nextInt(radius * 2 + 1) - radius;
+        float solidArea = 0.6f;
+        var ebonstone = MalumContent.BuildingBlocks.EBONSTONE.getRaw().block.getDefaultState();
+        int twiceRadius = radius * 2;
+        for (int x = -twiceRadius; x <= twiceRadius; x++) {
+            for (int z = -twiceRadius; z <= twiceRadius; z++) {
+                float delta = Mth.sqrt(x * x + z * z);
+                mutable.set(origin).move(x, 0, z);
 
-            BlockPos pos = new BlockPos(x, y, z);
+                float noise = (float) WorldgenHelper.getNoise(noiseSampler, mutable, 0.25f);
+                float secondaryNoise = (float) WorldgenHelper.getNoise(noiseSampler, mutable, 0.5f);
+                float adjustedRadius = radius * Easing.SINE_IN_OUT.asValueDistribution(noise, 0.8f, 1.2f);
+                delta += secondaryNoise * 0.5f;
+                delta /= adjustedRadius;
+                delta = Mth.clamp(delta, 0, 1);
+                delta *= delta;
+                int addedHeight;
+                if (delta < solidArea) {
+                    float relative = delta / solidArea;
+                    relative = Easing.SINE_IN_OUT.lerp(relative, 0, 1);
+                    addedHeight = Easing.SINE_IN_OUT.asValueDistribution(relative, height, height+2);
+                }
+                else {
+                    float relative = (delta - solidArea) / (1 - solidArea);
+                    addedHeight = Easing.BACK_IN_OUT.asValueDistribution(relative, height + 2, 0);
+                }
+                if (addedHeight > 0) {
+                    float heightNoise = (float) WorldgenHelper.getNoise(noiseSampler, mutable, 0.35f);
+                    addedHeight += Easing.SINE_IN_OUT.asValueDistribution(heightNoise, -1, 2);
+                    for (int i = 0; i < addedHeight; i++) {
+                        level.setBlock(mutable, ebonstone, 3);
+                        mutable.move(Direction.UP);
+                    }
+                }
 
-            if (canPlace(level, pos)) {
-                level.setBlock(
-                        pos,
-                        MalumContent.Materials.EBONY_SAPLING
-                                .get()
-                                .defaultBlockState(),
-                        3
-                );
-
-                ebonifyArea(level, pos, random);
-
-                placed = true;
             }
         }
+
+//        for (int i = 0; i < count; i++) {
+//            int x = origin.getX() + random.nextInt(radius * 2 + 1) - radius;
+//            int y = origin.getY() + random.nextInt(5) - 2;
+//            int z = origin.getZ() + random.nextInt(radius * 2 + 1) - radius;
+//
+//            BlockPos pos = new BlockPos(x, y, z);
+//
+//            if (canPlace(level, pos)) {
+//                level.setBlock(
+//                        pos,
+//                        MalumContent.Materials.EBONY_SAPLING
+//                                .get()
+//                                .defaultBlockState(),
+//                        3
+//                );
+//
+//                ebonifyArea(level, pos, random);
+//
+//                placed = true;
+//            }
+//        }
 
         return placed;
     }

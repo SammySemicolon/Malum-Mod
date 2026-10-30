@@ -5,7 +5,7 @@ import com.sammy.malum.common.data.attachment.*;
 import com.sammy.malum.common.data.listener.reaping.ReapingDropsData;
 import com.sammy.malum.common.data.listener.spirit.EntitySpiritDropData;
 import com.sammy.malum.common.data.listener.reaping.ReapingDataReloadListener;
-import com.sammy.malum.common.entity.spirit.*;
+import com.sammy.malum.common.entity.reaping.*;
 import com.sammy.malum.common.item.*;
 import com.sammy.malum.config.*;
 import com.sammy.malum.core.systems.events.*;
@@ -13,6 +13,7 @@ import com.sammy.malum.registry.common.*;
 import com.sammy.malum.registry.common.MalumContent;
 import com.sammy.malum.registry.common.sound.*;
 import net.minecraft.core.registries.*;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.*;
 import net.minecraft.tags.*;
 import net.minecraft.util.*;
@@ -62,20 +63,26 @@ public class SoulHarvestHandler {
     }
 
     public static void dropSpiritInfusedDrops(LivingEntity target) {
-        List<ReapingDropsData> data = ReapingDataReloadListener.REAPING_DATA.get(BuiltInRegistries.ENTITY_TYPE.getKey(target.getType()));
-        if (data != null) {
-            for (ReapingDropsData dropData : data) {
-                Level level = target.level();
-                var random = level.random;
-                if (random.nextFloat() < dropData.chance()) {
-                    var possibleDrops = dropData.drop().getItems();
-                    var stack = ItemHelper.copyWithNewCount(possibleDrops[random.nextInt(possibleDrops.length)], Mth.nextInt(random, dropData.min(), dropData.max()));
-                    var itemEntity = new ItemEntity(level, target.getX(), target.getY(), target.getZ(), stack);
-                    itemEntity.setDefaultPickUpDelay();
-                    itemEntity.setDeltaMovement(Mth.nextFloat(random, -0.1F, 0.1F), Mth.nextFloat(random, 0.25f, 0.5f), Mth.nextFloat(random, -0.1F, 0.1F));
-                    level.addFreshEntity(itemEntity);
-                }
+        var entityID = BuiltInRegistries.ENTITY_TYPE.getKey(target.getType());
+        var data = ReapingDataReloadListener.DATA.get(entityID);
+        if (data == null) {
+            return;
+        }
+        for (ReapingDropsData.ReapingLoot loot : data.drops()) {
+            Level level = target.level();
+            var random = level.random;
+            float chance = loot.chance();
+            if (random.nextFloat() > chance) {
+                continue;
             }
+            var possibleDrops = loot.drop().getItems();
+            int roll = random.nextInt(possibleDrops.length);
+            int count = loot.count().sample(random);
+            var stack = ItemHelper.copyWithNewCount(possibleDrops[roll], count);
+            var itemEntity = new ItemEntity(level, target.getX(), target.getY(), target.getZ(), stack);
+            itemEntity.setDefaultPickUpDelay();
+            itemEntity.setDeltaMovement(Mth.nextFloat(random, -0.1F, 0.1F), Mth.nextFloat(random, 0.25f, 0.5f), Mth.nextFloat(random, -0.1F, 0.1F));
+            level.addFreshEntity(itemEntity);
         }
     }
 

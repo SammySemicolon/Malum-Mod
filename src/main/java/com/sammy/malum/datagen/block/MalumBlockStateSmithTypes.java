@@ -23,13 +23,17 @@ import com.sammy.malum.common.block.flora.wood.MalumLeavesBlock;
 import com.sammy.malum.common.block.geode.GeodeCrystalClusterBlock;
 import com.sammy.malum.common.block.soulstone.ArchaicSoulstoneBudBlock;
 import com.sammy.malum.common.block.soulstone.SoulstoneBudBlock;
+import com.sammy.malum.common.block.storage.coffer.CofferBlock;
+import com.sammy.malum.common.block.storage.coffer.DyedCofferBlock;
 import com.sammy.malum.datagen.item.MalumItemModelSmithTypes;
 import net.minecraft.core.*;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.properties.*;
 import net.neoforged.neoforge.client.model.generators.*;
+import team.lodestar.lodestone.modules.datagen.DatagenSystemCommons;
 import team.lodestar.lodestone.modules.datagen.ItemModelSmithTypes;
+import team.lodestar.lodestone.modules.datagen.providers.block.LodestoneBlockModelProvider;
 import team.lodestar.lodestone.modules.datagen.providers.block.LodestoneBlockStateSystem;
 import team.lodestar.lodestone.modules.datagen.smith.blockstate.BlockStateSmith;
 
@@ -199,6 +203,31 @@ public class MalumBlockStateSmithTypes {
         });
     });
 
+    public static BlockStateSmith<CofferBlock> COFFER = new BlockStateSmith<>(CofferBlock.class, ItemModelSmithTypes.BLOCK_MODEL_ITEM, (block, provider) -> {
+        var name = provider.getBlockName(block);
+        var top = provider.getBlockTexture(name + "_top");
+        var topOpen = provider.getBlockTexture(name + "_top_open");
+        var side = provider.getBlockTexture(name + "_side");
+        var bottom = provider.getBlockTexture(name + "_bottom");
+        if (block instanceof DyedCofferBlock dyedCofferBlock) {
+            var erased = dyedCofferBlock.dyeColor.getName() + "_";
+            bottom = bottom.withPath(p -> p.replace(erased, "coffer/"));
+            DatagenSystemCommons.escapeTextureFolderHierarchy(bottom);
+        }
+
+        var models = provider.models();
+        var model = models.cubeBottomTop(name, side, bottom, top);
+        var openModel = models.cubeBottomTop(name + "_open", side, bottom, topOpen);
+
+        provider.getVariantBuilder(block).forAllStates(s -> {
+            var direction = s.getValue(CofferBlock.FACING);
+            var open = s.getValue(CofferBlock.OPEN);
+            return ConfiguredModel.builder().modelFile(open ? openModel : model)
+                    .rotationX(direction == Direction.DOWN ? 180 : direction.getAxis().isHorizontal() ? 90 : 0)
+                    .rotationY(direction.getAxis().isVertical() ? 0 : (((int) direction.toYRot() + 180)) % 360)
+                    .build();
+        });
+    });
 
     public static BlockStateSmith<ColumnBlock> COLUMN = new BlockStateSmith<>(ColumnBlock.class, MalumItemModelSmithTypes.BLOCK_MODEL_ITEM, (block, provider) -> {
         String name = provider.getBlockName(block);
