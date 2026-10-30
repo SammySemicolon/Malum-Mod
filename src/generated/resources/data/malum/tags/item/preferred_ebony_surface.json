@@ -20,6 +20,9 @@
     "malum:cut_ebonstone",
     "malum:chiseled_ebonstone",
     "malum:ebonstone_pillar",
-    "malum:ebony_stalk"
+    "malum:ebony_stalk",
+    "malum:ebony_stem",
+    "malum:ebony_leaves",
+    "malum:ebony_bloom"
   ]
 }

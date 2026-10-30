@@ -1,0 +1,41 @@
+{
+  "multipart": [
+    {
+      "apply": {
+        "model": "malum:block/flora/ebony_stem"
+      }
+    },
+    {
+      "when": {"branch_north": "true"},
+      "apply": {"model": "malum:block/flora/ebony_stem_branch_north"}
+    },
+    {
+      "when": {"branch_east": "true"},
+      "apply": {"model": "malum:block/flora/ebony_stem_branch_east"}
+    },
+    {
+      "when": {"branch_south": "true"},
+      "apply": {"model": "malum:block/flora/ebony_stem_branch_south"}
+    },
+    {
+      "when": {"branch_west": "true"},
+      "apply": {"model": "malum:block/flora/ebony_stem_branch_west"}
+    },
+    {
+      "when": {"north": "true"},
+      "apply": {"model": "malum:block/flora/ebony_stem_leaf_north"}
+    },
+    {
+      "when": {"east": "true"},
+      "apply": {"model": "malum:block/flora/ebony_stem_leaf_east"}
+    },
+    {
+      "when": {"south": "true"},
+      "apply": {"model": "malum:block/flora/ebony_stem_leaf_south"}
+    },
+    {
+      "when": {"west": "true"},
+      "apply": {"model": "malum:block/flora/ebony_stem_leaf_west"}
+    }
+  ]
+}

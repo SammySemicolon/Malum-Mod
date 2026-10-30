@@ -50,8 +50,7 @@ import com.sammy.malum.common.block.curiosities.weeping_well.PrimordialSoupBlock
 import com.sammy.malum.common.block.curiosities.weeping_well.VoidConduitBlock;
 import com.sammy.malum.common.block.dungeon.*;
 import com.sammy.malum.common.block.ether.*;
-import com.sammy.malum.common.block.flora.EbonySaplingBlock;
-import com.sammy.malum.common.block.flora.EbonyStalkBlock;
+import com.sammy.malum.common.block.flora.*;
 import com.sammy.malum.common.block.flora.wood.runewood.HangingRunewoodLeavesBlock;
 import com.sammy.malum.common.block.flora.wood.runewood.RunewoodLeavesBlock;
 import com.sammy.malum.common.block.flora.wood.soulwood.HangingSoulwoodLeavesBlock;
@@ -348,6 +347,9 @@ public class MalumContent {
         public static final DeferredBlock<Block> EBONY_SAPLING = registerBlockNoItem("ebony_sapling", () -> new EbonySaplingBlock(MalumFloraBlockProperties.EBONY_SAPLING()));
         public static final BlockBlockItemHolder<Block, BlockItem> EBONY_STALK = registerItemNameBlock("ebony", "ebony_stalk", () -> new EbonyStalkBlock(MalumFloraBlockProperties.EBONY()));
         public static final DeferredItem<Item> CALCIFIED_EBONY = register("calcified_ebony", MalumItemProperties::DEFAULT, Item::new);
+        public static final BlockBlockItemHolder<Block, BlockItem> EBONY_STEM = registerItemNameBlock("ebony_stem", "ebony_stem", () -> new EbonyStemBlock(MalumFloraBlockProperties.EBONY()));
+        public static final BlockBlockItemHolder<Block, BlockItem> EBONY_LEAF = registerItemNameBlock("ebony_leaf", "ebony_leaves", () -> new EbonyLeafBlock(MalumFloraBlockProperties.EBONY()));
+        public static final BlockBlockItemHolder<Block, BlockItem> EBONY_BLOOM = registerItemNameBlock("ebony_bloom", "ebony_bloom", () -> new EbonyBloomBlock(MalumFloraBlockProperties.EBONY()));
 
         public static final DeferredItem<Item> RUNIC_SAP_BOTTLE = register("runic_sap_bottle", MalumItemProperties::DEFAULT, (p) -> new BottledDrinkItem(p.food(MalumFoodProperties.RUNIC_SAP)));
         public static final DeferredItem<Item> RUNIC_SAPBALL = register("runic_sapball", MalumItemProperties::DEFAULT, Item::new);
