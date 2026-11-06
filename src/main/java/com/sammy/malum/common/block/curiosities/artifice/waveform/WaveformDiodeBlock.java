@@ -17,21 +17,35 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.VoxelShape;
 import net.neoforged.neoforge.event.EventHooks;
 import org.jetbrains.annotations.Nullable;
 import team.lodestar.lodestone.modules.toolkit.block.LodestoneEntityBlock;
 
 import java.util.EnumSet;
 
-public abstract class SpiritDiodeBlock<T extends SpiritDiodeBlockEntity> extends LodestoneEntityBlock<T> {
+public abstract class WaveformDiodeBlock<T extends SpiritDiodeBlockEntity> extends LodestoneEntityBlock<T> {
+
+    public static final VoxelShape SHAPE = box(0, 0, 0, 16, 2, 16);
 
     public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
     public static final BooleanProperty POWERED = BlockStateProperties.POWERED;
     public static final BooleanProperty OPEN = BlockStateProperties.OPEN;
 
-    public SpiritDiodeBlock(Properties properties) {
+    public WaveformDiodeBlock(Properties properties) {
         super(properties);
         this.registerDefaultState(this.defaultBlockState().setValue(POWERED, false).setValue(OPEN, false).setValue(FACING, Direction.NORTH));
+    }
+
+    @Override
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
+        builder.add(POWERED, OPEN, FACING);
+    }
+
+    @Override
+    protected VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
+        return SHAPE;
     }
 
     /**
@@ -95,7 +109,7 @@ public abstract class SpiritDiodeBlock<T extends SpiritDiodeBlockEntity> extends
         boolean shouldBePowered = diode.getOutputSignal() != 0;
         boolean isPowered = state.getValue(POWERED);
         if (shouldBePowered != isPowered)
-            level.setBlock(pos, state.setValue(SpiritDiodeBlock.POWERED, shouldBePowered), 2);
+            level.setBlock(pos, state.setValue(WaveformDiodeBlock.POWERED, shouldBePowered), 2);
 
         notifyNeighborsInFront(level, pos, state);
     }
@@ -145,11 +159,6 @@ public abstract class SpiritDiodeBlock<T extends SpiritDiodeBlockEntity> extends
             direction = direction.getOpposite();
         }
         return this.defaultBlockState().setValue(FACING, direction);
-    }
-
-    @Override
-    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(POWERED, OPEN, FACING);
     }
 
     @Override

@@ -10,15 +10,15 @@ import net.neoforged.api.distmarker.OnlyIn;
 import team.lodestar.lodestone.systems.network.particle.NetworkedParticleEffectExtraData;
 import team.lodestar.lodestone.systems.network.particle.NetworkedParticleEffectPositionData;
 
-public class SpiritDiodeOpenParticleEffect extends MalumNetworkedParticleEffectType<NetworkedParticleEffectExtraData> {
+public class WaveformDiodeCloseParticleEffect extends MalumNetworkedParticleEffectType<NetworkedParticleEffectExtraData> {
 
-    public SpiritDiodeOpenParticleEffect(String id) {
+    public WaveformDiodeCloseParticleEffect(String id) {
         super(id);
     }
 
     @OnlyIn(Dist.CLIENT)
     @Override
     public void act(Level level, RandomSource random, NetworkedParticleEffectPositionData positionData, MalumNetworkedParticleEffectColorData colorData, NetworkedParticleEffectExtraData extraData) {
-        SpiritDiodeParticleEffects.openSpiritDiode(positionData, colorData);
+        SpiritDiodeParticleEffects.closeSpiritDiode(positionData, colorData);
     }
 }

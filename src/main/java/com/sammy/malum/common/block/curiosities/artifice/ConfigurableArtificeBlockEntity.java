@@ -49,7 +49,7 @@ public abstract class ConfigurableArtificeBlockEntity extends LodestoneBlockEnti
         var state = getBlockState();
         if (state.getValue(BlockStateProperties.OPEN) != openValue) {
             level.setBlock(getBlockPos(), state.cycle(BlockStateProperties.OPEN), 3);
-            var particleEffect = openValue ? MalumParticleEffectTypes.SPIRIT_DIODE_OPEN : MalumParticleEffectTypes.SPIRIT_DIODE_CLOSE;
+            var particleEffect = openValue ? MalumParticleEffectTypes.WAVEFORM_DIODE_OPEN : MalumParticleEffectTypes.WAVEFORM_DIODE_CLOSE;
             var sound = openValue ? MalumBlockSoundEvents.SPIRIT_DIODE_OPEN.get() : MalumBlockSoundEvents.SPIRIT_DIODE_CLOSE.get();
             float pitch = Easing.SINE_IN_OUT.asWeighedRandom(level.getRandom(), 0.9f, 1.1f);
             level.playSound(null, getBlockPos(), sound, SoundSource.BLOCKS, 0.8f, pitch);

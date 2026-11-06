@@ -158,7 +158,7 @@ public class MalumBlockStateDatagen extends LodestoneBlockStateSystem {
         BlockStateSmithTypes.CROSS_MODEL_BLOCK.act(data, Blight.STRANGEROOT);
         BlockStateSmithTypes.POTTED_PLANT.act(data, BuildingBlocks.POTTED_STRANGEROOT);
 
-        setTexturePath("artifice");
+        setTexturePath("artifice/waveform");
         MalumBlockStateSmithTypes.SPIRIT_DIODE.act(data, WAVECHARGER, WAVEBANKER, WAVEMAKER, WAVEBREAKER);
 
         setTexturePath("artifice/soul_link");

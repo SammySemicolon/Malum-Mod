@@ -19,8 +19,8 @@ import com.sammy.malum.visual_effects.networked.nitrate.*;
 import com.sammy.malum.visual_effects.networked.repair_pylon.*;
 import com.sammy.malum.visual_effects.networked.runic_workbench.*;
 import com.sammy.malum.visual_effects.networked.sap.SapCollectionParticleEffect;
-import com.sammy.malum.visual_effects.networked.spirit_diode.SpiritDiodeCloseParticleEffect;
-import com.sammy.malum.visual_effects.networked.spirit_diode.SpiritDiodeOpenParticleEffect;
+import com.sammy.malum.visual_effects.networked.spirit_diode.WaveformDiodeCloseParticleEffect;
+import com.sammy.malum.visual_effects.networked.spirit_diode.WaveformDiodeOpenParticleEffect;
 import com.sammy.malum.visual_effects.networked.spirit_mote.*;
 import com.sammy.malum.visual_effects.networked.staff.*;
 import com.sammy.malum.visual_effects.networked.totem.*;
@@ -91,9 +91,9 @@ public class MalumParticleEffectTypes {
 //    public static final NetworkedParticleEffectType RITUAL_PLINTH_CHANGES_TIER = new RitualPlinthChangeTierParticleEffect("ritual_plinth_changes_tier");
 //    public static final NetworkedParticleEffectType RITUAL_PLINTH_FAILURE = new RitualPlinthFailureParticleEffect("ritual_plinth_failure");
 
-    //Spirit Diode
-    public static final SpiritDiodeOpenParticleEffect SPIRIT_DIODE_OPEN = new SpiritDiodeOpenParticleEffect("spirit_diode_open");
-    public static final SpiritDiodeCloseParticleEffect SPIRIT_DIODE_CLOSE = new SpiritDiodeCloseParticleEffect("spirit_diode_close");
+    //Waveform Diode
+    public static final WaveformDiodeOpenParticleEffect WAVEFORM_DIODE_OPEN = new WaveformDiodeOpenParticleEffect("waveform_diode_open");
+    public static final WaveformDiodeCloseParticleEffect WAVEFORM_DIODE_CLOSE = new WaveformDiodeCloseParticleEffect("waveform_diode_close");
 
     //Slash Effects
     public static final ScytheSlashParticleEffect SCYTHE_SLASH = new ScytheSlashParticleEffect("scythe_slash");

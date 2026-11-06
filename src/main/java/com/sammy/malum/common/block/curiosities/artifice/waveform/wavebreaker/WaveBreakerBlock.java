@@ -1,13 +1,14 @@
 package com.sammy.malum.common.block.curiosities.artifice.waveform.wavebreaker;
 
-import com.sammy.malum.common.block.curiosities.artifice.waveform.SpiritDiodeBlock;
+import com.sammy.malum.common.block.curiosities.artifice.waveform.WaveformDiodeBlock;
 import com.sammy.malum.registry.common.sound.*;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 
-public class WaveBreakerBlock extends SpiritDiodeBlock<WaveBreakerBlockEntity> {
+public class WaveBreakerBlock extends WaveformDiodeBlock<WaveBreakerBlockEntity> {
+
     public WaveBreakerBlock(Properties properties) {
         super(properties);
     }

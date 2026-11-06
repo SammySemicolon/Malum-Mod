@@ -46,7 +46,7 @@ public class MalumEntityTypes {
     public static final DeferredHolder<EntityType<?>, EntityType<ScytheBoomerang>> SCYTHE_BOOMERANG = register("scythe_boomerang", ScytheBoomerang::new, 2f, 2f, 20);
     public static final DeferredHolder<EntityType<?>, EntityType<LocalizedMaelstrom>> SCYTHE_MAELSTROM = register("scythe_maelstrom", LocalizedMaelstrom::new, 2f, 2f, 20);
 
-    public static final DeferredHolder<EntityType<?>, EntityType<GluttonyDamageActivator>> GLUTTONY_LOCUST = register("gluttony_locust", GluttonyDamageActivator::new, 0.25f, 0.25f, 4, 1);
+    public static final DeferredHolder<EntityType<?>, EntityType<GluttonyLocustEntity>> GLUTTONY_LOCUST = register("gluttony_locust", GluttonyLocustEntity::new, 0.25f, 0.25f, 4, 1);
 
     public static final DeferredHolder<EntityType<?>, EntityType<SpellweaverToolEffectActivator>> SPELLWEAVER_TOOL_EFFECT_ACTIVATOR = register("spellweavers_locus", SpellweaverToolEffectActivator::new, 0.25f, 0.25f, 4, 1);
     public static final DeferredHolder<EntityType<?>, EntityType<EntityRiteEffectActivator>> RITE_ENTITY_EFFECT_ACTIVATOR = register("seeking_rite_locus", EntityRiteEffectActivator::new, 1f, 1f, 4, 1);

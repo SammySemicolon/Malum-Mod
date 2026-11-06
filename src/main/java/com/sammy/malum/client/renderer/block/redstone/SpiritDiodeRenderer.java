@@ -1,7 +1,7 @@
 package com.sammy.malum.client.renderer.block.redstone;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.sammy.malum.common.block.curiosities.artifice.waveform.SpiritDiodeBlock;
+import com.sammy.malum.common.block.curiosities.artifice.waveform.WaveformDiodeBlock;
 import com.sammy.malum.common.block.curiosities.artifice.waveform.SpiritDiodeBlockEntity;
 import com.sammy.malum.core.systems.item.HeldItemTracker;
 import com.sammy.malum.registry.client.MalumRenderTypeTokens;
@@ -129,7 +129,7 @@ public abstract class SpiritDiodeRenderer<T extends SpiritDiodeBlockEntity> impl
     }
 
     public RenderTypeToken getTokenForSide(BlockState state, Direction direction) {
-        Direction facing = state.getValue(SpiritDiodeBlock.FACING);
+        Direction facing = state.getValue(WaveformDiodeBlock.FACING);
         if (direction.equals(facing.getOpposite())) {
             return MalumRenderTypeTokens.DIODE_INPUT;
         }

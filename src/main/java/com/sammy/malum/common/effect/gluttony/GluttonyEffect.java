@@ -105,7 +105,7 @@ public class GluttonyEffect extends MobEffect {
                     Easing.SINE_IN_OUT.asWeighedRandom(random, -velocity, velocity)
             );
             var position = target.position().add(0, target.getBbHeight() * 0.5f, 0);
-            var locust = new GluttonyDamageActivator(level, attacker.getUUID(), 3, propagationTarget.getUUID(), position, velocityVector);
+            var locust = new GluttonyLocustEntity(level, attacker.getUUID(), 3, propagationTarget.getUUID(), position, velocityVector);
             level.addFreshEntity(locust);
         }
         return true;

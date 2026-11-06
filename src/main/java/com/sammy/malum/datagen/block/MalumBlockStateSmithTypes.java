@@ -8,9 +8,8 @@ import com.sammy.malum.common.block.curiosities.artifice.elemental_artifice.aeri
 import com.sammy.malum.common.block.curiosities.artifice.elemental_artifice.base.ElementalArtificeBlock;
 import com.sammy.malum.common.block.curiosities.artifice.elemental_artifice.base.PrimaryArtificeBlock;
 import com.sammy.malum.common.block.curiosities.artifice.soul_link.SoulLinkBlock;
-import com.sammy.malum.common.block.curiosities.artifice.waveform.SpiritDiodeBlock;
+import com.sammy.malum.common.block.curiosities.artifice.waveform.WaveformDiodeBlock;
 import com.sammy.malum.common.block.curiosities.artifice.repair_pylon.*;
-import com.sammy.malum.common.block.building.banner.soulwoven.SoulwovenBannerBlock;
 import com.sammy.malum.common.block.curiosities.totem.TotemPoleBlock;
 import com.sammy.malum.common.block.curiosities.totem.channel.*;
 import com.sammy.malum.common.block.curiosities.weeping_well.*;
@@ -33,7 +32,6 @@ import net.minecraft.world.level.block.state.properties.*;
 import net.neoforged.neoforge.client.model.generators.*;
 import team.lodestar.lodestone.modules.datagen.DatagenSystemCommons;
 import team.lodestar.lodestone.modules.datagen.ItemModelSmithTypes;
-import team.lodestar.lodestone.modules.datagen.providers.block.LodestoneBlockModelProvider;
 import team.lodestar.lodestone.modules.datagen.providers.block.LodestoneBlockStateSystem;
 import team.lodestar.lodestone.modules.datagen.smith.blockstate.BlockStateSmith;
 
@@ -252,19 +250,17 @@ public class MalumBlockStateSmithTypes {
         });
     });
 
-    public static BlockStateSmith<SpiritDiodeBlock> SPIRIT_DIODE = new BlockStateSmith<>(SpiritDiodeBlock.class, ItemModelSmithTypes.BLOCK_MODEL_ITEM, (block, provider) -> {
-        String name = provider.getBlockName(block);
-        ResourceLocation top = provider.getBlockTexture("runewood_frame_top");
-        ResourceLocation opened = provider.getBlockTexture("runewood_frame_top_open");
-        ResourceLocation bottom = provider.getBlockTexture("runewood_frame_bottom");
-        ResourceLocation locked = provider.getBlockTexture("runewood_frame_locked");
-        ResourceLocation input = provider.getBlockTexture("runewood_frame_input");
-        ResourceLocation output = provider.getBlockTexture(name + "_output");
-        BlockModelBuilder model = provider.models().cube(name, bottom, top, output, input, locked, locked).texture("particle", output);
-        BlockModelBuilder openModel = provider.models().cube(name + "_open", bottom, opened, output, input, locked, locked).texture("particle", output);
+    public static BlockStateSmith<WaveformDiodeBlock> SPIRIT_DIODE = new BlockStateSmith<>(WaveformDiodeBlock.class, ItemModelSmithTypes.BLOCK_MODEL_ITEM, (block, provider) -> {
+        var name = provider.getBlockName(block);
+        var diode = malumPath("block/" + name);
+        var diodeOpen = malumPath("block/" + name + "_open");
+
+        var model = provider.models().getExistingFile(diode);
+        var openModel = provider.models().getExistingFile(diode);
         provider.getVariantBuilder(block).forAllStates(s -> {
-            var direction = s.getValue(SpiritDiodeBlock.FACING);
-            return ConfiguredModel.builder().modelFile(s.getValue(SpiritDiodeBlock.OPEN) ? openModel : model).rotationY(((int) direction.toYRot()) % 360).build();
+            var direction = s.getValue(WaveformDiodeBlock.FACING);
+            int rotation = ((int) direction.toYRot()) % 360;
+            return ConfiguredModel.builder().modelFile(s.getValue(WaveformDiodeBlock.OPEN) ? openModel : model).rotationY(rotation).build();
         });
     });
 

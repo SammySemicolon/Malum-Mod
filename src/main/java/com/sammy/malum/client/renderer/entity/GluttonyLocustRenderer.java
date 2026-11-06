@@ -10,14 +10,13 @@ import net.minecraft.client.renderer.texture.*;
 import net.minecraft.resources.*;
 import team.lodestar.lodestone.registry.client.*;
 import team.lodestar.lodestone.systems.rendering.builder.VFXBuilders;
-import team.lodestar.lodestone.systems.rendering.rendeertype.*;
 import team.lodestar.lodestone.systems.rendering.trail.*;
 import team.lodestar.lodestone.systems.rendering.uniform.UniformData;
 
 import java.awt.*;
 import java.util.List;
 
-public class GluttonyLocustRenderer extends EntityRenderer<GluttonyDamageActivator> {
+public class GluttonyLocustRenderer extends EntityRenderer<GluttonyLocustEntity> {
 
    private static final Color GLUTTONY_GREEN = new Color(47, 81, 28);
    private static final Color GLUTTONY_DARK = new Color(31, 35, 30);
@@ -28,7 +27,7 @@ public class GluttonyLocustRenderer extends EntityRenderer<GluttonyDamageActivat
    }
 
    @Override
-   public void render(GluttonyDamageActivator entity, float entityYaw, float partialTicks, PoseStack poseStack, MultiBufferSource bufferIn, int packedLightIn) {
+   public void render(GluttonyLocustEntity entity, float entityYaw, float partialTicks, PoseStack poseStack, MultiBufferSource bufferIn, int packedLightIn) {
       float delta = entity.getVisualEffectScalar();
       var additive = LodestoneRenderTypes.ADDITIVE_TWO_SIDED_TEXTURE_TRIANGLE.apply(MalumRenderTypeTokens.CONCENTRATED_TRAIL);
       var transparent = LodestoneRenderTypes.TRANSPARENT_TWO_SIDED_TEXTURE_TRIANGLE.apply(MalumRenderTypeTokens.CONCENTRATED_TRAIL).addUniformData(UniformData.LUMITRANSPARENT);
@@ -47,7 +46,7 @@ public class GluttonyLocustRenderer extends EntityRenderer<GluttonyDamageActivat
    }
 
    @Override
-   public ResourceLocation getTextureLocation(GluttonyDamageActivator entity) {
+   public ResourceLocation getTextureLocation(GluttonyLocustEntity entity) {
       return TextureAtlas.LOCATION_BLOCKS;
    }
 }

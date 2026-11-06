@@ -20,13 +20,13 @@ import team.lodestar.lodestone.systems.rendering.trail.*;
 
 import java.util.*;
 
-public class GluttonyDamageActivator extends FloatingEntity {
+public class GluttonyLocustEntity extends FloatingEntity {
 
     protected UUID owner;
     protected float magicDamage;
     public float spinOffset = (float) (random.nextFloat() * Math.PI * 2);
 
-    public GluttonyDamageActivator(Level level) {
+    public GluttonyLocustEntity(Level level) {
         super(MalumEntityTypes.GLUTTONY_LOCUST.get(), level);
         maxAge = 200;
 
@@ -34,7 +34,7 @@ public class GluttonyDamageActivator extends FloatingEntity {
         longTrail = TrailPointBuilder.create(12);
     }
 
-    public GluttonyDamageActivator(Level level, UUID owner, float magicDamage, UUID target, Vec3 position, Vec3 velocity) {
+    public GluttonyLocustEntity(Level level, UUID owner, float magicDamage, UUID target, Vec3 position, Vec3 velocity) {
         this(level);
         this.owner = owner;
         this.magicDamage = magicDamage;
@@ -53,7 +53,7 @@ public class GluttonyDamageActivator extends FloatingEntity {
         super.addAdditionalSaveData(pCompound);
 
         pCompound.putUUID("ownerUUID", owner);
-        pCompound.putFloat("magicDamage", magicDamage);
+        pCompound.putFloat("magic_damage", magicDamage);
     }
 
     @Override
@@ -61,7 +61,7 @@ public class GluttonyDamageActivator extends FloatingEntity {
         super.readAdditionalSaveData(pCompound);
 
         owner = pCompound.getUUID("ownerUUID");
-        magicDamage = pCompound.getFloat("magicDamage");
+        magicDamage = pCompound.getFloat("magic_damage");
     }
 
     @Override
@@ -82,7 +82,7 @@ public class GluttonyDamageActivator extends FloatingEntity {
 
     @Override
     public boolean canCollect(ServerLevel level) {
-        return age >= 10;
+        return age >= 20;
     }
 
     @Override
@@ -92,9 +92,12 @@ public class GluttonyDamageActivator extends FloatingEntity {
             float delta = Mth.clamp(movementWindUp / windUpDuration, 0, 1);
             var length = getDeltaMovement().length();
             var disharmony = 0.25f * (1 - delta);
+            if (level().getGameTime() % 40L == 0) {
+                disharmony = (disharmony + 0.5f) * 2;
+            }
             var addedOffset = new Vec3(
                     Easing.SINE_IN_OUT.asWeighedRandom(random, -disharmony, disharmony),
-                    Easing.SINE_IN_OUT.asWeighedRandom(random, -disharmony, disharmony),
+                    Easing.SINE_IN_OUT.asWeighedRandom(random, -disharmony * 0.25f, disharmony),
                     Easing.SINE_IN_OUT.asWeighedRandom(random, -disharmony, disharmony)
             );
             var newMovement = getDeltaMovement().add(addedOffset).normalize().scale(length);
@@ -137,17 +140,17 @@ public class GluttonyDamageActivator extends FloatingEntity {
 
     @Override
     public int getWindUpDuration() {
-        return 40;
+        return 80;
     }
 
     @Override
     public float getFriction() {
-        return 0.9f;
+        return 0.97f;
     }
 
     @Override
     public float getMovementSpeed(float windUp, float distance) {
-        return (0.2f + Easing.EXPO_OUT.ease(windUp));
+        return (0.35f + Easing.EXPO_OUT.ease(windUp));
     }
 
     @Override
