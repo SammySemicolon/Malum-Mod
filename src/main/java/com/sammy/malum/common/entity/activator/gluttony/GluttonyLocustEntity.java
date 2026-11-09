@@ -1,5 +1,6 @@
 package com.sammy.malum.common.entity.activator.gluttony;
 
+import com.sammy.malum.common.data.attachment.abilities.GluttonyData;
 import com.sammy.malum.common.entity.*;
 import com.sammy.malum.registry.common.*;
 import com.sammy.malum.registry.common.entity.*;
@@ -23,8 +24,9 @@ import java.util.*;
 public class GluttonyLocustEntity extends FloatingEntity {
 
     protected UUID owner;
-    protected float magicDamage;
+    protected float damage;
     public float spinOffset = (float) (random.nextFloat() * Math.PI * 2);
+    public int delay;
 
     public GluttonyLocustEntity(Level level) {
         super(MalumEntityTypes.GLUTTONY_LOCUST.get(), level);
@@ -34,11 +36,13 @@ public class GluttonyLocustEntity extends FloatingEntity {
         longTrail = TrailPointBuilder.create(12);
     }
 
-    public GluttonyLocustEntity(Level level, UUID owner, float magicDamage, UUID target, Vec3 position, Vec3 velocity) {
+    public GluttonyLocustEntity(Level level, UUID owner, float damage, UUID target, Vec3 position, Vec3 velocity) {
         this(level);
         this.owner = owner;
-        this.magicDamage = magicDamage;
-        setDestination(new FloatingItemDestinationData(target));
+        this.damage = damage;
+        if (target != null) {
+            setDestination(new FloatingItemDestinationData(target));
+        }
         setPos(position);
         setDeltaMovement(velocity);
     }
@@ -52,16 +56,18 @@ public class GluttonyLocustEntity extends FloatingEntity {
     public void addAdditionalSaveData(CompoundTag pCompound) {
         super.addAdditionalSaveData(pCompound);
 
-        pCompound.putUUID("ownerUUID", owner);
-        pCompound.putFloat("magic_damage", magicDamage);
+        pCompound.putUUID("owner", owner);
+        pCompound.putFloat("damage", damage);
+        pCompound.putInt("delay", delay);
     }
 
     @Override
     public void readAdditionalSaveData(CompoundTag pCompound) {
         super.readAdditionalSaveData(pCompound);
 
-        owner = pCompound.getUUID("ownerUUID");
-        magicDamage = pCompound.getFloat("magic_damage");
+        owner = pCompound.getUUID("owner");
+        damage = pCompound.getFloat("magic_damage");
+        delay = pCompound.getInt("delay");
     }
 
     @Override
@@ -75,7 +81,7 @@ public class GluttonyLocustEntity extends FloatingEntity {
                 .ifPresent(target -> {
                     target.invulnerableTime = 0;
                     var source = DamageTypeHelper.create(level(), MalumDamageTypes.ROT, this, level.getEntity(owner));
-                    target.hurt(source, magicDamage);
+                    target.hurt(source, damage);
                     target.invulnerableTime = 0;
                 });
     }
@@ -110,14 +116,14 @@ public class GluttonyLocustEntity extends FloatingEntity {
 
                 BlockState state = level().getBlockState(mutable);
                 if (state.isFaceSturdy(level(), mutable, Direction.UP)) {
-                    desiredY = Math.max(desiredY, mutable.getY() + 1.5f);
+                    desiredY = Math.max(desiredY, mutable.getY() + 2.5f);
                     break;
                 }
             }
             float difference = (float) (desiredY - getY());
-            float motion = difference * 0.015f;
+            float motion = difference * 0.025f;
             if (motion != 0) {
-                setDeltaMovement(getDeltaMovement().add(0, motion, 0).scale(0.9f));
+                setDeltaMovement(getDeltaMovement().add(0, motion, 0).scale(0.975f));
             }
         }
         super.tick();
@@ -125,16 +131,25 @@ public class GluttonyLocustEntity extends FloatingEntity {
 
     @Override
     public Optional<Entity> correctMissingTarget(ServerLevel level) {
+        if (delay > 0) {
+            delay--;
+            return Optional.empty();
+        }
         if (level.getEntity(owner) instanceof LivingEntity attacker) {
-            var area = getBoundingBox().inflate(8f, 3f, 8f);
-            var predicate = LodestoneEnchantmentEffectCommonsHelper.attackPredicate(attacker).and(t -> !t.isDeadOrDying() && !(t instanceof Player));
-            var targets = level.getEntitiesOfClass(LivingEntity.class, area, predicate);
-            if (targets.isEmpty()) {
+            var gluttony = attacker.getData(MalumAttachmentTypes.GLUTTONY);
+            var target = gluttony.getAttackedTarget();
+            if (target == null) {
                 return Optional.empty();
             }
-            targets.sort(Comparator.comparingDouble(t -> t.distanceToSqr(this)));
-            return Optional.of(targets.getFirst());
+            if (!(level.getEntity(target) instanceof LivingEntity entity)) {
+                return Optional.empty();
+            }
+            var predicate = LodestoneEnchantmentEffectCommonsHelper.attackPredicate(attacker).and(t -> !t.isDeadOrDying() && !(t instanceof Player));
+            if (predicate.test(entity)) {
+                return Optional.of(entity);
+            }
         }
+        delay = Easing.SINE_IN_OUT.asWeighedRandom(random, 4, 12);
         return Optional.empty();
     }
 
@@ -150,7 +165,7 @@ public class GluttonyLocustEntity extends FloatingEntity {
 
     @Override
     public float getMovementSpeed(float windUp, float distance) {
-        return (0.35f + Easing.EXPO_OUT.ease(windUp));
+        return (0.5f + Easing.EXPO_OUT.ease(windUp));
     }
 
     @Override

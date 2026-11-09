@@ -2,7 +2,7 @@ package com.sammy.malum.common.block.curiosities.artifice.elemental_artifice.aer
 
 import com.sammy.malum.common.block.curiosities.artifice.ArtificeTinkeringInfo;
 import com.sammy.malum.common.block.curiosities.artifice.elemental_artifice.ArtificeBlockConnectionData;
-import com.sammy.malum.common.block.curiosities.artifice.elemental_artifice.SequencedConnectionArray;
+import com.sammy.malum.common.block.curiosities.artifice.elemental_artifice.SequencedBlockConnectionArray;
 import com.sammy.malum.common.block.curiosities.artifice.elemental_artifice.ElementalArtificeTinkeringInfo;
 import com.sammy.malum.common.block.curiosities.artifice.elemental_artifice.base.PrimaryArtificeBlock;
 import com.sammy.malum.common.block.curiosities.artifice.elemental_artifice.base.PrimaryArtificeBlockEntity;
@@ -109,7 +109,7 @@ public class GustIgniterBlockEntity extends PrimaryArtificeBlockEntity {
     }
 
     @Override
-    public ArtificeBlockConnectionData bakeConnectionData(ServerLevel level, SequencedConnectionArray array) {
+    public ArtificeBlockConnectionData bakeConnectionData(ServerLevel level, SequencedBlockConnectionArray array) {
         float padding = 0.25f;
         int length = getTunnelLength();
         return new ArtificeBlockConnectionData(array, padding, length);

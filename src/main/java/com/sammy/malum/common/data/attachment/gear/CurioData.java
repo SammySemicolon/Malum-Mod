@@ -1,9 +1,8 @@
-package com.sammy.malum.common.data.attachment;
+package com.sammy.malum.common.data.attachment.gear;
 
 import com.mojang.serialization.*;
 import com.mojang.serialization.codecs.*;
 import io.netty.buffer.*;
-import net.minecraft.network.*;
 import net.minecraft.network.codec.*;
 
 public class CurioData {

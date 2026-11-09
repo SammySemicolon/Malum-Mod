@@ -1,4 +1,4 @@
-package com.sammy.malum.common.data.attachment;
+package com.sammy.malum.common.data.attachment.abilities;
 
 import com.mojang.serialization.*;
 import com.mojang.serialization.codecs.*;
@@ -11,7 +11,6 @@ import net.minecraft.util.*;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.*;
 import net.minecraft.world.entity.player.*;
-import team.lodestar.lodestone.helpers.*;
 import team.lodestar.lodestone.modules.toolkit.sound.SoundPlayer;
 
 import java.util.*;

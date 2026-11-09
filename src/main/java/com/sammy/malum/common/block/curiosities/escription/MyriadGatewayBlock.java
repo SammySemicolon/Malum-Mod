@@ -7,6 +7,8 @@ import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.phys.shapes.BooleanOp;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
@@ -19,18 +21,19 @@ import static net.minecraft.world.level.block.state.properties.BlockStatePropert
 
 public class MyriadGatewayBlock<T extends MyriadGatewayBlockEntity> extends LodestoneEntityBlock<T> {
 
+    public static final DirectionProperty HORIZONTAL_FACING = BlockStateProperties.HORIZONTAL_FACING;
+
     public static final VoxelShape SHAPE = Block.box(0, 0, 0, 19, 7, 16);
     public static final VoxelShape RENDER_SHAPE = Block.box(-3, 0, -3, 19, 7, 19);
 
-
     public MyriadGatewayBlock(Properties properties) {
         super(properties);
-        this.registerDefaultState(this.stateDefinition.any().setValue(HORIZONTAL_FACING, Direction.NORTH));
+        registerDefaultState(stateDefinition.any().setValue(HORIZONTAL_FACING, Direction.NORTH));
     }
 
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext context) {
-        return this.defaultBlockState().setValue(HORIZONTAL_FACING, context.getHorizontalDirection());
+        return defaultBlockState().setValue(HORIZONTAL_FACING, context.getHorizontalDirection());
     }
 
     @Override

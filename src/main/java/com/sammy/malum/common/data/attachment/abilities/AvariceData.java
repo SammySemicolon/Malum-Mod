@@ -1,4 +1,4 @@
-package com.sammy.malum.common.data.attachment;
+package com.sammy.malum.common.data.attachment.abilities;
 
 import com.mojang.serialization.*;
 import com.mojang.serialization.codecs.*;
@@ -27,22 +27,22 @@ import net.neoforged.neoforge.event.tick.EntityTickEvent;
 import team.lodestar.lodestone.helpers.EntityHelper;
 import team.lodestar.lodestone.modules.toolkit.sound.SoundPlayer;
 
-public class AvariceMarkData {
+public class AvariceData {
 
-    public static Codec<AvariceMarkData> CODEC = RecordCodecBuilder.create(obj -> obj.group(
-            Codec.BOOL.optionalFieldOf("hasProspectorMark", false).forGetter(AvariceMarkData::hasAvariceMark),
-            Codec.INT.optionalFieldOf("carriedAvarice", 0).forGetter(AvariceMarkData::getCarriedAvarice)
-    ).apply(obj, AvariceMarkData::new));
+    public static Codec<AvariceData> CODEC = RecordCodecBuilder.create(obj -> obj.group(
+            Codec.BOOL.optionalFieldOf("hasProspectorMark", false).forGetter(AvariceData::hasAvariceMark),
+            Codec.INT.optionalFieldOf("carriedAvarice", 0).forGetter(AvariceData::getCarriedAvarice)
+    ).apply(obj, AvariceData::new));
 
-    public static StreamCodec<ByteBuf, AvariceMarkData> STREAM_CODEC = ByteBufCodecs.fromCodec(AvariceMarkData.CODEC);
+    public static StreamCodec<ByteBuf, AvariceData> STREAM_CODEC = ByteBufCodecs.fromCodec(AvariceData.CODEC);
     private boolean hasAvariceMark;
     private int carriedAvarice;
 
-    private AvariceMarkData(boolean hasAvariceMark, int carriedAvarice) {
+    private AvariceData(boolean hasAvariceMark, int carriedAvarice) {
         this.hasAvariceMark = hasAvariceMark;
     }
 
-    public AvariceMarkData() {
+    public AvariceData() {
     }
 
     public boolean hasAvariceMark() {
@@ -56,10 +56,11 @@ public class AvariceMarkData {
     public static void applyAvariceMark(BlockDropsEvent event) {
         if (event.getBreaker() instanceof LivingEntity breaker) {
             int amount = getAppliedAvarice(breaker);
-            if (amount > 0) {
-                for (ItemEntity drop : event.getDrops()) {
-                    tryMarkEntity(drop, amount);
-                }
+            if (amount <= 0) {
+                return;
+            }
+            for (ItemEntity drop : event.getDrops()) {
+                tryMarkEntity(drop, amount);
             }
         }
     }
@@ -81,12 +82,12 @@ public class AvariceMarkData {
 
     public static void entityTick(EntityTickEvent.Pre event) {
         var entity = event.getEntity();
-        entity.getExistingData(MalumAttachmentTypes.AVARICE_MARK).ifPresent(d -> d.tickData(entity));
+        entity.getExistingData(MalumAttachmentTypes.AVARICE).ifPresent(d -> d.tickData(entity));
     }
 
     public static void pickupItem(ItemEntityPickupEvent.Post event) {
         ItemEntity entity = event.getItemEntity();
-        entity.getExistingData(MalumAttachmentTypes.AVARICE_MARK).ifPresent(data -> {
+        entity.getExistingData(MalumAttachmentTypes.AVARICE).ifPresent(data -> {
             if (data.hasAvariceMark()) {
                 applyAvarice(event.getPlayer(), data.carriedAvarice);
             }
@@ -103,8 +104,8 @@ public class AvariceMarkData {
 
     public static ItemEntity tryMarkEntity(ItemEntity entity, int amount) {
         if (entity.getItem().is(MalumTags.Items.PROSPECTORS_TREASURE)) {
-            entity.getData(MalumAttachmentTypes.AVARICE_MARK).enableMark(amount);
-            entity.syncData(MalumAttachmentTypes.AVARICE_MARK);
+            entity.getData(MalumAttachmentTypes.AVARICE).enableMark(amount);
+            entity.syncData(MalumAttachmentTypes.AVARICE);
         }
         return entity;
     }

@@ -15,15 +15,15 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.IntStream;
 
-public class SequencedConnectionArray {
+public class SequencedBlockConnectionArray {
 
-    public static final Codec<SequencedConnectionArray> CODEC = RecordCodecBuilder.create(instance -> instance.group(
+    public static final Codec<SequencedBlockConnectionArray> CODEC = RecordCodecBuilder.create(instance -> instance.group(
             Direction.CODEC.fieldOf("shared_direction").forGetter(data -> data.sharedDirection),
             BlockPos.CODEC.fieldOf("owner").forGetter(data -> data.connectionOwner),
             BlockPos.CODEC.fieldOf("root").forGetter(data -> data.connectionRoot),
             Codec.INT.fieldOf("coordinate_on_shared_axis").forGetter(data -> data.coordinateOnSharedAxis),
             Codec.INT_STREAM.xmap(IntStream::toArray, Arrays::stream).fieldOf("connection_array").forGetter(data -> data.connectionArray)
-    ).apply(instance, SequencedConnectionArray::new));
+    ).apply(instance, SequencedBlockConnectionArray::new));
 
     protected final Direction sharedDirection;
     protected final int coordinateOnSharedAxis;
@@ -32,7 +32,7 @@ public class SequencedConnectionArray {
     protected final BlockPos connectionRoot;
     protected final int[] connectionArray;
 
-    public static SequencedConnectionArray create(PrimaryArtificeBlockEntity connectionOwner, SecondaryArtificeBlockEntity connectionRoot, Direction sharedDirection, Set<SecondaryArtificeBlockEntity> capturedBlocks) {
+    public static SequencedBlockConnectionArray create(PrimaryArtificeBlockEntity connectionOwner, SecondaryArtificeBlockEntity connectionRoot, Direction sharedDirection, Set<SecondaryArtificeBlockEntity> capturedBlocks) {
         var ownerPos = connectionOwner.getBlockPos();
         var rootPos = connectionRoot.getBlockPos();
 
@@ -61,10 +61,10 @@ public class SequencedConnectionArray {
             index++;
         }
 
-        return new SequencedConnectionArray(sharedDirection, ownerPos, rootPos, sharedCoordinate, connectionArray);
+        return new SequencedBlockConnectionArray(sharedDirection, ownerPos, rootPos, sharedCoordinate, connectionArray);
     }
 
-    public SequencedConnectionArray(Direction sharedDirection, BlockPos connectionOwner, BlockPos connectionRoot, int coordinateOnSharedAxis, int[] connectionArray) {
+    public SequencedBlockConnectionArray(Direction sharedDirection, BlockPos connectionOwner, BlockPos connectionRoot, int coordinateOnSharedAxis, int[] connectionArray) {
         this.sharedDirection = sharedDirection;
         this.connectionOwner = connectionOwner;
         this.connectionRoot = connectionRoot;

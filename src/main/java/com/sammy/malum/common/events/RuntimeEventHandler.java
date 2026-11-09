@@ -1,7 +1,9 @@
 package com.sammy.malum.common.events;
 
 import com.sammy.malum.common.block.storage.jar.*;
-import com.sammy.malum.common.data.attachment.AvariceMarkData;
+import com.sammy.malum.common.data.attachment.abilities.AvariceData;
+import com.sammy.malum.common.data.attachment.MyriadGatewayData;
+import com.sammy.malum.common.data.attachment.abilities.GluttonyData;
 import com.sammy.malum.common.data.listener.banner.MalumBannerPatternReloadListener;
 import com.sammy.malum.common.data.listener.malignant_conversion.MalignantConversionReloadListener;
 import com.sammy.malum.common.data.listener.reaping.ReapingDataReloadListener;
@@ -127,11 +129,12 @@ public class RuntimeEventHandler {
 
     @SubscribeEvent
     public static void onLivingTick(EntityTickEvent.Pre event) {
-        AvariceMarkData.entityTick(event);
+        AvariceData.entityTick(event);
         SoulDataHandler.entityTick(event);
         SoulWardHandler.entityTick(event);
         WindTunnelHandler.entityTick(event);
         GeasEffectHandler.entityTick(event);
+        MyriadGatewayData.entityTick(event);
         CurioWatcherNecklace.entityTick(event);
         TouchOfDarknessHandler.entityTick(event);
         CurioHiddenBladeNecklace.entityTick(event);
@@ -147,7 +150,7 @@ public class RuntimeEventHandler {
 
     @SubscribeEvent
     public static void modifyBlockDrops(BlockDropsEvent event) {
-        AvariceMarkData.applyAvariceMark(event);
+        AvariceData.applyAvariceMark(event);
     }
 
     @SubscribeEvent(priority = EventPriority.LOWEST)
@@ -202,12 +205,13 @@ public class RuntimeEventHandler {
 
     @SubscribeEvent
     public static void onPickupItem(ItemEntityPickupEvent.Post event) {
-        AvariceMarkData.pickupItem(event);
+        AvariceData.pickupItem(event);
     }
 
     @SubscribeEvent
     public static void onHurt(LivingDamageEvent.Post event) {
         SoulDataHandler.exposeSoul(event);
+        GluttonyData.directLocusts(event);
         DesperateNeedEffect.spawnLocusts(event);
     }
 

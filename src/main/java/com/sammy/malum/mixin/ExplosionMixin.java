@@ -1,6 +1,6 @@
 package com.sammy.malum.mixin;
 
-import com.sammy.malum.common.data.attachment.*;
+import com.sammy.malum.common.data.attachment.abilities.AvariceData;
 import com.sammy.malum.common.entity.nitrate.*;
 import com.sammy.malum.common.geas.pact.infernal.*;
 import com.sammy.malum.common.item.curiosities.curios.sets.prospector.CurioDischargeRing;
@@ -60,8 +60,8 @@ public abstract class ExplosionMixin {
     private void malum$popResource(Level level, BlockPos pos, ItemStack stack) {
         pos = CurioHoarderRing.getExplosionPos(malum$hasHoarderRing, pos, getIndirectSourceEntity(), stack);
         if (malum$hasProspectorBelt) {
-            var avarice = AvariceMarkData.getAppliedAvarice(getIndirectSourceEntity());
-            AvariceMarkData.popResourceAndMarkEntity(level, pos, stack, avarice);
+            var avarice = AvariceData.getAppliedAvarice(getIndirectSourceEntity());
+            AvariceData.popResourceAndMarkEntity(level, pos, stack, avarice);
         } else {
             Block.popResource(level, pos, stack);
         }

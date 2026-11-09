@@ -33,6 +33,7 @@ public class CurioEffectLangDatagen {
         addCurioEffect("eat_rotten", "Rotten Foods are Tastier");
         addCurioEffect("rotten_gluttony", "Eating Rotten Food Generates Gluttony");
         addCurioEffect("rot_multiplicity", "Sprout More Gluttony Locusts");
+        addCurioEffect("rot_aggression", "Gluttony Locusts Seek Out Wicked Targets");
 
         addCurioEffect("ore_prospecting", "Collecting Precious Minerals Bestows Avarice");
         addCurioEffect("enchanted_explosions", "Explosions Are Enchanted With %s");

@@ -58,7 +58,6 @@ import com.sammy.malum.common.block.flora.wood.soulwood.SoulwoodLeavesBlock;
 import com.sammy.malum.common.block.flora.wood.soulwood.SoulwoodSaplingBlock;
 import com.sammy.malum.common.block.flora.wood.MalumSaplingBlock;
 import com.sammy.malum.common.block.soulstone.*;
-import com.sammy.malum.common.block.storage.coffer.CofferBlock;
 import com.sammy.malum.common.block.storage.jar.SpiritJarBlock;
 import com.sammy.malum.common.block.the_device.TheDevice;
 import com.sammy.malum.common.block.the_device.TheVessel;
@@ -95,7 +94,7 @@ import com.sammy.malum.common.item.curiosities.curios.sets.prospector.CurioDisch
 import com.sammy.malum.common.item.curiosities.curios.sets.prospector.CurioHeartyAvariceRing;
 import com.sammy.malum.common.item.curiosities.curios.sets.prospector.CurioProspectorBelt;
 import com.sammy.malum.common.item.curiosities.curios.sets.rotten.CurioStarvedBelt;
-import com.sammy.malum.common.item.curiosities.curios.sets.rotten.CurioSwarmingRing;
+import com.sammy.malum.common.item.curiosities.curios.sets.rotten.CurioSwarmingRotRing;
 import com.sammy.malum.common.item.curiosities.curios.sets.rotten.CurioVoraciousRing;
 import com.sammy.malum.common.item.curiosities.curios.sets.scythe.CurioHowlingMaelstromRing;
 import com.sammy.malum.common.item.curiosities.curios.sets.scythe.CurioNarrowEdgeNecklace;
@@ -736,7 +735,7 @@ public class MalumContent {
         public static final DeferredItem<Item> RING_OF_ARCANE_PROWESS = register("ring_of_arcane_prowess", MalumItemProperties::GEAR, CurioProwessRing::new);
 
         public static final DeferredItem<Item> RING_OF_DESPERATE_VORACITY = register("ring_of_desperate_voracity", MalumItemProperties::GEAR, CurioVoraciousRing::new);
-        public static final DeferredItem<Item> RING_OF_SWARMING_ROT = register("ring_of_swarming_rot", MalumItemProperties::GEAR, CurioSwarmingRing::new);
+        public static final DeferredItem<Item> RING_OF_SWARMING_ROT = register("ring_of_swarming_rot", MalumItemProperties::GEAR, CurioSwarmingRotRing::new);
 
         public static final DeferredItem<Item> RING_OF_THE_RISING_EDGE = register("ring_of_the_rising_edge", MalumItemProperties::GEAR, CurioRisingEdgeRing::new);
         public static final DeferredItem<Item> RING_OF_THE_HOWLING_MAELSTROM = register("ring_of_the_howling_maelstrom", MalumItemProperties::GEAR, CurioHowlingMaelstromRing::new);

@@ -1,6 +1,6 @@
 package com.sammy.malum.core.systems.events;
 
-import com.sammy.malum.common.data.attachment.*;
+import com.sammy.malum.common.data.attachment.abilities.SoulWardData;
 import net.minecraft.world.damagesource.*;
 import net.minecraft.world.entity.*;
 import net.neoforged.neoforge.event.entity.living.*;

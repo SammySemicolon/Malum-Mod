@@ -1,7 +1,7 @@
 package com.sammy.malum.common.block.curiosities.artifice.elemental_artifice.base;
 
 import com.sammy.malum.common.block.curiosities.artifice.elemental_artifice.ArtificeBlockConnectionData;
-import com.sammy.malum.common.block.curiosities.artifice.elemental_artifice.SequencedConnectionArray;
+import com.sammy.malum.common.block.curiosities.artifice.elemental_artifice.SequencedBlockConnectionArray;
 import com.sammy.malum.common.block.curiosities.artifice.ArtificeTinkeringInfo;
 import com.sammy.malum.core.handlers.WindTunnelHandler;
 import net.minecraft.core.BlockPos;
@@ -10,7 +10,6 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtOps;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
 import team.lodestar.lodestone.modules.toolkit.blockentity.LodestoneBlockEntityType;
@@ -25,7 +24,7 @@ public abstract class PrimaryArtificeBlockEntity extends ElementalArtificeBlockE
         super(type, pos, state);
     }
 
-    public abstract ArtificeBlockConnectionData bakeConnectionData(ServerLevel level, SequencedConnectionArray array);
+    public abstract ArtificeBlockConnectionData bakeConnectionData(ServerLevel level, SequencedBlockConnectionArray array);
 
     public abstract void activate(ServerLevel level, boolean powered);
 

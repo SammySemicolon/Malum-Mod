@@ -4,6 +4,7 @@ import com.sammy.malum.*;
 import com.sammy.malum.common.data.listener.spirit.EntitySpiritDropData;
 import com.sammy.malum.common.entity.activator.gluttony.*;
 import com.sammy.malum.common.item.*;
+import com.sammy.malum.common.item.curiosities.curios.sets.rotten.CurioSwarmingRotRing;
 import com.sammy.malum.core.systems.events.*;
 import com.sammy.malum.registry.common.*;
 import com.sammy.malum.registry.common.MalumContent;
@@ -26,6 +27,9 @@ import team.lodestar.lodestone.modules.core.easing.Easing;
 import team.lodestar.lodestone.modules.toolkit.enchanting.LodestoneEnchantmentEffectCommonsHelper;
 import team.lodestar.wayward_attributes.core.registry.WaywardAttributeTypes;
 
+import java.util.Collection;
+import java.util.List;
+import java.util.UUID;
 import java.util.function.*;
 
 import static net.neoforged.neoforge.event.entity.living.MobEffectEvent.Applicable.Result.DO_NOT_APPLY;
@@ -71,41 +75,24 @@ public class GluttonyEffect extends MobEffect {
         var level = target.level();
         var random = level.random;
 
-        var area = target.getBoundingBox().inflate(8f, 3f, 8f);
-        var predicate = LodestoneEnchantmentEffectCommonsHelper.attackPredicate(attacker).and(t -> !t.isDeadOrDying() && attacker.hasLineOfSight(t));
-        var targets = level.getEntitiesOfClass(LivingEntity.class, area, predicate);
-
-        if (targets.isEmpty()) {
-            return false;
-        }
-        LivingEntity highestWicked = null;
-        if (!attacker.equals(target) && target instanceof Player && !target.isDeadOrDying()) {
-            highestWicked = target;
-        }
-        if (highestWicked != null) {
-            int wickedAmount = -1;
-            for (LivingEntity otherTarget : targets) {
-                int weight = EntitySpiritDropData.getSpiritData(otherTarget).map(e -> e.countSpirit(MalumSpiritTypes.WICKED_SPIRIT)).orElse(0);
-                if (weight > wickedAmount) {
-                    highestWicked = otherTarget;
-                    wickedAmount = weight;
-                }
-            }
-        }
+        UUID forcedTarget = null;
         if (CurioHelper.hasCurioEquipped(attacker, MalumContent.Gear.RING_OF_SWARMING_ROT.get())) {
+            var highestWicked = CurioSwarmingRotRing.findWickedTarget(attacker, target);
+            if (highestWicked != null) {
+                forcedTarget = highestWicked.getUUID();
+            }
             float multiplier = 1 + random.nextFloat();
             amount = Mth.ceil(amount * multiplier);
         }
         float velocity = 0.7f;
         for (int i = 0; i < amount; i++) {
-            var propagationTarget = highestWicked != null ? highestWicked : targets.get(random.nextInt(targets.size()));
             var velocityVector = new Vec3(
                     Easing.SINE_IN_OUT.asWeighedRandom(random, -velocity, velocity),
                     Easing.QUAD_IN_OUT.asWeighedRandom(random, velocity / 2f, velocity),
                     Easing.SINE_IN_OUT.asWeighedRandom(random, -velocity, velocity)
             );
             var position = target.position().add(0, target.getBbHeight() * 0.5f, 0);
-            var locust = new GluttonyLocustEntity(level, attacker.getUUID(), 3, propagationTarget.getUUID(), position, velocityVector);
+            var locust = new GluttonyLocustEntity(level, attacker.getUUID(), 3, forcedTarget, position, velocityVector);
             level.addFreshEntity(locust);
         }
         return true;
