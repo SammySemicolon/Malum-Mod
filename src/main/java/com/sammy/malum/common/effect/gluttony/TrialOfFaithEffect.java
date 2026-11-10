@@ -14,7 +14,7 @@ import team.lodestar.wayward_attributes.core.registry.WaywardAttributeTypes;
 public class TrialOfFaithEffect extends MobEffect {
     public TrialOfFaithEffect() {
         super(MobEffectCategory.BENEFICIAL, ColorHelper.getColor(88, 86, 60));
-        addAttributeModifier(WaywardAttributeTypes.HEALING_MULTIPLIER, MalumMod.malumPath("trial_of_faith"), 0.1f, AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL);
+        addAttributeModifier(WaywardAttributeTypes.HEALING_MULTIPLIER, MalumMod.malumPath("trial_of_faith"), 0.25f, AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL);
     }
 
     @Override
@@ -36,14 +36,12 @@ public class TrialOfFaithEffect extends MobEffect {
         if (instance == null) {
             return;
         }
-        int amount = 1 + Mth.floor(event.getAmount() / 2f);
-        if (GluttonyEffect.spawnLocusts(entity, entity, amount)) {
-            instance.amplifier--;
-            if (instance.amplifier < 0) {
+
+        float recoveredHealth = Math.min(event.getAmount(), entity.getMaxHealth() - entity.getHealth());
+        if (recoveredHealth > 0) {
+            int amount = 1 + Mth.floor(recoveredHealth / 2f) + instance.getAmplifier();
+            if (GluttonyEffect.spawnLocusts(entity, entity, amount)) {
                 entity.removeEffect(MalumMobEffects.TRIAL_OF_FAITH);
-            }
-            else {
-                EntityHelper.syncEffect(instance, entity);
             }
         }
     }

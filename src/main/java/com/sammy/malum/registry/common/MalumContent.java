@@ -701,8 +701,8 @@ public class MalumContent {
         public static final DeferredItem<Item> SPELLWEAVING_PICKAXE = register("spellweaving_pickaxe", MalumItemProperties::GEAR, (p) -> new SpellweavingPickaxeItem(SPELLWEAVING_TOOLS, -3, 0, 4, p));
         public static final DeferredItem<Item> SPELLWEAVING_AXE = register("spellweaving_axe", MalumItemProperties::GEAR, (p) -> new SpellweavingAxeItem(SPELLWEAVING_TOOLS, -4, 0, 6, p));
 
-        public static final DeferredItem<Item> RAVENOUS_SCYTHE = register("ravenous_scythe", MalumItemProperties::GEAR, (p) -> new RavenousScytheItem(RAVENOUS, -4f, 0.4f, 2.5f, p));
-        public static final DeferredItem<Item> GLUTTONOUS_BLUDGEON = register("gluttonous_bludgeon", MalumItemProperties::GEAR, (p) -> new GluttonousBludgeonItem(RAVENOUS, -2.5f, -3f, 2, p));
+        public static final DeferredItem<Item> RAVENOUS_SCYTHE = register("ravenous_scythe", MalumItemProperties::GEAR, (p) -> new RavenousScytheItem(RAVENOUS, 1f, 0.7f, 9f, p));
+        public static final DeferredItem<Item> GLUTTONOUS_BLUDGEON = register("gluttonous_bludgeon", MalumItemProperties::GEAR, (p) -> new GluttonousBludgeonItem(RAVENOUS, 2f, 1.2f, 4f, p));
 
         public static final DeferredItem<Item> TYRVING = register("tyrving", MalumItemProperties::GEAR, (p) -> new TyrvingItem(MalumItemTiers.TYRVING, 0, -0.3f, p));
 

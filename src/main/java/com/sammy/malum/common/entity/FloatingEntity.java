@@ -112,7 +112,8 @@ public abstract class FloatingEntity extends MovingEntity {
                     float gravity = 0.004f * (windUpDuration - movementWindUp) / windUpDuration;
                     setDeltaMovement(getDeltaMovement().subtract(0, gravity, 0).multiply(0.9f, 0.96f, 0.9f));
                 }
-                if (level.getGameTime() % 20L == 0) {
+                long frequency = getMissingTargetUpdateFrequency();
+                if (level.getGameTime() % frequency == 0) {
                     var retarget = correctMissingTarget(level);
                     retarget.ifPresent(entity -> setDestination(new FloatingItemDestinationData(entity.getUUID())));
                 }
@@ -172,6 +173,10 @@ public abstract class FloatingEntity extends MovingEntity {
             return Optional.of(nearestPlayer);
         }
         return Optional.empty();
+    }
+
+    protected long getMissingTargetUpdateFrequency() {
+        return 20L;
     }
 
     public Vec3 getOffsetPosition() {

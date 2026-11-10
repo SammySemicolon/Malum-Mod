@@ -1,7 +1,7 @@
 package com.sammy.malum.common.entity.activator.gluttony;
 
-import com.sammy.malum.common.data.attachment.abilities.GluttonyData;
 import com.sammy.malum.common.entity.*;
+import com.sammy.malum.common.item.curiosities.curios.sets.rotten.CurioSwarmingRotRing;
 import com.sammy.malum.registry.common.*;
 import com.sammy.malum.registry.common.entity.*;
 import net.minecraft.core.*;
@@ -23,26 +23,26 @@ import java.util.*;
 
 public class GluttonyLocustEntity extends FloatingEntity {
 
-    protected UUID owner;
+    protected UUID ownerUUID;
+
     protected float damage;
+    protected boolean aggressive;
+
     public float spinOffset = (float) (random.nextFloat() * Math.PI * 2);
-    public int delay;
 
     public GluttonyLocustEntity(Level level) {
         super(MalumEntityTypes.GLUTTONY_LOCUST.get(), level);
-        maxAge = 200;
+        maxAge = 300;
 
-        trail = TrailPointBuilder.create(6);
-        longTrail = TrailPointBuilder.create(12);
+        trail = TrailPointBuilder.create(12);
+        longTrail = TrailPointBuilder.create(24);
     }
 
-    public GluttonyLocustEntity(Level level, UUID owner, float damage, UUID target, Vec3 position, Vec3 velocity) {
+    public GluttonyLocustEntity(Level level, UUID ownerUUID, float damage, boolean aggressive, Vec3 position, Vec3 velocity) {
         this(level);
-        this.owner = owner;
+        this.ownerUUID = ownerUUID;
         this.damage = damage;
-        if (target != null) {
-            setDestination(new FloatingItemDestinationData(target));
-        }
+        this.aggressive = aggressive;
         setPos(position);
         setDeltaMovement(velocity);
     }
@@ -56,18 +56,18 @@ public class GluttonyLocustEntity extends FloatingEntity {
     public void addAdditionalSaveData(CompoundTag pCompound) {
         super.addAdditionalSaveData(pCompound);
 
-        pCompound.putUUID("owner", owner);
+        pCompound.putUUID("owner", ownerUUID);
         pCompound.putFloat("damage", damage);
-        pCompound.putInt("delay", delay);
+        pCompound.putBoolean("aggressive", aggressive);
     }
 
     @Override
     public void readAdditionalSaveData(CompoundTag pCompound) {
         super.readAdditionalSaveData(pCompound);
 
-        owner = pCompound.getUUID("owner");
-        damage = pCompound.getFloat("magic_damage");
-        delay = pCompound.getInt("delay");
+        ownerUUID = pCompound.getUUID("owner");
+        damage = pCompound.getFloat("damage");
+        aggressive = pCompound.getBoolean("aggressive");
     }
 
     @Override
@@ -80,7 +80,7 @@ public class GluttonyLocustEntity extends FloatingEntity {
         getDestination().getEntityCollector(level)
                 .ifPresent(target -> {
                     target.invulnerableTime = 0;
-                    var source = DamageTypeHelper.create(level(), MalumDamageTypes.ROT, this, level.getEntity(owner));
+                    var source = DamageTypeHelper.create(level(), MalumDamageTypes.ROT, this, level.getEntity(ownerUUID));
                     target.hurt(source, damage);
                     target.invulnerableTime = 0;
                 });
@@ -93,49 +93,77 @@ public class GluttonyLocustEntity extends FloatingEntity {
 
     @Override
     public void tick() {
-        if (level() instanceof ServerLevel) {
+        if (level() instanceof ServerLevel level) {
             float windUpDuration = getWindUpDuration();
             float delta = Mth.clamp(movementWindUp / windUpDuration, 0, 1);
             var length = getDeltaMovement().length();
-            var disharmony = 0.25f * (1 - delta);
+            var disharmony = 0.05f * (1 - delta);
             if (level().getGameTime() % 40L == 0) {
-                disharmony = (disharmony + 0.5f) * 2;
+                disharmony = (disharmony + 1f) * 2;
             }
-            var addedOffset = new Vec3(
-                    Easing.SINE_IN_OUT.asWeighedRandom(random, -disharmony, disharmony),
-                    Easing.SINE_IN_OUT.asWeighedRandom(random, -disharmony * 0.25f, disharmony),
-                    Easing.SINE_IN_OUT.asWeighedRandom(random, -disharmony, disharmony)
-            );
-            var newMovement = getDeltaMovement().add(addedOffset).normalize().scale(length);
-            setDeltaMovement(newMovement);
-
-            float desiredY = (float) getY();
-            var mutable = blockPosition().mutable();
-            for (int i = 0; i < 4; i++) {
-                mutable.move(Direction.DOWN);
-
-                BlockState state = level().getBlockState(mutable);
-                if (state.isFaceSturdy(level(), mutable, Direction.UP)) {
-                    desiredY = Math.max(desiredY, mutable.getY() + 2.5f);
-                    break;
-                }
+            if (disharmony > 0) {
+                var addedOffset = new Vec3(
+                        Easing.SINE_IN_OUT.asWeighedRandom(random, -disharmony, disharmony),
+                        0,
+                        Easing.SINE_IN_OUT.asWeighedRandom(random, -disharmony, disharmony)
+                );
+                var newMovement = getDeltaMovement().add(addedOffset).normalize().scale(length);
+                setDeltaMovement(newMovement);
             }
-            float difference = (float) (desiredY - getY());
-            float motion = difference * 0.025f;
-            if (motion != 0) {
-                setDeltaMovement(getDeltaMovement().add(0, motion, 0).scale(0.975f));
-            }
+            float heightAdjustment = getHeightAdjustmentMotion();
+            setDeltaMovement(getDeltaMovement().add(0, heightAdjustment, 0));
+            followOwner(level);
         }
         super.tick();
     }
 
+    private void followOwner(ServerLevel level) {
+        if (level.getEntity(ownerUUID) instanceof LivingEntity owner) {
+            double orbitOffset = 1.55f;
+            double orbitAngle = ((age%120) / 60.0) * Math.PI + spinOffset;
+
+            var playerOrbit = owner.position().add(
+                    Math.sin(orbitAngle) * orbitOffset,
+                    0,
+                    Math.cos(orbitAngle) * orbitOffset
+            );
+            var offset = playerOrbit.subtract(position());
+            double delta = Math.min(offset.length() / 10f, 1);
+            var velocity = Easing.SINE_IN_OUT.lerp(delta, 0.025f, 0.05f);
+            var direction = offset.multiply(1, 0, 1).normalize();
+            var addedVelocity = direction.scale(velocity);
+            setDeltaMovement(getDeltaMovement().add(addedVelocity));
+        }
+    }
+
+    private float getHeightAdjustmentMotion() {
+        float desiredY = (float) getY();
+        var mutable = blockPosition().mutable();
+        for (int i = 0; i < 6; i++) {
+            mutable.move(Direction.DOWN);
+
+            BlockState state = level().getBlockState(mutable);
+            if (state.isFaceSturdy(level(), mutable, Direction.UP)) {
+                desiredY = Math.max(desiredY, mutable.getY() + 1.75f);
+                break;
+            }
+        }
+        float difference = (float) (desiredY - getY());
+        return difference * 0.75f;
+    }
+
     @Override
     public Optional<Entity> correctMissingTarget(ServerLevel level) {
-        if (delay > 0) {
-            delay--;
-            return Optional.empty();
-        }
-        if (level.getEntity(owner) instanceof LivingEntity attacker) {
+        if (level.getEntity(ownerUUID) instanceof LivingEntity attacker) {
+            if (aggressive) {
+                if (random.nextFloat() < 0.25f) {
+                    var target = CurioSwarmingRotRing.findWickedTarget(attacker);
+                    if (target != null) {
+                        return Optional.of(target);
+                    }
+                }
+                return Optional.empty();
+            }
             var gluttony = attacker.getData(MalumAttachmentTypes.GLUTTONY);
             var target = gluttony.getAttackedTarget();
             if (target == null) {
@@ -149,18 +177,22 @@ public class GluttonyLocustEntity extends FloatingEntity {
                 return Optional.of(entity);
             }
         }
-        delay = Easing.SINE_IN_OUT.asWeighedRandom(random, 4, 12);
         return Optional.empty();
     }
 
     @Override
+    protected long getMissingTargetUpdateFrequency() {
+        return 4L;
+    }
+
+    @Override
     public int getWindUpDuration() {
-        return 80;
+        return 20;
     }
 
     @Override
     public float getFriction() {
-        return 0.97f;
+        return 0.95f;
     }
 
     @Override
@@ -170,25 +202,24 @@ public class GluttonyLocustEntity extends FloatingEntity {
 
     @Override
     public float getMovementEasing(float windUp, float distance) {
-        return 0.1f + Easing.EXPO_IN_OUT.ease(windUp) * 0.2f;
+        return 0.15f + Easing.EXPO_IN_OUT.ease(windUp) * 0.5f;
     }
 
     @Override
     public void addTrailPoints() {
         Vec3 position = getPosition(0.5f);
+        float offsetScale = 0.125f;
         for (int i = 0; i < 2; i++) {
             var trailPointBuilder = i == 0 ? trail : longTrail;
-            float offsetScale = (i+1) * 0.1f;
-            float scalar = age / 2f;
-            float offset = i * 2.35f;
-            float angle = spinOffset + scalar + offset;
+            float scalar = age / 8f;
+            float angle = spinOffset + scalar;
             double xOffset = Math.sin(angle) * offsetScale;
             double zOffset = Math.cos(angle) * offsetScale;
             trailPointBuilder.addTrailPoint(position.add(xOffset, 0, zOffset));
         }
     }
 
-    public UUID getOwner() {
-        return owner;
+    public UUID getOwnerUUID() {
+        return ownerUUID;
     }
 }

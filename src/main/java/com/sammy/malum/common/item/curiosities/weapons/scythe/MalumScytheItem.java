@@ -41,7 +41,7 @@ import static team.lodestar.wayward_attributes.tweaks.SweepAttackTweaks.BASE_SWE
 public class MalumScytheItem extends LodestoneCombatItem implements IMalumEventResponder, ICustomMeleeDamageTypeItem {
 
     public MalumScytheItem(Tier tier, float attackDamage, float attackSpeed, float sweepingDamage, float sweepingRadius, LodestoneItemProperties properties) {
-        super(tier, attackDamage - 1, attackSpeed - 4f,
+        super(tier, attackDamage, attackSpeed - 4f,
                 properties.mergeAttributes(ItemAttributeModifiers.builder()
                         .add(Attributes.SWEEPING_DAMAGE_RATIO, new AttributeModifier(BASE_SWEEP_DAMAGE, sweepingDamage, AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.MAINHAND)
                         .add(WaywardAttributeTypes.SWEEPING_DAMAGE_RADIUS, new AttributeModifier(BASE_SWEEP_RADIUS, sweepingRadius, AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.MAINHAND)

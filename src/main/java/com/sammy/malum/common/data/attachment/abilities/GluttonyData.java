@@ -54,6 +54,10 @@ public class GluttonyData {
         if (!(source.getEntity() instanceof LivingEntity attacker)) {
             return;
         }
-        attacker.getData(MalumAttachmentTypes.GLUTTONY).attackedTarget = event.getEntity().getUUID();
+        if (!attacker.hasData(MalumAttachmentTypes.GLUTTONY)) {
+            return;
+        }
+        var data = attacker.getData(MalumAttachmentTypes.GLUTTONY);
+        data.attackedTarget = event.getEntity().getUUID();
     }
 }

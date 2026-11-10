@@ -34,13 +34,12 @@ public class GluttonyLocustRenderer extends EntityRenderer<GluttonyLocustEntity>
       var trails = List.of(entity.trail, entity.longTrail);
 
       var builder = VFXBuilders.createWorld().setRenderType(additive);
-      for (TrailPointBuilder trail : trails) {
-         RenderUtils.renderEntityTrail(poseStack, builder, trail, entity, GLUTTONY_GREEN, GLUTTONY_DARK, delta * 0.3f, delta * 0.75f, partialTicks);
-      }
+      RenderUtils.renderEntityTrail(poseStack, builder, entity.trail, entity, GLUTTONY_GREEN, GLUTTONY_DARK, delta * 0.5f, delta * 2.5f, partialTicks);
+
       builder.setRenderType(transparent);
       for (TrailPointBuilder trail : trails) {
-         RenderUtils.renderEntityTrail(poseStack, builder, trail, entity, GLUTTONY_GREEN, GLUTTONY_SHADE, delta * 0.35f, delta * 2f, partialTicks);
-         RenderUtils.renderEntityTrail(poseStack, builder, trail, entity, GLUTTONY_DARK, GLUTTONY_SHADE, delta * 0.6f, delta * 3f, partialTicks);
+         RenderUtils.renderEntityTrail(poseStack, builder, trail, entity, GLUTTONY_GREEN, GLUTTONY_SHADE, delta * 0.6f, delta * 1.75f, partialTicks);
+         RenderUtils.renderEntityTrail(poseStack, builder, trail, entity, GLUTTONY_DARK, GLUTTONY_SHADE, delta * 0.35f, delta * 2.5f, partialTicks);
       }
       super.render(entity, entityYaw, partialTicks, poseStack, bufferIn, packedLightIn);
    }

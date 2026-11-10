@@ -65,7 +65,7 @@ public class GluttonyEffect extends MobEffect {
             return;
         }
         var target = event.getEntity();
-        int spawnedLocusts = (instance.amplifier + 1) * 2;
+        int spawnedLocusts = instance.amplifier + 1;
         if (spawnLocusts(attacker, target, spawnedLocusts)) {
             attacker.removeEffect(MalumMobEffects.GLUTTONY);
         }
@@ -75,16 +75,13 @@ public class GluttonyEffect extends MobEffect {
         var level = target.level();
         var random = level.random;
 
-        UUID forcedTarget = null;
+        boolean hasSwarmingRot = false;
         if (CurioHelper.hasCurioEquipped(attacker, MalumContent.Gear.RING_OF_SWARMING_ROT.get())) {
-            var highestWicked = CurioSwarmingRotRing.findWickedTarget(attacker, target);
-            if (highestWicked != null) {
-                forcedTarget = highestWicked.getUUID();
-            }
+            hasSwarmingRot = true;
             float multiplier = 1 + random.nextFloat();
             amount = Mth.ceil(amount * multiplier);
         }
-        float velocity = 0.7f;
+        float velocity = 0.3f;
         for (int i = 0; i < amount; i++) {
             var velocityVector = new Vec3(
                     Easing.SINE_IN_OUT.asWeighedRandom(random, -velocity, velocity),
@@ -92,7 +89,7 @@ public class GluttonyEffect extends MobEffect {
                     Easing.SINE_IN_OUT.asWeighedRandom(random, -velocity, velocity)
             );
             var position = target.position().add(0, target.getBbHeight() * 0.5f, 0);
-            var locust = new GluttonyLocustEntity(level, attacker.getUUID(), 3, forcedTarget, position, velocityVector);
+            var locust = new GluttonyLocustEntity(level, attacker.getUUID(), 1.5f, hasSwarmingRot, position, velocityVector);
             level.addFreshEntity(locust);
         }
         return true;
