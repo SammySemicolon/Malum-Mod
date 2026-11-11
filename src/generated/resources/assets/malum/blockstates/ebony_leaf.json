@@ -1,11 +1,11 @@
 {
   "variants": {
-    "facing=north": {
-      "model": "malum:block/flora/ebony_leaf"
-    },
     "facing=east": {
       "model": "malum:block/flora/ebony_leaf",
       "y": 90
+    },
+    "facing=north": {
+      "model": "malum:block/flora/ebony_leaf"
     },
     "facing=south": {
       "model": "malum:block/flora/ebony_leaf",
