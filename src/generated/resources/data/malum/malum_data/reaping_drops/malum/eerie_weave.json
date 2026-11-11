@@ -1,0 +1,20 @@
+{
+  "drops": [
+    {
+      "chance": 0.6,
+      "count": {
+        "type": "minecraft:uniform",
+        "max_inclusive": 2,
+        "min_inclusive": 1
+      },
+      "drops": {
+        "item": "malum:eerie_weave"
+      }
+    }
+  ],
+  "id": "malum:eerie_weave",
+  "mob_sources": [
+    "minecraft:phantom",
+    "minecraft:ghast"
+  ]
+}

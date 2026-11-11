@@ -1,0 +1,22 @@
+{
+  "drops": [
+    {
+      "chance": 0.2,
+      "count": {
+        "type": "minecraft:uniform",
+        "max_inclusive": 4,
+        "min_inclusive": 2
+      },
+      "drops": {
+        "item": "malum:pyre_nucleus"
+      }
+    }
+  ],
+  "id": "malum:rotting_essence",
+  "mob_sources": [
+    "minecraft:zombie",
+    "minecraft:zombie_horse",
+    "minecraft:zombie_villager",
+    "minecraft:zombified_piglin"
+  ]
+}

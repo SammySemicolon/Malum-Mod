@@ -41,6 +41,11 @@ public abstract class AbstractButtonObject extends BookObject<CodexEntryScreen> 
     public abstract int getGizmoOffset();
 
     @Override
+    public boolean showItemDecals() {
+        return false;
+    }
+
+    @Override
     public void render(CodexEntryScreen screen, GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTicks) {
         int x = getOffsetX();
         int y = getOffsetY();

@@ -1,22 +1,29 @@
 package com.sammy.malum.common.data.listener.reaping;
 
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.codecs.EitherCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import com.sammy.malum.core.systems.rite.SpiritRiteType;
-import com.sammy.malum.core.systems.rite.effect.SpiritRiteEffect;
-import com.sammy.malum.core.systems.spirit.SpiritArcanaType;
+import net.minecraft.advancements.critereon.EntityTypePredicate;
+import net.minecraft.core.HolderSet;
+import net.minecraft.core.RegistryCodecs;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.valueproviders.IntProvider;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.level.levelgen.structure.templatesystem.RuleTest;
 
-import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
-public record ReapingDropsData(ResourceLocation id, List<ReapingLoot> drops) {
+public record ReapingDropsData(ResourceLocation id, List<ReapingLoot> drops, Optional<HolderSet<EntityType<?>>> mobSources, Optional<List<RuleTest>> blockSources) {
+
 
     public static final Codec<ReapingDropsData> DIRECT_CODEC = RecordCodecBuilder.create(instance -> instance.group(
             ResourceLocation.CODEC.fieldOf("id").forGetter(ReapingDropsData::id),
-            ReapingLoot.CODEC.listOf().fieldOf("drops").forGetter(ReapingDropsData::drops)
+            ReapingLoot.CODEC.listOf().fieldOf("drops").forGetter(ReapingDropsData::drops),
+            RegistryCodecs.homogeneousList(Registries.ENTITY_TYPE).optionalFieldOf("mob_sources").forGetter(ReapingDropsData::mobSources),
+            RuleTest.CODEC.listOf().optionalFieldOf("block_sources").forGetter(ReapingDropsData::blockSources)
     ).apply(instance, ReapingDropsData::new));
 
 
@@ -24,9 +31,8 @@ public record ReapingDropsData(ResourceLocation id, List<ReapingLoot> drops) {
 
         public static final Codec<ReapingLoot> CODEC = RecordCodecBuilder.create(instance -> instance.group(
                 Ingredient.CODEC.fieldOf("drops").forGetter(ReapingLoot::drop),
-                IntProvider.POSITIVE_CODEC.fieldOf("is_soulwood").forGetter(ReapingLoot::count),
+                IntProvider.POSITIVE_CODEC.fieldOf("count").forGetter(ReapingLoot::count),
                 Codec.FLOAT.optionalFieldOf("chance", 1f).forGetter(ReapingLoot::chance)
         ).apply(instance, ReapingLoot::new));
-
     }
 }

@@ -1,0 +1,12 @@
+{
+  "drops": [
+    {
+      "count": 1,
+      "drops": {
+        "item": "malum:wind_nucleus"
+      }
+    }
+  ],
+  "id": "malum:wind_nucleus",
+  "mob_sources": "minecraft:breeze"
+}

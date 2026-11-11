@@ -1,0 +1,20 @@
+{
+  "drops": [
+    {
+      "chance": 0.4,
+      "count": {
+        "type": "minecraft:uniform",
+        "max_inclusive": 3,
+        "min_inclusive": 1
+      },
+      "drops": {
+        "item": "malum:grim_talc"
+      }
+    }
+  ],
+  "id": "malum:grim_talc",
+  "mob_sources": [
+    "minecraft:skeleton",
+    "minecraft:skeleton_horse"
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "drops": [
+    {
+      "count": 1,
+      "drops": {
+        "item": "malum:pyre_nucleus"
+      }
+    }
+  ],
+  "id": "malum:pyre_nucleus",
+  "mob_sources": "minecraft:blaze"
+}

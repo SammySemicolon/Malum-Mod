@@ -17,16 +17,16 @@ import java.util.Optional;
 public record SoulstoneOreConversionMap(List<SoulstoneOreConversion> possibleConversions) {
 
     public static final Codec<SoulstoneOreConversionMap> CODEC = RecordCodecBuilder.create(instance -> instance.group(
-            SoulstoneOreConversion.LIST_CODEC.fieldOf("possibleConversions").forGetter(SoulstoneOreConversionMap::possibleConversions)
+            SoulstoneOreConversion.CODEC.listOf().fieldOf("possibleConversions").forGetter(SoulstoneOreConversionMap::possibleConversions)
     ).apply(instance, SoulstoneOreConversionMap::new));
 
 
     public record SoulstoneOreConversion(Optional<RuleTest> condition, BlockState result, StoredInSoulstoneMetal metalData) {
+
         public static final Codec<SoulstoneOreConversion> CODEC = RecordCodecBuilder.create(instance -> instance.group(
                 RuleTest.CODEC.optionalFieldOf("condition").forGetter(SoulstoneOreConversion::condition),
                 BlockState.CODEC.fieldOf("result").forGetter(SoulstoneOreConversion::result),
                 StoredInSoulstoneMetal.CODEC.fieldOf("metalData").forGetter(SoulstoneOreConversion::metalData)
         ).apply(instance, SoulstoneOreConversion::new));
-        public static final Codec<List<SoulstoneOreConversion>> LIST_CODEC = CODEC.listOf();
     }
 }

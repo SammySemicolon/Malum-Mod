@@ -1,0 +1,12 @@
+{
+  "drops": [
+    {
+      "count": 1,
+      "drops": {
+        "item": "malum:blade_memory"
+      }
+    }
+  ],
+  "id": "malum:blade_memory",
+  "mob_sources": "malum:evangelist"
+}

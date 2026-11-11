@@ -1,0 +1,17 @@
+{
+  "drops": [
+    {
+      "chance": 0.4,
+      "count": {
+        "type": "minecraft:uniform",
+        "max_inclusive": 4,
+        "min_inclusive": 2
+      },
+      "drops": {
+        "item": "malum:warp_flux"
+      }
+    }
+  ],
+  "id": "malum:warp_flux",
+  "mob_sources": "minecraft:enderman"
+}
