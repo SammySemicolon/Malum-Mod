@@ -15,6 +15,9 @@
   "id": "malum:grim_talc",
   "mob_sources": [
     "minecraft:skeleton",
+    "minecraft:wither_skeleton",
+    "minecraft:stray",
+    "minecraft:bogged",
     "minecraft:skeleton_horse"
   ]
 }

@@ -18,10 +18,10 @@ public class ReapingDropsDatagenData {
 
     public static void init(MalumMagicDatagenProvider provider) {
         create(provider, "rotting_essence")
-                .addMobSource(EntityType.ZOMBIE, EntityType.ZOMBIE_HORSE, EntityType.ZOMBIE_VILLAGER, EntityType.ZOMBIFIED_PIGLIN)
+                .addMobSource(EntityType.ZOMBIE, EntityType.HUSK, EntityType.ZOMBIE_HORSE, EntityType.ZOMBIE_VILLAGER, EntityType.ZOGLIN, EntityType.ZOMBIFIED_PIGLIN)
                 .addDrop(Ingredient.of(MalumContent.Materials.PYRE_NUCLEUS), UniformInt.of(2, 4), 0.2f);
         create(provider, "grim_talc")
-                .addMobSource(EntityType.SKELETON, EntityType.SKELETON_HORSE)
+                .addMobSource(EntityType.SKELETON, EntityType.WITHER_SKELETON, EntityType.STRAY, EntityType.BOGGED, EntityType.SKELETON_HORSE)
                 .addDrop(Ingredient.of(MalumContent.Materials.GRIM_TALC), UniformInt.of(1, 3), 0.4f);
         create(provider, "eerie_weave")
                 .addMobSource(EntityType.PHANTOM, EntityType.GHAST)

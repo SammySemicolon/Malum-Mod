@@ -15,8 +15,10 @@
   "id": "malum:rotting_essence",
   "mob_sources": [
     "minecraft:zombie",
+    "minecraft:husk",
     "minecraft:zombie_horse",
     "minecraft:zombie_villager",
+    "minecraft:zoglin",
     "minecraft:zombified_piglin"
   ]
 }
