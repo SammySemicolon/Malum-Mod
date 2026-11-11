@@ -6,12 +6,15 @@ import com.sammy.malum.datagen.magic.banner.BannerPatternJsonBody;
 import com.sammy.malum.registry.common.MalumContent;
 import com.sammy.malum.registry.common.entity.MalumCultistEntityTypes;
 import com.sammy.malum.registry.common.entity.MalumEntityTypes;
+import com.sammy.malum.registry.common.util.MetallicsItemRegistryBundle;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.util.valueproviders.IntProvider;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.levelgen.structure.templatesystem.TagMatchTest;
 import net.neoforged.neoforge.common.Tags;
 
 public class ReapingDropsDatagenData {
@@ -43,6 +46,18 @@ public class ReapingDropsDatagenData {
         create(provider, "blade_memory")
                 .addMobSource(MalumCultistEntityTypes.EVANGELIST)
                 .addDrop(Ingredient.of(MalumContent.Materials.BLADE_MEMORY), ConstantInt.of(1));
+
+
+        createMetalDrops(provider, MalumContent.AlchemyAndMetallics.IRON_METALLICS);
+        createMetalDrops(provider, MalumContent.AlchemyAndMetallics.COPPER_METALLICS);
+        createMetalDrops(provider, MalumContent.AlchemyAndMetallics.GOLD_METALLICS);
+    }
+
+    public static void createMetalDrops(MalumMagicDatagenProvider provider, MetallicsItemRegistryBundle bundle) {
+        var name = "derealized_" + bundle.id;
+        create(provider, name)
+                .addBlockSource(new TagMatchTest(bundle.getOreTag()))
+                .addDrop(Ingredient.of(bundle.getDerealizedMetal()), ConstantInt.of(1), 0.05f);
     }
 
     public static ReapingDropsJsonBody create(MalumMagicDatagenProvider provider, String id) {

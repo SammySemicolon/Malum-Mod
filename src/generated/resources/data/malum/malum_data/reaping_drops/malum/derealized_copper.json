@@ -1,0 +1,16 @@
+{
+  "block_sources": {
+    "predicate_type": "minecraft:tag_match",
+    "tag": "c:ores/copper"
+  },
+  "drops": [
+    {
+      "chance": 0.05,
+      "count": 1,
+      "drops": {
+        "item": "malum:derealized_copper"
+      }
+    }
+  ],
+  "id": "malum:derealized_copper"
+}
