@@ -63,26 +63,27 @@ public class SoulHarvestHandler {
     }
 
     public static void dropSpiritInfusedDrops(LivingEntity target) {
-        var entityID = BuiltInRegistries.ENTITY_TYPE.getKey(target.getType());
-        var data = ReapingDataReloadListener.DATA.get(entityID);
-        if (data == null) {
-            return;
-        }
-        for (ReapingDropsData.ReapingLoot loot : data.drops()) {
-            Level level = target.level();
-            var random = level.random;
-            float chance = loot.chance();
-            if (random.nextFloat() > chance) {
-                continue;
+        var drops = ReapingDataReloadListener.getPotentialDrops(target);
+        var level = target.level();
+        var random = target.getRandom();
+        for (ReapingDropsData data : drops) {
+            for (ReapingDropsData.ReapingLoot loot : data.drops()) {
+                Optional<ItemStack> optional = loot.roll(level);
+                if (optional.isEmpty()) {
+                    continue;
+                }
+                var stack = optional.get();
+                var itemEntity = new ItemEntity(level, target.getX(), target.getY(), target.getZ(), stack);
+                var velocityVector = new Vec3(
+                        Easing.SINE_IN_OUT.asWeighedRandom(random, -0.2f, 0.2f),
+                        Easing.QUAD_IN_OUT.asWeighedRandom(random, 0.25f, 0.5f),
+                        Easing.SINE_IN_OUT.asWeighedRandom(random, -0.2f, 0.2f)
+                );
+
+                itemEntity.setDefaultPickUpDelay();
+                itemEntity.setDeltaMovement(velocityVector);
+                level.addFreshEntity(itemEntity);
             }
-            var possibleDrops = loot.drop().getItems();
-            int roll = random.nextInt(possibleDrops.length);
-            int count = loot.count().sample(random);
-            var stack = ItemHelper.copyWithNewCount(possibleDrops[roll], count);
-            var itemEntity = new ItemEntity(level, target.getX(), target.getY(), target.getZ(), stack);
-            itemEntity.setDefaultPickUpDelay();
-            itemEntity.setDeltaMovement(Mth.nextFloat(random, -0.1F, 0.1F), Mth.nextFloat(random, 0.25f, 0.5f), Mth.nextFloat(random, -0.1F, 0.1F));
-            level.addFreshEntity(itemEntity);
         }
     }
 

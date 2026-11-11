@@ -21,7 +21,7 @@ public class OreDerealizationRecipe extends LodestoneInWorldRecipe<RuleTestRecip
     ).apply(obj, OreDerealizationRecipe::new));
 
     public static final String NAME = "ore_derealization";
-    private final RuleTest input; //TODO this should be a list later
+    private final RuleTest input;
     private final BlockState output;
     private final CrystalPropertyModifier crystalToGrow;
     private final StoredInSoulstoneMetal metalData;

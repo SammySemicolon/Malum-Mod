@@ -30,7 +30,7 @@ public class ReapingDropsJsonBody extends ModularDatagenJsonBody<ReapingDropsDat
 
     protected List<ReapingDropsData.ReapingLoot> drops = new ArrayList<>();
     protected MobSourceBuilder mobSource;
-    protected List<RuleTest> blockSources;
+    protected RuleTest blockSource;
 
     public ReapingDropsJsonBody(ResourceLocation id) {
         super(id);
@@ -71,10 +71,7 @@ public class ReapingDropsJsonBody extends ModularDatagenJsonBody<ReapingDropsDat
     }
 
     public ReapingDropsJsonBody addBlockSource(RuleTest blockSource) {
-        if (blockSources == null) {
-            blockSources = new ArrayList<>();
-        }
-        blockSources.add(blockSource);
+        this.blockSource = blockSource;
         return this;
     }
 
@@ -86,8 +83,8 @@ public class ReapingDropsJsonBody extends ModularDatagenJsonBody<ReapingDropsDat
     @Override
     public ReapingDropsData build(ModularDatagenProvider datagen, RegistryOps<JsonElement> dynamicOps, HolderLookup.Provider provider) {
         var lookup = provider.lookupOrThrow(Registries.ENTITY_TYPE);
-        ReapingDropsData reapingDropsData = new ReapingDropsData(id, drops, Optional.ofNullable(mobSource).map(s -> s.buildSourceSet(lookup, dynamicOps)), Optional.ofNullable(blockSources));
-        return reapingDropsData;
+        var baked = Optional.ofNullable(mobSource).map(s -> s.buildSourceSet(lookup, dynamicOps));
+        return new ReapingDropsData(id, drops, baked, Optional.ofNullable(blockSource));
     }
 
     @Override
