@@ -64,8 +64,11 @@ public class SoulHarvestHandler {
 
     public static void dropSpiritInfusedDrops(LivingEntity target) {
         var drops = ReapingDataReloadListener.getPotentialDrops(target);
-        var level = target.level();
-        var random = target.getRandom();
+        dropReapingDrops(target.level(), drops, target.position().add(0, target.getBbHeight()/2f, 0));
+    }
+
+    public static void dropReapingDrops(Level level, List<ReapingDropsData> drops, Vec3 position) {
+        var random = level.random;
         for (ReapingDropsData data : drops) {
             for (ReapingDropsData.ReapingLoot loot : data.drops()) {
                 Optional<ItemStack> optional = loot.roll(level);
@@ -73,7 +76,7 @@ public class SoulHarvestHandler {
                     continue;
                 }
                 var stack = optional.get();
-                var itemEntity = new ItemEntity(level, target.getX(), target.getY(), target.getZ(), stack);
+                var itemEntity = new ItemEntity(level, position.x, position.y, position.z, stack);
                 var velocityVector = new Vec3(
                         Easing.SINE_IN_OUT.asWeighedRandom(random, -0.2f, 0.2f),
                         Easing.QUAD_IN_OUT.asWeighedRandom(random, 0.25f, 0.5f),
