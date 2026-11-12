@@ -158,6 +158,8 @@ public class MalumTags {
         public static final TagKey<Block> CREATE_WRENCH_PICKUP = modTag("create:wrench_pickup");
         public static final TagKey<Block> EIDOLON_ALTAR_BLOCK = modTag("eidolon_repraised:altar_blocks");
 
+        public static final TagKey<Block> REAPING_ORES = tag("reaping_ores");
+
         private static TagKey<Block> modTag(String path) {
             return TagKey.create(Registries.BLOCK, ResourceLocation.parse(path));
         }

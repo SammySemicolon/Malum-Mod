@@ -2,7 +2,6 @@ package com.sammy.malum.datagen.tag;
 
 import com.sammy.malum.MalumMod;
 import com.sammy.malum.datagen.set.MalumMetallicsDatagen;
-import com.sammy.malum.registry.common.MalumContent;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.*;
@@ -52,6 +51,8 @@ public class MalumBlockTagDatagen extends LodestoneBlockTagsSystem {
         tag(GREATER_AERIAL_WHITELIST);
 
         tag(SUNDERING_ANCHOR_PLEASE_BE_A_KNIFE).addOptional(ResourceLocation.parse("farmersdelight:cutting_board"));
+
+        tag(REAPING_ORES).addTags(IRON_ORES, GOLD_ORES, COPPER_ORES);
 
         addTagsFromBlockProperties(blocks);
     }
