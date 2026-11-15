@@ -24,24 +24,24 @@ public class ArtificeBlockConnectionData {
     ).apply(instance, AABB::new));
 
     public static final Codec<ArtificeBlockConnectionData> CODEC = RecordCodecBuilder.create(instance -> instance.group(
-            SequencedConnectionArray.CODEC.fieldOf("array").forGetter(data -> data.array),
+            SequencedBlockConnectionArray.CODEC.fieldOf("array").forGetter(data -> data.array),
             AABB_CODEC.fieldOf("defined_area").forGetter(data -> data.definedArea)
     ).apply(instance, ArtificeBlockConnectionData::new));
 
-    protected final SequencedConnectionArray array;
+    protected final SequencedBlockConnectionArray array;
     protected final AABB definedArea;
 
-    public ArtificeBlockConnectionData(SequencedConnectionArray array, float padding, int length) {
+    public ArtificeBlockConnectionData(SequencedBlockConnectionArray array, float padding, int length) {
         this.array = array;
         this.definedArea = array.getTotalArea(length, padding);
     }
 
-    public ArtificeBlockConnectionData(SequencedConnectionArray array, AABB definedArea) {
+    public ArtificeBlockConnectionData(SequencedBlockConnectionArray array, AABB definedArea) {
         this.array = array;
         this.definedArea = definedArea;
     }
 
-    public SequencedConnectionArray getArray() {
+    public SequencedBlockConnectionArray getArray() {
         return array;
     }
 

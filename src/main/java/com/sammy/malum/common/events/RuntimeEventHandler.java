@@ -1,7 +1,9 @@
 package com.sammy.malum.common.events;
 
 import com.sammy.malum.common.block.storage.jar.*;
-import com.sammy.malum.common.data.attachment.AvariceMarkData;
+import com.sammy.malum.common.data.attachment.abilities.AvariceData;
+import com.sammy.malum.common.data.attachment.MyriadGatewayData;
+import com.sammy.malum.common.data.attachment.abilities.GluttonyData;
 import com.sammy.malum.common.data.listener.banner.MalumBannerPatternReloadListener;
 import com.sammy.malum.common.data.listener.malignant_conversion.MalignantConversionReloadListener;
 import com.sammy.malum.common.data.listener.reaping.ReapingDataReloadListener;
@@ -14,7 +16,6 @@ import com.sammy.malum.common.effect.rite.aura.soulwood.*;
 import com.sammy.malum.common.effect.gluttony.*;
 import com.sammy.malum.common.entity.activator.*;
 import com.sammy.malum.common.entity.nitrate.*;
-import com.sammy.malum.common.entity.soulTag.SoulTagEntity;
 import com.sammy.malum.common.geas.pact.aerial.*;
 import com.sammy.malum.common.geas.pact.infernal.*;
 import com.sammy.malum.common.geas.pact.earthen.ProfaneAsceticGeas;
@@ -30,8 +31,8 @@ import com.sammy.malum.common.item.curiosities.pouch.*;
 import com.sammy.malum.common.item.curiosities.tools.spellweaver.*;
 import com.sammy.malum.common.item.curiosities.weapons.greatsword.*;
 import com.sammy.malum.common.item.curiosities.weapons.scythe.MalumScytheItem;
+import com.sammy.malum.common.item.soulTags.SoulTagItem;
 import com.sammy.malum.core.handlers.*;
-import net.minecraft.world.entity.LivingEntity;
 import net.neoforged.bus.api.*;
 import net.neoforged.fml.common.*;
 import net.neoforged.neoforge.event.*;
@@ -41,9 +42,6 @@ import net.neoforged.neoforge.event.entity.living.*;
 import net.neoforged.neoforge.event.entity.player.*;
 import net.neoforged.neoforge.event.level.*;
 import net.neoforged.neoforge.event.tick.*;
-import team.lodestar.wayward_attributes.WaywardTags;
-
-import java.util.List;
 
 @EventBusSubscriber()
 public class RuntimeEventHandler {
@@ -56,40 +54,7 @@ public class RuntimeEventHandler {
 
     @SubscribeEvent
     public static void onLivingDamage(LivingDamageEvent.Post event) {
-        double RANGE = 8.0D;
-
-        LivingEntity damagedEntity = event.getEntity();
-
-        if (damagedEntity.level().isClientSide()) {
-            return;
-        }
-        if(!event.getSource().is(WaywardTags.DamageTypeTags.IS_MAGIC)) {
-            return;
-        }
-
-        if (event.getNewDamage() <= 0.0F) {
-            return;
-        }
-
-        double rangeSquared = RANGE * RANGE;
-
-        List<SoulTagEntity> soulTags =
-                damagedEntity.level().getEntitiesOfClass(
-                        SoulTagEntity.class,
-                        damagedEntity.getBoundingBox().inflate(RANGE),
-                        SoulTagEntity::isAlive
-                );
-
-        for (SoulTagEntity soulTag : soulTags) {
-
-            if (soulTag.distanceToSqr(damagedEntity) <= rangeSquared) {
-
-                soulTag.createSoulTag(
-                        damagedEntity
-                );
-                break;
-            }
-        }
+        SoulTagItem.extractSoul(event);
     }
 
     @SubscribeEvent
@@ -127,11 +92,12 @@ public class RuntimeEventHandler {
 
     @SubscribeEvent
     public static void onLivingTick(EntityTickEvent.Pre event) {
-        AvariceMarkData.entityTick(event);
+        AvariceData.entityTick(event);
         SoulDataHandler.entityTick(event);
         SoulWardHandler.entityTick(event);
         WindTunnelHandler.entityTick(event);
         GeasEffectHandler.entityTick(event);
+        MyriadGatewayData.entityTick(event);
         CurioWatcherNecklace.entityTick(event);
         TouchOfDarknessHandler.entityTick(event);
         CurioHiddenBladeNecklace.entityTick(event);
@@ -147,7 +113,7 @@ public class RuntimeEventHandler {
 
     @SubscribeEvent
     public static void modifyBlockDrops(BlockDropsEvent event) {
-        AvariceMarkData.applyAvariceMark(event);
+        AvariceData.applyAvariceMark(event);
     }
 
     @SubscribeEvent(priority = EventPriority.LOWEST)
@@ -158,6 +124,7 @@ public class RuntimeEventHandler {
     @SubscribeEvent(priority = EventPriority.LOWEST)
     public static void breakBlock(BlockEvent.BreakEvent event) {
         SpellweavingPickaxeItem.triggerSpellweavingEffect(event);
+        ReapingOreDropsEvent.triggerReapingDrop(event);
     }
 
     @SubscribeEvent
@@ -202,12 +169,13 @@ public class RuntimeEventHandler {
 
     @SubscribeEvent
     public static void onPickupItem(ItemEntityPickupEvent.Post event) {
-        AvariceMarkData.pickupItem(event);
+        AvariceData.pickupItem(event);
     }
 
     @SubscribeEvent
     public static void onHurt(LivingDamageEvent.Post event) {
         SoulDataHandler.exposeSoul(event);
+        GluttonyData.directLocusts(event);
         DesperateNeedEffect.spawnLocusts(event);
     }
 

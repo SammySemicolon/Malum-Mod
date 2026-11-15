@@ -1,6 +1,6 @@
 package com.sammy.malum.common.block.curiosities.artifice.waveform.wavemaker;
 
-import com.sammy.malum.common.block.curiosities.artifice.waveform.SpiritDiodeBlock;
+import com.sammy.malum.common.block.curiosities.artifice.waveform.WaveformDiodeBlock;
 import com.sammy.malum.registry.common.sound.*;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundSource;
@@ -8,7 +8,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 
-public class WaveMakerBlock extends SpiritDiodeBlock<WaveMakerBlockEntity> {
+public class WaveMakerBlock extends WaveformDiodeBlock<WaveMakerBlockEntity> {
     public WaveMakerBlock(Properties properties) {
         super(properties);
     }

@@ -1,7 +1,7 @@
 package com.sammy.malum.core.handlers;
 
 import com.sammy.malum.*;
-import com.sammy.malum.common.block.curiosities.artifice.elemental_artifice.SequencedConnectionArray;
+import com.sammy.malum.common.block.curiosities.artifice.elemental_artifice.SequencedBlockConnectionArray;
 import com.sammy.malum.common.block.curiosities.artifice.elemental_artifice.aerial.WindTunnelBlock;
 import com.sammy.malum.common.block.curiosities.artifice.elemental_artifice.base.*;
 import com.sammy.malum.common.data.attachment.*;
@@ -98,7 +98,7 @@ public class WindTunnelHandler {
 
         var startPos = getStartPos(connectionOwner);
         var connectionRoot = locatedGizmos.get(startPos);
-        var array = SequencedConnectionArray.create(connectionOwner, connectionRoot, sharedDirection, capturedBlocks);
+        var array = SequencedBlockConnectionArray.create(connectionOwner, connectionRoot, sharedDirection, capturedBlocks);
         var baked = connectionOwner.bakeConnectionData(level, array);
         connectionOwner.setConnectionData(baked);
         return true;

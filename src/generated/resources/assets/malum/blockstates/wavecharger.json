@@ -9,11 +9,11 @@
       "y": 270
     },
     "facing=east,open=true,powered=false": {
-      "model": "malum:block/wavecharger_open",
+      "model": "malum:block/wavecharger",
       "y": 270
     },
     "facing=east,open=true,powered=true": {
-      "model": "malum:block/wavecharger_open",
+      "model": "malum:block/wavecharger",
       "y": 270
     },
     "facing=north,open=false,powered=false": {
@@ -25,11 +25,11 @@
       "y": 180
     },
     "facing=north,open=true,powered=false": {
-      "model": "malum:block/wavecharger_open",
+      "model": "malum:block/wavecharger",
       "y": 180
     },
     "facing=north,open=true,powered=true": {
-      "model": "malum:block/wavecharger_open",
+      "model": "malum:block/wavecharger",
       "y": 180
     },
     "facing=south,open=false,powered=false": {
@@ -39,10 +39,10 @@
       "model": "malum:block/wavecharger"
     },
     "facing=south,open=true,powered=false": {
-      "model": "malum:block/wavecharger_open"
+      "model": "malum:block/wavecharger"
     },
     "facing=south,open=true,powered=true": {
-      "model": "malum:block/wavecharger_open"
+      "model": "malum:block/wavecharger"
     },
     "facing=west,open=false,powered=false": {
       "model": "malum:block/wavecharger",
@@ -53,11 +53,11 @@
       "y": 90
     },
     "facing=west,open=true,powered=false": {
-      "model": "malum:block/wavecharger_open",
+      "model": "malum:block/wavecharger",
       "y": 90
     },
     "facing=west,open=true,powered=true": {
-      "model": "malum:block/wavecharger_open",
+      "model": "malum:block/wavecharger",
       "y": 90
     }
   }

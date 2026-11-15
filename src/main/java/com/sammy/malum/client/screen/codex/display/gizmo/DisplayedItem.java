@@ -42,11 +42,14 @@ public class DisplayedItem extends DisplayedGizmo {
         var minecraft = Minecraft.getInstance();
         if (dynamicTexture == null) {
             guiGraphics.renderItem(itemDisplay, x, y);
-            guiGraphics.renderItemDecorations(minecraft.font, itemDisplay, x, y, null);
+            if (holder.showItemDecals()) {
+                guiGraphics.renderItemDecorations(minecraft.font, itemDisplay, x, y);
+            }
             return;
         }
         dynamicTexture.bind(0);
-        PoseStack stack = guiGraphics.pose();
+
+        var stack = guiGraphics.pose();
         stack.pushPose();
         var builder = VFXBuilders.createScreen()
                 .setShader(GameRenderer::getPositionTexColorShader)
@@ -63,7 +66,9 @@ public class DisplayedItem extends DisplayedGizmo {
             RenderSystem.defaultBlendFunc();
         }
 
-        guiGraphics.renderItemDecorations(minecraft.font, itemDisplay, x, y, null);
+        if (holder.showItemDecals()) {
+            guiGraphics.renderItemDecorations(minecraft.font, itemDisplay, x, y);
+        }
         stack.popPose();
     }
 

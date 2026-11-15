@@ -1,0 +1,12 @@
+{
+  "drops": [
+    {
+      "count": 1,
+      "drops": {
+        "item": "malum:entropic_anomaly"
+      }
+    }
+  ],
+  "id": "malum:entropic_anomaly",
+  "mob_sources": "malum:cardinal"
+}

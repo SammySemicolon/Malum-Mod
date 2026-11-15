@@ -1,0 +1,178 @@
+{
+	"parent": "block/block",
+	"textures": {
+		"particle": "malum:block/artifice/waveform/wavecharger_top",
+		"7": "wave_side_redstone",
+		"8": "wave_side",
+		"9": "wavemaker_bottom",
+		"10": "arcane",
+		"11": "air",
+		"particle": "wavecharger"
+	},
+	"elements": [
+		{
+			"name": "base",
+			"from": [0, 0, 0],
+			"to": [16, 2, 16],
+			"faces": {
+				"north": {"uv": [0, 14, 16, 16], "texture": "#7"},
+				"east": {"uv": [0, 14, 16, 16], "texture": "#8"},
+				"south": {"uv": [0, 14, 16, 16], "texture": "#7"},
+				"west": {"uv": [0, 14, 16, 16], "texture": "#8"},
+				"up": {"uv": [0, 0, 16, 16], "texture": "#6"},
+				"down": {"uv": [0, 0, 16, 16], "texture": "#9"}
+			}
+		},
+		{
+			"name": "arcane_out_1",
+			"from": [11, 4.75, 4],
+			"to": [9, 0.75, 2],
+			"rotation": {"angle": 0, "axis": "y", "origin": [15, 2.125, 1.5]},
+			"faces": {
+				"north": {"uv": [0, 16, 2, 12], "texture": "#10"},
+				"east": {"uv": [0, 16, 2, 12], "texture": "#10"},
+				"south": {"uv": [0, 16, 2, 12], "texture": "#10"},
+				"west": {"uv": [0, 16, 2, 12], "texture": "#10"},
+				"up": {"uv": [0, 12, 2, 14], "texture": "#10"},
+				"down": {"uv": [0, 12, 2, 14], "texture": "#10"}
+			}
+		},
+		{
+			"name": "arcane_in_1",
+			"from": [9.15, 1.9, 2.15],
+			"to": [10.85, 4.6, 3.85],
+			"rotation": {"angle": 0, "axis": "y", "origin": [10, 3.25, 3]},
+			"faces": {
+				"north": {"uv": [2, 13, 4, 16], "texture": "#10"},
+				"east": {"uv": [2, 13, 4, 16], "texture": "#10"},
+				"south": {"uv": [2, 13, 4, 16], "texture": "#10"},
+				"west": {"uv": [2, 13, 4, 16], "texture": "#10"},
+				"up": {"uv": [2, 11, 4, 13], "texture": "#10"},
+				"down": {"uv": [2, 11, 4, 13], "texture": "#10"}
+			}
+		},
+		{
+			"name": "arcane_out_2",
+			"from": [12, 4.75, 7],
+			"to": [10, 0.75, 5],
+			"rotation": {"angle": 0, "axis": "y", "origin": [11, 2.75, 6]},
+			"faces": {
+				"north": {"uv": [0, 16, 2, 12], "texture": "#10"},
+				"east": {"uv": [0, 16, 2, 12], "texture": "#10"},
+				"south": {"uv": [0, 16, 2, 12], "texture": "#10"},
+				"west": {"uv": [0, 16, 2, 12], "texture": "#10"},
+				"up": {"uv": [0, 12, 2, 14], "texture": "#10"},
+				"down": {"uv": [0, 12, 2, 14], "texture": "#10"}
+			}
+		},
+		{
+			"name": "arcane_in_2",
+			"from": [10.15, 1.9, 5.15],
+			"to": [11.85, 4.6, 6.85],
+			"rotation": {"angle": 0, "axis": "y", "origin": [11, 3.25, 6]},
+			"faces": {
+				"north": {"uv": [2, 13, 4, 16], "texture": "#10"},
+				"east": {"uv": [2, 13, 4, 16], "texture": "#10"},
+				"south": {"uv": [2, 13, 4, 16], "texture": "#10"},
+				"west": {"uv": [2, 13, 4, 16], "texture": "#10"},
+				"up": {"uv": [2, 11, 4, 13], "texture": "#10"},
+				"down": {"uv": [2, 11, 4, 13], "texture": "#10"}
+			}
+		},
+		{
+			"name": "air_out_1",
+			"from": [13, 4.75, 10],
+			"to": [11, 0.75, 8],
+			"rotation": {"angle": 0, "axis": "y", "origin": [12, 2.75, 9]},
+			"faces": {
+				"north": {"uv": [0, 16, 2, 12], "texture": "#11"},
+				"east": {"uv": [0, 16, 2, 12], "texture": "#11"},
+				"south": {"uv": [0, 16, 2, 12], "texture": "#11"},
+				"west": {"uv": [0, 16, 2, 12], "texture": "#11"},
+				"up": {"uv": [0, 12, 2, 14], "texture": "#11"},
+				"down": {"uv": [0, 12, 2, 14], "texture": "#11"}
+			}
+		},
+		{
+			"name": "air_in_1",
+			"from": [11.15, 1.9, 8.15],
+			"to": [12.85, 4.6, 9.85],
+			"rotation": {"angle": 0, "axis": "y", "origin": [12, 3.25, 9]},
+			"faces": {
+				"north": {"uv": [2, 13, 4, 16], "texture": "#11"},
+				"east": {"uv": [2, 13, 4, 16], "texture": "#11"},
+				"south": {"uv": [2, 13, 4, 16], "texture": "#11"},
+				"west": {"uv": [2, 13, 4, 16], "texture": "#11"},
+				"up": {"uv": [2, 11, 4, 13], "texture": "#11"},
+				"down": {"uv": [2, 11, 4, 13], "texture": "#11"}
+			}
+		},
+		{
+			"name": "air_out_2",
+			"from": [14, 4.75, 13],
+			"to": [12, 0.75, 11],
+			"rotation": {"angle": 0, "axis": "y", "origin": [13, 2.75, 12]},
+			"faces": {
+				"north": {"uv": [0, 16, 2, 12], "texture": "#11"},
+				"east": {"uv": [0, 16, 2, 12], "texture": "#11"},
+				"south": {"uv": [0, 16, 2, 12], "texture": "#11"},
+				"west": {"uv": [0, 16, 2, 12], "texture": "#11"},
+				"up": {"uv": [0, 12, 2, 14], "texture": "#11"},
+				"down": {"uv": [0, 12, 2, 14], "texture": "#11"}
+			}
+		},
+		{
+			"name": "air_in_2",
+			"from": [12.15, 1.9, 11.15],
+			"to": [13.85, 4.6, 12.85],
+			"rotation": {"angle": 0, "axis": "y", "origin": [13, 3.25, 12]},
+			"faces": {
+				"north": {"uv": [2, 13, 4, 16], "texture": "#11"},
+				"east": {"uv": [2, 13, 4, 16], "texture": "#11"},
+				"south": {"uv": [2, 13, 4, 16], "texture": "#11"},
+				"west": {"uv": [2, 13, 4, 16], "texture": "#11"},
+				"up": {"uv": [2, 11, 4, 13], "texture": "#11"},
+				"down": {"uv": [2, 11, 4, 13], "texture": "#11"}
+			}
+		}
+	],
+	"groups": [
+		0,
+		{
+			"name": "crystals",
+			"origin": [8, 8, 8],
+			"scope": 0,
+			"color": 0,
+			"children": [
+				{
+					"name": "arcane_1",
+					"origin": [8, 8, 8],
+					"scope": 0,
+					"color": 8,
+					"children": [1, 2]
+				},
+				{
+					"name": "arcane_2",
+					"origin": [8, 8, 8],
+					"scope": 0,
+					"color": 8,
+					"children": [3, 4]
+				},
+				{
+					"name": "air_1",
+					"origin": [8, 8, 8],
+					"scope": 0,
+					"color": 0,
+					"children": [5, 6]
+				},
+				{
+					"name": "air_2",
+					"origin": [8, 8, 8],
+					"scope": 0,
+					"color": 0,
+					"children": [7, 8]
+				}
+			]
+		}
+	]
+}

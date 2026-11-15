@@ -1,0 +1,170 @@
+{
+	"parent": "block/block",
+	"textures": {
+		"particle": "#top",
+		"top": "malum:block/artifice/waveform/wavebreaker_top",
+		"bottom": "malum:block/artifice/waveform/wave_bottom",
+		"side": "malum:block/artifice/waveform/wave_side",
+		"side_redstone": "malum:block/artifice/waveform/wave_side_redstone",
+		"arcane": "malum:block/artifice/waveform/arcane",
+		"infernal": "malum:block/artifice/waveform/infernal"
+	},
+	"elements": [
+		{
+			"name": "base",
+			"from": [0, 0, 0],
+			"to": [16, 2, 16],
+			"faces": {
+				"north": {"uv": [0, 14, 16, 16], "texture": "#side_redstone"},
+				"east": {"uv": [0, 14, 16, 16], "texture": "#side"},
+				"south": {"uv": [0, 14, 16, 16], "texture": "#side_redstone"},
+				"west": {"uv": [0, 14, 16, 16], "texture": "#side"},
+				"up": {"uv": [0, 0, 16, 16], "texture": "#top"},
+				"down": {"uv": [0, 0, 16, 16], "texture": "#bottom"}
+			}
+		},
+		{
+			"name": "arcane_out_1",
+			"from": [13, 4.75, 8],
+			"to": [11, 0.75, 6],
+			"faces": {
+				"north": {"uv": [0, 16, 2, 12], "texture": "#arcane"},
+				"east": {"uv": [0, 16, 2, 12], "texture": "#arcane"},
+				"south": {"uv": [0, 16, 2, 12], "texture": "#arcane"},
+				"west": {"uv": [0, 16, 2, 12], "texture": "#arcane"},
+				"up": {"uv": [0, 12, 2, 14], "texture": "#arcane"},
+				"down": {"uv": [0, 12, 2, 14], "texture": "#arcane"}
+			}
+		},
+		{
+			"name": "arcane_in_1",
+			"from": [11.15, 1.9, 6.15],
+			"to": [12.85, 4.6, 7.85],
+			"faces": {
+				"north": {"uv": [2, 13, 4, 16], "texture": "#arcane"},
+				"east": {"uv": [2, 13, 4, 16], "texture": "#arcane"},
+				"south": {"uv": [2, 13, 4, 16], "texture": "#arcane"},
+				"west": {"uv": [2, 13, 4, 16], "texture": "#arcane"},
+				"up": {"uv": [2, 11, 4, 13], "texture": "#arcane"},
+				"down": {"uv": [2, 11, 4, 13], "texture": "#arcane"}
+			}
+		},
+		{
+			"name": "arcane_out_2",
+			"from": [13, 4.75, 4],
+			"to": [11, 0.75, 2],
+			"faces": {
+				"north": {"uv": [0, 16, 2, 12], "texture": "#arcane"},
+				"east": {"uv": [0, 16, 2, 12], "texture": "#arcane"},
+				"south": {"uv": [0, 16, 2, 12], "texture": "#arcane"},
+				"west": {"uv": [0, 16, 2, 12], "texture": "#arcane"},
+				"up": {"uv": [0, 12, 2, 14], "texture": "#arcane"},
+				"down": {"uv": [0, 12, 2, 14], "texture": "#arcane"}
+			}
+		},
+		{
+			"name": "arcane_in_2",
+			"from": [11.15, 1.9, 2.15],
+			"to": [12.85, 4.6, 3.85],
+			"faces": {
+				"north": {"uv": [2, 13, 4, 16], "texture": "#arcane"},
+				"east": {"uv": [2, 13, 4, 16], "texture": "#arcane"},
+				"south": {"uv": [2, 13, 4, 16], "texture": "#arcane"},
+				"west": {"uv": [2, 13, 4, 16], "texture": "#arcane"},
+				"up": {"uv": [2, 11, 4, 13], "texture": "#arcane"},
+				"down": {"uv": [2, 11, 4, 13], "texture": "#arcane"}
+			}
+		},
+		{
+			"name": "ember_out_1",
+			"from": [5, 4.75, 14],
+			"to": [3, 0.75, 12],
+			"faces": {
+				"north": {"uv": [0, 16, 2, 12], "texture": "#infernal"},
+				"east": {"uv": [0, 16, 2, 12], "texture": "#infernal"},
+				"south": {"uv": [0, 16, 2, 12], "texture": "#infernal"},
+				"west": {"uv": [0, 16, 2, 12], "texture": "#infernal"},
+				"up": {"uv": [0, 12, 2, 14], "texture": "#infernal"},
+				"down": {"uv": [0, 12, 2, 14], "texture": "#infernal"}
+			}
+		},
+		{
+			"name": "ember_in_1",
+			"from": [3.15, 1.9, 12.15],
+			"to": [4.85, 4.6, 13.85],
+			"faces": {
+				"north": {"uv": [2, 13, 4, 16], "texture": "#infernal"},
+				"east": {"uv": [2, 13, 4, 16], "texture": "#infernal"},
+				"south": {"uv": [2, 13, 4, 16], "texture": "#infernal"},
+				"west": {"uv": [2, 13, 4, 16], "texture": "#infernal"},
+				"up": {"uv": [2, 11, 4, 13], "texture": "#infernal"},
+				"down": {"uv": [2, 11, 4, 13], "texture": "#infernal"}
+			}
+		},
+		{
+			"name": "ember_out_2",
+			"from": [5, 4.75, 10],
+			"to": [3, 0.75, 8],
+			"faces": {
+				"north": {"uv": [0, 16, 2, 12], "texture": "#infernal"},
+				"east": {"uv": [0, 16, 2, 12], "texture": "#infernal"},
+				"south": {"uv": [0, 16, 2, 12], "texture": "#infernal"},
+				"west": {"uv": [0, 16, 2, 12], "texture": "#infernal"},
+				"up": {"uv": [0, 12, 2, 14], "texture": "#infernal"},
+				"down": {"uv": [0, 12, 2, 14], "texture": "#infernal"}
+			}
+		},
+		{
+			"name": "ember_in_2",
+			"from": [3.15, 1.9, 8.15],
+			"to": [4.85, 4.6, 9.85],
+			"faces": {
+				"north": {"uv": [2, 13, 4, 16], "texture": "#infernal"},
+				"east": {"uv": [2, 13, 4, 16], "texture": "#infernal"},
+				"south": {"uv": [2, 13, 4, 16], "texture": "#infernal"},
+				"west": {"uv": [2, 13, 4, 16], "texture": "#infernal"},
+				"up": {"uv": [2, 11, 4, 13], "texture": "#infernal"},
+				"down": {"uv": [2, 11, 4, 13], "texture": "#infernal"}
+			}
+		}
+	],
+	"groups": [
+		0,
+		{
+			"name": "crystals",
+			"origin": [8, 8, 8],
+			"scope": 0,
+			"color": 0,
+			"children": [
+				{
+					"name": "arcane_1",
+					"origin": [8, 8, 8],
+					"scope": 0,
+					"color": 8,
+					"children": [1, 2]
+				},
+				{
+					"name": "arcane_2",
+					"origin": [8, 8, 8],
+					"scope": 0,
+					"color": 8,
+					"children": [3, 4]
+				},
+				{
+					"name": "ember_1",
+					"origin": [8, 8, 8],
+					"scope": 0,
+					"color": 2,
+					"children": [5, 6]
+				},
+				{
+					"name": "ember_2",
+					"origin": [8, 8, 8],
+					"scope": 0,
+					"color": 2,
+					"children": [7, 8]
+				}
+			]
+		}
+	]
+}

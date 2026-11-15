@@ -106,7 +106,7 @@ public class CraftingPage extends BookPage implements IGizmoHolder {
     }
 
     public static CraftingPage stand(WoodBlockSet set) {
-        return stand(item(set.itemPedestal), item(set.planks.block), item(set.planks.slab));
+        return stand(item(set.itemStand), item(set.planks.block), item(set.planks.slab));
     }
 
     public static CraftingPage stand(DisplayedGizmo pedestal, DisplayedGizmo block, DisplayedGizmo slab) {

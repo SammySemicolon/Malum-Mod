@@ -50,8 +50,7 @@ import com.sammy.malum.common.block.curiosities.weeping_well.PrimordialSoupBlock
 import com.sammy.malum.common.block.curiosities.weeping_well.VoidConduitBlock;
 import com.sammy.malum.common.block.dungeon.*;
 import com.sammy.malum.common.block.ether.*;
-import com.sammy.malum.common.block.flora.EbonySaplingBlock;
-import com.sammy.malum.common.block.flora.EbonyStalkBlock;
+import com.sammy.malum.common.block.flora.*;
 import com.sammy.malum.common.block.flora.wood.runewood.HangingRunewoodLeavesBlock;
 import com.sammy.malum.common.block.flora.wood.runewood.RunewoodLeavesBlock;
 import com.sammy.malum.common.block.flora.wood.soulwood.HangingSoulwoodLeavesBlock;
@@ -59,7 +58,6 @@ import com.sammy.malum.common.block.flora.wood.soulwood.SoulwoodLeavesBlock;
 import com.sammy.malum.common.block.flora.wood.soulwood.SoulwoodSaplingBlock;
 import com.sammy.malum.common.block.flora.wood.MalumSaplingBlock;
 import com.sammy.malum.common.block.soulstone.*;
-import com.sammy.malum.common.block.storage.coffer.CofferBlock;
 import com.sammy.malum.common.block.storage.jar.SpiritJarBlock;
 import com.sammy.malum.common.block.the_device.TheDevice;
 import com.sammy.malum.common.block.the_device.TheVessel;
@@ -96,7 +94,7 @@ import com.sammy.malum.common.item.curiosities.curios.sets.prospector.CurioDisch
 import com.sammy.malum.common.item.curiosities.curios.sets.prospector.CurioHeartyAvariceRing;
 import com.sammy.malum.common.item.curiosities.curios.sets.prospector.CurioProspectorBelt;
 import com.sammy.malum.common.item.curiosities.curios.sets.rotten.CurioStarvedBelt;
-import com.sammy.malum.common.item.curiosities.curios.sets.rotten.CurioSwarmingRing;
+import com.sammy.malum.common.item.curiosities.curios.sets.rotten.CurioSwarmingRotRing;
 import com.sammy.malum.common.item.curiosities.curios.sets.rotten.CurioVoraciousRing;
 import com.sammy.malum.common.item.curiosities.curios.sets.scythe.CurioHowlingMaelstromRing;
 import com.sammy.malum.common.item.curiosities.curios.sets.scythe.CurioNarrowEdgeNecklace;
@@ -348,6 +346,9 @@ public class MalumContent {
         public static final DeferredBlock<Block> EBONY_SAPLING = registerBlockNoItem("ebony_sapling", () -> new EbonySaplingBlock(MalumFloraBlockProperties.EBONY_SAPLING()));
         public static final BlockBlockItemHolder<Block, BlockItem> EBONY_STALK = registerItemNameBlock("ebony", "ebony_stalk", () -> new EbonyStalkBlock(MalumFloraBlockProperties.EBONY()));
         public static final DeferredItem<Item> CALCIFIED_EBONY = register("calcified_ebony", MalumItemProperties::DEFAULT, Item::new);
+        public static final BlockBlockItemHolder<Block, BlockItem> EBONY_STEM = registerItemNameBlock("ebony_stem", "ebony_stem", () -> new EbonyStemBlock(MalumFloraBlockProperties.EBONY()));
+        public static final BlockBlockItemHolder<Block, BlockItem> EBONY_LEAF = registerItemNameBlock("ebony_leaf", "ebony_leaves", () -> new EbonyLeafBlock(MalumFloraBlockProperties.EBONY()));
+        public static final BlockBlockItemHolder<Block, BlockItem> EBONY_BLOOM = registerItemNameBlock("ebony_bloom", "ebony_bloom", () -> new EbonyBloomBlock(MalumFloraBlockProperties.EBONY()));
 
         public static final DeferredItem<Item> RUNIC_SAP_BOTTLE = register("runic_sap_bottle", MalumItemProperties::DEFAULT, (p) -> new BottledDrinkItem(p.food(MalumFoodProperties.RUNIC_SAP)));
         public static final DeferredItem<Item> RUNIC_SAPBALL = register("runic_sapball", MalumItemProperties::DEFAULT, Item::new);
@@ -700,8 +701,8 @@ public class MalumContent {
         public static final DeferredItem<Item> SPELLWEAVING_PICKAXE = register("spellweaving_pickaxe", MalumItemProperties::GEAR, (p) -> new SpellweavingPickaxeItem(SPELLWEAVING_TOOLS, -3, 0, 4, p));
         public static final DeferredItem<Item> SPELLWEAVING_AXE = register("spellweaving_axe", MalumItemProperties::GEAR, (p) -> new SpellweavingAxeItem(SPELLWEAVING_TOOLS, -4, 0, 6, p));
 
-        public static final DeferredItem<Item> RAVENOUS_SCYTHE = register("ravenous_scythe", MalumItemProperties::GEAR, (p) -> new RavenousScytheItem(RAVENOUS, -4f, 0.4f, 2.5f, p));
-        public static final DeferredItem<Item> GLUTTONOUS_BLUDGEON = register("gluttonous_bludgeon", MalumItemProperties::GEAR, (p) -> new GluttonousBludgeonItem(RAVENOUS, -2.5f, -3f, 2, p));
+        public static final DeferredItem<Item> RAVENOUS_SCYTHE = register("ravenous_scythe", MalumItemProperties::GEAR, (p) -> new RavenousScytheItem(RAVENOUS, 1f, 0.7f, 9f, p));
+        public static final DeferredItem<Item> GLUTTONOUS_BLUDGEON = register("gluttonous_bludgeon", MalumItemProperties::GEAR, (p) -> new GluttonousBludgeonItem(RAVENOUS, 2f, 1.2f, 4f, p));
 
         public static final DeferredItem<Item> TYRVING = register("tyrving", MalumItemProperties::GEAR, (p) -> new TyrvingItem(MalumItemTiers.TYRVING, 0, -0.3f, p));
 
@@ -734,7 +735,7 @@ public class MalumContent {
         public static final DeferredItem<Item> RING_OF_ARCANE_PROWESS = register("ring_of_arcane_prowess", MalumItemProperties::GEAR, CurioProwessRing::new);
 
         public static final DeferredItem<Item> RING_OF_DESPERATE_VORACITY = register("ring_of_desperate_voracity", MalumItemProperties::GEAR, CurioVoraciousRing::new);
-        public static final DeferredItem<Item> RING_OF_SWARMING_ROT = register("ring_of_swarming_rot", MalumItemProperties::GEAR, CurioSwarmingRing::new);
+        public static final DeferredItem<Item> RING_OF_SWARMING_ROT = register("ring_of_swarming_rot", MalumItemProperties::GEAR, CurioSwarmingRotRing::new);
 
         public static final DeferredItem<Item> RING_OF_THE_RISING_EDGE = register("ring_of_the_rising_edge", MalumItemProperties::GEAR, CurioRisingEdgeRing::new);
         public static final DeferredItem<Item> RING_OF_THE_HOWLING_MAELSTROM = register("ring_of_the_howling_maelstrom", MalumItemProperties::GEAR, CurioHowlingMaelstromRing::new);

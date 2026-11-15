@@ -9,7 +9,12 @@ public interface IGizmoHolder {
         DENY,
         ALLOW
     }
-    default boolean shouldGizmoRenderTooltip() {
+
+    default boolean showTooltip() {
+        return true;
+    }
+
+    default boolean showItemDecals() {
         return true;
     }
 

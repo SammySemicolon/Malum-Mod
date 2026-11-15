@@ -1,0 +1,24 @@
+{
+  "drops": [
+    {
+      "chance": 0.2,
+      "count": {
+        "type": "minecraft:uniform",
+        "max_inclusive": 4,
+        "min_inclusive": 2
+      },
+      "drops": {
+        "item": "malum:rotting_essence"
+      }
+    }
+  ],
+  "id": "malum:rotting_essence",
+  "mob_sources": [
+    "minecraft:zombie",
+    "minecraft:husk",
+    "minecraft:zombie_horse",
+    "minecraft:zombie_villager",
+    "minecraft:zoglin",
+    "minecraft:zombified_piglin"
+  ]
+}

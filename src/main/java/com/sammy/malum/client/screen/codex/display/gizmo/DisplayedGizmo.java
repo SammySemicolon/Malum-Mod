@@ -31,7 +31,7 @@ public abstract class DisplayedGizmo {
             };
         }
         renderDecals(screen, holder, guiGraphics, x, y, mouseX, mouseY, partialTicks);
-        if (holder.shouldGizmoRenderTooltip() && isHoveredOver) {
+        if (holder.showTooltip() && isHoveredOver) {
             var tooltip = new ArrayList<Component>();
             var builder = new GizmoTooltipBuilder(tooltip);
             holder.addGizmoTooltip(builder);

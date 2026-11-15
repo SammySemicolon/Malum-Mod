@@ -1,0 +1,170 @@
+{
+	"parent": "block/block",
+	"textures": {
+		"particle": "#top",
+		"top": "malum:block/artifice/waveform/wavebanker_top",
+		"bottom": "malum:block/artifice/waveform/wave_bottom",
+		"side": "malum:block/artifice/waveform/wave_side",
+		"side_redstone": "malum:block/artifice/waveform/wave_side_redstone",
+		"arcane": "malum:block/artifice/waveform/arcane",
+		"aqueous": "malum:block/artifice/waveform/aqueous"
+	},
+	"elements": [
+		{
+			"name": "base",
+			"from": [0, 0, 0],
+			"to": [16, 2, 16],
+			"faces": {
+				"north": {"uv": [0, 14, 16, 16], "texture": "#side_redstone"},
+				"east": {"uv": [0, 14, 16, 16], "texture": "#side"},
+				"south": {"uv": [0, 14, 16, 16], "texture": "#side_redstone"},
+				"west": {"uv": [0, 14, 16, 16], "texture": "#side"},
+				"up": {"uv": [0, 0, 16, 16], "texture": "#top"},
+				"down": {"uv": [0, 0, 16, 16], "texture": "#bottom"}
+			}
+		},
+		{
+			"name": "arcane_out_1",
+			"from": [9, 4.75, 4],
+			"to": [7, 0.75, 2],
+			"faces": {
+				"north": {"uv": [0, 16, 2, 12], "texture": "#arcane"},
+				"east": {"uv": [0, 16, 2, 12], "texture": "#arcane"},
+				"south": {"uv": [0, 16, 2, 12], "texture": "#arcane"},
+				"west": {"uv": [0, 16, 2, 12], "texture": "#arcane"},
+				"up": {"uv": [0, 12, 2, 14], "texture": "#arcane"},
+				"down": {"uv": [0, 12, 2, 14], "texture": "#arcane"}
+			}
+		},
+		{
+			"name": "arcane_in_1",
+			"from": [7.15, 1.9, 2.15],
+			"to": [8.85, 4.6, 3.85],
+			"faces": {
+				"north": {"uv": [2, 13, 4, 16], "texture": "#arcane"},
+				"east": {"uv": [2, 13, 4, 16], "texture": "#arcane"},
+				"south": {"uv": [2, 13, 4, 16], "texture": "#arcane"},
+				"west": {"uv": [2, 13, 4, 16], "texture": "#arcane"},
+				"up": {"uv": [2, 11, 4, 13], "texture": "#arcane"},
+				"down": {"uv": [2, 11, 4, 13], "texture": "#arcane"}
+			}
+		},
+		{
+			"name": "arcane_out_2",
+			"from": [4, 4.75, 9],
+			"to": [2, 0.75, 7],
+			"faces": {
+				"north": {"uv": [0, 16, 2, 12], "texture": "#arcane"},
+				"east": {"uv": [0, 16, 2, 12], "texture": "#arcane"},
+				"south": {"uv": [0, 16, 2, 12], "texture": "#arcane"},
+				"west": {"uv": [0, 16, 2, 12], "texture": "#arcane"},
+				"up": {"uv": [0, 12, 2, 14], "texture": "#arcane"},
+				"down": {"uv": [0, 12, 2, 14], "texture": "#arcane"}
+			}
+		},
+		{
+			"name": "arcane_in_2",
+			"from": [2.15, 1.9, 7.15],
+			"to": [3.85, 4.6, 8.85],
+			"faces": {
+				"north": {"uv": [2, 13, 4, 16], "texture": "#arcane"},
+				"east": {"uv": [2, 13, 4, 16], "texture": "#arcane"},
+				"south": {"uv": [2, 13, 4, 16], "texture": "#arcane"},
+				"west": {"uv": [2, 13, 4, 16], "texture": "#arcane"},
+				"up": {"uv": [2, 11, 4, 13], "texture": "#arcane"},
+				"down": {"uv": [2, 11, 4, 13], "texture": "#arcane"}
+			}
+		},
+		{
+			"name": "aqua_out_1",
+			"from": [13, 4.75, 13],
+			"to": [11, 0.75, 11],
+			"faces": {
+				"north": {"uv": [0, 16, 2, 12], "texture": "#aqueous"},
+				"east": {"uv": [0, 16, 2, 12], "texture": "#aqueous"},
+				"south": {"uv": [0, 16, 2, 12], "texture": "#aqueous"},
+				"west": {"uv": [0, 16, 2, 12], "texture": "#aqueous"},
+				"up": {"uv": [0, 12, 2, 14], "texture": "#aqueous"},
+				"down": {"uv": [0, 12, 2, 14], "texture": "#aqueous"}
+			}
+		},
+		{
+			"name": "aqua_in_1",
+			"from": [11.15, 1.9, 11.15],
+			"to": [12.85, 4.6, 12.85],
+			"faces": {
+				"north": {"uv": [2, 13, 4, 16], "texture": "#aqueous"},
+				"east": {"uv": [2, 13, 4, 16], "texture": "#aqueous"},
+				"south": {"uv": [2, 13, 4, 16], "texture": "#aqueous"},
+				"west": {"uv": [2, 13, 4, 16], "texture": "#aqueous"},
+				"up": {"uv": [2, 11, 4, 13], "texture": "#aqueous"},
+				"down": {"uv": [2, 11, 4, 13], "texture": "#aqueous"}
+			}
+		},
+		{
+			"name": "aqua_out_2",
+			"from": [5, 4.75, 5],
+			"to": [3, 0.75, 3],
+			"faces": {
+				"north": {"uv": [0, 16, 2, 12], "texture": "#aqueous"},
+				"east": {"uv": [0, 16, 2, 12], "texture": "#aqueous"},
+				"south": {"uv": [0, 16, 2, 12], "texture": "#aqueous"},
+				"west": {"uv": [0, 16, 2, 12], "texture": "#aqueous"},
+				"up": {"uv": [0, 12, 2, 14], "texture": "#aqueous"},
+				"down": {"uv": [0, 12, 2, 14], "texture": "#aqueous"}
+			}
+		},
+		{
+			"name": "aqua_in_2",
+			"from": [3.15, 1.9, 3.15],
+			"to": [4.85, 4.6, 4.85],
+			"faces": {
+				"north": {"uv": [2, 13, 4, 16], "texture": "#aqueous"},
+				"east": {"uv": [2, 13, 4, 16], "texture": "#aqueous"},
+				"south": {"uv": [2, 13, 4, 16], "texture": "#aqueous"},
+				"west": {"uv": [2, 13, 4, 16], "texture": "#aqueous"},
+				"up": {"uv": [2, 11, 4, 13], "texture": "#aqueous"},
+				"down": {"uv": [2, 11, 4, 13], "texture": "#aqueous"}
+			}
+		}
+	],
+	"groups": [
+		0,
+		{
+			"name": "crystals",
+			"origin": [8, 8, 8],
+			"scope": 0,
+			"color": 0,
+			"children": [
+				{
+					"name": "arcane_1",
+					"origin": [8, 8, 8],
+					"scope": 0,
+					"color": 8,
+					"children": [1, 2]
+				},
+				{
+					"name": "arcane_2",
+					"origin": [8, 8, 8],
+					"scope": 0,
+					"color": 8,
+					"children": [3, 4]
+				},
+				{
+					"name": "aqua_1",
+					"origin": [8, 8, 8],
+					"scope": 0,
+					"color": 5,
+					"children": [5, 6]
+				},
+				{
+					"name": "aqua_2",
+					"origin": [8, 8, 8],
+					"scope": 0,
+					"color": 5,
+					"children": [7, 8]
+				}
+			]
+		}
+	]
+}

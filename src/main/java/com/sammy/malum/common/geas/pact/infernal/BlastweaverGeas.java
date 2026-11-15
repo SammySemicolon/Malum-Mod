@@ -1,6 +1,6 @@
 package com.sammy.malum.common.geas.pact.infernal;
 
-import com.sammy.malum.common.data.attachment.AvariceMarkData;
+import com.sammy.malum.common.data.attachment.abilities.AvariceData;
 import com.sammy.malum.core.handlers.*;
 import com.sammy.malum.core.helpers.*;
 import com.sammy.malum.core.systems.geas.*;
@@ -51,7 +51,7 @@ public class BlastweaverGeas extends GeasEffect {
         for (Entity entity : explosionAffectedEntities) {
             if (entity instanceof Player player) {
                 if (GeasEffectHandler.hasGeasEffect(player, MalumGeasEffectTypes.PACT_OF_THE_BLASTWEAVER)) {
-                    AvariceMarkData.applyAvarice(player, 2);
+                    AvariceData.applyAvarice(player, 2);
                 }
             }
         }

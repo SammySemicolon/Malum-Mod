@@ -15,11 +15,13 @@ public class KeywordTooltipHandler {
     public static List<String> ALLOWED_MODS = new ArrayList<>(List.of(MalumMod.MALUM));
     public static List<TooltipKeyword> KEYWORDS = new ArrayList<>();
 
-    public static final TooltipKeyword AVARICE = addKeyword("avarice");
     public static final TooltipKeyword SOUL_WARD = addKeyword("soul_ward");
-    public static final TooltipKeyword ARCANE_RESONANCE = addKeyword("arcane_resonance");
 
     public static final TooltipKeyword GLUTTONY = addKeyword("gluttony");
+    public static final TooltipKeyword AVARICE = addKeyword("avarice");
+
+    public static final TooltipKeyword ARCANE_RESONANCE = addKeyword("arcane_resonance");
+
     public static final TooltipKeyword TRIAL_OF_FAITH = addKeyword("trial_of_faith");
     public static final TooltipKeyword DESPERATE_NEED = addKeyword("desperate_need");
 

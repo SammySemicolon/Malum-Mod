@@ -11,6 +11,7 @@ import net.neoforged.neoforge.event.entity.living.*;
 import team.lodestar.lodestone.helpers.*;
 
 public class DesperateNeedEffect extends MobEffect {
+
     public DesperateNeedEffect() {
         super(MobEffectCategory.BENEFICIAL, ColorHelper.getColor(88, 86, 60));
         final ResourceLocation id = MalumMod.malumPath("desperate_need");
