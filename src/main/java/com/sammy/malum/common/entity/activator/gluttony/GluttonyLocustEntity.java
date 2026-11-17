@@ -164,17 +164,26 @@ public class GluttonyLocustEntity extends FloatingEntity {
                 }
                 return Optional.empty();
             }
-            var gluttony = attacker.getData(MalumAttachmentTypes.GLUTTONY);
-            var target = gluttony.getAttackedTarget();
-            if (target == null) {
+
+            try {
+                var gluttony = attacker.getData(MalumAttachmentTypes.GLUTTONY);
+                var target = gluttony.getAttackedTarget();
+                if (target == null) {
+                    return Optional.empty();
+                }
+                if (!(level.getEntity(target) instanceof LivingEntity entity)) {
+                    return Optional.empty();
+                }
+                var predicate = LodestoneEnchantmentEffectCommonsHelper.attackPredicate(attacker).and(t -> !t.isDeadOrDying() && !(t instanceof Player));
+                if (predicate.test(entity)) {
+                    return Optional.of(entity);
+                }
+            } catch (NullPointerException e) {
+                // <handicraftsman> This is bad, I know, but there was a bug with this on older versions,
+                // where the attacked target was not set and thus null, which causes immediate crash on
+                // this item's use, as well as crashes on joining the same world even with newer versions,
+                // if this is not fixed
                 return Optional.empty();
-            }
-            if (!(level.getEntity(target) instanceof LivingEntity entity)) {
-                return Optional.empty();
-            }
-            var predicate = LodestoneEnchantmentEffectCommonsHelper.attackPredicate(attacker).and(t -> !t.isDeadOrDying() && !(t instanceof Player));
-            if (predicate.test(entity)) {
-                return Optional.of(entity);
             }
         }
         return Optional.empty();

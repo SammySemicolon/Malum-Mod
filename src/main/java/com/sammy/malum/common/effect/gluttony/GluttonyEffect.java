@@ -1,6 +1,7 @@
 package com.sammy.malum.common.effect.gluttony;
 
 import com.sammy.malum.*;
+import com.sammy.malum.common.data.attachment.abilities.GluttonyData;
 import com.sammy.malum.common.data.listener.spirit.EntitySpiritDropData;
 import com.sammy.malum.common.entity.activator.gluttony.*;
 import com.sammy.malum.common.item.*;
@@ -29,6 +30,7 @@ import team.lodestar.wayward_attributes.core.registry.WaywardAttributeTypes;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 import java.util.function.*;
 
@@ -89,6 +91,7 @@ public class GluttonyEffect extends MobEffect {
                     Easing.SINE_IN_OUT.asWeighedRandom(random, -velocity, velocity)
             );
             var position = target.position().add(0, target.getBbHeight() * 0.5f, 0);
+            attacker.setData(MalumAttachmentTypes.GLUTTONY, new GluttonyData(target.getUUID()));
             var locust = new GluttonyLocustEntity(level, attacker.getUUID(), 1.5f, hasSwarmingRot, position, velocityVector);
             level.addFreshEntity(locust);
         }
