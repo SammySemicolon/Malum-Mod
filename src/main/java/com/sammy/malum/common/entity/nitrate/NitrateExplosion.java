@@ -3,6 +3,9 @@ package com.sammy.malum.common.entity.nitrate;
 import com.sammy.malum.registry.common.MalumDamageTypes;
 import net.minecraft.core.*;
 import net.minecraft.core.particles.*;
+import net.minecraft.network.protocol.game.ClientboundExplodePacket;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.*;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
@@ -42,7 +45,23 @@ public class NitrateExplosion extends Explosion {
         );
         if (net.neoforged.neoforge.event.EventHooks.onExplosionStart(level, explosion)) return explosion;
         explosion.explode();
-        explosion.finalizeExplosion(spawnParticles);
+        if (level instanceof ServerLevel serverLevel) {
+            explosion.finalizeExplosion(false);
+            for (ServerPlayer player : serverLevel.players()) {
+                if (player.distanceToSqr(x, y, z) < 4096.0) {
+                    player.connection.send(new ClientboundExplodePacket(
+                            x, y, z, radius,
+                            explosion.getToBlow(),
+                            explosion.getHitPlayers().get(player),
+                            explosion.getBlockInteraction(),
+                            explosion.getSmallExplosionParticles(),
+                            explosion.getLargeExplosionParticles(),
+                            explosion.getExplosionSound()));
+                }
+            }
+        } else {
+            explosion.finalizeExplosion(spawnParticles);
+        }
         return explosion;
     }
 }
