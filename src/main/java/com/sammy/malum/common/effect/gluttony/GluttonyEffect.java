@@ -1,17 +1,15 @@
 package com.sammy.malum.common.effect.gluttony;
 
-import com.sammy.malum.*;
+import com.sammy.malum.MalumMod;
 import com.sammy.malum.common.data.attachment.abilities.GluttonyData;
-import com.sammy.malum.common.data.listener.spirit.EntitySpiritDropData;
-import com.sammy.malum.common.entity.activator.gluttony.*;
-import com.sammy.malum.common.item.*;
-import com.sammy.malum.common.item.curiosities.curios.sets.rotten.CurioSwarmingRotRing;
-import com.sammy.malum.core.systems.events.*;
-import com.sammy.malum.registry.common.*;
+import com.sammy.malum.common.entity.activator.gluttony.GluttonyLocustEntity;
+import com.sammy.malum.common.item.IMalumEventResponder;
+import com.sammy.malum.core.systems.events.ModifyGluttonyPropertiesEvent;
+import com.sammy.malum.registry.common.MalumAttachmentTypes;
 import com.sammy.malum.registry.common.MalumContent;
-import com.sammy.malum.registry.common.magic.*;
-import net.minecraft.core.*;
-import net.minecraft.util.*;
+import com.sammy.malum.registry.common.MalumMobEffects;
+import net.minecraft.core.Holder;
+import net.minecraft.util.Mth;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -19,20 +17,18 @@ import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.phys.*;
-import net.neoforged.neoforge.common.*;
-import net.neoforged.neoforge.event.entity.living.*;
-import team.lodestar.lodestone.handlers.*;
-import team.lodestar.lodestone.helpers.*;
+import net.minecraft.world.phys.Vec3;
+import net.neoforged.neoforge.common.NeoForge;
+import net.neoforged.neoforge.event.entity.living.LivingDeathEvent;
+import net.neoforged.neoforge.event.entity.living.MobEffectEvent;
+import team.lodestar.lodestone.handlers.ItemEventHandler;
+import team.lodestar.lodestone.helpers.ColorHelper;
+import team.lodestar.lodestone.helpers.CurioHelper;
+import team.lodestar.lodestone.helpers.EntityHelper;
 import team.lodestar.lodestone.modules.core.easing.Easing;
-import team.lodestar.lodestone.modules.toolkit.enchanting.LodestoneEnchantmentEffectCommonsHelper;
 import team.lodestar.wayward_attributes.core.registry.WaywardAttributeTypes;
 
-import java.util.Collection;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
-import java.util.function.*;
+import java.util.function.Consumer;
 
 import static net.neoforged.neoforge.event.entity.living.MobEffectEvent.Applicable.Result.DO_NOT_APPLY;
 
