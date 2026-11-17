@@ -26,6 +26,12 @@ public class MalumItemHolderItemDisplayData extends ItemStackHandlerItemDisplayD
     }
 
     @Override
+    public Vec3 getDisplayCenter(LodestoneBlockEntity parent, float partialTicks) {
+        var pos = parent.getBlockPos();
+        return new Vec3(pos.getX() + 0.5f, pos.getY() + 1.25f, pos.getZ() + 0.5f);
+    }
+
+    @Override
     public float getTurnRate() {
         return 0.2f;
     }

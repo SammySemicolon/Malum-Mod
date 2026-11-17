@@ -60,6 +60,10 @@ public class GeasEffect implements IMalumEventResponder {
         }
     }
 
+    public void onRemoved(LivingEntity entity) {
+        removeAttributeModifiers(entity);
+    }
+
     public void removeAttributeModifiers(LivingEntity entity) {
         if (attributeCache != null) {
             entity.getAttributes().removeAttributeModifiers(attributeCache);

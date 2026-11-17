@@ -111,9 +111,33 @@ public class GeasSoulData {
         return geasEffectTypes.indexOf(type);
     }
 
+    private void updateGeasSlotCount(LivingEntity entity) {
+        int geasCount = geasEffectTypes.size();
+        CuriosApi.getCuriosInventory(entity).ifPresent(h -> {
+            var geasSlots = h.getStacksHandler("geas");
+            if (geasSlots.isEmpty()) {
+                return;
+            }
+            var existing = geasSlots.get().getModifiers().get(GEAS_CURIO_SLOT);
+            if (existing != null && existing.amount() == geasCount && existing.operation() == AttributeModifier.Operation.ADD_VALUE) {
+                return;
+            }
+            if (existing != null) {
+                h.removeSlotModifier("geas", GEAS_CURIO_SLOT);
+            }
+            h.addPermanentSlotModifier("geas", GEAS_CURIO_SLOT, geasCount, AttributeModifier.Operation.ADD_VALUE);
+        });
+    }
+
     public void updateCaches(LivingEntity entity) {
         if (isDirty()) {
-            cachedGeasEffects.forEach(e -> e.removeAttributeModifiers(entity));
+            cachedGeasEffects.forEach(e -> {
+                if (geasEffectTypes.contains(e.type)) {
+                    e.removeAttributeModifiers(entity);
+                } else {
+                    e.onRemoved(entity);
+                }
+            });
             cachedGeasEffects.clear();
             cachedGeasStacks.clear();
             for (GeasEffectType geas : geasEffectTypes) {
@@ -123,7 +147,9 @@ public class GeasSoulData {
             if (!entity.level().isClientSide) {
                 entity.syncData(MalumAttachmentTypes.GEAS_SOUL_INFO);
             }
-            CuriosApi.getCuriosInventory(entity).ifPresent(h -> h.addPermanentSlotModifier("geas", GEAS_CURIO_SLOT, geasEffectTypes.size(), AttributeModifier.Operation.ADD_VALUE));
+            if (!entity.level().isClientSide) {
+                updateGeasSlotCount(entity);
+            }
             setDirty(false);
         }
     }

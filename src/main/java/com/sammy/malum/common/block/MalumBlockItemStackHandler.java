@@ -16,6 +16,7 @@ import team.lodestar.lodestone.modules.core.easing.Easing;
 import team.lodestar.lodestone.modules.toolkit.blockentity.LodestoneBlockEntity;
 import team.lodestar.lodestone.modules.toolkit.inventory.InventoryInteractionResult;
 import team.lodestar.lodestone.modules.toolkit.inventory.InventoryInteractionResultBuilder;
+import team.lodestar.lodestone.modules.toolkit.inventory.InventoryItemStackTransaction;
 import team.lodestar.lodestone.modules.toolkit.inventory.LodestoneItemStackBlockHandler;
 import team.lodestar.lodestone.modules.toolkit.inventory.LodestoneItemStackHandler;
 
@@ -36,6 +37,35 @@ public class MalumBlockItemStackHandler extends LodestoneItemStackBlockHandler {
     public void onContentsChanged(int slot) {
         super.onContentsChanged(slot);
         parent.setDirty();
+    }
+
+    @Override
+    public InventoryInteractionResult insertItem(ServerLevel level, ItemStack stack) {
+        ItemStack remaining = stack.copy();
+        for (int i = 0; i < getSlots() && !remaining.isEmpty(); i++) {
+            remaining = insertItem(i, remaining, true);
+        }
+        int count = Math.min(stack.getCount() - remaining.getCount(), getAllowedItemSize());
+        if (count <= 0) {
+            return noChange(InventoryInteractionResult.insert(), stack);
+        }
+        return insertItem(level, stack.split(count), false);
+    }
+
+    @Override
+    public InventoryInteractionResult extractItem(ServerLevel level, Function<ItemStack, Integer> amount) {
+        if (isEmpty()) {
+            return noChange(InventoryInteractionResult.extract(), ItemStack.EMPTY);
+        }
+        var result = super.extractItem(level, amount);
+        return result == InventoryInteractionResult.EMPTY ? noChange(InventoryInteractionResult.extract(), ItemStack.EMPTY) : result;
+    }
+
+    private static InventoryInteractionResult noChange(InventoryInteractionResultBuilder builder, ItemStack external) {
+        return builder
+                .internalChange(InventoryItemStackTransaction.updated(ItemStack.EMPTY, ItemStack.EMPTY, -1))
+                .externalChange(InventoryItemStackTransaction.updated(external, external, -1))
+                .build();
     }
 
     @Override
