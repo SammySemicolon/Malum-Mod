@@ -4,7 +4,7 @@
 
 Malum has been with me for nearly 6 years now. It's practically what I am.
 It is my body of work, and the repository serves as a catalogue of my growth and progress as a programmer and artist.
-The repository is important, how it is managed and specifically; what is kept inside, is of great significance to me.
+The repository is important, how it is managed and the contents of it are of great significance to me.
 
 ## No AI policy
 
