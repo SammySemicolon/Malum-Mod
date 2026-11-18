@@ -138,7 +138,7 @@ public class MalumBlockStateDatagen extends LodestoneBlockStateSystem {
         setTexturePath("flora");
         BlockStateSmithTypes.CROSS_MODEL_BLOCK.act(data, NO_DATAGEN, EBONY_SAPLING);
         MalumBlockStateSmithTypes.EBONY.act(data, EBONY_STALK);
-        //BlockStateSmithTypes.CUSTOM_MODEL.act(data,NO_DATAGEN,this::simpleBlock,block -> models().getExistingFile(malumPath("block/flora/" + getBlockName(block))), EBONY_STEM, EBONY_BLOOM, EBONY_LEAF);
+        BlockStateSmithTypes.CUSTOM_MODEL.act(data, NO_DATAGEN, this::horizontalBlock, block -> models().getExistingFile(malumPath("block/flora/" + getBlockName(block))), EBONY_LEAF, EBONY_BLOOM);
 
 
         setTexturePath("blight");

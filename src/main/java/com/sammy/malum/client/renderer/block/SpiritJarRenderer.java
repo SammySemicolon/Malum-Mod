@@ -21,18 +21,18 @@ public class SpiritJarRenderer implements BlockEntityRenderer<SpiritJarBlockEnti
 
     @Override
     public void render(SpiritJarBlockEntity blockEntityIn, float partialTicks, PoseStack poseStack, MultiBufferSource bufferIn, int combinedLightIn, int combinedOverlayIn) {
-        Level level = Minecraft.getInstance().level;
-        ItemRenderer itemRenderer = Minecraft.getInstance().getItemRenderer();
+        Level level = blockEntityIn.getLevel();
         if (blockEntityIn.contents != null) {
-            var type = blockEntityIn.contents.getSpirit();
+            var spirit = blockEntityIn.contents.getSpirit();
+            ItemRenderer itemRenderer = Minecraft.getInstance().getItemRenderer();
             float time = level.getGameTime() + partialTicks;
-            double y = 0.5f + (float) Math.sin((time * 0.05f) % 6.28f) * 0.2f;
+            double y = 0.5f + Math.sin(time * 0.05f) * 0.2f;
             poseStack.pushPose();
             poseStack.translate(0.5f, y, 0.5f);
-            FloatingItemRenderer.renderSpiritGlimmer(poseStack, type, partialTicks);
+            FloatingItemRenderer.renderSpiritGlimmer(poseStack, spirit, partialTicks);
             poseStack.mulPose(Axis.YP.rotationDegrees((time * 3) % 360));
             poseStack.scale(0.6f, 0.6f, 0.6f);
-            itemRenderer.renderStatic(type.getSpiritStack(), ItemDisplayContext.FIXED, combinedLightIn, NO_OVERLAY, poseStack, bufferIn, level, 0);
+            itemRenderer.renderStatic(spirit.getSpiritStack(), ItemDisplayContext.FIXED, combinedLightIn, NO_OVERLAY, poseStack, bufferIn, level, 0);
             poseStack.popPose();
         }
     }

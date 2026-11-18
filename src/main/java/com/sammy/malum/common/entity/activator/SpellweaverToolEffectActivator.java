@@ -14,6 +14,7 @@ import net.minecraft.server.level.*;
 import net.minecraft.util.*;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.item.*;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.enchantment.*;
 import net.minecraft.world.level.*;
@@ -161,10 +162,21 @@ public class SpellweaverToolEffectActivator extends FloatingEntity {
             BREAKER_ENTITY = this;
             var blockentity = state.hasBlockEntity() ? level.getBlockEntity(pos) : null;
             level.levelEvent(2001, pos, Block.getId(level.getBlockState(pos)));
-            level.setBlock(pos, Blocks.AIR.defaultBlockState(), 3);
-            Block.dropResources(state, level, pos, blockentity, breaker, tool);
+            boolean removed;
+            if (breaker instanceof Player player) {
+                state = state.getBlock().playerWillDestroy(level, pos, state, player);
+                removed = state.onDestroyedByPlayer(level, pos, player, true, level.getFluidState(pos));
+                if (removed) {
+                    state.getBlock().destroy(level, pos, state);
+                }
+            } else {
+                removed = level.setBlock(pos, Blocks.AIR.defaultBlockState(), 3);
+            }
+            if (removed) {
+                Block.dropResources(state, level, pos, blockentity, breaker, tool);
+                carriedExperience = EnchantmentHelper.processBlockExperience(level, tool, state.getExpDrop(level, pos, blockentity, breaker, tool));
+            }
             destination = new FloatingItemDestinationData(owner);
-            carriedExperience = EnchantmentHelper.processBlockExperience(level, tool, state.getExpDrop(level, pos, blockentity, breaker, tool));
             BREAKER_ENTITY = null;
             if (speed < 1) {
                 movementWindUp = 0;

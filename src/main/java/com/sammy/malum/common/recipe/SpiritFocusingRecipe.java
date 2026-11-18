@@ -32,7 +32,7 @@ public class SpiritFocusingRecipe extends LodestoneInWorldRecipe<SpiritBasedReci
     protected final int durabilityCost;
 
     public SpiritFocusingRecipe(Ingredient input, ItemStack output, List<SpiritIngredient> spirits, int time, int durabilityCost) {
-        super(MalumRecipeSerializers.FOCUSING_RECIPE_SERIALIZER.get(), MalumRecipeTypes.SPIRIT_FOCUSING.get());
+        super(MalumRecipeSerializers.FOCUSING_RECIPE_SERIALIZER.get(), MalumRecipeTypes.SPIRIT_FOCUSING.get(), output);
         this.input = input;
         this.output = output;
         this.spirits = spirits;

@@ -107,17 +107,18 @@ public abstract class AbstractNitrateEntity extends ThrowableProjectile {
         if (fadingAway) {
             return;
         }
-        NitrateExplosion.explode(level(), this, getX(), getY(0.0625D), getZ(), getExplosionRadius());
-        onExplode();
+
         if (level() instanceof ServerLevel serverLevel) {
+            NitrateExplosion.explode(serverLevel, this, getX(), getY(0.0625D), getZ(), getExplosionRadius());
+            onExplode();
             getImpactParticleEffect()
                     .createEffect(position())
                     .color(getImpactParticleEffectColor())
                     .spawn(serverLevel);
-        }
-        if (timesExploded++ >= getMaxPierce()) {
-            getEntityData().set(DATA_FADING_AWAY, true);
-            setDeltaMovement(getDeltaMovement().scale(0.05f));
+            if (timesExploded++ >= getMaxPierce()) {
+                getEntityData().set(DATA_FADING_AWAY, true);
+                setDeltaMovement(getDeltaMovement().scale(0.05f));
+            }
         }
         super.onHit(pResult);
     }

@@ -2,6 +2,7 @@
 	"credit": "Made with Blockbench",
 	"parent": "block/block",
 	"ambientocclusion": false,
+	"render_type": "minecraft:cutout",
 	"texture_size": [32, 32],
 	"textures": {
 		"jar": "malum:block/spirit_jar",

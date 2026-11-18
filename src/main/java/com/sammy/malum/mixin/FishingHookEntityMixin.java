@@ -27,6 +27,6 @@ public class FishingHookEntityMixin {
     private void malumModifyFishingLuckStatsMixin(Player player, Level level, int luck, int lureSpeed, CallbackInfo ci) {
         var goodTides = GoodTidesEffect.increaseFishingStats(player);
         this.luck += goodTides.getFirst();
-        this.lureSpeed = goodTides.getSecond();
+        this.lureSpeed += goodTides.getSecond() * 100;
     }
 }
