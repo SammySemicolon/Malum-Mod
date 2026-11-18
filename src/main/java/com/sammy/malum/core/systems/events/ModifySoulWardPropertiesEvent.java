@@ -6,57 +6,60 @@ import net.minecraft.world.entity.*;
 
 public class ModifySoulWardPropertiesEvent extends SoulWardEvent {
 
-    private final double physicalDamageAbsorption;
-    private final double magicDamageAbsorption;
-    private final double soulWardIntegrity;
+    private final double integrity;
+    private final double cooldownRatio;
+    private final double absorptionRatio;
 
-    private double newPhysicalDamageAbsorption;
-    private double newMagicDamageAbsorption;
-    private double newSoulWardIntegrity;
+    private double newIntegrity;
+    private double newCooldownRatio;
+    private double newAbsorptionRatio;
 
-    public ModifySoulWardPropertiesEvent(LivingEntity entity, SoulWardData soulWardData, DamageSource source, double physicalDamageAbsorption, double magicDamageAbsorption, double soulWardIntegrity) {
+    public ModifySoulWardPropertiesEvent(LivingEntity entity, SoulWardData soulWardData, DamageSource source, double integrity, double cooldownRatio, double absorptionRatio) {
         super(entity, soulWardData, source);
-        this.physicalDamageAbsorption = physicalDamageAbsorption;
-        this.magicDamageAbsorption = magicDamageAbsorption;
-        this.soulWardIntegrity = soulWardIntegrity;
-        this.newPhysicalDamageAbsorption = physicalDamageAbsorption;
-        this.newMagicDamageAbsorption = magicDamageAbsorption;
-        this.newSoulWardIntegrity = soulWardIntegrity;
-    }
+        this.integrity = integrity;
+        this.newIntegrity = integrity;
 
-    public double getOriginalPhysicalDamageAbsorption() {
-        return physicalDamageAbsorption;
-    }
+        this.cooldownRatio = cooldownRatio;
+        this.newCooldownRatio = cooldownRatio;
 
-    public double getNewPhysicalDamageAbsorption() {
-        return newPhysicalDamageAbsorption;
-    }
-
-    public void setNewPhysicalDamageAbsorption(double newPhysicalDamageAbsorption) {
-        this.newPhysicalDamageAbsorption = newPhysicalDamageAbsorption;
-    }
-
-    public double getOriginalMagicDamageAbsorption() {
-        return magicDamageAbsorption;
-    }
-
-    public double getNewMagicDamageAbsorption() {
-        return newMagicDamageAbsorption;
-    }
-
-    public void setNewMagicDamageAbsorption(double newMagicDamageAbsorption) {
-        this.newMagicDamageAbsorption = newMagicDamageAbsorption;
+        this.absorptionRatio = absorptionRatio;
+        this.newAbsorptionRatio = absorptionRatio;
     }
 
     public double getOriginalIntegrity() {
-        return soulWardIntegrity;
+        return integrity;
     }
 
     public double getNewIntegrity() {
-        return newSoulWardIntegrity;
+        return newIntegrity;
     }
 
-    public void setNewIntegrity(double newSoulWardIntegrity) {
-        this.newSoulWardIntegrity = newSoulWardIntegrity;
+    public void modifyIntegrity(double multiplier) {
+        this.newIntegrity *= multiplier;
     }
+
+    public double getOriginalCooldownRatio() {
+        return cooldownRatio;
+    }
+
+    public double getNewCooldownRatio() {
+        return newCooldownRatio;
+    }
+
+    public void modifyCooldownRatio(double multiplier) {
+        this.newCooldownRatio *= multiplier;
+    }
+
+    public double getOriginalAbsorptionRatio() {
+        return absorptionRatio;
+    }
+
+    public double getNewAbsorptionRatio() {
+        return newAbsorptionRatio;
+    }
+
+    public void modifyAbsorptionRatio(double multiplier) {
+        this.newAbsorptionRatio *= multiplier;
+    }
+
 }

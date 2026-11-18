@@ -4,7 +4,6 @@ import com.google.common.collect.Multimap;
 import com.sammy.malum.core.handlers.GeasEffectHandler;
 import com.sammy.malum.core.helpers.TooltipComponentHelper;
 import com.sammy.malum.core.systems.geas.GeasEffect;
-import com.sammy.malum.registry.common.MalumAttributes;
 import com.sammy.malum.registry.common.magic.MalumGeasEffectTypes;
 import net.minecraft.core.Holder;
 import net.minecraft.network.chat.Component;
@@ -36,7 +35,7 @@ public class DefianceGeas extends GeasEffect {
     }
 
     public static int accelerateNaturalHealing(LivingEntity entity) {
-        if (GeasEffectHandler.hasGeasEffect(entity, MalumGeasEffectTypes.PACT_OF_DEFIANCE)) {
+        if (GeasEffectHandler.hasGeas(entity, MalumGeasEffectTypes.PACT_OF_DEFIANCE)) {
             return entity.getHealth() < entity.getMaxHealth()/4f ? 2 : 1;
         }
         return 0;

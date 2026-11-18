@@ -10,30 +10,33 @@ import net.neoforged.neoforge.event.entity.living.*;
 import java.util.*;
 
 public class MalumAttributeEventHandler {
+
     public static void processAttributes(LivingDamageEvent.Pre event) {
         if (event.getNewDamage() <= 0) {
             return;
         }
-        DamageSource source = event.getSource();
-        if (source.getEntity() instanceof LivingEntity attacker) {
-            if (source.is(MalumTags.DamageTypes.IS_SCYTHE)) {
-                var scytheProficiency = attacker.getAttribute(MalumAttributes.SCYTHE_PROFICIENCY);
-                if (scytheProficiency != null) {
-                    event.setNewDamage((float) (event.getNewDamage() * scytheProficiency.getValue()));
-                }
-            }
+        var source = event.getSource();
+        if (!(source.getEntity() instanceof LivingEntity attacker)) {
+            return;
         }
+        if (!source.is(MalumTags.DamageTypes.IS_SCYTHE)) {
+            return;
+        }
+
+        double scytheProficiency = attacker.getAttributeValue(MalumAttributes.SCYTHE_PROFICIENCY);
+        event.setNewDamage((float) (event.getNewDamage() * scytheProficiency));
     }
 
     public static Optional<Float> modifyMagicDamageArmorPiercing(LivingEntity livingEntity, DamageSource damageSource, float damageAmount) {
-        if (CommonConfig.MAGIC_DAMAGE_REDUCED_ARMOR_PIERCING.getConfigValue()) {
-            if (damageSource.is(MalumTags.DamageTypes.BYPASSES_HALF_ARMOR)) {
-                float armor = livingEntity.getArmorValue() * 0.5f;
-                float toughness = (float) livingEntity.getAttributeValue(Attributes.ARMOR_TOUGHNESS) * 0.5f;
-                var newAmount = CombatRules.getDamageAfterAbsorb(livingEntity, damageAmount, damageSource, armor, toughness);
-                return Optional.of(newAmount);
-            }
+        if (!CommonConfig.MAGIC_DAMAGE_REDUCED_ARMOR_PIERCING.getConfigValue()) {
+            return Optional.empty();
         }
-        return Optional.empty();
+        if (!damageSource.is(MalumTags.DamageTypes.BYPASSES_HALF_ARMOR)) {
+            return Optional.empty();
+        }
+        float armor = livingEntity.getArmorValue() * 0.5f;
+        float toughness = (float) livingEntity.getAttributeValue(Attributes.ARMOR_TOUGHNESS) * 0.5f;
+        var newAmount = CombatRules.getDamageAfterAbsorb(livingEntity, damageAmount, damageSource, armor, toughness);
+        return Optional.of(newAmount);
     }
 }

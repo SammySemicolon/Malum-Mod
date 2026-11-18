@@ -12,7 +12,6 @@ import net.minecraft.network.chat.*;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.item.*;
 import net.neoforged.neoforge.event.entity.living.*;
-import team.lodestar.lodestone.handlers.*;
 import team.lodestar.lodestone.modules.toolkit.worldevent.WorldEventHandler;
 
 import java.util.function.*;
@@ -24,7 +23,7 @@ public class WarlockGeas extends GeasEffect {
     }
 
     public static void increaseDetection(LivingEvent.LivingVisibilityEvent event) {
-        if (GeasEffectHandler.hasGeasEffect(event.getEntity(), MalumGeasEffectTypes.PACT_OF_THE_WARLOCK)) {
+        if (GeasEffectHandler.hasGeas(event.getEntity(), MalumGeasEffectTypes.PACT_OF_THE_WARLOCK)) {
             event.modifyVisibility(2f);
         }
     }

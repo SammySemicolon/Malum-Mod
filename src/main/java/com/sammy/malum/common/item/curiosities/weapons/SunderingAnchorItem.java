@@ -41,7 +41,7 @@ import team.lodestar.wayward_attributes.core.registry.WaywardAttributeTypes;
 
 import java.util.*;
 
-public class SunderingAnchorItem extends LodestoneCombatItem implements IMalumEventResponder, ISpiritAffiliatedItem {
+public class SunderingAnchorItem extends LodestoneCombatItem implements IMalumEventResponderBody, ISpiritAffiliatedItem {
 
     public static final List<SpiritLike> SPIRITS = List.of(MalumSpiritTypes.INFERNAL_SPIRIT, MalumSpiritTypes.SACRED_SPIRIT, MalumSpiritTypes.AQUEOUS_SPIRIT, MalumSpiritTypes.EARTHEN_SPIRIT);
 

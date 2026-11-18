@@ -2,14 +2,13 @@
 
 import com.google.common.collect.Multimap;
 import com.sammy.malum.MalumMod;
-import com.sammy.malum.common.item.IMalumEventResponder;
+import com.sammy.malum.common.item.IMalumEventResponderBody;
 import com.sammy.malum.common.item.curiosities.curios.MalumCurioItem;
 import com.sammy.malum.core.helpers.*;
 import com.sammy.malum.core.systems.events.*;
 import com.sammy.malum.registry.common.MalumAttributes;
 import net.minecraft.core.Holder;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.*;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
@@ -19,7 +18,7 @@ import top.theillusivec4.curios.api.SlotContext;
 
 import java.util.function.Consumer;
 
-public class CurioMagebaneBelt extends MalumCurioItem implements IMalumEventResponder {
+public class CurioMagebaneBelt extends MalumCurioItem implements IMalumEventResponderBody {
 
     public CurioMagebaneBelt(Properties builder) {
         super(builder, MalumTrinketFamily.ORNATE);
@@ -29,12 +28,15 @@ public class CurioMagebaneBelt extends MalumCurioItem implements IMalumEventResp
     public void addExtraTooltipLines(Consumer<Component> consumer) {
         consumer.accept(TooltipComponentHelper.positiveCurioEffect("soul_ward_magic_resilience"));
         consumer.accept(TooltipComponentHelper.negativeCurioEffect("soul_ward_long_shatter_cooldown"));
+        consumer.accept(TooltipComponentHelper.negativeCurioEffect("soul_ward_physical_vulnerability"));
     }
 
     @Override
     public void modifySoulWardPropertiesEvent(ModifySoulWardPropertiesEvent event, LivingEntity wardedEntity, ItemStack stack) {
         if (event.getSource().is(WaywardTags.DamageTypeTags.IS_MAGIC)) {
-            event.setNewIntegrity(event.getOriginalIntegrity()*1.5f);
+            event.modifyIntegrity(1.5f);
+        } else {
+            event.modifyAbsorptionRatio(0.5f);
         }
     }
 
@@ -43,17 +45,17 @@ public class CurioMagebaneBelt extends MalumCurioItem implements IMalumEventResp
         var handler = event.getSoulWardHandler();
 
         if (handler.isDepleted()) {
-            handler.addCooldown(wardedEntity, 8f);
+            handler.addCooldown(16f);
             return;
         }
         if (event.getSource().is(WaywardTags.DamageTypeTags.IS_MAGIC)) {
-            handler.recoverSoulWard(wardedEntity, 1.5f);
+            handler.recoverSoulWard(wardedEntity, 1f);
         }
     }
 
     @Override
     public void addAttributeModifiers(Multimap<Holder<Attribute>, AttributeModifier> map, SlotContext slotContext, ItemStack stack) {
-        final ResourceLocation id = MalumMod.malumPath("magebane_belt");
+        var id = MalumMod.malumPath("magebane_belt");
         addAttributeModifier(map, MalumAttributes.SOUL_WARD_RECOVERY_RATE,
                 new AttributeModifier(id, 0.4f, AttributeModifier.Operation.ADD_MULTIPLIED_BASE));
         addAttributeModifier(map, MalumAttributes.SOUL_WARD_CAPACITY,

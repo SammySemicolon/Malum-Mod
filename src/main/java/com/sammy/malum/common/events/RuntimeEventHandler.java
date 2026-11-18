@@ -183,8 +183,8 @@ public class RuntimeEventHandler {
     @SubscribeEvent
     public static void onPotionApplied(MobEffectEvent.Added event) {
         GluttonyEffect.removeExistingHunger(event);
-        RuneTwinnedDurationItem.scaleDuration(event);
-        RuneAilmentCleansingItem.scaleDuration(event);
+        RuneTwinnedDurationItem.scaleEffectDuration(event);
+        RuneAilmentCleansingItem.scaleEffectDuration(event);
     }
 
     @SubscribeEvent
@@ -259,10 +259,6 @@ public class RuntimeEventHandler {
     @SubscribeEvent
     public static void onItemUseBlock(UseItemOnBlockEvent event) {
         BlockTappingHandler.drainBlock(event);
-    }
-    @SubscribeEvent
-    public static void onItemUseStart(LivingEntityUseItemEvent.Start event) {
-        ContinuingShotGeas.onItemUseStart(event);
     }
 
     @SubscribeEvent(priority = EventPriority.HIGHEST)

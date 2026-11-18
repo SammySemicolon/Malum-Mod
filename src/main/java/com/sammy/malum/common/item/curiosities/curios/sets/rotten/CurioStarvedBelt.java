@@ -13,13 +13,11 @@ import net.minecraft.server.level.*;
 import net.minecraft.sounds.*;
 import net.minecraft.util.*;
 import net.minecraft.world.entity.*;
-import team.lodestar.lodestone.helpers.*;
-import team.lodestar.lodestone.modules.core.easing.Easing;
 import team.lodestar.lodestone.modules.toolkit.sound.SoundPlayer;
 
 import java.util.function.*;
 
-public class CurioStarvedBelt extends MalumCurioItem implements IMalumEventResponder {
+public class CurioStarvedBelt extends MalumCurioItem implements IMalumEventResponderBody {
 
     public CurioStarvedBelt(Properties builder) {
         super(builder, MalumTrinketFamily.ROTTEN);

@@ -40,7 +40,7 @@ public class ProfaneAsceticGeas extends GeasEffect {
     }
 
     public static boolean isProfaneAscetic(LivingEntity entity) {
-        return GeasEffectHandler.hasGeasEffect(entity, MalumGeasEffectTypes.PACT_OF_THE_PROFANE_ASCETIC);
+        return GeasEffectHandler.hasGeas(entity, MalumGeasEffectTypes.PACT_OF_THE_PROFANE_ASCETIC);
     }
 
     public static void modifyEating(LivingEntityUseItemEvent.Start event) {

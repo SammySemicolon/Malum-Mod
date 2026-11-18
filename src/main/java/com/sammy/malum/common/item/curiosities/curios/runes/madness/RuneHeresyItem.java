@@ -11,13 +11,15 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.event.entity.living.*;
+import team.lodestar.lodestone.handlers.item_events.IEventResponderBody;
 import team.lodestar.lodestone.helpers.*;
 import team.lodestar.lodestone.handlers.*;
 import team.lodestar.lodestone.modules.toolkit.sound.SoundPlayer;
 
+import javax.annotation.Nullable;
 import java.util.function.Consumer;
 
-public class RuneHeresyItem extends MadnessRuneCurioItem implements ItemEventHandler.IEventResponder {
+public class RuneHeresyItem extends MadnessRuneCurioItem implements IEventResponderBody {
 
     public RuneHeresyItem(Properties builder) {
         super(builder, MalumSpiritTypes.ELDRITCH_SPIRIT);
@@ -29,12 +31,12 @@ public class RuneHeresyItem extends MadnessRuneCurioItem implements ItemEventHan
     }
 
     @Override
-    public void incomingDamageEvent(LivingDamageEvent.Pre event, LivingEntity attacker, LivingEntity attacked, ItemStack stack) {
+    public void incomingDamageEvent(LivingDamageEvent.Pre event, @Nullable LivingEntity attacker, LivingEntity attacked, ItemStack stack) {
         if (attacker == null) {
             return;
         }
-        Holder<MobEffect> silenced = MalumMobEffects.SILENCED;
-        MobEffectInstance effect = attacker.getEffect(silenced);
+        var silenced = MalumMobEffects.SILENCED;
+        var effect = attacker.getEffect(silenced);
         if (effect == null) {
             attacker.addEffect(new MobEffectInstance(silenced, 60, 0, true, true, true));
         } else {

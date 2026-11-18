@@ -14,7 +14,6 @@ import net.minecraft.tags.*;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.item.*;
 import net.neoforged.neoforge.event.entity.living.*;
-import team.lodestar.lodestone.handlers.*;
 import team.lodestar.lodestone.modules.toolkit.worldevent.WorldEventHandler;
 
 import java.util.function.*;
@@ -46,7 +45,7 @@ public class CombustionGeas extends GeasEffect {
     }
 
     public static void extinguish(LivingEntity entity) {
-        if (GeasEffectHandler.hasGeasEffect(entity, MalumGeasEffectTypes.PACT_OF_COMBUSTION)) {
+        if (GeasEffectHandler.hasGeas(entity, MalumGeasEffectTypes.PACT_OF_COMBUSTION)) {
             if (entity.wasOnFire) {
                 for (int i = 0; i < 3; i++) {
                     WorldEventHandler.addWorldEvent(entity.level(),

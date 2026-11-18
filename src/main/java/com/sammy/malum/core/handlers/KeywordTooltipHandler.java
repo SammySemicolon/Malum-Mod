@@ -32,7 +32,7 @@ public class KeywordTooltipHandler {
             return;
         }
         var tooltip = event.getToolTip();
-        final var presentKeywords = getPresentKeywords(tooltip);
+        var presentKeywords = getPresentKeywords(tooltip);
         for (TooltipKeyword presentKeyword : presentKeywords) {
             int index = tooltip.size();
             if (event.getFlags().isAdvanced()) {

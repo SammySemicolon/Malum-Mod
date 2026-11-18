@@ -17,11 +17,11 @@ import net.neoforged.neoforge.client.event.*;
 import net.neoforged.neoforge.common.*;
 import net.neoforged.neoforge.common.damagesource.*;
 import net.neoforged.neoforge.event.entity.living.*;
-import team.lodestar.lodestone.handlers.*;
-import team.lodestar.lodestone.helpers.*;
 import team.lodestar.lodestone.modules.toolkit.enchanting.LodestoneEnchantmentEffectCommonsHelper;
 import team.lodestar.lodestone.modules.toolkit.item.*;
 import team.lodestar.lodestone.modules.toolkit.sound.SoundPlayer;
+
+import static team.lodestar.lodestone.handlers.item_events.ItemEventHandler.createEventProcessor;
 
 
 public class EdgeOfDeliveranceItem extends MalumScytheItem {
@@ -82,17 +82,16 @@ public class EdgeOfDeliveranceItem extends MalumScytheItem {
 
     public static boolean triggerMalignantCrit(DamageContainer damageContainer, LivingEntity attacker, LivingEntity target) {
         var event = new MalignantCritEvent.Pre(target, damageContainer);
-        var eventResponders = ItemEventHandler.getEventResponders(attacker);
-        eventResponders.forEach(lookup -> lookup.run(IMalumEventResponder.class,
-                (eventResponderItem, stack) -> eventResponderItem.malignantCritEvent(event, attacker)));
+
+        var eventProcessor = createEventProcessor(attacker);
+        eventProcessor.run(IMalumEventResponderBody.class, (e, s) -> e.malignantCritEvent(event, attacker));
         NeoForge.EVENT_BUS.post(event);
 
         if (event.isCanceled()) {
             return false;
         }
         var postEvent = new MalignantCritEvent.Post(target, damageContainer);
-        eventResponders.forEach(lookup -> lookup.run(IMalumEventResponder.class,
-                (eventResponderItem, stack) -> eventResponderItem.finalizedMalignantCritEvent(postEvent, attacker)));
+        eventProcessor.run(IMalumEventResponderBody.class, (e, s) -> e.finalizedMalignantCritEvent(postEvent, attacker));
         NeoForge.EVENT_BUS.post(postEvent);
 
         damageContainer.setNewDamage(damageContainer.getNewDamage() * 2);

@@ -2,7 +2,7 @@ package com.sammy.malum.common.item.curiosities.curios.sets.weeping;
 
 import com.google.common.collect.Multimap;
 import com.sammy.malum.MalumMod;
-import com.sammy.malum.common.item.IMalumEventResponder;
+import com.sammy.malum.common.item.IMalumEventResponderBody;
 import com.sammy.malum.common.item.IVoidItem;
 import com.sammy.malum.common.item.curiosities.curios.MalumCurioItem;
 import com.sammy.malum.core.helpers.*;
@@ -10,16 +10,16 @@ import com.sammy.malum.core.systems.events.*;
 import com.sammy.malum.registry.common.MalumAttributes;
 import net.minecraft.core.Holder;
 import net.minecraft.network.chat.Component;
-import net.minecraft.util.*;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.item.ItemStack;
+import team.lodestar.lodestone.modules.core.easing.Easing;
 import top.theillusivec4.curios.api.SlotContext;
 
 import java.util.function.Consumer;
 
-public class CurioLimitlessBelt extends MalumCurioItem implements IMalumEventResponder, IVoidItem {
+public class CurioLimitlessBelt extends MalumCurioItem implements IMalumEventResponderBody, IVoidItem {
 
     public CurioLimitlessBelt(Properties builder) {
         super(builder, MalumTrinketFamily.VOID);
@@ -27,8 +27,7 @@ public class CurioLimitlessBelt extends MalumCurioItem implements IMalumEventRes
 
     @Override
     public void addExtraTooltipLines(Consumer<Component> consumer) {
-        consumer.accept(TooltipComponentHelper.positiveCurioEffect("soul_ward_complete_absorption"));
-        consumer.accept(TooltipComponentHelper.positiveCurioEffect("soul_ward_escalating_integrity"));
+        consumer.accept(TooltipComponentHelper.positiveCurioEffect("soul_ward_boundless_integrity"));
     }
 
     @Override
@@ -43,11 +42,9 @@ public class CurioLimitlessBelt extends MalumCurioItem implements IMalumEventRes
         var handler = event.getSoulWardHandler();
 
         double capacity = wardedEntity.getAttributeValue(MalumAttributes.SOUL_WARD_CAPACITY);
-        double delta = (1 - handler.getSoulWard() / capacity);
+        double delta = (handler.getSoulWard() / capacity);
 
-        double integrityMultiplier = Mth.lerp(delta, 0.75f, 2f);
-        event.setNewIntegrity(event.getNewIntegrity() * integrityMultiplier);
-        event.setNewMagicDamageAbsorption(1f);
-        event.setNewPhysicalDamageAbsorption(1f);
+        double integrityMultiplier = Easing.CIRC_IN.lerp(delta, 1f, 4f);
+        event.modifyIntegrity(event.getNewIntegrity() * integrityMultiplier);
     }
 }

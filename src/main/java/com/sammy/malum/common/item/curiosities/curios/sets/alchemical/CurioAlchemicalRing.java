@@ -11,7 +11,7 @@ import team.lodestar.lodestone.helpers.*;
 
 import java.util.function.*;
 
-public class CurioAlchemicalRing extends MalumCurioItem implements IMalumEventResponder {
+public class CurioAlchemicalRing extends MalumCurioItem implements IMalumEventResponderBody {
 
     public CurioAlchemicalRing(Properties builder) {
         super(builder, MalumTrinketFamily.ALCHEMICAL);

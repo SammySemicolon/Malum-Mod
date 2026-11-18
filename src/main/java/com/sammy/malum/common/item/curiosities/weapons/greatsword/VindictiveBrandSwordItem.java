@@ -42,7 +42,7 @@ import java.util.function.*;
 
 import static team.lodestar.wayward_attributes.tweaks.SweepAttackTweaks.*;
 
-public class VindictiveBrandSwordItem extends LodestoneSwordItem implements IMalumEventResponder, ICustomMeleeDamageTypeItem, ISpiritAffiliatedItem {
+public class VindictiveBrandSwordItem extends LodestoneSwordItem implements IMalumEventResponderBody, ICustomMeleeDamageTypeItem, ISpiritAffiliatedItem {
 
     public static final ResourceLocation BASE_INTERACTION_RANGE = MalumMod.malumPath("vindictive_brand.base_entity_interaction_range");
 

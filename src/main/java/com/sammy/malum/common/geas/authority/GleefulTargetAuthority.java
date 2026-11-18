@@ -15,6 +15,7 @@ import net.neoforged.neoforge.event.entity.living.*;
 import team.lodestar.lodestone.helpers.*;
 import team.lodestar.wayward_attributes.core.registry.WaywardAttributeTypes;
 
+import javax.annotation.Nullable;
 import java.util.function.*;
 
 public class GleefulTargetAuthority extends GeasEffect {
@@ -37,7 +38,7 @@ public class GleefulTargetAuthority extends GeasEffect {
     }
 
     @Override
-    public void incomingDamageEvent(LivingDamageEvent.Pre event, LivingEntity attacker, LivingEntity target, ItemStack stack) {
+    public void incomingDamageEvent(LivingDamageEvent.Pre event, @Nullable LivingEntity attacker, LivingEntity target, ItemStack stack) {
         if (event.getSource().is(MalumTags.DamageTypes.GLEEFUL_TARGET_BLACKLIST)) {
             return;
         }

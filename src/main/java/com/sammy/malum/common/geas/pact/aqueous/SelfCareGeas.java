@@ -33,7 +33,7 @@ public class SelfCareGeas extends GeasEffect {
             return;
         }
         if (livingEntity instanceof Player player) {
-            if (GeasEffectHandler.hasGeasEffect(player, MalumGeasEffectTypes.PACT_OF_SELF_CARE)) {
+            if (GeasEffectHandler.hasGeas(player, MalumGeasEffectTypes.PACT_OF_SELF_CARE)) {
                 player.getFoodData().add(0, 1.5f);
                 for (MobEffectInstance instance : livingEntity.getActiveEffectsMap().values()) {
                     var e = instance.getEffect().value();
@@ -46,7 +46,7 @@ public class SelfCareGeas extends GeasEffect {
     }
 
     public static int accelerateHunger(LivingEntity entity, int foodLevel) {
-        if (GeasEffectHandler.hasGeasEffect(entity, MalumGeasEffectTypes.PACT_OF_SELF_CARE)) {
+        if (GeasEffectHandler.hasGeas(entity, MalumGeasEffectTypes.PACT_OF_SELF_CARE)) {
             if (foodLevel == 0) {
                 return 3;
             }

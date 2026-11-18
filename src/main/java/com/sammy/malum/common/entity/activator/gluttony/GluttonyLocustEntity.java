@@ -55,8 +55,9 @@ public class GluttonyLocustEntity extends FloatingEntity {
     @Override
     public void addAdditionalSaveData(CompoundTag pCompound) {
         super.addAdditionalSaveData(pCompound);
-
-        pCompound.putUUID("owner", ownerUUID);
+        if (ownerUUID != null) {
+            pCompound.putUUID("owner", ownerUUID);
+        }
         pCompound.putFloat("damage", damage);
         pCompound.putBoolean("aggressive", aggressive);
     }
@@ -65,7 +66,9 @@ public class GluttonyLocustEntity extends FloatingEntity {
     public void readAdditionalSaveData(CompoundTag pCompound) {
         super.readAdditionalSaveData(pCompound);
 
-        ownerUUID = pCompound.getUUID("owner");
+        if (pCompound.hasUUID("owner")) {
+            ownerUUID = pCompound.getUUID("owner");
+        }
         damage = pCompound.getFloat("damage");
         aggressive = pCompound.getBoolean("aggressive");
     }
@@ -165,16 +168,15 @@ public class GluttonyLocustEntity extends FloatingEntity {
                 return Optional.empty();
             }
             var gluttony = attacker.getData(MalumAttachmentTypes.GLUTTONY);
-            var target = gluttony.getAttackedTarget();
-            if (target == null) {
+            var targetID = gluttony.getAttackedTarget();
+            if (targetID == null) {
                 return Optional.empty();
             }
-            if (!(level.getEntity(target) instanceof LivingEntity entity)) {
-                return Optional.empty();
-            }
-            var predicate = LodestoneEnchantmentEffectCommonsHelper.attackPredicate(attacker).and(t -> !t.isDeadOrDying() && !(t instanceof Player));
-            if (predicate.test(entity)) {
-                return Optional.of(entity);
+            if (level.getEntity(targetID) instanceof LivingEntity target) {
+                var predicate = LodestoneEnchantmentEffectCommonsHelper.attackPredicate(attacker).and(t -> !t.isDeadOrDying() && !(t instanceof Player));
+                if (predicate.test(target)) {
+                    return Optional.of(target);
+                }
             }
         }
         return Optional.empty();

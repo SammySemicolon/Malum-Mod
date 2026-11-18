@@ -11,7 +11,7 @@ import net.minecraft.world.entity.*;
 
 import java.util.function.*;
 
-public class CurioManaweavingRing extends MalumCurioItem implements IMalumEventResponder {
+public class CurioManaweavingRing extends MalumCurioItem implements IMalumEventResponderBody {
     public CurioManaweavingRing(Properties builder) {
         super(builder, MalumTrinketFamily.ALCHEMICAL);
     }

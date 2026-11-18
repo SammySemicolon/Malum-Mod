@@ -7,7 +7,7 @@
 
  import java.util.function.*;
 
- public class CurioTideboundBelt extends MalumCurioItem implements IMalumEventResponder {
+ public class CurioTideboundBelt extends MalumCurioItem implements IMalumEventResponderBody {
 
      public CurioTideboundBelt(Properties builder) {
          super(builder, MalumTrinketFamily.ELEMENTAL);

@@ -22,17 +22,13 @@ import net.minecraft.world.level.*;
 import net.minecraft.world.phys.*;
 import net.neoforged.api.distmarker.*;
 import net.neoforged.neoforge.event.entity.living.*;
-import team.lodestar.lodestone.helpers.*;
-import team.lodestar.lodestone.modules.core.easing.Easing;
 import team.lodestar.lodestone.modules.toolkit.sound.SoundPlayer;
-import team.lodestar.lodestone.registry.common.*;
-import team.lodestar.lodestone.registry.common.tag.*;
 import team.lodestar.lodestone.modules.toolkit.item.*;
 import team.lodestar.wayward_attributes.WaywardTags;
 import team.lodestar.wayward_attributes.core.registry.WaywardAttributeTypes;
 
 
-public abstract class AbstractStaffItem extends LodestoneCombatItem implements IMalumEventResponder {
+public abstract class AbstractStaffItem extends LodestoneCombatItem implements IMalumEventResponderBody {
 
     public AbstractStaffItem(Tier tier, float magicDamage, float chargeRate, int chargeCapacity, LodestoneItemProperties properties) {
         this(tier, 1f, -3f, magicDamage, chargeRate, chargeCapacity, properties);
@@ -110,7 +106,7 @@ public abstract class AbstractStaffItem extends LodestoneCombatItem implements I
         if (pRemainingUseDuration == fullyCharged) {
             float pitch = Mth.nextFloat(pLevel.random, 1.6f, 1.8f);
             pLevel.playSound(null, pLivingEntity.blockPosition(), MalumGearSoundEvents.STAFF_CHARGED.get(), SoundSource.PLAYERS, 1.25f, pitch);
-            if (GeasEffectHandler.hasGeasEffect(pLivingEntity, MalumGeasEffectTypes.OATH_OF_THE_OVEREAGER_FIST)) {
+            if (GeasEffectHandler.hasGeas(pLivingEntity, MalumGeasEffectTypes.OATH_OF_THE_OVEREAGER_FIST)) {
                 if (pLivingEntity instanceof Player player) {
                     player.getCooldowns().addCooldown(this, 5);
                 }
@@ -188,7 +184,7 @@ public abstract class AbstractStaffItem extends LodestoneCombatItem implements I
         var pos = getProjectileSpawnPos(owner, hand, 0.5f, 0.5f);
         var entity = factory.makeBolt(level);
         entity.setPos(pos);
-        boolean isHoming = GeasEffectHandler.hasGeasEffect(owner, MalumGeasEffectTypes.OATH_OF_THE_OVERKEEN_EYE);
+        boolean isHoming = GeasEffectHandler.hasGeas(owner, MalumGeasEffectTypes.OATH_OF_THE_OVERKEEN_EYE);
         entity.shootFromStaff(owner, owner.getXRot(), owner.getYRot(), -pitchOffset, velocity, 0F);
         entity.setData(owner, magicDamage, spawnDelay, isHoming);
         return entity;

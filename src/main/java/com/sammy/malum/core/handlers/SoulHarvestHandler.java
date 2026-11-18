@@ -12,8 +12,6 @@ import com.sammy.malum.core.systems.events.*;
 import com.sammy.malum.registry.common.*;
 import com.sammy.malum.registry.common.MalumContent;
 import com.sammy.malum.registry.common.sound.*;
-import net.minecraft.core.registries.*;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.*;
 import net.minecraft.tags.*;
 import net.minecraft.util.*;
@@ -26,12 +24,13 @@ import net.minecraft.world.phys.*;
 import net.neoforged.neoforge.common.*;
 import net.neoforged.neoforge.event.*;
 import net.neoforged.neoforge.event.entity.living.*;
-import team.lodestar.lodestone.handlers.*;
 import team.lodestar.lodestone.helpers.*;
 import team.lodestar.lodestone.modules.core.easing.Easing;
 
 import javax.annotation.*;
 import java.util.*;
+
+import static team.lodestar.lodestone.handlers.item_events.ItemEventHandler.createEventProcessor;
 
 public class SoulHarvestHandler {
     public static final Codec<SoulHarvestHandler> CODEC = Codec.unit(SoulHarvestHandler::new);
@@ -217,11 +216,12 @@ public class SoulHarvestHandler {
         }
         var random = attacker.getRandom();
         int bonus = Mth.floor(attacker.getAttributeValue(MalumAttributes.SPIRIT_SPOILS));
+
+        var eventProcessor = createEventProcessor(attacker);
         var event = new ModifySpiritSpoilsEvent(target, attacker, bonus);
-        ItemEventHandler.getEventResponders(attacker)
-                .forEach(lookup -> lookup.run(IMalumEventResponder.class,
-                        (eventResponderItem, stack) -> eventResponderItem.modifySpiritSpoilsEvent(event, attacker)));
+        eventProcessor.run(IMalumEventResponderBody.class, (e, s) -> e.modifySpiritSpoilsEvent(event, attacker));
         NeoForge.EVENT_BUS.post(event);
+
         bonus = event.getNewSpiritBonus();
         for (int i = 0; i < bonus; i++) {
             int index = random.nextInt(spirits.size());
@@ -232,7 +232,8 @@ public class SoulHarvestHandler {
 
     public static void pickupSpirit(LivingEntity collector, ItemStack stack) {
         SoulHarvestHandler.triggerSpiritCollection(collector);
-        ItemEntity entity = new ItemEntity(collector.level(), collector.getX(), collector.getY() + 0.5, collector.getZ(), stack);
+        var level = collector.level();
+        var entity = new ItemEntity(level, collector.getX(), collector.getY() + 0.5, collector.getZ(), stack);
         entity.setPickUpDelay(0);
         if (collector instanceof Player player) {
             var result = EventHooks.fireItemPickupPre(entity, player).canPickup();
@@ -244,16 +245,17 @@ public class SoulHarvestHandler {
             if (!stack.isEmpty()) {
                 ItemHelper.spawnItemOnEntity(collector, stack);
             }
-        } else {
-            collector.level().addFreshEntity(entity);
+            return;
         }
+        level.addFreshEntity(entity);
     }
 
     public static void triggerSpiritCollection(LivingEntity collector) {
-        var collectionEvent = new CollectSpiritEvent(collector);
         var resonance = collector.getAttributeValue(MalumAttributes.ARCANE_RESONANCE);
-        ItemEventHandler.getEventResponders(collector).forEach(lookup -> lookup.run(IMalumEventResponder.class,
-                (eventResponderItem, stack) -> eventResponderItem.spiritCollectionEvent(collectionEvent, collector, resonance)));
-        NeoForge.EVENT_BUS.post(collectionEvent);
+
+        var eventProcessor = createEventProcessor(collector);
+        var event = new CollectSpiritEvent(collector);
+        eventProcessor.run(IMalumEventResponderBody.class, (e, s) -> e.spiritCollectionEvent(event, collector, resonance));
+        NeoForge.EVENT_BUS.post(event);
     }
 }

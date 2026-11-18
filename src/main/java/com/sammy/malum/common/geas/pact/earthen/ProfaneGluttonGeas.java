@@ -13,6 +13,7 @@ import net.minecraft.world.item.*;
 import net.neoforged.neoforge.common.*;
 import net.neoforged.neoforge.event.entity.living.*;
 
+import javax.annotation.Nullable;
 import java.util.function.*;
 
 public class ProfaneGluttonGeas extends GeasEffect {
@@ -39,7 +40,7 @@ public class ProfaneGluttonGeas extends GeasEffect {
     }
 
     @Override
-    public void incomingDamageEvent(LivingDamageEvent.Pre event, LivingEntity attacker, LivingEntity target, ItemStack stack) {
+    public void incomingDamageEvent(LivingDamageEvent.Pre event, @Nullable LivingEntity attacker, LivingEntity target, ItemStack stack) {
         var effect = target.getEffect(MalumMobEffects.DESPERATE_NEED);
         if (effect == null) {
             return;

@@ -7,11 +7,15 @@ public class CurioEffectLangDatagen {
 
     public static void addTranslations() {
 
-        addCurioEffect("scythe_execution", "Scythes Exploit Wounds");
-        addCurioEffect("crits", "Critical Strikes");
-        addCurioEffect("low_health_speed", "Speed at Low Health");
-        addCurioEffect("shorten_negative_effect", "Shortens Negative Effects");
-        addCurioEffect("burning_damage", "Burning Damage");
+        addCurioEffect("vitality_rune", "Slowly Mends Minor Wounds");
+        addCurioEffect("culling_rune", "Wounded Enemies Take More Magic Damage");
+        addCurioEffect("reinforcement_rune", "Soul Ward Recovers Sooner After Blocking Damage");
+        addCurioEffect("volatile_distortion_rune", "Small Chance For Double Damage");
+
+        addCurioEffect("dexterity_rune", "Move Faster When Wounded");
+        addCurioEffect("ailment_cleansing_rune", "Dilutes Negative Effect Durations");
+        addCurioEffect("protection_rune", "Small Chance To Block Physical Damage");
+        addCurioEffect("scorching_rune", "Burn Damage Is Amplified");
 
         addCurioEffect("scythe_chain", "Deadlier Scythe Sweeping");
         addCurioEffect("silence", "Silences Attackers");
@@ -57,8 +61,9 @@ public class CurioEffectLangDatagen {
         addCurioEffect("scythe_counterattack", "Powerful Scythe Counterattack When Struck");
         addCurioEffect("pacifist_recharge", "Cooldown Extends if the Scythe is Used");
 
-        addCurioEffect("soul_ward_magic_resilience", "Soul Ward Reroutes Magic");
-        addCurioEffect("soul_ward_long_shatter_cooldown", "Lengthy Soul Ward Recharge upon Disintegration");
+        addCurioEffect("soul_ward_magic_resilience", "Soul Ward Recharges Upon Taking Magic Damage");
+        addCurioEffect("soul_ward_long_shatter_cooldown", "Soul Ward Receives Heavy Cooldown Upon Shattering");
+        addCurioEffect("soul_ward_physical_vulnerability", "Soul Ward Absorbs Physical Damage Less Effectively");
         addCurioEffect("soul_ward_complete_absorption", "Soul Ward Absorbs All Damage");
         addCurioEffect("soul_ward_escalating_integrity", "Soul Ward Gains Integrity When Nearing Disintegration");
 

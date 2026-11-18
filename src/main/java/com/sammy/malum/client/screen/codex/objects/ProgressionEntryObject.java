@@ -73,6 +73,7 @@ public class ProgressionEntryObject extends SelectableEntryObject<AbstractProgre
         int top = getOffsetY();
         int centerX = getCenterX();
         int centerY = getCenterY();
+
         renderTexture(WIDGET_FADE_TEXTURE, poseStack, centerX - 29, centerY - 29, 0, 0, 58, 58);
         if (design != null) {
             float effectStrength = Mth.lerp(partialTicks, oldOutlineVisibility, outlineVisibility) / 20f;

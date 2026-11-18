@@ -16,7 +16,7 @@
 
  import java.util.function.*;
 
- public class CurioWindweaverNecklace extends MalumCurioItem implements IMalumEventResponder {
+ public class CurioWindweaverNecklace extends MalumCurioItem implements IMalumEventResponderBody {
 
      public CurioWindweaverNecklace(Properties builder) {
          super(builder, MalumTrinketFamily.ELEMENTAL);

@@ -40,13 +40,14 @@ public class WindsweptGeas extends GeasEffect {
     }
 
     public static void scaleKnockback(LivingKnockBackEvent event) {
-        final LivingEntity entity = event.getEntity();
+        var entity = event.getEntity();
         var geas = GeasEffectHandler.getGeasEffect(entity, MalumGeasEffectTypes.PACT_OF_THE_WINDSWEPT);
         if (geas instanceof WindsweptGeas windsweptGeas) {
-            if (windsweptGeas.sprintStacks > 0) {
-                float knockbackStrength = Math.max(0, windsweptGeas.sprintStacks - MAX_SPRINT_STACKS/5)*0.1f;
-                event.setStrength(event.getStrength() * (1+knockbackStrength));
+            if (windsweptGeas.sprintStacks <= 0) {
+                return;
             }
+            float knockbackStrength = Math.max(0, windsweptGeas.sprintStacks - MAX_SPRINT_STACKS/5)*0.1f;
+            event.setStrength(event.getStrength() * (1+knockbackStrength));
         }
     }
 
@@ -59,7 +60,7 @@ public class WindsweptGeas extends GeasEffect {
                 }
             } else {
                 if (sprintStacks > 0) {
-                    sprintStacks = Math.max(0, sprintStacks - MAX_SPRINT_STACKS/10);
+                    sprintStacks = Math.max(0, sprintStacks - 5);
                 }
             }
             setDirty();

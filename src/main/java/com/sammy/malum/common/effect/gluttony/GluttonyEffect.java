@@ -1,14 +1,11 @@
 package com.sammy.malum.common.effect.gluttony;
 
 import com.sammy.malum.*;
-import com.sammy.malum.common.data.listener.spirit.EntitySpiritDropData;
 import com.sammy.malum.common.entity.activator.gluttony.*;
 import com.sammy.malum.common.item.*;
-import com.sammy.malum.common.item.curiosities.curios.sets.rotten.CurioSwarmingRotRing;
 import com.sammy.malum.core.systems.events.*;
 import com.sammy.malum.registry.common.*;
 import com.sammy.malum.registry.common.MalumContent;
-import com.sammy.malum.registry.common.magic.*;
 import net.minecraft.core.*;
 import net.minecraft.util.*;
 import net.minecraft.world.effect.MobEffect;
@@ -21,18 +18,14 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.phys.*;
 import net.neoforged.neoforge.common.*;
 import net.neoforged.neoforge.event.entity.living.*;
-import team.lodestar.lodestone.handlers.*;
 import team.lodestar.lodestone.helpers.*;
 import team.lodestar.lodestone.modules.core.easing.Easing;
-import team.lodestar.lodestone.modules.toolkit.enchanting.LodestoneEnchantmentEffectCommonsHelper;
 import team.lodestar.wayward_attributes.core.registry.WaywardAttributeTypes;
 
-import java.util.Collection;
-import java.util.List;
-import java.util.UUID;
 import java.util.function.*;
 
 import static net.neoforged.neoforge.event.entity.living.MobEffectEvent.Applicable.Result.DO_NOT_APPLY;
+import static team.lodestar.lodestone.handlers.item_events.ItemEventHandler.createEventProcessor;
 
 public class GluttonyEffect extends MobEffect {
 
@@ -131,8 +124,8 @@ public class GluttonyEffect extends MobEffect {
         var properties = createGluttony();
         gluttonyBuilder.accept(properties);
         var event = new ModifyGluttonyPropertiesEvent(target, properties);
-        ItemEventHandler.getEventResponders(target).forEach(lookup -> lookup.run(IMalumEventResponder.class,
-                (eventResponderItem, stack) -> eventResponderItem.modifyGluttonyPropertiesEvent(event, target)));
+        var eventProcessor = createEventProcessor(target);
+        eventProcessor.run(IMalumEventResponderBody.class, (e, s) -> e.modifyGluttonyPropertiesEvent(event, target));
         NeoForge.EVENT_BUS.post(event);
         return event.getProperties();
     }

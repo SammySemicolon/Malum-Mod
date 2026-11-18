@@ -63,77 +63,77 @@ public class MalignantAegisRenderHandler {
     }
 
     public static void renderMalignantAegis(GuiGraphics guiGraphics, DeltaTracker deltaTracker) {
-        var minecraft = Minecraft.getInstance();
-        var poseStack = guiGraphics.pose();
-        if (!minecraft.options.hideGui) {
-            var player = minecraft.player;
-            if (!player.isCreative() && !player.isSpectator()) {
-                double capacity = MalignantInfluenceData.getMalignantAegisCapacity(player);
-                if (displayedReinforcement > 0 && capacity > 0) {
-                    float delta = (float) (displayedReinforcement / capacity);
-                    float dissolvement = Easing.QUAD_OUT.ease(delta);
-                    float alpha = (1 - fadeout / 80f) * 0.75f;
-                    int left = guiGraphics.guiWidth() / 2 - ClientConfig.UI_SHIELD_X_OFFSET.getConfigValue();
-                    int top = guiGraphics.guiHeight() - ClientConfig.UI_SHIELD_Y_OFFSET.getConfigValue();
-
-                    poseStack.pushPose();
-                    RenderSystem.depthMask(true);
-                    RenderSystem.enableBlend();
-                    RenderSystem.defaultBlendFunc();
-                    var distorted = LodestoneShaders.SCREEN_DISTORTED_TEXTURE.getShaderInstance();
-                    distorted.safeGetUniform("YFrequency").set(24f);
-                    distorted.safeGetUniform("XFrequency").set(16f);
-                    distorted.safeGetUniform("Speed").set(1000f);
-                    distorted.safeGetUniform("Intensity").set(80f);
-                    distorted.safeGetUniform("Width").set(64f);
-                    distorted.safeGetUniform("Height").set(64f);
-
-                    var builder = VFXBuilders.createScreen().setZLevel(100).setShader(distorted);
-                    builder.setPositionWithWidth(left - 16, top - 16, 32, 32);
-                    builder.setAlpha(alpha).setTexture(EMPTY).blit(poseStack);
-
-                    var hud = MalumShaders.DISSOLVING_HUD_ELEMENT.getShaderInstance();
-                    RenderSystem.setShaderTexture(1, DISSOLVEMENT);
-                    hud.safeGetUniform("YFrequency").set(24f);
-                    hud.safeGetUniform("XFrequency").set(16f);
-                    hud.safeGetUniform("Speed").set(1000f);
-                    hud.safeGetUniform("Intensity").set(80f);
-                    hud.safeGetUniform("Dissolvement").set(dissolvement);
-                    hud.safeGetUniform("Width").set(64f);
-                    hud.safeGetUniform("Height").set(64f);
-
-                    builder.setShader(hud).setTexture(REINFORCEMENT).blit(poseStack);
-                    RenderSystem.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE);
-                    builder.setAlpha(0.2f * alpha).blit(poseStack);
-                    if (glow > 0 && glow < 80) {
-                        float time = minecraft.level.getGameTime() + deltaTracker.getGameTimeDeltaPartialTick(true);
-                        float glowAlpha = (40 - Math.abs(40 - glow)) / 40f;
-                        int angle = Mth.floor((time * 20) % 360);
-                        float range = Easing.SINE_IN_OUT.lerp(glowAlpha, 160f, 320f);
-                        var light = LodestoneShaders.RADIAL_DISTORTED_SCREEN_LIGHT.getShaderInstance();
-                        light.safeGetUniform("YFrequency").set(24f);
-                        light.safeGetUniform("XFrequency").set(16f);
-                        light.safeGetUniform("Speed").set(1000f);
-                        light.safeGetUniform("Intensity").set(80f);
-                        light.safeGetUniform("Width").set(64f);
-                        light.safeGetUniform("Height").set(64f);
-                        light.safeGetUniform("Angle").set(angle);
-                        light.safeGetUniform("LightAngleRange").set(range);
-                        RenderSystem.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE);
-                        builder.setShader(light).setAlpha(alpha);
-                        if (displayedReinforcement >= capacity) {
-                            builder.setTexture(REINFORCEMENT).blit(poseStack);
-                        }
-                        builder.setTexture(GLOW).blit(poseStack);
-                        light.applyUniformDefaults();
-                    }
-                    distorted.applyUniformDefaults();
-                    hud.applyUniformDefaults();
-                    RenderSystem.defaultBlendFunc();
-                    RenderSystem.disableBlend();
-                    poseStack.popPose();
-                }
-            }
-        }
+//        var minecraft = Minecraft.getInstance();
+//        var poseStack = guiGraphics.pose();
+//        if (!minecraft.options.hideGui) {
+//            var player = minecraft.player;
+//            if (!player.isCreative() && !player.isSpectator()) {
+//                double capacity = MalignantInfluenceData.getMalignantAegisCapacity(player);
+//                if (displayedReinforcement > 0 && capacity > 0) {
+//                    float delta = (float) (displayedReinforcement / capacity);
+//                    float dissolvement = Easing.QUAD_OUT.ease(delta);
+//                    float alpha = (1 - fadeout / 80f) * 0.75f;
+//                    int left = guiGraphics.guiWidth() / 2 - ClientConfig.UI_SHIELD_X_OFFSET.getConfigValue();
+//                    int top = guiGraphics.guiHeight() - ClientConfig.UI_SHIELD_Y_OFFSET.getConfigValue();
+//
+//                    poseStack.pushPose();
+//                    RenderSystem.depthMask(true);
+//                    RenderSystem.enableBlend();
+//                    RenderSystem.defaultBlendFunc();
+//                    var distorted = LodestoneShaders.SCREEN_DISTORTED_TEXTURE.getShaderInstance();
+//                    distorted.safeGetUniform("YFrequency").set(24f);
+//                    distorted.safeGetUniform("XFrequency").set(16f);
+//                    distorted.safeGetUniform("Speed").set(1000f);
+//                    distorted.safeGetUniform("Intensity").set(80f);
+//                    distorted.safeGetUniform("Width").set(64f);
+//                    distorted.safeGetUniform("Height").set(64f);
+//
+//                    var builder = VFXBuilders.createScreen().setZLevel(100).setShader(distorted);
+//                    builder.setPositionWithWidth(left - 16, top - 16, 32, 32);
+//                    builder.setAlpha(alpha).setTexture(EMPTY).blit(poseStack);
+//
+//                    var hud = MalumShaders.DISSOLVING_HUD_ELEMENT.getShaderInstance();
+//                    RenderSystem.setShaderTexture(1, DISSOLVEMENT);
+//                    hud.safeGetUniform("YFrequency").set(24f);
+//                    hud.safeGetUniform("XFrequency").set(16f);
+//                    hud.safeGetUniform("Speed").set(1000f);
+//                    hud.safeGetUniform("Intensity").set(80f);
+//                    hud.safeGetUniform("Dissolvement").set(dissolvement);
+//                    hud.safeGetUniform("Width").set(64f);
+//                    hud.safeGetUniform("Height").set(64f);
+//
+//                    builder.setShader(hud).setTexture(REINFORCEMENT).blit(poseStack);
+//                    RenderSystem.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE);
+//                    builder.setAlpha(0.2f * alpha).blit(poseStack);
+//                    if (glow > 0 && glow < 80) {
+//                        float time = minecraft.level.getGameTime() + deltaTracker.getGameTimeDeltaPartialTick(true);
+//                        float glowAlpha = (40 - Math.abs(40 - glow)) / 40f;
+//                        int angle = Mth.floor((time * 20) % 360);
+//                        float range = Easing.SINE_IN_OUT.lerp(glowAlpha, 160f, 320f);
+//                        var light = LodestoneShaders.RADIAL_DISTORTED_SCREEN_LIGHT.getShaderInstance();
+//                        light.safeGetUniform("YFrequency").set(24f);
+//                        light.safeGetUniform("XFrequency").set(16f);
+//                        light.safeGetUniform("Speed").set(1000f);
+//                        light.safeGetUniform("Intensity").set(80f);
+//                        light.safeGetUniform("Width").set(64f);
+//                        light.safeGetUniform("Height").set(64f);
+//                        light.safeGetUniform("Angle").set(angle);
+//                        light.safeGetUniform("LightAngleRange").set(range);
+//                        RenderSystem.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE);
+//                        builder.setShader(light).setAlpha(alpha);
+//                        if (displayedReinforcement >= capacity) {
+//                            builder.setTexture(REINFORCEMENT).blit(poseStack);
+//                        }
+//                        builder.setTexture(GLOW).blit(poseStack);
+//                        light.applyUniformDefaults();
+//                    }
+//                    distorted.applyUniformDefaults();
+//                    hud.applyUniformDefaults();
+//                    RenderSystem.defaultBlendFunc();
+//                    RenderSystem.disableBlend();
+//                    poseStack.popPose();
+//                }
+//            }
+//        }
     }
 }

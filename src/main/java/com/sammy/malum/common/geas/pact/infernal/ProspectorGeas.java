@@ -40,6 +40,6 @@ public class ProspectorGeas extends GeasEffect {
     }
 
     public static boolean hasProspectorPact(LivingEntity entity) {
-        return GeasEffectHandler.hasGeasEffect(entity, MalumGeasEffectTypes.PACT_OF_THE_PROSPECTOR);
+        return GeasEffectHandler.hasGeas(entity, MalumGeasEffectTypes.PACT_OF_THE_PROSPECTOR);
     }
 }

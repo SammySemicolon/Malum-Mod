@@ -7,11 +7,11 @@ import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.event.entity.living.LivingDamageEvent;
-import team.lodestar.lodestone.handlers.ItemEventHandler;
+import team.lodestar.lodestone.handlers.item_events.IEventResponderBody;
 
 import java.util.function.Consumer;
 
-public class RuneScorchingItem extends MiracleRuneCurioItem implements ItemEventHandler.IEventResponder {
+public class RuneScorchingItem extends MiracleRuneCurioItem implements IEventResponderBody {
 
     public RuneScorchingItem(Properties builder) {
         super(builder, MalumSpiritTypes.INFERNAL_SPIRIT);
@@ -19,7 +19,7 @@ public class RuneScorchingItem extends MiracleRuneCurioItem implements ItemEvent
 
     @Override
     public void addExtraTooltipLines(Consumer<Component> consumer) {
-        consumer.accept(TooltipComponentHelper.positiveCurioEffect("burning_damage"));
+        consumer.accept(TooltipComponentHelper.positiveCurioEffect("scorching_rune"));
     }
 
     @Override

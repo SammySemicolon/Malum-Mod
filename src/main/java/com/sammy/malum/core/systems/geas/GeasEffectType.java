@@ -35,10 +35,6 @@ public class GeasEffectType {
         this.spiritTypes = spiritTypes;
     }
 
-    public SpiritHolder<SpiritArcanaType> getIdentifyingSpirit() {
-        return spiritTypes.getFirst();
-    }
-
     public String getDetailedCons() {
         return getLangKey() + ".cons";
     }

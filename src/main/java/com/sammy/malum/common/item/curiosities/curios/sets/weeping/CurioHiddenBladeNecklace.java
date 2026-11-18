@@ -18,14 +18,13 @@ import net.minecraft.world.item.*;
 import net.neoforged.neoforge.event.entity.living.*;
 import net.neoforged.neoforge.event.tick.*;
 import team.lodestar.lodestone.helpers.*;
-import team.lodestar.lodestone.modules.core.easing.Easing;
 import team.lodestar.lodestone.modules.toolkit.sound.SoundPlayer;
-import team.lodestar.lodestone.registry.common.*;
 import team.lodestar.wayward_attributes.core.registry.WaywardAttributeTypes;
 
+import javax.annotation.Nullable;
 import java.util.function.*;
 
-public class CurioHiddenBladeNecklace extends MalumCurioItem implements IMalumEventResponder, IVoidItem {
+public class CurioHiddenBladeNecklace extends MalumCurioItem implements IMalumEventResponderBody, IVoidItem {
 
     public static final int COOLDOWN_DURATION = 200;
 
@@ -40,7 +39,7 @@ public class CurioHiddenBladeNecklace extends MalumCurioItem implements IMalumEv
     }
 
     @Override
-    public void incomingDamageEvent(LivingDamageEvent.Pre event, LivingEntity attacker, LivingEntity attacked, ItemStack stack) {
+    public void incomingDamageEvent(LivingDamageEvent.Pre event, @Nullable LivingEntity attacker, LivingEntity attacked, ItemStack stack) {
         if (attacked.level().isClientSide()) {
             return;
         }

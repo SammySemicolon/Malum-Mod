@@ -3,7 +3,6 @@ package com.sammy.malum.common.data.attachment.soul_data;
 import com.mojang.serialization.*;
 import com.mojang.serialization.codecs.*;
 import com.sammy.malum.*;
-import com.sammy.malum.common.payloads.*;
 import com.sammy.malum.core.systems.geas.*;
 import com.sammy.malum.registry.common.*;
 import io.netty.buffer.*;
@@ -14,7 +13,6 @@ import net.minecraft.util.*;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.*;
 import net.minecraft.world.item.*;
-import net.neoforged.neoforge.network.*;
 import top.theillusivec4.curios.api.*;
 
 import java.util.*;
@@ -24,22 +22,21 @@ public class GeasSoulData {
     public static final ResourceLocation GEAS_CURIO_SLOT = MalumMod.malumPath("geas_curio_slot");
 
     public static final Codec<GeasSoulData> CODEC = RecordCodecBuilder.create(obj -> obj.group(
-            GeasEffectType.CODEC.listOf().fieldOf("geasEffects").forGetter(sd -> sd.geasEffectTypes)
+            GeasEffectType.CODEC.listOf().fieldOf("sworn_geas").forGetter(sd -> sd.swornGeas)
     ).apply(obj, GeasSoulData::new));
 
     public static StreamCodec<ByteBuf, GeasSoulData> STREAM_CODEC = ByteBufCodecs.fromCodec(GeasSoulData.CODEC);
 
-    private final List<GeasEffectType> geasEffectTypes = new ArrayList<>();
-    private final List<GeasEffect> cachedGeasEffects = new ArrayList<>();
-    private final List<ItemStack> cachedGeasStacks = new ArrayList<>();
+    private final List<GeasEffectType> swornGeas = new ArrayList<>();
+    private final List<GeasEffect> geasEffects = new ArrayList<>();
 
     private boolean isDirty;
 
     public GeasSoulData() {
     }
 
-    private GeasSoulData(List<GeasEffectType> geasEffectTypes) {
-        geasEffectTypes.forEach(this::addGeasEffect);
+    private GeasSoulData(List<GeasEffectType> swornGeas) {
+        swornGeas.forEach(this::addGeasEffect);
     }
 
     public boolean isDirty() {
@@ -51,8 +48,8 @@ public class GeasSoulData {
     }
 
     public boolean removeGeasEffect(GeasEffectType geas) {
-        if (geasEffectTypes.contains(geas)) {
-            geasEffectTypes.remove(geas);
+        if (swornGeas.contains(geas)) {
+            swornGeas.remove(geas);
             setDirty(true);
             return true;
         }
@@ -65,17 +62,17 @@ public class GeasSoulData {
             return false;
         }
         int limit = Mth.ceil(attribute.getValue());
-        if (geasEffectTypes.size() < limit) {
+        if (swornGeas.size() < limit) {
             return addGeasEffect(geas);
         }
         return false;
     }
 
     public boolean addGeasEffect(GeasEffectType geas) {
-        if (geasEffectTypes.contains(geas)) {
+        if (swornGeas.contains(geas)) {
             return false;
         }
-        geasEffectTypes.add(geas);
+        swornGeas.add(geas);
         setDirty(true);
         return true;
     }
@@ -83,48 +80,49 @@ public class GeasSoulData {
     public boolean hasGeasEffect(LivingEntity living, Holder<GeasEffectType> type) {
         return getGeasEffect(living, type) != null;
     }
+
     public boolean hasGeasEffect(LivingEntity living, GeasEffectType type) {
         return getGeasEffect(living, type) != null;
     }
 
-    public List<ItemStack> getGeasItemStacks(LivingEntity entity) {
+    public ItemStack getGeasDisplayStack(LivingEntity entity, int index) {
         updateCaches(entity);
-        return cachedGeasStacks;
+
+        if (index < swornGeas.size()) {
+            return swornGeas.get(index).createDefaultStack();
+        }
+        return ItemStack.EMPTY;
     }
 
     public GeasEffect getGeasEffect(LivingEntity entity, Holder<GeasEffectType> type) {
         return getGeasEffect(entity, type.value());
     }
+
     public GeasEffect getGeasEffect(LivingEntity entity, GeasEffectType type) {
-        if (!geasEffectTypes.contains(type)) {
+        if (!swornGeas.contains(type)) {
             return null;
         }
-        return getGeasEffects(entity).get(getGeasIndex(type));
+        return getGeasEffects(entity).get(swornGeas.indexOf(type));
     }
 
     public List<GeasEffect> getGeasEffects(LivingEntity entity) {
         updateCaches(entity);
-        return cachedGeasEffects;
-    }
-
-    public int getGeasIndex(GeasEffectType type) {
-        return geasEffectTypes.indexOf(type);
+        return geasEffects;
     }
 
     public void updateCaches(LivingEntity entity) {
-        if (isDirty()) {
-            cachedGeasEffects.forEach(e -> e.removeAttributeModifiers(entity));
-            cachedGeasEffects.clear();
-            cachedGeasStacks.clear();
-            for (GeasEffectType geas : geasEffectTypes) {
-                cachedGeasEffects.add(geas.createEffect());
-                cachedGeasStacks.add(geas.createDefaultStack());
-            }
-            if (!entity.level().isClientSide) {
-                entity.syncData(MalumAttachmentTypes.GEAS_SOUL_INFO);
-            }
-            CuriosApi.getCuriosInventory(entity).ifPresent(h -> h.addPermanentSlotModifier("geas", GEAS_CURIO_SLOT, geasEffectTypes.size(), AttributeModifier.Operation.ADD_VALUE));
-            setDirty(false);
+        if (!isDirty()) {
+            return;
         }
+        geasEffects.forEach(e -> e.removeAttributeModifiers(entity));
+        geasEffects.clear();
+        for (GeasEffectType geas : swornGeas) {
+            geasEffects.add(geas.createEffect());
+        }
+        if (!entity.level().isClientSide) {
+            entity.syncData(MalumAttachmentTypes.GEAS_SOUL_INFO);
+        }
+        CuriosApi.getCuriosInventory(entity).ifPresent(h -> h.addPermanentSlotModifier("geas", GEAS_CURIO_SLOT, swornGeas.size(), AttributeModifier.Operation.ADD_VALUE));
+        setDirty(false);
     }
 }

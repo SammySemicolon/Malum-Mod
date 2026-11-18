@@ -1,6 +1,6 @@
 package com.sammy.malum.common.item.curiosities.curios.sets.alchemical;
 
-import com.sammy.malum.common.item.IMalumEventResponder;
+import com.sammy.malum.common.item.IMalumEventResponderBody;
 import com.sammy.malum.common.item.curiosities.curios.MalumCurioItem;
 import com.sammy.malum.core.helpers.*;
 import com.sammy.malum.core.systems.events.*;
@@ -9,7 +9,7 @@ import net.minecraft.world.entity.LivingEntity;
 
 import java.util.function.Consumer;
 
-public class CurioCurativeRing extends MalumCurioItem implements IMalumEventResponder {
+public class CurioCurativeRing extends MalumCurioItem implements IMalumEventResponderBody {
     public CurioCurativeRing(Properties builder) {
         super(builder, MalumTrinketFamily.ALCHEMICAL);
     }

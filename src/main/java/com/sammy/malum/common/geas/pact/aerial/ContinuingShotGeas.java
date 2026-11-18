@@ -32,7 +32,7 @@ public class ContinuingShotGeas extends GeasEffect {
 
     @Override
     public void finalizedOutgoingDamageEvent(LivingDamageEvent.Post event, LivingEntity attacker, LivingEntity target, ItemStack stack) {
-        final Entity projectile = event.getSource().getDirectEntity();
+        var projectile = event.getSource().getDirectEntity();
         if ((projectile instanceof AbstractArrow arrow && arrow.isCritArrow()) || projectile instanceof AbstractBoltProjectile) {
             applyEffect(attacker, true);
         }
@@ -44,35 +44,35 @@ public class ContinuingShotGeas extends GeasEffect {
         }
         if (projectile instanceof AbstractArrow || projectile instanceof AbstractBoltProjectile) {
             if (projectile.getOwner() instanceof LivingEntity owner) {
-                if (GeasEffectHandler.hasGeasEffect(owner, MalumGeasEffectTypes.PACT_OF_THE_CONTINUING_SHOT)) {
+                if (GeasEffectHandler.hasGeas(owner, MalumGeasEffectTypes.PACT_OF_THE_CONTINUING_SHOT)) {
                     applyEffect(owner, false);
                 }
             }
         }
     }
 
-    public static void onItemUseStart(LivingEntityUseItemEvent.Start event) {
-        LivingEntity entity = event.getEntity();
-        GeasEffect geasEffect = GeasEffectHandler.getGeasEffect(entity, MalumGeasEffectTypes.PACT_OF_THE_CONTINUING_SHOT);
-        if (geasEffect instanceof ContinuingShotGeas) {
-            int duration = event.getDuration();
-            int drawSpeedStacks = 0;
-            var positive = entity.getEffect(MalumMobEffects.TRUE_SHOT);
-            var negative = entity.getEffect(MalumMobEffects.FLAWED_AIM);
-            if (positive != null) {
-                drawSpeedStacks += positive.getAmplifier() + 1;
-            }
-            if (negative != null) {
-                drawSpeedStacks -= negative.getAmplifier() + 1;
-            }
-            if (drawSpeedStacks < 0) {
-                duration -= drawSpeedStacks * 5;
-            } else {
-                duration -= (int) (drawSpeedStacks * 1.5f);
-            }
-            event.setDuration(duration);
-        }
-    }
+//    public static void onItemUseStart(LivingEntityUseItemEvent.Start event) {
+//        LivingEntity entity = event.getEntity();
+//        GeasEffect geasEffect = GeasEffectHandler.getGeasEffect(entity, MalumGeasEffectTypes.PACT_OF_THE_CONTINUING_SHOT);
+//        if (geasEffect instanceof ContinuingShotGeas) {
+//            int duration = event.getDuration();
+//            int drawSpeedStacks = 0;
+//            var positive = entity.getEffect(MalumMobEffects.TRUE_SHOT);
+//            var negative = entity.getEffect(MalumMobEffects.FLAWED_AIM);
+//            if (positive != null) {
+//                drawSpeedStacks += positive.getAmplifier() + 1;
+//            }
+//            if (negative != null) {
+//                drawSpeedStacks -= negative.getAmplifier() + 1;
+//            }
+//            if (drawSpeedStacks < 0) {
+//                duration -= drawSpeedStacks * 5;
+//            } else {
+//                duration -= (int) (drawSpeedStacks * 1.5f);
+//            }
+//            event.setDuration(duration);
+//        }
+//    }
 
     public static void applyEffect(LivingEntity entity, boolean isPositive) {
         entity.removeEffect(isPositive ? MalumMobEffects.FLAWED_AIM : MalumMobEffects.TRUE_SHOT);

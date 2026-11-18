@@ -1,5 +1,6 @@
 package com.sammy.malum.common.item;
 
+import com.sammy.malum.common.data.component.GeasDataComponent;
 import com.sammy.malum.core.handlers.*;
 import com.sammy.malum.core.systems.geas.*;
 import com.sammy.malum.registry.common.item.*;
@@ -16,7 +17,6 @@ import net.neoforged.neoforge.event.entity.player.*;
 import org.jetbrains.annotations.*;
 import team.lodestar.lodestone.handlers.screenparticle.*;
 import team.lodestar.lodestone.modules.rendering.particle.standard.screen.ScreenParticleHolder;
-import team.lodestar.lodestone.modules.rendering.particle.standard.screen.*;
 import top.theillusivec4.curios.api.*;
 import top.theillusivec4.curios.api.type.capability.*;
 
@@ -38,9 +38,9 @@ public class GeasItem extends Item implements ParticleEmitterHandler.ItemParticl
     @Override
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand usedHand) {
         final ItemStack stack = player.getItemInHand(usedHand);
-        GeasEffectHandler.getStoredGeasEffect(stack).ifPresent(c -> {
+        GeasDataComponent.getStoredGeasEffect(stack).ifPresent(c -> {
             var geas = c.geasEffectType();
-            if (GeasEffectHandler.hasGeasEffect(player, geas)) {
+            if (GeasEffectHandler.hasGeas(player, geas)) {
                 GeasEffectHandler.removeGeasEffect(player, geas);
             } else {
                 GeasEffectHandler.addGeasEffect(player, geas);
@@ -71,15 +71,16 @@ public class GeasItem extends Item implements ParticleEmitterHandler.ItemParticl
 
     @Override
     public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
-        if (stack.has(MalumDataComponents.GEAS_EFFECT)) {
-            GeasEffectHandler.getStoredGeasEffect(stack).ifPresent(c -> {
-                var component = tooltipComponents.getFirst().copy()
-                        .append(Component.literal(" <").withStyle(ChatFormatting.DARK_GRAY))
-                        .append(Component.translatable(c.geasEffectType().getLangKey()).withStyle(ChatFormatting.GOLD))
-                        .append(Component.literal(">").withStyle(ChatFormatting.DARK_GRAY));
-                tooltipComponents.set(0, component);
-            });
+        if (!stack.has(MalumDataComponents.GEAS_EFFECT)) {
+            return;
         }
+        GeasDataComponent.getStoredGeasEffect(stack).ifPresent(c -> {
+            var component = tooltipComponents.getFirst().copy()
+                    .append(Component.literal(" <").withStyle(ChatFormatting.DARK_GRAY))
+                    .append(Component.translatable(c.geasEffectType().getLangKey()).withStyle(ChatFormatting.GOLD))
+                    .append(Component.literal(">").withStyle(ChatFormatting.DARK_GRAY));
+            tooltipComponents.set(0, component);
+        });
     }
 
     @Override
@@ -94,7 +95,7 @@ public class GeasItem extends Item implements ParticleEmitterHandler.ItemParticl
 
     public static void addGeasTooltip(ItemTooltipEvent event) {
         ItemStack itemStack = event.getItemStack();
-        GeasEffectHandler.getStoredGeasEffect(itemStack).ifPresent(c -> {
+        GeasDataComponent.getStoredGeasEffect(itemStack).ifPresent(c -> {
             var entity = event.getEntity();
             var geas = c.geasEffectType();
             List<Component> tooltip = event.getToolTip();

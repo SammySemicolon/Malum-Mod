@@ -16,6 +16,7 @@ import net.neoforged.neoforge.event.entity.living.*;
 import net.neoforged.neoforge.event.tick.*;
 import team.lodestar.lodestone.modules.toolkit.worldevent.WorldEventHandler;
 
+import javax.annotation.Nullable;
 import java.util.function.Consumer;
 
 public class BerserkerGeas extends GeasEffect {
@@ -33,7 +34,7 @@ public class BerserkerGeas extends GeasEffect {
     }
 
     @Override
-    public void incomingDamageEvent(LivingDamageEvent.Pre event, LivingEntity attacker, LivingEntity target, ItemStack stack) {
+    public void incomingDamageEvent(LivingDamageEvent.Pre event, @Nullable LivingEntity attacker, LivingEntity target, ItemStack stack) {
         event.setNewDamage(event.getNewDamage() * 2f);
     }
 

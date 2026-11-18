@@ -13,10 +13,12 @@ import net.neoforged.neoforge.event.tick.*;
 import java.util.*;
 import java.util.function.*;
 
-public class GeasEffect implements IMalumEventResponder {
+public class GeasEffect implements IMalumEventResponderBody {
+
     public final GeasEffectType type;
-    private boolean isDirty = true;
+
     private Multimap<Holder<Attribute>, AttributeModifier> attributeCache;
+    private boolean isDirty = true;
 
     public GeasEffect(GeasEffectType type) {
         this.type = type;

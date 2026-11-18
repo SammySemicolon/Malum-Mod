@@ -23,22 +23,18 @@ import net.minecraft.world.item.*;
 import net.minecraft.world.item.component.ItemAttributeModifiers;
 import net.minecraft.world.item.enchantment.*;
 import net.minecraft.world.level.*;
-import net.neoforged.neoforge.common.ItemAbility;
 import net.neoforged.neoforge.event.entity.living.*;
 import net.neoforged.neoforge.event.entity.player.SweepAttackEvent;
 import team.lodestar.lodestone.helpers.*;
 import team.lodestar.lodestone.modules.toolkit.sound.SoundPlayer;
-import team.lodestar.lodestone.registry.common.*;
 import team.lodestar.lodestone.modules.toolkit.item.*;
 import team.lodestar.wayward_attributes.core.registry.WaywardAttributeTypes;
-
-import java.util.Optional;
 
 import static team.lodestar.wayward_attributes.tweaks.SweepAttackTweaks.BASE_SWEEP_DAMAGE;
 import static team.lodestar.wayward_attributes.tweaks.SweepAttackTweaks.BASE_SWEEP_RADIUS;
 
 
-public class MalumScytheItem extends LodestoneCombatItem implements IMalumEventResponder, ICustomMeleeDamageTypeItem {
+public class MalumScytheItem extends LodestoneCombatItem implements IMalumEventResponderBody, ICustomMeleeDamageTypeItem {
 
     public MalumScytheItem(Tier tier, float attackDamage, float attackSpeed, float sweepingDamage, float sweepingRadius, LodestoneItemProperties properties) {
         super(tier, attackDamage, attackSpeed - 4f,

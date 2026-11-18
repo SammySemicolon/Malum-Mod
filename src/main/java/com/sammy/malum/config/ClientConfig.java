@@ -18,13 +18,6 @@ public class ClientConfig extends LodestoneConfig {
             builder.comment("Should the scroll direction be reversed in the encyclopedia arcana entry screen? This simply affects how you move through pages in an entry.")
                     .define("scrollDirection", false)));
 
-    public static ConfigValueHolder<Integer> UI_SHIELD_X_OFFSET = new ConfigValueHolder<>(MALUM, "client/ui", (builder ->
-            builder.comment("X offset from the center of the screen for the Soul Ward and Malignant Aegis HUD Elements.")
-                    .define("shieldX", 0)));
-    public static ConfigValueHolder<Integer> UI_SHIELD_Y_OFFSET = new ConfigValueHolder<>(MALUM, "client/ui", (builder ->
-            builder.comment("Y offset from the bottom of the screen for the Soul Ward and Malignant Aegis HUD Elements.")
-                    .define("shieldY", 47)));
-
     public static ConfigValueHolder<Integer> SCARF_LENGTH = new ConfigValueHolder<>(MALUM, "client/scarf", (builder ->
             builder.comment("How long should the Malignant Stronghold Scarf be? This value will affect all rendered scarves, not just the one worn by the local player.")
                     .define("scarfLength", 30)));

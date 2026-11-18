@@ -26,7 +26,7 @@ import team.lodestar.lodestone.modules.toolkit.worldevent.WorldEventHandler;
 import team.lodestar.lodestone.modules.toolkit.item.*;
 import team.lodestar.wayward_attributes.WaywardTags;
 
-public class TyrvingItem extends LodestoneSwordItem implements IMalumEventResponder, ISpiritAffiliatedItem {
+public class TyrvingItem extends LodestoneSwordItem implements IMalumEventResponderBody, ISpiritAffiliatedItem {
 
     public TyrvingItem(Tier tier, float attackDamage, float attackSpeed, LodestoneItemProperties properties) {
         super(tier, attackDamage, attackSpeed, properties);

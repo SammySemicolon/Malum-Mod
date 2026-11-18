@@ -1,6 +1,6 @@
 package com.sammy.malum.common.item.curiosities.curios.sets.weeping;
 
-import com.sammy.malum.common.item.IMalumEventResponder;
+import com.sammy.malum.common.item.IMalumEventResponderBody;
 import com.sammy.malum.common.item.IVoidItem;
 import com.sammy.malum.common.item.curiosities.curios.MalumCurioItem;
 import com.sammy.malum.core.helpers.*;
@@ -17,7 +17,7 @@ import team.lodestar.lodestone.modules.core.easing.Easing;
 
 import java.util.function.Consumer;
 
-public class CurioGrowingFleshRing extends MalumCurioItem implements IVoidItem, IMalumEventResponder {
+public class CurioGrowingFleshRing extends MalumCurioItem implements IVoidItem, IMalumEventResponderBody {
     public CurioGrowingFleshRing(Properties builder) {
         super(builder, MalumTrinketFamily.VOID);
     }

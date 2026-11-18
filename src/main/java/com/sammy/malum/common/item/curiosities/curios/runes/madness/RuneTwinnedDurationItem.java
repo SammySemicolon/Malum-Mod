@@ -4,6 +4,7 @@ import com.sammy.malum.core.helpers.*;
 import com.sammy.malum.registry.common.MalumContent;
 import com.sammy.malum.registry.common.magic.MalumSpiritTypes;
 import net.minecraft.network.chat.Component;
+import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
 import net.neoforged.neoforge.event.entity.living.MobEffectEvent;
@@ -23,14 +24,20 @@ public class RuneTwinnedDurationItem extends MadnessRuneCurioItem {
         consumer.accept(TooltipComponentHelper.positiveCurioEffect("extend_positive_effect"));
     }
 
-    public static void scaleDuration(MobEffectEvent.Added event) {
-        LivingEntity entity = event.getEntity();
-        if (event.getOldEffectInstance() == null && CurioHelper.hasCurioEquipped(entity, MalumContent.Gear.RUNE_OF_TWINNED_DURATION.get())) {
-            MobEffectInstance effect = event.getEffectInstance();
-            var type = effect.getEffect().value();
-            if (type.isBeneficial()) {
-                EntityHelper.extendEffect(effect, entity, effect.getDuration());
-            }
+    public static void scaleEffectDuration(MobEffectEvent.Added event) {
+        var entity = event.getEntity();
+        if (event.getOldEffectInstance() != null) {
+            return;
         }
+        if (!CurioHelper.hasCurioEquipped(entity, MalumContent.Gear.RUNE_OF_TWINNED_DURATION.get())) {
+            return;
+        }
+        var effect = event.getEffectInstance();
+        assert effect != null;
+        var type = effect.getEffect().value();
+        if (!type.isBeneficial()) {
+            return;
+        }
+        EntityHelper.extendEffect(effect, entity, effect.getDuration());
     }
 }

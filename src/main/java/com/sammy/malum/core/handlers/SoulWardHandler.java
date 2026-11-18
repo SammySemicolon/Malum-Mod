@@ -9,32 +9,30 @@ import net.minecraft.world.entity.*;
 import net.neoforged.neoforge.common.*;
 import net.neoforged.neoforge.event.entity.living.*;
 import net.neoforged.neoforge.event.tick.*;
-import team.lodestar.lodestone.helpers.*;
-import team.lodestar.lodestone.modules.core.easing.Easing;
 import team.lodestar.lodestone.modules.toolkit.sound.SoundPlayer;
-import team.lodestar.lodestone.registry.common.tag.*;
 import team.lodestar.wayward_attributes.WaywardTags;
 
-import static team.lodestar.lodestone.handlers.ItemEventHandler.*;
+import static team.lodestar.lodestone.handlers.item_events.ItemEventHandler.createEventProcessor;
 
 public class SoulWardHandler {
 
     public static void entityTick(EntityTickEvent.Pre event) {
         if (event.getEntity() instanceof LivingEntity living) {
             var level = living.level();
-            if (!level.isClientSide) {
-                if (living.getAttributeValue(MalumAttributes.SOUL_WARD_CAPACITY) == 0 && !living.hasData(MalumAttachmentTypes.SOUL_WARD)) {
-                    return;
-                }
-                var data = living.getData(MalumAttachmentTypes.SOUL_WARD);
-                data.tickData(living);
+            if (level.isClientSide) {
+                return;
             }
+            if (living.getAttributeValue(MalumAttributes.SOUL_WARD_CAPACITY) == 0) {
+                return;
+            }
+            var data = living.getData(MalumAttachmentTypes.SOUL_WARD);
+            data.tickData(living);
         }
     }
 
     public static void shieldPlayer(LivingDamageEvent.Pre event) {
-        var living = event.getEntity();
-        if (living.level().isClientSide()) {
+        var wardedEntity = event.getEntity();
+        if (wardedEntity.level().isClientSide()) {
             return;
         }
         if (event.getNewDamage() <= 0) {
@@ -45,36 +43,47 @@ public class SoulWardHandler {
             return;
         }
 
-        var data = living.getData(MalumAttachmentTypes.SOUL_WARD);
-        data.addCooldown(living, 4f);
-        if (!data.isDepleted()) {
-            float amount = event.getNewDamage();
-            double magicDamageAbsorption = 1 - CommonConfig.SOUL_WARD_MAGIC.getConfigValue();
-            double physicalDamageAbsorption = 1 - CommonConfig.SOUL_WARD_PHYSICAL.getConfigValue();
-            double integrity = living.getAttributeValue(MalumAttributes.SOUL_WARD_INTEGRITY)*2;
-            var eventResponders = getEventResponders(living);
-            var propertiesEvent = new ModifySoulWardPropertiesEvent(living, data, source, physicalDamageAbsorption, magicDamageAbsorption, integrity);
-            eventResponders.forEach(lookup -> lookup.run(IMalumEventResponder.class, (eventResponderItem, stack) ->
-                    eventResponderItem.modifySoulWardPropertiesEvent(propertiesEvent, living, stack)));
-            NeoForge.EVENT_BUS.post(propertiesEvent);
-            magicDamageAbsorption = propertiesEvent.getNewMagicDamageAbsorption();
-            physicalDamageAbsorption = propertiesEvent.getNewPhysicalDamageAbsorption();
-            integrity = propertiesEvent.getNewIntegrity();
-
-            double absorptionMultiplier = source.is(WaywardTags.DamageTypeTags.IS_MAGIC) ? magicDamageAbsorption : physicalDamageAbsorption;
-            double absorbedDamage = amount * (absorptionMultiplier);
-            double soulWardDamage = absorbedDamage / Math.max(integrity, 0.01f);
-            data.reduceSoulWard(soulWardDamage);
-
-            var damageEvent = new SoulWardDamageEvent(living, data, source, absorbedDamage, soulWardDamage);
-            eventResponders.forEach(lookup -> lookup.run(IMalumEventResponder.class, (eventResponderItem, stack) ->
-                    eventResponderItem.soulWardDamageEvent(damageEvent, living, stack)));
-            NeoForge.EVENT_BUS.post(damageEvent);
-
-            var sound = data.getSoulWard() == 0 ? MalumSoundEvents.SOUL_WARD_DEPLETE : MalumSoundEvents.SOUL_WARD_HIT;
-            var volume = source.is(MalumDamageTypes.KARMIC) ? 0.2f : 0.5f; //reduced volume for karmic damage, specifically with the pact of patience repaid in mind
-            SoundPlayer.create(sound).volume(volume).pitch(1f, 1.5f).play(living);
-            event.setNewDamage((float) (amount - absorbedDamage));
+        var data = wardedEntity.getData(MalumAttachmentTypes.SOUL_WARD);
+        if (data.isDepleted()) {
+            data.addCooldown(4f);
+            return;
         }
+        var eventProcessor = createEventProcessor(wardedEntity);
+
+        float damage = event.getNewDamage();
+        double soulWard = data.getSoulWard();
+        double integrity = wardedEntity.getAttributeValue(MalumAttributes.SOUL_WARD_INTEGRITY);
+        double cooldownRatio = 4;
+
+        boolean isMagic = source.is(WaywardTags.DamageTypeTags.IS_MAGIC);
+        double absorptionRatio = (isMagic ? CommonConfig.SOUL_WARD_MAGIC : CommonConfig.SOUL_WARD_PHYSICAL).getConfigValue();
+
+        var propertiesEvent = new ModifySoulWardPropertiesEvent(wardedEntity, data, source, integrity, cooldownRatio, absorptionRatio);
+        eventProcessor.run(IMalumEventResponderBody.class, (e, s) -> e.modifySoulWardPropertiesEvent(propertiesEvent, wardedEntity, s));
+        NeoForge.EVENT_BUS.post(propertiesEvent);
+
+        integrity = propertiesEvent.getNewIntegrity();
+        cooldownRatio = propertiesEvent.getNewCooldownRatio();
+        absorptionRatio = propertiesEvent.getNewAbsorptionRatio();
+
+        double absorbedDamage = Math.min(damage * absorptionRatio, soulWard);
+        if (absorbedDamage < 0) {
+            return;
+        }
+
+        double soulWardDamage = absorbedDamage / Math.max(integrity, 0.25f);
+        data.reduceSoulWard(soulWardDamage);
+        data.addCooldown(cooldownRatio);
+
+
+
+        var damageEvent = new SoulWardDamageEvent(wardedEntity, data, source, absorbedDamage, soulWardDamage);
+        eventProcessor.run(IMalumEventResponderBody.class, (e, s) -> e.soulWardDamageEvent(damageEvent, wardedEntity, s));
+        NeoForge.EVENT_BUS.post(propertiesEvent);
+
+        var sound = data.getSoulWard() == 0 ? MalumSoundEvents.SOUL_WARD_DEPLETE : MalumSoundEvents.SOUL_WARD_HIT;
+        var volume = source.is(MalumDamageTypes.KARMIC) ? 0.2f : 0.5f; //reduced volume for karmic damage, specifically with the pact of patience repaid in mind
+        SoundPlayer.create(sound).volume(volume).pitch(1f, 1.5f).play(wardedEntity);
+        event.setNewDamage((float) (damage - absorbedDamage));
     }
 }

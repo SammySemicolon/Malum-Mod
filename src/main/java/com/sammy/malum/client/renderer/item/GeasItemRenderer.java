@@ -3,7 +3,7 @@ package com.sammy.malum.client.renderer.item;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.*;
 import com.sammy.malum.client.screen.codex.helper.CodexRenderHelper;
-import com.sammy.malum.core.handlers.GeasEffectHandler;
+import com.sammy.malum.common.data.component.GeasDataComponent;
 import com.sammy.malum.registry.common.item.MalumDataComponents;
 import net.minecraft.client.model.geom.EntityModelSet;
 import net.minecraft.client.renderer.*;
@@ -21,7 +21,7 @@ public class GeasItemRenderer extends BlockEntityWithoutLevelRenderer {
     public void renderByItem(ItemStack stack, ItemDisplayContext ctx, PoseStack poseStack, MultiBufferSource buffer, int light, int overlay) {
         if (ctx.equals(ItemDisplayContext.GUI)) {
             if (stack.has(MalumDataComponents.GEAS_EFFECT)) {
-                GeasEffectHandler.getStoredGeasEffect(stack).ifPresent(c -> {
+                GeasDataComponent.getStoredGeasEffect(stack).ifPresent(c -> {
                     var geas = c.geasEffectType();
                     poseStack.popPose();
                     poseStack.pushPose();

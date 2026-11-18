@@ -14,7 +14,7 @@ import team.lodestar.lodestone.modules.core.easing.Easing;
 
 import java.util.function.*;
 
-public class CurioEchoingArcanaRing extends MalumCurioItem implements IVoidItem, IMalumEventResponder {
+public class CurioEchoingArcanaRing extends MalumCurioItem implements IVoidItem, IMalumEventResponderBody {
     public CurioEchoingArcanaRing(Properties builder) {
         super(builder, MalumTrinketFamily.VOID);
     }

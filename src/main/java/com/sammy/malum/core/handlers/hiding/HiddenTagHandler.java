@@ -1,8 +1,8 @@
 package com.sammy.malum.core.handlers.hiding;
 
+import com.sammy.malum.common.data.component.GeasDataComponent;
 import com.sammy.malum.common.item.*;
 import com.sammy.malum.config.*;
-import com.sammy.malum.core.handlers.*;
 import com.sammy.malum.registry.common.*;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.*;
@@ -44,7 +44,7 @@ public class HiddenTagHandler {
 	public static boolean isHiddenItem(ItemStack stack) {
 		if (stack.getItem() instanceof GeasItem) {
 			if (ITEMS_TO_HIDE.get(MalumTags.Items.HIDDEN_UNTIL_BLACK_CRYSTAL).getAsBoolean()) {
-				return GeasEffectHandler.getStoredGeasEffect(stack).map(g -> g.geasEffectType().is(MalumTags.GeasTypes.HIDDEN_UNTIL_BLACK_CRYSTAL)).orElse(false);
+				return GeasDataComponent.getStoredGeasEffect(stack).map(g -> g.geasEffectType().is(MalumTags.GeasTypes.HIDDEN_UNTIL_BLACK_CRYSTAL)).orElse(false);
 			}
 		}
 		for (TagKey<Item> tag : getTagsToHide()) {

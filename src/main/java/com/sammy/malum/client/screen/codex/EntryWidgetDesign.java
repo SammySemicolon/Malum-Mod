@@ -41,6 +41,6 @@ public final class EntryWidgetDesign {
                 .setOutlineWidth(3)
                 .setShadowWidth(5)
                 .renderOutline(poseStack);
-        renderTexture(texture, poseStack, left, top, 0, 0, 32, 32);
+        renderTexture(texture, poseStack, left, top, 100, 0, 0, 32, 32);
     }
 }

@@ -7,10 +7,12 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.event.entity.living.LivingDamageEvent;
 import team.lodestar.lodestone.handlers.*;
+import team.lodestar.lodestone.handlers.item_events.IEventResponderBody;
 
+import javax.annotation.Nullable;
 import java.util.function.Consumer;
 
-public class RuneIgneousSolaceItem extends MadnessRuneCurioItem implements ItemEventHandler.IEventResponder {
+public class RuneIgneousSolaceItem extends MadnessRuneCurioItem implements IEventResponderBody {
 
     public RuneIgneousSolaceItem(Properties builder) {
         super(builder, MalumSpiritTypes.INFERNAL_SPIRIT);
@@ -22,7 +24,7 @@ public class RuneIgneousSolaceItem extends MadnessRuneCurioItem implements ItemE
     }
 
     @Override
-    public void incomingDamageEvent(LivingDamageEvent.Pre event, LivingEntity attacker, LivingEntity target, ItemStack stack) {
+    public void incomingDamageEvent(LivingDamageEvent.Pre event, @Nullable LivingEntity attacker, LivingEntity target, ItemStack stack) {
         if (target.isOnFire()) {
             event.setNewDamage(event.getNewDamage() * 0.75f);
         }

@@ -14,6 +14,7 @@ import net.minecraft.world.item.*;
 import net.neoforged.neoforge.event.entity.living.*;
 import net.neoforged.neoforge.event.level.*;
 
+import javax.annotation.Nullable;
 import java.util.function.*;
 
 import static com.sammy.malum.common.item.nucleus.WindNucleusItem.getExplosionAffectedEntities;
@@ -33,7 +34,7 @@ public class BlastweaverGeas extends GeasEffect {
     }
 
     @Override
-    public void incomingDamageEvent(LivingDamageEvent.Pre event, LivingEntity attacker, LivingEntity target, ItemStack stack) {
+    public void incomingDamageEvent(LivingDamageEvent.Pre event, @Nullable LivingEntity attacker, LivingEntity target, ItemStack stack) {
         if (attacker != null && event.getSource().is(DamageTypeTags.IS_EXPLOSION)) {
             var effect = attacker.getEffect(MalumMobEffects.AVARICE);
             if (effect != null) {
@@ -50,7 +51,7 @@ public class BlastweaverGeas extends GeasEffect {
         var explosionAffectedEntities = getExplosionAffectedEntities(event.getLevel(), null, center, radius);
         for (Entity entity : explosionAffectedEntities) {
             if (entity instanceof Player player) {
-                if (GeasEffectHandler.hasGeasEffect(player, MalumGeasEffectTypes.PACT_OF_THE_BLASTWEAVER)) {
+                if (GeasEffectHandler.hasGeas(player, MalumGeasEffectTypes.PACT_OF_THE_BLASTWEAVER)) {
                     AvariceData.applyAvarice(player, 2);
                 }
             }
@@ -58,7 +59,7 @@ public class BlastweaverGeas extends GeasEffect {
     }
 
     public static float increaseExplosionRadius(LivingEntity source, float original) {
-        if (source != null && GeasEffectHandler.hasGeasEffect(source, MalumGeasEffectTypes.PACT_OF_THE_BLASTWEAVER)) {
+        if (source != null && GeasEffectHandler.hasGeas(source, MalumGeasEffectTypes.PACT_OF_THE_BLASTWEAVER)) {
             float bonus = 2;
             var effect = source.getEffect(MalumMobEffects.AVARICE);
             if (effect != null) {

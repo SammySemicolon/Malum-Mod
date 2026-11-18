@@ -18,7 +18,7 @@
 
  import java.util.function.*;
 
- public class CurioInoculationBelt extends MalumCurioItem implements IMalumEventResponder {
+ public class CurioInoculationBelt extends MalumCurioItem implements IMalumEventResponderBody {
 
      public static final ResourceLocation INOCULATION_BUFF = MalumMod.malumPath("inoculation_belt");
      public static final Multimap<Holder<Attribute>, AttributeModifier> INOCULATION_MODIFIERS =

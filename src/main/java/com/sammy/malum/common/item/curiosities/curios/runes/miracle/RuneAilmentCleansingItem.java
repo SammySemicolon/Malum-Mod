@@ -4,9 +4,7 @@ import com.sammy.malum.core.helpers.*;
 import com.sammy.malum.registry.common.MalumContent;
 import com.sammy.malum.registry.common.magic.MalumSpiritTypes;
 import net.minecraft.network.chat.Component;
-import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
-import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
 import net.neoforged.neoforge.event.entity.living.MobEffectEvent;
 import team.lodestar.lodestone.helpers.CurioHelper;
@@ -22,17 +20,23 @@ public class RuneAilmentCleansingItem extends MiracleRuneCurioItem {
 
     @Override
     public void addExtraTooltipLines(Consumer<Component> consumer) {
-        consumer.accept(TooltipComponentHelper.positiveCurioEffect("shorten_negative_effect"));
+        consumer.accept(TooltipComponentHelper.positiveCurioEffect("ailment_cleansing_rune"));
     }
 
-    public static void scaleDuration(MobEffectEvent.Added event) {
-        LivingEntity entity = event.getEntity();
-        if (event.getOldEffectInstance() == null && CurioHelper.hasCurioEquipped(entity, MalumContent.Gear.RUNE_OF_AILMENT_CLEANSING.get())) {
-            MobEffectInstance effect = event.getEffectInstance();
-            MobEffect type = effect.getEffect().value();
-            if (type.getCategory().equals(MobEffectCategory.HARMFUL)) {
-                EntityHelper.shortenEffect(effect, entity, effect.getDuration() / 3);
-            }
+    public static void scaleEffectDuration(MobEffectEvent.Added event) {
+        var entity = event.getEntity();
+        if (event.getOldEffectInstance() != null) {
+            return;
         }
+        if (!CurioHelper.hasCurioEquipped(entity, MalumContent.Gear.RUNE_OF_AILMENT_CLEANSING.get())) {
+            return;
+        }
+        var instance = event.getEffectInstance();
+        assert instance != null;
+        if (instance.getEffect().value().isBeneficial()) {
+            return;
+        }
+        int removedDuration = instance.getDuration() / 2;
+        EntityHelper.shortenEffect(instance, entity, removedDuration);
     }
 }

@@ -12,13 +12,15 @@ import net.minecraft.world.entity.ai.attributes.*;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.event.entity.living.*;
 import team.lodestar.lodestone.handlers.*;
+import team.lodestar.lodestone.handlers.item_events.IEventResponderBody;
 import top.theillusivec4.curios.api.*;
 
 import java.util.function.Consumer;
 
-public class RuneRadialEmpowermentItem extends MadnessRuneCurioItem implements ItemEventHandler.IEventResponder {
+public class RuneRadialEmpowermentItem extends MadnessRuneCurioItem implements IEventResponderBody {
 
     private static final ResourceLocation MODIFIER = MalumMod.malumPath("radial_empowerment_rune");
+
     public RuneRadialEmpowermentItem(Properties builder) {
         super(builder, MalumSpiritTypes.WICKED_SPIRIT);
     }
@@ -31,8 +33,8 @@ public class RuneRadialEmpowermentItem extends MadnessRuneCurioItem implements I
     @Override
     public void onUnequip(SlotContext slotContext, ItemStack newStack, ItemStack stack) {
         super.onUnequip(slotContext, newStack, stack);
-        LivingEntity entity = slotContext.entity();
-        final AttributeInstance attribute = entity.getAttribute(Attributes.SWEEPING_DAMAGE_RATIO);
+        var entity = slotContext.entity();
+        var attribute = entity.getAttribute(Attributes.SWEEPING_DAMAGE_RATIO);
         if (attribute != null) {
             attribute.removeModifier(MODIFIER);
         }
@@ -40,7 +42,7 @@ public class RuneRadialEmpowermentItem extends MadnessRuneCurioItem implements I
 
     @Override
     public void outgoingDamageEvent(LivingIncomingDamageEvent event, LivingEntity attacker, LivingEntity target, ItemStack stack) {
-        final DamageSource source = event.getSource();
+        var source = event.getSource();
         if (source.is(MalumTags.DamageTypes.IS_SCYTHE_MELEE) && !source.is(MalumDamageTypes.SCYTHE_SWEEP)) {
             var attribute = attacker.getAttribute(Attributes.SWEEPING_DAMAGE_RATIO);
             if (attribute == null) {

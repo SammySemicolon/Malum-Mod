@@ -40,7 +40,7 @@ public class LifeweaverGeas extends GeasEffect {
     public static void onHeal(LivingHealEvent event) {
         var entity = event.getEntity();
         if (entity.level() instanceof ServerLevel level) {
-            if (GeasEffectHandler.hasGeasEffect(entity, MalumGeasEffectTypes.PACT_OF_THE_LIFEWEAVER)) {
+            if (GeasEffectHandler.hasGeas(entity, MalumGeasEffectTypes.PACT_OF_THE_LIFEWEAVER)) {
                 float horizontalRadius = 6f;
                 float verticalRadius = 4f;
                 var aabb = entity.getBoundingBox().inflate(horizontalRadius, verticalRadius, horizontalRadius);
@@ -49,7 +49,7 @@ public class LifeweaverGeas extends GeasEffect {
                     if (target == entity) {
                         continue;
                     }
-                    if (!GeasEffectHandler.hasGeasEffect(target, MalumGeasEffectTypes.PACT_OF_THE_LIFEWEAVER)) {
+                    if (!GeasEffectHandler.hasGeas(target, MalumGeasEffectTypes.PACT_OF_THE_LIFEWEAVER)) {
                         float health = target.getHealth();
                         if (target.isInvertedHealAndHarm()) {
                             target.hurt(DamageTypeHelper.create(level, MalumDamageTypes.VOODOO, entity), event.getAmount() * 2f);

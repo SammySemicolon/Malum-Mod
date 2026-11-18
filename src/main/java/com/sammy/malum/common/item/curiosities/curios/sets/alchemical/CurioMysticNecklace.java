@@ -10,7 +10,7 @@ import net.minecraft.world.entity.ai.attributes.*;
 import net.minecraft.world.item.*;
 import top.theillusivec4.curios.api.*;
 
-public class CurioMysticNecklace extends MalumCurioItem implements IMalumEventResponder {
+public class CurioMysticNecklace extends MalumCurioItem implements IMalumEventResponderBody {
     public CurioMysticNecklace(Properties builder) {
         super(builder, MalumTrinketFamily.GILDED);
     }

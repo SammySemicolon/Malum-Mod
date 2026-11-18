@@ -16,6 +16,7 @@ import net.minecraft.world.item.*;
 import net.neoforged.neoforge.event.entity.living.*;
 import net.neoforged.neoforge.event.tick.*;
 
+import javax.annotation.Nullable;
 import java.util.function.*;
 
 public class HighPriestGeas extends GeasEffect {
@@ -54,7 +55,7 @@ public class HighPriestGeas extends GeasEffect {
     }
 
     @Override
-    public void incomingDamageEvent(LivingDamageEvent.Pre event, LivingEntity attacker, LivingEntity target, ItemStack stack) {
+    public void incomingDamageEvent(LivingDamageEvent.Pre event, @Nullable LivingEntity attacker, LivingEntity target, ItemStack stack) {
         if (target.level() instanceof ServerLevel level) {
             var source = event.getSource();
             if (source.getDirectEntity() != null && source.getEntity() != null) {

@@ -23,7 +23,7 @@ import team.lodestar.wayward_attributes.core.registry.WaywardAttributeTypes;
 
 import static com.sammy.malum.common.effect.gluttony.GluttonyEffect.spawnLocusts;
 
-public class GluttonousBludgeonItem extends LodestoneCombatItem implements IMalumEventResponder, ISpiritAffiliatedItem {
+public class GluttonousBludgeonItem extends LodestoneCombatItem implements IMalumEventResponderBody, ISpiritAffiliatedItem {
 
     public GluttonousBludgeonItem(Tier tier, float attackDamage, float attackSpeed, float magicDamage, LodestoneItemProperties properties) {
         super(tier, attackDamage, attackSpeed - 4f, properties.mergeAttributes(
