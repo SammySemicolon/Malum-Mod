@@ -5,9 +5,7 @@ import com.sammy.malum.client.screen.codex.*;
 import com.sammy.malum.client.screen.codex.display.gizmo.GizmoTooltipBuilder;
 import com.sammy.malum.client.screen.codex.screens.progression.*;
 import com.sammy.malum.registry.common.sound.*;
-import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.network.chat.Component;
 import net.minecraft.util.*;
 import team.lodestar.lodestone.modules.core.easing.Easing;
 
@@ -35,6 +33,21 @@ public class ProgressionEntryObject extends SelectableEntryObject<AbstractProgre
                 && posY + 32 >= 0
                 && posX <= AbstractProgressionCodexScreen.BOOK_WIDTH
                 && posY <= AbstractProgressionCodexScreen.BOOK_HEIGHT;
+    }
+
+    @Override
+    public boolean isHovering(AbstractProgressionCodexScreen screen, double mouseX, double mouseY) {
+        if (isInSubspace) {
+            double bookX = mouseX - screen.getGuiLeft();
+            double bookY = mouseY - screen.getGuiTop();
+            boolean insideBook = bookX >= 0 && bookY >= 0
+                    && bookX <= AbstractProgressionCodexScreen.BOOK_WIDTH
+                    && bookY <= AbstractProgressionCodexScreen.BOOK_HEIGHT;
+            int left = getOffsetX();
+            int top = getOffsetY();
+            return insideBook && mouseX > left && mouseX < left + width && mouseY > top && mouseY < top + height;
+        }
+        return super.isHovering(screen, mouseX, mouseY);
     }
 
     @Override

@@ -3,12 +3,12 @@ package com.sammy.malum.client.screen.codex.chapters;
 import com.sammy.malum.client.screen.codex.*;
 import com.sammy.malum.client.screen.codex.display.CodexIconRenderer;
 import com.sammy.malum.client.screen.codex.display.gizmo.*;
-import com.sammy.malum.client.screen.codex.pages.CyclingPage;
 import com.sammy.malum.client.screen.codex.pages.PageSelectionPage;
 import com.sammy.malum.client.screen.codex.pages.display.SoulstoneGrowthStagePage;
+import com.sammy.malum.client.screen.codex.pages.recipe.SpiritFocusingPage;
+import com.sammy.malum.client.screen.codex.pages.recipe.SpiritInfusionPage;
 import com.sammy.malum.client.screen.codex.pages.recipe.vanilla.CraftingPage;
 import com.sammy.malum.client.screen.codex.pages.recipe.vanilla.CraftingPage.CraftingGridContents;
-import com.sammy.malum.client.screen.codex.pages.recipe.vanilla.SmeltingPage;
 import com.sammy.malum.client.screen.codex.pages.text.*;
 import com.sammy.malum.core.systems.spirit.SpiritLike;
 import com.sammy.malum.registry.common.MalumContent.*;
@@ -18,7 +18,6 @@ import net.minecraft.world.item.Items;
 import static com.sammy.malum.client.screen.codex.display.gizmo.DisplayedItem.item;
 import static com.sammy.malum.client.screen.codex.pages.InteractionPage.bottling;
 import static com.sammy.malum.client.screen.codex.pages.InteractionPage.stripping;
-import static com.sammy.malum.client.screen.codex.pages.recipe.vanilla.CraftingPage.compacting;
 import static com.sammy.malum.client.screen.codex.pages.recipe.vanilla.CraftingPage.crafting;
 import static com.sammy.malum.client.screen.codex.pages.text.HeadlineTextGizmoPage.headlineTextGizmoPage;
 import static com.sammy.malum.client.screen.codex.pages.text.HeadlineTextPage.headlineText;
@@ -205,6 +204,15 @@ public class IntroductionChapter extends BookChapter {
                                                 .addPage(headlineTextGizmoPage("common_reagents.construct_cores.pyre_nucleus", item(PYRE_NUCLEUS)))
                                 ))
                 ))
+                .requires(spiritInfusion);
+
+        addEntry("alchemical_impetus", -1, -1)
+                .setIcon(item(AlchemyAndMetallics.ALCHEMICAL_IMPETUS))
+                .addPage(headlineTextGizmoPage("alchemical_impetus", item(AlchemyAndMetallics.ALCHEMICAL_IMPETUS)))
+                .addPage(SpiritInfusionPage.fromOutput(AlchemyAndMetallics.ALCHEMICAL_IMPETUS.get()))
+                .addPage(textPage("alchemical_impetus.2"))
+                .addPage(SpiritFocusingPage.fromOutput(BLAZING_QUARTZ.get()))
+                .addPage(textPage("alchemical_impetus.3"))
                 .requires(spiritInfusion);
 
         var theArcanas = addSubspaceEntry("the_arcanas", 0, 12, b -> b.setIcon(item(Spirits.ARCANE_SPIRIT)).requires(spiritInfusion))

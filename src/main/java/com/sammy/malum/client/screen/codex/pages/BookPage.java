@@ -59,6 +59,9 @@ public abstract class BookPage {
     }
 
     protected void renderRecipeInfo(GuiGraphics guiGraphics, CodexEntryScreen screen, String recipeName, int left, int top, int mouseX, int mouseY) {
+        if (!screen.isHovering(mouseX, mouseY, left, top, 18, 18)) {
+            return;
+        }
         var headline = Component.translatable(PageLangKeyCommons.getRecipeInfoHeadlineKey(recipeName)).withStyle(isVoidThemed ? ChatFormatting.DARK_PURPLE : ChatFormatting.GOLD);
         var header = Component.literal("┇ ").withStyle(ChatFormatting.DARK_GRAY);
         var info = Component.translatable(PageLangKeyCommons.getRecipeInfoKey(recipeName)).withStyle(ChatFormatting.GRAY);

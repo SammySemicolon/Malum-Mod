@@ -64,7 +64,7 @@ public abstract class AbstractMalumCodexScreen extends Screen {
     }
 
     public void renderTooltip(List<Component> tooltip) {
-        this.tooltip = tooltip;
+        this.tooltip = new ArrayList<>(tooltip);
     }
 
     public void doLateRendering(GuiGraphics guiGraphics, int mouseX, int mouseY) {
