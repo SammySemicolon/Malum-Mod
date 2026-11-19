@@ -70,13 +70,18 @@ public class BlightFeature extends Feature<NoneFeatureConfiguration> {
     public static LodestoneWorldgenBuilder generateBlight(WorldGenLevel level, BlockPos pos, boolean allowScarstone, int radius) {
         var random = level.getRandom();
         var builder = LodestoneWorldgenBuilder.create();
+        Set<BlockPos> columnExclusions = new HashSet<>();
         if (allowScarstone && random.nextFloat() < 0.1f) {
             int offset = (int) (radius * 0.8f);
             int xOffset = Easing.CIRC_OUT.asWeighedRandom(random, offset / 2, offset * 2) * (random.nextBoolean() ? 1 : -1);
             int zOffset = Easing.CIRC_OUT.asWeighedRandom(random, offset / 2, offset * 2) * (random.nextBoolean() ? 1 : -1);
             var scarstonePos = pos.offset(xOffset, 0, zOffset);
-            var extraBlight = generateBlight(level, scarstonePos, radius);
             var scarstone = ScarstoneFeature.generateScarstone(level, scarstonePos, (int) (radius * 0.7f));
+            for (BlockPos scarredPos : scarstone.getAffectedArea()) {
+                columnExclusions.add(scarredPos);
+                columnExclusions.add(scarredPos.above());
+            }
+            var extraBlight = generateBlight(level, scarstonePos, radius, columnExclusions);
             builder.merge(extraBlight).merge(scarstone);
             if (level instanceof ServerLevel realLevel) {
                 createBlightVFX(realLevel, pos, extraBlight);
@@ -84,7 +89,7 @@ public class BlightFeature extends Feature<NoneFeatureConfiguration> {
                 level.playSound(null, scarstonePos, MalumBlockSoundEvents.SCARSTONE_PROPAGATION.get(), SoundSource.BLOCKS, 2f, 1f);
             }
         }
-        var blight = generateBlight(level, pos, radius);
+        var blight = generateBlight(level, pos, radius, columnExclusions);
         builder.merge(blight);
         if (level instanceof ServerLevel realLevel) {
             createBlightVFX(realLevel, pos, blight);
@@ -94,6 +99,10 @@ public class BlightFeature extends Feature<NoneFeatureConfiguration> {
     }
 
     private static LodestoneWorldgenBuilder generateBlight(WorldGenLevel level, BlockPos pos, int radius) {
+        return generateBlight(level, pos, radius, Set.of());
+    }
+
+    private static LodestoneWorldgenBuilder generateBlight(WorldGenLevel level, BlockPos pos, int radius, Set<BlockPos> columnExclusions) {
         var random = level.getRandom();
 
         var builder = LodestoneWorldgenBuilder.create().addAdditionalPlacement(BlightFeature::cleanupFoliage);
@@ -118,16 +127,21 @@ public class BlightFeature extends Feature<NoneFeatureConfiguration> {
             var mutable = new BlockPos.MutableBlockPos();
             for (BlockPos blockPos : columns) {
                 if (random.nextFloat() < 0.4f) {
-                    mutable.set(blockPos);
-                    var foundation = level.getBlockState(mutable);
-                    if (foundation.getBlock() instanceof ColumnarBlightBlock){
+                    boolean isBlightedFoundation = blightLayer.containsKey(blockPos)
+                            || level.getBlockState(blockPos).is(MalumContent.Blight.BLIGHTED_EARTH.get());
+                    if (!isBlightedFoundation || columnExclusions.contains(blockPos)) {
                         continue;
                     }
+                    mutable.set(blockPos);
                     int desiredHeight = Easing.EXPO_IN_OUT.asWeighedRandom(random, 2, 6);
                     int height = 0;
                     for (int i = 0; i < desiredHeight; i++) {
                         mutable.move(Direction.UP);
                         var state = level.getBlockState(mutable);
+                        if (columnExclusions.contains(mutable) || state.getBlock() instanceof ColumnarBlightBlock) {
+                            height = -1;
+                            break;
+                        }
                         if (!state.is(MalumTags.Blocks.BLIGHT_REPLACEABLE) && !state.canBeReplaced()) {
                             height = -1;
                             break;
