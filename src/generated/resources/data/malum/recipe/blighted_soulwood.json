@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    {
+      "item": "malum:blighted_gunk"
+    },
+    {
+      "item": "malum:soulwood_log"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "malum:blighted_soulwood"
+  }
+}

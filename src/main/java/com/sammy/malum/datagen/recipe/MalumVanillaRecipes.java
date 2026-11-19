@@ -144,6 +144,7 @@ public class MalumVanillaRecipes implements IConditionBuilder {
                 .pattern("X")
                 .pattern("X")
                 .unlockedBy("has_blight", hasBlight).save(output);
+        shapeless(RecipeCategory.BUILDING_BLOCKS, BLIGHTED_SOULWOOD).requires(BLIGHTED_GUNK).requires(SOULWOOD_SET.log).unlockedBy("has_blight", hasBlight).save(output);
 
         //BANNERS
         shaped(RecipeCategory.BUILDING_BLOCKS, SOULWOVEN_BANNER).define('X', RUNEWOOD_SET.planks.block).define('Y', SOULWOVEN_SILK).pattern("X").pattern("Y").pattern("Y").unlockedBy("has_soulwoven_silk", has(SOULWOVEN_SILK)).save(output);
