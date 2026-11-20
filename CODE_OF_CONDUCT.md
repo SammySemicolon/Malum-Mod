@@ -7,7 +7,5 @@ It is my body of work, and the repository serves as a catalogue of my growth and
 The repository is important, how it is managed and the contents of it are of great significance to me.
 
 ## No AI policy
-
-AI - generative artificial intelligence.
 AI is unethical. The issue isn't the tool in its root form itself, but rather how it is trained, managed, distributed and commercialized.
 Until AI can be considered ethical, any contributor bearing any clear indicator of AI usage will immediately be ignored.

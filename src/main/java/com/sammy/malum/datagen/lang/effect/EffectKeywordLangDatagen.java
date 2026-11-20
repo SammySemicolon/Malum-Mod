@@ -8,8 +8,8 @@ import com.sammy.malum.datagen.lang.*;
 public class EffectKeywordLangDatagen {
 
     public static void addTranslations() {
-        add(Sentiment.POSITIVE, "+%s");
-        add(Sentiment.NEGATIVE, "-%s");
+        add(Sentiment.POSITIVE, " %s");
+        add(Sentiment.NEGATIVE, " %s");
         add(Sentiment.GENERIC, "┇ %s");
 
         addEffectKeyword(KeywordTooltipHandler.AVARICE, "Avarice; Gradually Increases Fortune");

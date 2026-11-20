@@ -7,15 +7,15 @@ public class CurioEffectLangDatagen {
 
     public static void addTranslations() {
 
-        addCurioEffect("vitality_rune", "Slowly Mends Minor Wounds");
+        addCurioEffect("vitality_rune", "Minor Wounds Are Slowly Healed");
         addCurioEffect("culling_rune", "Wounded Enemies Take More Magic Damage");
         addCurioEffect("reinforcement_rune", "Soul Ward Recovers Sooner After Blocking Damage");
         addCurioEffect("volatile_distortion_rune", "Small Chance For Double Damage");
 
         addCurioEffect("dexterity_rune", "Move Faster When Wounded");
-        addCurioEffect("ailment_cleansing_rune", "Dilutes Negative Effect Durations");
-        addCurioEffect("protection_rune", "Small Chance To Block Physical Damage");
-        addCurioEffect("scorching_rune", "Burn Damage Is Amplified");
+        addCurioEffect("ailment_cleansing_rune", "Negative Effect Durations Are Divided");
+        addCurioEffect("protection_rune", "Inbound Physical Damage Is Sometimes Reduced");
+        addCurioEffect("scorching_rune", "Outgoing Burn Damage Is Amplified");
 
         addCurioEffect("scythe_chain", "Deadlier Scythe Sweeping");
         addCurioEffect("silence", "Silences Attackers");

@@ -61,8 +61,8 @@ public class CommonConfig extends LodestoneConfig {
     public static final ModConfigSpec SPEC;
 
     static {
-        final Pair<CommonConfig, ModConfigSpec> specPair = new ModConfigSpec.Builder().configure(CommonConfig::new);
-        SPEC = specPair.getRight();
-        INSTANCE = specPair.getLeft();
+        var build = new ModConfigSpec.Builder().configure(CommonConfig::new);
+        SPEC = build.getRight();
+        INSTANCE = build.getLeft();
     }
 }

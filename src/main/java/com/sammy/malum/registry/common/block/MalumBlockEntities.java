@@ -9,7 +9,7 @@ import com.sammy.malum.client.renderer.block.banner.SoulwovenBannerRenderer;
 import com.sammy.malum.client.renderer.block.enscription.MyriadGatewayRenderer;
 import com.sammy.malum.client.renderer.block.redstone.WaveMakerRenderer;
 import com.sammy.malum.client.renderer.block.redstone.WaveChargerRenderer;
-import com.sammy.malum.client.renderer.block.redstone.WavebankerRenderer;
+import com.sammy.malum.client.renderer.block.redstone.WaveBankerRenderer;
 import com.sammy.malum.client.renderer.block.redstone.WaveBreakerRenderer;
 import com.sammy.malum.client.renderer.block.totemancy.*;
 import com.sammy.malum.common.block.building.banner.alchemized.AlchemizedBannerBlock;
@@ -199,7 +199,7 @@ public class MalumBlockEntities {
             event.registerBlockEntityRenderer(RITE_ANCHOR.get(), RiteAnchorRenderer::new);
 
             event.registerBlockEntityRenderer(WAVECHARGER.get(), WaveChargerRenderer::new);
-            event.registerBlockEntityRenderer(WAVEBANKER.get(), WavebankerRenderer::new);
+            event.registerBlockEntityRenderer(WAVEBANKER.get(), WaveBankerRenderer::new);
             event.registerBlockEntityRenderer(WAVEMAKER.get(), WaveMakerRenderer::new);
             event.registerBlockEntityRenderer(WAVEBREAKER.get(), WaveBreakerRenderer::new);
 
